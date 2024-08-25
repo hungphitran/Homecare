@@ -1,8 +1,11 @@
+const dashboardRoute= require('./dashboard')
+const registerRoute=require('./register')
+
 function route(app){
-    app.use('/',(req,res)=>{
-        res.send('Hello world')
-        // res.render('<h1>dashboard</h1>')
-    })
+
+    app.use('/register',registerRoute)
+        //dashboard
+    app.use('/',dashboardRoute)
 }
 
 module.exports={route}

@@ -1,10 +1,30 @@
 const express=require('express')
 const db=require('./db/connect')
 const {route}=require('./routes/config')
+const handlebars= require('express-handlebars')
+const path=require('path')
+//mongodb-url 
 require('dotenv').config()
+
+//init reference of express application
 const app= express()
+
+//config static file
+app.use(express.static(path.join(__dirname,'resources','public')))
+//template engine
+app.engine('handlebars',handlebars.engine());
+app.set('views',path.join(__dirname,'public','views'))
+app.set('view engine','handlebars')
+app.use(express.urlencoded({extended:true}))
+app.use(express.json())
+//connect to database(mongodb)
 db.connect();
+
+
+// config routes for app
 route(app);
+
+//listening
 app.listen(process.env.PORT||3000,()=>{
     console.log('listening on http://localhost:3000')
 })
