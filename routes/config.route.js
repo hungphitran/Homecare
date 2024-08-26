@@ -1,5 +1,5 @@
-const dashboardRoute= require('./dashboard')
-const registerRoute=require('./register')
+const dashboardRoute= require('./dashboard.route')
+const registerRoute=require('./register.route')
 
 function route(app){
 

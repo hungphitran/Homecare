@@ -1,6 +1,6 @@
 const express=require('express')
 const db=require('./db/connect')
-const {route}=require('./routes/config')
+const {route}=require('./routes/config.route')
 const handlebars= require('express-handlebars')
 const path=require('path')
 //mongodb-url 
