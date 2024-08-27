@@ -1,4 +1,99 @@
+<style>
+    form{
+        display: flex;
+    }
+    form.hide{
+        display: none;
+    }
+        
+</style>
 <div>
+
     <h2>DASHBOARD</h2>
-    <form action="/order" method="post"></form>
+    <button id="short-term-btn" class="disabled">Short Term Order</button>
+    <button id="long-term-btn">Long Term Order</button>
+    <form id="short-term-form" method='post'action="/long-term">
+        <select name="province" id="">
+            {{#each locations}}
+                <option value="{{@index}}">{{this.province}}</option>
+            {{/each}}
+        </select>
+        {{#each locations}}
+            <ul>
+                {{#each this.districts}}
+                    <li>
+                        <input type="radio" name="" id="">
+                        {{this.district}}
+                    </li>
+                {{/each}}
+            </ul>
+            
+        {{/each}}
+        <label for="">Service</label>
+        <select name="services" id="services">
+            {{#each services}}
+                <option value=""></option>
+            {{/each}}
+            <option value="{{this}}">Volvo</option>
+        </select>
+        <label for="date">Date</label>
+        <input type="date" id="date" name="day">
+        <label for="appt">Select start time:</label>
+        <input type="time" id="appt" name="appt">
+        <label for="appt">Select end time:</label>
+        <input type="time" id="appt" name="appt">
+        <button class="submit-btn" disabled>Find</button>
+    </form>
+ 
+    <form id="long-term-form" class="hide" method="post" action="/short-term" >
+        
+        {{#each locations}}
+            <input type="radio" name="" id="">
+            <label for="html">{{this.province}}</label>
+            <ul>
+                {{#each this.districts}}
+                    <li>
+                        <input type="radio" name="" id="">
+                        {{this.district}}
+                        </li>
+                {{/each}}
+            </ul>
+        {{/each}}
+        <label for="">Service</label>
+        <ul>
+            {{#each services}}
+                <li>this</li>
+            {{/each}}
+        </ul>
+        
+        
+        <label for="day">from:</label>
+        <input type="date" id="day" name="day">
+        <label for="day">to:</label>
+        <input type="date" id="day" name="day">
+        <label for="appt">Select start time:</label>
+        <input type="time" id="appt" name="appt">
+        <label for="appt">Select end time:</label>
+        <input type="time" id="appt" name="appt">
+        <button class="submit-btn" disabled>Find</button>
+    </form>
 </div>
+<script>
+    const shortTerm= document.getElementById('short-term-form')    
+    const longTerm= document.getElementById('long-term-form')
+
+    const shortTermBtn= document.getElementById('short-term-btn')
+    const longTermBtn= document.getElementById('long-term-btn')
+
+    shortTermBtn.onclick=function(){
+        shortTerm.className='';
+        longTerm.className='hide'
+    }
+    longTermBtn.onclick=function(){
+        longTerm.className=''
+        shortTerm.className='hide'
+    }
+
+    
+
+</script>
