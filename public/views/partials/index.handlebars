@@ -13,28 +13,21 @@
     <button id="short-term-btn" class="disabled">Short Term Order</button>
     <button id="long-term-btn">Long Term Order</button>
     <form id="short-term-form" method='post'action="/long-term">
-        <select name="province" id="">
+        <select name="province" class="province" >
+            <option value="">--Choose province--</option>
             {{#each locations}}
                 <option value="{{@index}}">{{this.province}}</option>
             {{/each}}
         </select>
-        {{#each locations}}
-            <ul>
-                {{#each this.districts}}
-                    <li>
-                        <input type="radio" name="" id="">
-                        {{this.district}}
-                    </li>
-                {{/each}}
-            </ul>
-            
-        {{/each}}
+        <select name="district" class="district">
+            <option value="">--Choose district--</option>
+        </select>
         <label for="">Service</label>
-        <select name="services" id="services">
+        <select name="service" class="service">
+            <option>--Choose services--</option>
             {{#each services}}
-                <option value=""></option>
+                <option>{{this}}</option>
             {{/each}}
-            <option value="{{this}}">Volvo</option>
         </select>
         <label for="date">Date</label>
         <input type="date" id="date" name="day">
@@ -47,24 +40,22 @@
  
     <form id="long-term-form" class="hide" method="post" action="/short-term" >
         
-        {{#each locations}}
-            <input type="radio" name="" id="">
-            <label for="html">{{this.province}}</label>
-            <ul>
-                {{#each this.districts}}
-                    <li>
-                        <input type="radio" name="" id="">
-                        {{this.district}}
-                        </li>
-                {{/each}}
-            </ul>
-        {{/each}}
-        <label for="">Service</label>
-        <ul>
-            {{#each services}}
-                <li>this</li>
+        <select name="province" class="province" >
+            <option value="">--Choose province--</option>
+            {{#each locations}}
+                <option value="{{@index}}">{{this.province}}</option>
             {{/each}}
-        </ul>
+        </select>
+        <select name="district" class="district">
+            <option value="">--Choose district--</option>
+        </select>
+        <label for="">Service</label>
+        <select name="service" class="service">
+            <option>--Choose services--</option>
+            {{#each services}}
+                <option>{{this}}</option>
+            {{/each}}
+        </select>
         
         
         <label for="day">from:</label>
@@ -77,6 +68,10 @@
         <input type="time" id="appt" name="appt">
         <button class="submit-btn" disabled>Find</button>
     </form>
+    <h2>Helper List</h2>
+    <div class="helper-list">
+
+    </div>
 </div>
 <script>
     const shortTerm= document.getElementById('short-term-form')    
@@ -85,13 +80,46 @@
     const shortTermBtn= document.getElementById('short-term-btn')
     const longTermBtn= document.getElementById('long-term-btn')
 
+    provinceSelect = shortTerm.querySelector('.province')
+    districtSelect = shortTerm.querySelector('.district');
+    provinceSelect.onchange=function(){
+        let locations={{{json locations}}};
+        let index= provinceSelect.value;
+        districtSelect.innerHTML=`<option value="">--Choose district--</option>`;
+        locations[index].districts.forEach(function(value){
+            districtSelect.innerHTML+=`<option value="${value.district}">${value.district}</option>`
+        })
+    }
+    
     shortTermBtn.onclick=function(){
         shortTerm.className='';
         longTerm.className='hide'
+        provinceSelect = shortTerm.querySelector('.province')
+        districtSelect = shortTerm.querySelector('.district');
+        provinceSelect.onchange=function(){
+        let locations={{{json locations}}};
+        let index= provinceSelect.value;
+        districtSelect.innerHTML=`<option value="">--Choose district--</option>`;
+        locations[index].districts.forEach(function(value){
+            districtSelect.innerHTML+=`<option value="${value.district}">${value.district}</option>`
+        })
+    }
+
     }
     longTermBtn.onclick=function(){
         longTerm.className=''
         shortTerm.className='hide'
+        provinceSelect = longTerm.querySelector('.province')
+        districtSelect = longTerm.querySelector('.district');
+        provinceSelect.onchange=function(){
+        let locations={{{json locations}}};
+        let index= provinceSelect.value;
+        districtSelect.innerHTML=`<option value="">--Choose district--</option>`;
+        locations[index].districts.forEach(function(value){
+            districtSelect.innerHTML+=`<option value="${value.district}">${value.district}</option>`
+        })
+    }
+
     }
 
     

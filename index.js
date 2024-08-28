@@ -12,7 +12,16 @@ const app= express()
 //config static file
 app.use(express.static(path.join(__dirname,'resources','public')))
 //template engine
-app.engine('handlebars',handlebars.engine());
+const hbs = handlebars.create({
+    helpers: {
+    json: function(context) {
+        return JSON.stringify(context);
+    }
+}});
+
+// Register `hbs.engine` with the Express app.
+app.engine('handlebars', hbs.engine);
+//app.engine('handlebars',handlebars.engine());
 app.set('views',path.join(__dirname,'public','views'))
 app.set('view engine','handlebars')
 app.use(express.urlencoded({extended:true}))
