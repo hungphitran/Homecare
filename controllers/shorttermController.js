@@ -6,7 +6,7 @@ const shorttermController ={
         helpers=await fetch(process.env.API_URL+'/helper')
         .then(data=>data.json())
         .then(data=>data)
-        res.render('partials/shorttermOrder',{order:order,helpers:helpers});
+        res.render('partials/shorttermorder',{order:order,helpers:helpers});
     },
     get: async (req,res,next)=>{
         res.render('partials/shorttermOrder');
