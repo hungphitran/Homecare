@@ -1,0 +1,48 @@
+<style>
+    .selected{
+        background-color: greenyellow;
+    }
+</style>
+<form method="post" action="/short-term/save">
+    <ul>
+        <li>Date: {{order.day}}</li>
+        <li>{{order.province}}</li>
+        <li>{{order.district}}</li>
+        <li>Service: {{order.service}}</li>
+        <li>
+            Time:{{order.st-time}} to {{order.e-time}}
+        </li>
+    </ul>
+    <div class="helper-list" style="display: flex;">
+        <label class="count" style="padding: 10px;">Selected: 0</label>
+        {{#each helpers}}
+            <div class="basic-helper"  style="text-align:center;border:5px; border-style:solid;  border-color:green";>
+                <img src="{{this.avatar}}" alt="{{this._id}}">
+                <h3 >{{this.fullName}}</h3>
+                <p>{{this.yearOfExperience}} years of exprerience</p>
+            </div>
+        {{/each}}
+    </div>
+    <button>Submit</button>
+</form>
+
+<script>
+    let helperElements=document.querySelectorAll('div.basic-helper')
+    let cnt=0;
+    let countEle=document.querySelector('.count')
+    helperElements.forEach(function(div){
+        div.onclick=function(){
+            if(div.classList.contains('selected')){
+                cnt--;
+                div.classList.remove('selected');
+            }
+            else {
+                div.classList.add('selected')
+                cnt++;
+            }
+
+            countEle.innerHTML= "Selected: "+cnt;
+
+        }
+    })
+</script>

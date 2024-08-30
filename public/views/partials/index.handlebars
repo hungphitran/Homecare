@@ -12,11 +12,11 @@
     <h2>DASHBOARD</h2>
     <button id="short-term-btn" >Short Term Order</button>
     <button id="long-term-btn">Long Term Order</button>
-    <form id="short-term-form" method='post'action="/long-term">
+    <form id="short-term-form" method='post'action="/short-term">
         <select name="province" class="province" >
             <option value="" disabled selected>--Choose province--</option>
             {{#each locations}}
-                <option value="{{@index}}">{{this.province}}</option>
+                <option value="{{this.province}}">{{this.province}}</option>
             {{/each}}
         </select>
         <select name="district" class="district">
@@ -31,19 +31,19 @@
         </select>
         <label for="date">Date</label>
         <input type="date" id="date" name="day">
-        <label for="appt">Select start time:</label>
-        <input type="time" id="start-time" name="appt">
-        <label for="appt">Select end time:</label>
-        <input type="time" id="end-time" name="appt">
+        <label for="time">Select start time:</label>
+        <input type="time" id="start-time" name="st-time" >
+        <label for="time">Select end time:</label>
+        <input type="time" id="end-time" name="e-time" >
         <button class="submit-btn" disabled>Find</button>
     </form>
  
-    <form id="long-term-form" class="hide" method="post" action="/short-term" >
+    <form id="long-term-form" class="hide" method="post" action="/long-term" >
         
         <select name="province" class="province" >
             <option value="">--Choose province--</option>
             {{#each locations}}
-                <option value="{{@index}}">{{this.province}}</option>
+                <option value="{{this.province}}">{{this.province}}</option>
             {{/each}}
         </select>
         <select name="district" class="district">
@@ -62,10 +62,10 @@
         <input type="date" id="start-day" name="day">
         <label for="day">to:</label>
         <input type="date" id="end-day" name="day">
-        <label for="appt">Select start time:</label>
-        <input class="long-term" type="start-time" id="appt" name="appt">
-        <label for="appt">Select end time:</label>
-        <input class "long-term" type="end-time" id="appt" name="appt">
+        <label for="time">Select start time:</label>
+        <input class="long-term" type="start-time" id="time" name="st-time" >
+        <label for="time">Select end time:</label>
+        <input class "long-term" type="end-time" id="time" name="e-time" >
         <button class="submit-btn" disabled>Find</button>
     </form>
     <h2>Helper List</h2>
@@ -90,19 +90,42 @@
         let date=shortTerm.querySelector('#date')
         let starttime=shortTerm.querySelector('#start-time')
         let endtime=shortTerm.querySelector('#end-time')
+        let submitBtn=shortTerm.querySelector('button')
 
         if(date.value!='' && starttime.value!='' && endtime.value!=''){
-            console.log(shortTermBtn.getAttribute())
+           submitBtn.disabled=false;
+        }
+        else {
+            submitBtn.disabled=true;
         }
     }
     longTerm.onchange=function(){
+        let startdate=longTerm.querySelector('#start-date')
+        let enddate=longTerm.querySelector('#end-date')
+        let starttime=longTerm.querySelector('#start-time')
+        let endtime=longTerm.querySelector('#end-time')
+        let submitBtn=longTerm.querySelector('button')
 
+        if(date.value!='' && starttime.value!='' && endtime.value!=''){
+           submitBtn.disabled=false;
+        }
+        else {
+            submitBtn.disabled=true;
+        }
     }
     provinceSelect = shortTerm.querySelector('.province')
     districtSelect = shortTerm.querySelector('.district');
     provinceSelect.onchange=function(){
         let locations={{{json locations}}};
-        let index= provinceSelect.value;
+        let val= provinceSelect.value;
+        let index=0;
+        for(key in locations){
+            if(locations[key].province==val){
+                index= parseInt(key);
+            }
+        }
+
+
         districtSelect.innerHTML=`<option value="" disabled selected>--Choose district--</option>`;
         locations[index].districts.forEach(function(value){
             districtSelect.innerHTML+=`<option value="${value.district}">${value.district}</option>`
