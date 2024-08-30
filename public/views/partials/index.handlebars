@@ -10,17 +10,17 @@
 <div>
 
     <h2>DASHBOARD</h2>
-    <button id="short-term-btn" class="disabled">Short Term Order</button>
+    <button id="short-term-btn" >Short Term Order</button>
     <button id="long-term-btn">Long Term Order</button>
     <form id="short-term-form" method='post'action="/long-term">
         <select name="province" class="province" >
-            <option value="">--Choose province--</option>
+            <option value="" disabled selected>--Choose province--</option>
             {{#each locations}}
                 <option value="{{@index}}">{{this.province}}</option>
             {{/each}}
         </select>
         <select name="district" class="district">
-            <option value="">--Choose district--</option>
+            <option value="" disabled selected>--Choose district--</option>
         </select>
         <label for="">Service</label>
         <select name="service" class="service">
@@ -32,9 +32,9 @@
         <label for="date">Date</label>
         <input type="date" id="date" name="day">
         <label for="appt">Select start time:</label>
-        <input type="time" id="appt" name="appt">
+        <input type="time" id="start-time" name="appt">
         <label for="appt">Select end time:</label>
-        <input type="time" id="appt" name="appt">
+        <input type="time" id="end-time" name="appt">
         <button class="submit-btn" disabled>Find</button>
     </form>
  
@@ -59,18 +59,24 @@
         
         
         <label for="day">from:</label>
-        <input type="date" id="day" name="day">
+        <input type="date" id="start-day" name="day">
         <label for="day">to:</label>
-        <input type="date" id="day" name="day">
+        <input type="date" id="end-day" name="day">
         <label for="appt">Select start time:</label>
-        <input type="time" id="appt" name="appt">
+        <input class="long-term" type="start-time" id="appt" name="appt">
         <label for="appt">Select end time:</label>
-        <input type="time" id="appt" name="appt">
+        <input class "long-term" type="end-time" id="appt" name="appt">
         <button class="submit-btn" disabled>Find</button>
     </form>
     <h2>Helper List</h2>
-    <div class="helper-list">
-
+    <div class="helper-list" style="display: flex;">
+        {{#each helpers}}
+            <div class="basic-helper" style="text-align: center;">
+                <a href="/helper/{{this._id}}"><img src="{{this.avatar}}" ></a>
+                <h3 >{{this.fullName}}</h3>
+                <p>{{this.yearOfExperience}} years of exprerience</p>
+            </div>
+        {{/each}}
     </div>
 </div>
 <script>
@@ -80,12 +86,24 @@
     const shortTermBtn= document.getElementById('short-term-btn')
     const longTermBtn= document.getElementById('long-term-btn')
 
+    shortTerm.onchange=function(){
+        let date=shortTerm.querySelector('#date')
+        let starttime=shortTerm.querySelector('#start-time')
+        let endtime=shortTerm.querySelector('#end-time')
+
+        if(date.value!='' && starttime.value!='' && endtime.value!=''){
+            console.log(shortTermBtn.getAttribute())
+        }
+    }
+    longTerm.onchange=function(){
+
+    }
     provinceSelect = shortTerm.querySelector('.province')
     districtSelect = shortTerm.querySelector('.district');
     provinceSelect.onchange=function(){
         let locations={{{json locations}}};
         let index= provinceSelect.value;
-        districtSelect.innerHTML=`<option value="">--Choose district--</option>`;
+        districtSelect.innerHTML=`<option value="" disabled selected>--Choose district--</option>`;
         locations[index].districts.forEach(function(value){
             districtSelect.innerHTML+=`<option value="${value.district}">${value.district}</option>`
         })
@@ -99,7 +117,7 @@
         provinceSelect.onchange=function(){
         let locations={{{json locations}}};
         let index= provinceSelect.value;
-        districtSelect.innerHTML=`<option value="">--Choose district--</option>`;
+        districtSelect.innerHTML=`<option value="" disabled selected>--Choose district--</option>`;
         locations[index].districts.forEach(function(value){
             districtSelect.innerHTML+=`<option value="${value.district}">${value.district}</option>`
         })
@@ -115,6 +133,7 @@
         let locations={{{json locations}}};
         let index= provinceSelect.value;
         districtSelect.innerHTML=`<option value="">--Choose district--</option>`;
+        if(index=='') return;
         locations[index].districts.forEach(function(value){
             districtSelect.innerHTML+=`<option value="${value.district}">${value.district}</option>`
         })
