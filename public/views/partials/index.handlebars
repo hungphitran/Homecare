@@ -30,7 +30,7 @@
             {{/each}}
         </select>
         <label for="date">Date</label>
-        <input type="date" id="date" name="day">
+        <input type="date" id="date" name="date">
         <label for="time">Select start time:</label>
         <input type="time" id="start-time" name="st-time" >
         <label for="time">Select end time:</label>
@@ -41,13 +41,13 @@
     <form id="long-term-form" class="hide" method="post" action="/long-term" >
         
         <select name="province" class="province" >
-            <option value="">--Choose province--</option>
+            <option value="" disabled selected>--Choose province--</option>
             {{#each locations}}
                 <option value="{{this.province}}">{{this.province}}</option>
             {{/each}}
         </select>
         <select name="district" class="district">
-            <option value="">--Choose district--</option>
+            <option value="" disabled selected>--Choose district--</option>
         </select>
         <label for="">Service</label>
         <select name="service" class="service">
@@ -58,20 +58,20 @@
         </select>
         
         
-        <label for="day">from:</label>
-        <input type="date" id="start-day" name="day">
-        <label for="day">to:</label>
-        <input type="date" id="end-day" name="day">
+        <label for="date">from:</label>
+        <input type="date" id="start-date" name="st-date">
+        <label for="date">to:</label>
+        <input type="date" id="end-date" name="e-date">
         <label for="time">Select start time:</label>
-        <input class="long-term" type="start-time" id="time" name="st-time" >
+        <input class="long-term" type="time" id="start-time" name="st-time" >
         <label for="time">Select end time:</label>
-        <input class "long-term" type="end-time" id="time" name="e-time" >
+        <input class="long-term" type="time" id="end-time" name="e-time" >
         <button class="submit-btn" disabled>Find</button>
     </form>
     <h2>Helper List</h2>
     <div class="helper-list" style="display: flex;">
         {{#each helpers}}
-            <div class="basic-helper" style="text-align: center;">
+            <div class="basic-helper" style="text-align: center;border:5px; border-style:solid; margin:10px">
                 <a href="/helper/{{this._id}}"><img src="{{this.avatar}}" ></a>
                 <h3 >{{this.fullName}}</h3>
                 <p>{{this.yearOfExperience}} years of exprerience</p>
@@ -105,8 +105,8 @@
         let starttime=longTerm.querySelector('#start-time')
         let endtime=longTerm.querySelector('#end-time')
         let submitBtn=longTerm.querySelector('button')
-
-        if(date.value!='' && starttime.value!='' && endtime.value!=''){
+        console.log(starttime.value,)
+        if(enddate.value!=''&&startdate.value!='' && starttime.value!='' && endtime.value!=''){
            submitBtn.disabled=false;
         }
         else {
@@ -119,9 +119,9 @@
         let locations={{{json locations}}};
         let val= provinceSelect.value;
         let index=0;
-        for(key in locations){
-            if(locations[key].province==val){
-                index= parseInt(key);
+        for(key in locations) {
+            if (locations[key].province == val) {
+                index = parseInt(key);
             }
         }
 
@@ -139,7 +139,13 @@
         districtSelect = shortTerm.querySelector('.district');
         provinceSelect.onchange=function(){
         let locations={{{json locations}}};
-        let index= provinceSelect.value;
+        let val= provinceSelect.value;
+        let index=0;
+        for(key in locations) {
+            if (locations[key].province == val) {
+                index = parseInt(key);
+            }
+        }
         districtSelect.innerHTML=`<option value="" disabled selected>--Choose district--</option>`;
         locations[index].districts.forEach(function(value){
             districtSelect.innerHTML+=`<option value="${value.district}">${value.district}</option>`
@@ -153,14 +159,19 @@
         provinceSelect = longTerm.querySelector('.province')
         districtSelect = longTerm.querySelector('.district');
         provinceSelect.onchange=function(){
-        let locations={{{json locations}}};
-        let index= provinceSelect.value;
-        districtSelect.innerHTML=`<option value="">--Choose district--</option>`;
-        if(index=='') return;
-        locations[index].districts.forEach(function(value){
-            districtSelect.innerHTML+=`<option value="${value.district}">${value.district}</option>`
-        })
-    }
+            let locations={{{json locations}}};
+            let val= provinceSelect.value;
+            let index=0;
+            for(key in locations) {
+                if (locations[key].province == val) {
+                    index = parseInt(key);
+                }
+            }
+            districtSelect.innerHTML=`<option value="">--Choose district--</option>`;
+            locations[index].districts.forEach(function(value){
+                districtSelect.innerHTML+=`<option value="${value.district}">${value.district}</option>`
+            })
+        }
 
     }
 

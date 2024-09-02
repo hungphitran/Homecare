@@ -3,17 +3,17 @@ const shorttermController ={
     order: async (req,res,next)=>{
         let order=req.body;
         let helpers;
-        helpers=await fetch(process.env.API_URL+'/helper')
+        helpers=await fetch(process.env.API_URL+`/helper`)
         .then(data=>data.json())
         .then(data=>data)
         res.render('partials/shorttermorder',{order:order,helpers:helpers});
     },
     get: async (req,res,next)=>{
-        res.render('partials/shorttermOrder');
+        res.render('partials/shorttermorder');
     },
 
     submit: async (req,res,next)=>{
-        res.send(req.body)
+        res.send(req.body);
     }
  }
 

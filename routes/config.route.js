@@ -4,13 +4,15 @@ const longtermRoute=require('./longtermOrder.route')
 const shorttermRoute =require('./shorttermOrder.route')
 const helperRoute=require('./detailedhelper.route')
 const accountRoute=require('./detailedaccount.route')
+const mailRoute = require('./mail.route')
 
 function route(app){
     app.use('/helper',helperRoute)
     // app.use('/account',accountRoute)
-    // app.use('/long-term',longtermRoute)
+    app.use('/long-term',longtermRoute)
     app.use('/short-term',shorttermRoute)
     app.use('/register',registerRoute)
+    app.use('/contact',mailRoute)
     //dashboard
     app.use('/Home',dashboardRoute)
     app.use('/',dashboardRoute)
