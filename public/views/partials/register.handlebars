@@ -1,12 +1,48 @@
-<form method="post" action="/register/create">
-    <label > Phone</label>
-    <input type="text" name="Phone Number" id="input-phonenumber">
-    <label > Authen Code</label>
-    <input type="text" name="Phone Number" id="input-phonenumber">
-    <button class="submit-btn" >Submit</button>
+<style>
+    i.disabled{
+        background-color: grey;
+    }
+    i{
+        background-color: greenyellow;
+        border-radius: 50%;
+    }
+</style>
+
+<form method="post" action="/register/submit">
+    <div>
+        <label >Email or Phone number</label>
+        <input required type="text" name="account" id="accountinput" value="{{account}}">
+    </div>
+
+    <div>
+        <label >Authen Code</label>
+        <input type="tel" name="code" id="code-input">
+        <a class="getOtp" href=""><i class="fa-solid fa-shield-halved disabled" style="padding: 10px; "></i></a>
+    </div>
+    
+
+    <button class="submit-btn" disabled>Submit</button>
 </form>
 
 <script>
-    const formRegister= document.getElementsByTagName('form')
-    const submitBtn=document.getElementsByClassName('submit-btn');
+    const formRegister= document.querySelector('form')
+    const submitBtn=formRegister.querySelector('.submit-btn');
+    const accountInput =document.querySelector('#accountinput');
+    const codeInput =document.querySelector('#code-input')
+    const getOtpBtn= document.querySelector('.getOtp')
+
+    formRegister.onchange =function(){
+        if(accountInput.value==""){
+            submitBtn.disabled=true;
+            var i=document.querySelector('i')
+            i.classList.add('disabled')
+            getOtpBtn.href="";
+        }
+        else{
+            var i=getOtpBtn.querySelector('i')
+            i.classList.remove('disabled')
+            getOtpBtn.href=`contact/otp?account=${accountInput.value}`
+        }
+    }
+
 </script>

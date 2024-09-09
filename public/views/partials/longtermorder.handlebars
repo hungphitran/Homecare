@@ -1,20 +1,30 @@
 <style>
+    .helper-list{
+        display: flex;
+    }
     .selected{
         background-color: greenyellow;
     }
+    .hide{
+        display: none;
+    }
 </style>
-<form method="post" action="/short-term/save">
+<form method="post" action="/long-term/submit">
     <ul>
-        <li>Date: {{order.st-date}} -- {{order.e-date}}</li>
-        <li>{{order.province}}</li>
-        <li>{{order.district}}</li>
-        <li>Service: {{order.service}}</li>
+        <li><input type="hidden" name="startDate" value="{{order.startDate}}"> {{order.startDate}}</li>
+        <li><input type="hidden" name="endDate" value="{{order.endDate}}">{{order.endDate}}</li>
+        <li><input type="hidden" name="province" value="{{order.province}}">{{order.province}}</li>
+        <li><input type="hidden" name="district" value="{{order.district}}">{{order.district}}</li>
+        <li><input type="hidden" name="service" value="{{order.service}}">Services: {{order.service}}</li>
         <li>
-            Time:{{order.st-time}} to {{order.e-time}}
+            <input type="hidden" name="startTime" value="{{order.startTime}}">
+            <input type="hidden" name="endTime" value="{{order.endTime}}">
+            Time:{{order.startTime}} to {{order.endTime}}
         </li>
     </ul>
-    <div class="helper-list" style="display: flex;">
-        <label class="count" style="padding: 10px;">Selected: 0</label>
+    <h2>Choose helper (skip to random)</h2>
+    <div class="helper-list" >
+        <input type="hidden" name="helper" value="">
         {{#each helpers}}
             <div class="basic-helper"  style="text-align:center;border:5px; border-style:solid;  border-color:green";>
                 <img src="{{this.avatar}}" alt="{{this._id}}">
@@ -23,26 +33,37 @@
             </div>
         {{/each}}
     </div>
-    <button>Submit</button>
+
+    
+    <button >Submit</button>
 </form>
 
 <script>
     let helperElements=document.querySelectorAll('div.basic-helper')
-    let cnt=0;
-    let countEle=document.querySelector('.count')
+    let numHelperInput= document.querySelector('#num-helper-input')
+    let submitBtn= document.querySelector('form button')
+    let helperlist=document.querySelector('.helper-list')
+    var selectedHelper='';
+
+
     helperElements.forEach(function(div){
         div.onclick=function(){
             if(div.classList.contains('selected')){
-                cnt--;
                 div.classList.remove('selected');
+                selectedHelper=''
             }
             else {
-                div.classList.add('selected')
-                cnt++;
+                if(selectedHelper==''){
+                    div.classList.add('selected')
+                    let id= div.querySelector('img').alt;
+                    selectedHelper=id;
+                }
             }
-
-            countEle.innerHTML= "Selected: "+cnt;
-
         }
     })
+
+    submitBtn.onclick=function(){
+        let input= helperlist.querySelector('input');
+        input.value=selectedHelper;
+    }
 </script>

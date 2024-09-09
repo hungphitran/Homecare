@@ -10,7 +10,7 @@ require('dotenv').config()
 const app= express()
 
 //config static file
-app.use(express.static(path.join(__dirname,'resources','public')))
+app.use(express.static(path.join(__dirname,'public')))
 //template engine
 const hbs = handlebars.create({
     helpers: {

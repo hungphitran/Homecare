@@ -2,16 +2,22 @@
     form{
         display: flex;
     }
-    form.hide{
+    .hide{
         display: none;
     }
-        
+    table{
+        border-style: solid;
+        box-sizing: 10px;
+        text-align: center ;
+    }
 </style>
 <div>
 
     <h2>DASHBOARD</h2>
     <button id="short-term-btn" >Short Term Order</button>
     <button id="long-term-btn">Long Term Order</button>
+    
+    {{!-- short term order form --}}
     <form id="short-term-form" method='post'action="/short-term">
         <select name="province" class="province" >
             <option value="" disabled selected>--Choose province--</option>
@@ -24,20 +30,20 @@
         </select>
         <label for="">Service</label>
         <select name="service" class="service">
-            <option>--Choose services--</option>
+            <option disabled selected>--Choose services--</option>
             {{#each services}}
-                <option>{{this}}</option>
+                <option>{{this.title}}</option>
             {{/each}}
         </select>
         <label for="date">Date</label>
-        <input type="date" id="date" name="date">
+        <input type="date" id="date" name="startDate">
         <label for="time">Select start time:</label>
-        <input type="time" id="start-time" name="st-time" >
+        <input type="time" id="start-time" name="startTime" >
         <label for="time">Select end time:</label>
-        <input type="time" id="end-time" name="e-time" >
+        <input type="time" id="end-time" name="endTime" >
         <button class="submit-btn" disabled>Find</button>
     </form>
- 
+    {{!-- long term order form --}}
     <form id="long-term-form" class="hide" method="post" action="/long-term" >
         
         <select name="province" class="province" >
@@ -51,23 +57,47 @@
         </select>
         <label for="">Service</label>
         <select name="service" class="service">
-            <option>--Choose services--</option>
+            <option disabled selected>--Choose services--</option>
             {{#each services}}
-                <option>{{this}}</option>
+                <option>{{this.title}}</option>
             {{/each}}
         </select>
         
         
         <label for="date">from:</label>
-        <input type="date" id="start-date" name="st-date">
+        <input type="date" id="start-date" name="startDate">
         <label for="date">to:</label>
-        <input type="date" id="end-date" name="e-date">
+        <input type="date" id="end-date" name="endDate">
         <label for="time">Select start time:</label>
-        <input class="long-term" type="time" id="start-time" name="st-time" >
+        <input class="long-term" type="time" id="start-time" name="startTime" >
         <label for="time">Select end time:</label>
-        <input class="long-term" type="time" id="end-time" name="e-time" >
+        <input class="long-term" type="time" id="end-time" name="endTime" >
         <button class="submit-btn" disabled>Find</button>
     </form>
+    {{!-- price list --}}
+    <h3>Services</h3>
+    <div class="price-list">
+        <table>
+            <thead>
+                <th scope="col" style="width:20%">Service</th>
+                <th scope="col" style="width:20%">Description</th>
+                <th scope="col" style="width:20%">Extra Fee</th>
+                <th scope="col" style="width:20%">Basic Price</th>
+            </thead>
+            <tbody>
+                {{#each services}}
+                <tr>
+                    <td>{{this.title}}</td>
+                    <td>{{{this.description}}}</td>  
+                    <td>{{this.extraFee}}</td>  
+                    <td>{{this.basicPrice}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+            
+        </table>
+    </div>
+    {{!-- show list of helpers --}}
     <h2>Helper List</h2>
     <div class="helper-list" style="display: flex;">
         {{#each helpers}}

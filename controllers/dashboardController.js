@@ -17,6 +17,14 @@ const dashboardController={
             }
 
             try{
+                services= await fetch(process.env.API_URL+'/service')
+                .then(data=>data.json())
+                .then(data=>data)
+            }
+            catch(err){
+                console.error(err)
+            }
+            try{
                 //call api to get helpers
                helpers= await fetch(process.env.API_URL+'/helper')
                .then(data=>data.json())

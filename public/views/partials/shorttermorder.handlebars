@@ -11,29 +11,19 @@
 </style>
 <form method="post" action="/short-term/submit">
     <ul>
-        <li><input type="hidden" name="date" value="{{order.date}}"> Date: {{order.date}}</li>
+        <li><input type="hidden" name="startDate" value="{{order.startDate}}"> Date: {{order.startDate}}</li>
         <li><input type="hidden" name="province" value="{{order.province}}">{{order.province}}</li>
         <li><input type="hidden" name="district" value="{{order.district}}">{{order.district}}</li>
         <li><input type="hidden" name="service" value="{{order.service}}">Service: {{order.service}}</li>
         <li>
-            <input type="hidden" name="start-time" value="{{order.st-time}}">
-            <input type="hidden" name="end-time" value="{{order.e-time}}">
-            Time:{{order.st-time}} to {{order.e-time}}
+            <input type="hidden" name="startTime" value="{{order.startTime}}">
+            <input type="hidden" name="endTime" value="{{order.endTime}}">
+            Time:{{order.startTime}} to {{order.endTime}}
         </li>
     </ul>
-    <label> 
-        Want to choose helper
-        <input type="checkbox" id="change-option-btn" name="choosed" value="">
-    </label>
-    
-    <div id="num-helper-input">
-        <label > Enter number of helper:</label>
-        <input type="number" name="number of helper"  min="0" max="{{helpers.length}}">
-    </div>
-    
-
-    <div class="helper-list hide" >
-        <label class="count" style="padding: 10px;">Selected: 0</label>
+    <h2>Choose helper (skip to random)</h2>
+    <div class="helper-list" >
+        <input type="hidden" name="helper" value="">
         {{#each helpers}}
             <div class="basic-helper"  style="text-align:center;border:5px; border-style:solid;  border-color:green";>
                 <img src="{{this.avatar}}" alt="{{this._id}}">
@@ -42,78 +32,34 @@
             </div>
         {{/each}}
     </div>
-    <button disabled>Submit</button>
+    <button>Submit</button>
 </form>
 
 <script>
-    let len={{{json helpers}}}.length;
     let helperlist=document.querySelector('.helper-list')
     let helperElements=document.querySelectorAll('div.basic-helper')
-    let cnt=0;
-    let countEle=document.querySelector('.count')
-    let optionbtn = document.querySelector('#change-option-btn')
     let submitBtn= document.querySelector('form button')
-    let numHelperInput= document.querySelector('#num-helper-input')
-    var selectedHelper=[];
-    numHelperInput.onchange=function(){
-        let input=numHelperInput.querySelector('input')
-        if(input.value==0){
-            submitBtn.disabled=true;
-        }
-        else{
-            submitBtn.disabled=false;
-        }
-    }
-    optionbtn.onchange=function(){
-        if(optionbtn.checked==true)
-        {
-            numHelperInput.classList.add('hide');
-            helperlist.classList.remove('hide');
-            if(cnt!=0){
-                submitBtn.disabled=false;
-            }
-            else submitBtn.disabled=true;
-        }
-        else{
-            numHelperInput.classList.remove('hide');
-            helperlist.classList.add('hide');
-            let input=numHelperInput.querySelector('input')
-            if(input.value!=0){
-                submitBtn.disabled=false;
-            }
-            else{
-                submitBtn.disabled=true;
-            }
-        }
-    }
+    var selectedHelper='';
 
     helperElements.forEach(function(div){
         div.onclick=function(){
             if(div.classList.contains('selected')){
-                cnt--;
                 div.classList.remove('selected');
-                let id= div.querySelector('img').alt;
-                let index=selectedHelper.indexOf(id)
-                selectedHelper=[...selectedHelper.slice(0,index),...selectedHelper.slice(index+1)]
+                selectedHelper='';
             }
             else {
-                div.classList.add('selected')
-                let id= div.querySelector('img').alt;
-                selectedHelper.push(id);
-                cnt++;
+                if(selectedHelper==''){
+                    div.classList.add('selected')
+                    let id= div.querySelector('img').alt;
+                    selectedHelper=id;
+                }
             }
-            countEle.innerHTML= "Selected: "+cnt;
-            if(cnt==0){
-                submitBtn.disabled=true;
-            }
-            else {
-                submitBtn.disabled=false;
-            }
-
         }
     })
 
     submitBtn.onclick=function(){
-        optionbtn.value=selectedHelper;
+        let input= helperlist.querySelector('input');
+        console.log(input)
+        input.value=selectedHelper;
     }
 </script>

@@ -1,26 +1,11 @@
 const mongoose = require('mongoose')
 
 const Message = mongoose.Schema({
-    authencode: Number,
+    authencode: String,
     customernumber: Number,
-    thoigianhethan: { type: Date, expires: 5*60, default: Date.now }
+    expirestime: { type: Date, expires: 5*60, default: Date.now }
 });
 
-var tinnhanDB = mongoose.model('Message', tinnhanSchema,'messages');
+var messageModel = mongoose.model('Message', Message,'messages');
 
-//ham random ma xac nhan
-function taoMaXacNhan(){
-    var min = 10000;
-    var max = 99999;
-    var random = Math.floor(Math.random() * (max - min + 1)) + min;
-    return random;
-}
-function luuXacNhan(sdtkhachhang){
-
-}
-function timXacNhan(sdtkhachhang){
-}
-function xoaXacNhan(sdtkhachhang){
-}
-
-//exports
+module.exports= messageModel;
