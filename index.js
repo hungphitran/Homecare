@@ -21,7 +21,7 @@ const hbs = handlebars.create({
 
 // Register `hbs.engine` with the Express app.
 app.engine('handlebars', hbs.engine);
-app.set('views',path.join(__dirname,'public','views'))
+app.set('views',path.join(__dirname,'resource','views'))
 app.set('view engine','handlebars')
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
@@ -37,4 +37,3 @@ route(app);
 app.listen(process.env.PORT||3000,()=>{
     console.log('listening on http://localhost:3000')
 })
-// hhaha
