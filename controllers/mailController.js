@@ -62,6 +62,8 @@ const mailController={
         // modify sender and receiver
 
         Message.create(message)
+        .then(data=>res.send(data))
+        .catch(err=>res.send(err))
         let mailOptions = {
             from: `PROCLEANER ${process.env.MAIL}`,
             to: req.query.account,

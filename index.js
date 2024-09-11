@@ -21,21 +21,12 @@ const hbs = handlebars.create({
 
 // Register `hbs.engine` with the Express app.
 app.engine('handlebars', hbs.engine);
-//app.engine('handlebars',handlebars.engine());
 app.set('views',path.join(__dirname,'public','views'))
 app.set('view engine','handlebars')
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
-// //error handler
-// app.use(function(err, req, res, next) {
-//     res.status(err.status || 500);
-//     res.render('messages/error', {
-//       message: err.message,
-//       error: err
-//     });
-//   });
-//connect to database(mongodb)
+
 db.connect();
 
 

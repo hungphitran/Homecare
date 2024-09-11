@@ -30,7 +30,7 @@
         {{/if}}
         <input type="hidden" name="customerInfo" id="customerInfo">
         <li><input type="hidden" name="fee" value="{{request.fee}}">{{request.fee}}</li>
-        <li><input type="hidden" name="service_id" value="{{request.service_id}}">{{request.service}}</li>
+        <li><input type="hidden" name="service_id" value="{{service._id}}">{{service.title}}</li>
         <li><input type="hidden" name="province" value="{{request.province}}">{{request.province}}</li>
         <li><input type="hidden" name="district" value="{{request.district}}">{{request.district}}</li>
         <li><input type="hidden" name="startTime" value="{{request.startTime}}">{{request.startTime}}</li>

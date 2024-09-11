@@ -28,11 +28,11 @@
         <select name="district" class="district">
             <option value="" disabled selected>--Choose district--</option>
         </select>
-        <label for="">Service</label>
-        <select name="service" class="service">
+        <label >Service</label>
+        <select name="service_id" class="service">
             <option disabled selected>--Choose services--</option>
             {{#each services}}
-                <option>{{this.title}}</option>
+                <option value="{{this._id}}">{{this.title}}</option>
             {{/each}}
         </select>
         <label for="date">Date</label>
