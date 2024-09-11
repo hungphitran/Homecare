@@ -190,6 +190,7 @@
         districtSelect = longTerm.querySelector('.district');
         provinceSelect.onchange=function(){
             let locations={{{json locations}}};
+          
             let val= provinceSelect.value;
             let index=0;
             for(key in locations) {
