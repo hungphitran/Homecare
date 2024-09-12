@@ -1,0 +1,39 @@
+<div style="display: flex;">
+    <img src="{{helper.avatar}}" alt="">
+    <div>
+        <h1>Basic information</h1>
+        <ul>
+            <li>{{helper.fullName}}</li>
+            <li>{{helper.birthDate}}</li>
+            <li>{{helper.gender}}</li>
+            <li>{{helper.phone}}</li>
+            <li>{{helper.birthPlace}}</li>
+            <li>{{helper.address}}</li>
+            <li>{{helper.height}}cm -- {{helper.weight}}kg</li>
+            <li>
+                Area: {{helper.workingArea.province}} :
+                {{#each helper.workingArea.districts}}
+                    {{this}}
+                {{/each}}
+            </li>
+            <li>year of experience: {{helper.yearOfExperience}}</li>
+        </ul>
+        
+    </div>
+    
+        
+    
+</div>
+<div>
+        <h2>Healthcare certificates</h2>
+        <table>
+            {{#each helper.healthCertificates}}
+                <tr>
+                    <th>
+                        <img src="{{this}}" alt="">
+                    </th>
+                </tr>
+            {{/each}}
+          
+        </table>
+    </div>

@@ -1,0 +1,72 @@
+<style>
+    .selected{
+        background-color: greenyellow;
+    }
+    .helper-list{
+        display: flex;
+    }
+    .hide{
+        display: none;
+    }
+</style>
+<form method="post" action="/short-term/submit">
+    <ul>
+        <li><input type="hidden" name="startDate" value="{{order.startDate}}"> Date: {{order.startDate}}</li>
+        <li><input type="hidden" name="province" value="{{order.province}}">{{order.province}}</li>
+        <li><input type="hidden" name="district" value="{{order.district}}">{{order.district}}</li>
+        <li><input type="hidden" name="service_id" value="{{order.service_id}}">Service: {{service.title}}</li>
+        <li>
+            <input type="hidden" name="startTime" value="{{order.startTime}}">
+            <input type="hidden" name="endTime" value="{{order.endTime}}">
+            Time:{{order.startTime}} to {{order.endTime}}
+        </li>
+    </ul>
+    {{#if helpers}}
+        <h2>Choose helper (skip to random)</h2>
+        <div class="helper-list" >
+            <input type="hidden" name="helper" value="">
+            {{#each helpers}}
+                <div class="basic-helper"  style="text-align:center;border:5px; border-style:solid;  border-color:green";>
+                    <img src="{{this.avatar}}" alt="{{this._id}}">
+                    <h3 >{{this.fullName}}</h3>
+                    <p>{{this.yearOfExperience}} years of exprerience</p>
+                </div>
+            {{/each}}
+        </div>
+        <button>Submit</button>
+
+    {{else}}
+        <div>
+            <h2>Can not find helpers, please change location</h2>
+        </div>
+    {{/if}}
+</form>
+
+<script>
+    let helperlist=document.querySelector('.helper-list')
+    let helperElements=document.querySelectorAll('div.basic-helper')
+    let submitBtn= document.querySelector('form button')
+    var selectedHelper='';
+
+    helperElements.forEach(function(div){
+        div.onclick=function(){
+            if(div.classList.contains('selected')){
+                div.classList.remove('selected');
+                selectedHelper='';
+            }
+            else {
+                if(selectedHelper==''){
+                    div.classList.add('selected')
+                    let id= div.querySelector('img').alt;
+                    selectedHelper=id;
+                }
+            }
+        }
+    })
+
+    submitBtn.onclick=function(){
+        let input= helperlist.querySelector('input');
+        console.log(input)
+        input.value=selectedHelper;
+    }
+</script>
