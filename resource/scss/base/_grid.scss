@@ -1,0 +1,114 @@
+@use "sass:math";
+// breakpoints, dimension, container, row, column, v.v
+$grid-breakpoints: (
+    xxl: 1400px,
+    xl: 1200px,
+    lg: 992px,
+    md: 768px,
+    sm: 576px
+);
+$container-max-widths: (
+  sm: 100%,
+  md: 540px,
+  lg: 720px,
+  xl: 960px,
+  xxl: 1140px,
+);
+$gutters: (
+  0: 0,
+  1: 0.25,
+  2:0.5,
+  3: 1,
+  4: 1.5,
+  5: 3,
+);
+$grid-column:12;
+$grid-gutter-width:30px !default;
+%gutter-padding {
+    padding-left:calc(var(--gutter-x) * 0.5);
+    padding-right:calc(var(--gutter-x) * 0.5);
+}
+.container-fluid{
+    --gutter-x:#{$grid-gutter-width};
+    --gutter-y:#{$grid-gutter-width};
+    width:100%;
+    margin-left:auto;
+    margin-right:auto;
+    @extend %gutter-padding;
+}
+.container{
+    @extend .container-fluid;
+    width:1370px;
+}
+.row{
+    display:flex;
+    flex-wrap:wrap;
+    margin-top:calc(var(--gutter-y) * -1 );
+    margin-left:calc(var(--gutter-x) * 0.5 * -1);
+    margin-right:calc(var(--gutter-x) * 0.5 * -1);
+    > *{
+        margin-top: var(--gutter-y);
+         @extend  %gutter-padding;
+    }
+}
+.col{
+    flex:1 0;
+}
+@mixin make-media-query($dimension){
+    @media( max-width:($dimension - 0.02)){
+        @content;
+    }
+}
+@mixin make-row-columns($infic:null){
+    @for $i from 1 through $grid-column * 0.5{
+            .row-cols#{$infic}-#{$i} > * {
+                flex: 0 0 auto;
+                width:math.div(100%,$i);
+            }
+        }
+}
+@mixin make_column($infic:null){
+    @for $i from 1 through $grid-column{
+        .col#{$infic}-#{$i}{
+            flex: 0 0 auto;
+            width:math.div(100%,$grid-column) * $i;        }
+    }
+}
+@mixin make_offset($infic:null){
+    @for $i from 0 to $grid-column{
+        .offset#{$infic}-#{$i}{
+            margin-left:if($i>0,math.div(100%,$grid-column)*$i,0);
+        }
+    }
+}
+@mixin make_gutter($infic:null){
+    @each $i, $ratio in $gutters{
+        .g#{$infic}-#{$i},
+        .g-x#{$infic}-#{$i}{
+            --gutter-x:#{$grid-gutter-width * $ratio} ;
+        }
+        .g#{$infic}-#{$i},
+        .g-y#{$infic}-#{$i}{
+            --gutter-y:#{$grid-gutter-width * $ratio};
+        }
+    }
+}
+@include make-row-columns();
+@include make_column();
+@include make_offset();
+@include make_gutter();
+@each $breakpoint , $dimension in $grid-breakpoints{
+    $max-width:map-get($container-max-widths,$breakpoint);
+    $infic:"-#{$breakpoint}";
+    @include make-media-query($dimension){
+        .container{
+            max-width:$max-width;
+        }
+        @include make-row-columns($infic);
+        @include make_column($infic);
+        @include make_offset($infic);
+        @include make_gutter($infic);
+    }
+    }
+    // row-cols-* ,offset
+

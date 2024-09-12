@@ -1,0 +1,72 @@
+@use "../abstracts";
+.slideshow{
+    position:relative;
+    &__inner{
+        display:flex;
+        overflow: hidden;
+    }
+    &__item{
+        position:relative;
+        padding-top:33%;
+        flex-shrink: 0;
+        width:100%;
+    }
+    &__img{
+        width:100%;
+        object-fit: cover;
+        border-radius: 20px;
+        @include abstracts.screen(lg){
+            border-radius:10px;
+        }
+        position:absolute;
+        top:0;
+        height:100%;
+    }
+    &__nav{
+        position:absolute;
+        display:flex;
+        align-items: center;
+        gap:24px;
+        bottom: 13.8%;
+        left:5%;
+        font-size: 1.4rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.42; /* 142.857% */
+        color:#fff;
+        &--line{
+            display:block;
+            position:relative;
+            width:184px;
+            height:4px;
+            @include abstracts.screen(lg){
+                width :120px;
+
+            }
+            @include abstracts.screen(sm){
+                width:50px;
+                
+            }
+            background-color: #fff;
+            &::before, &::after{
+                content:"";
+                display:inline-flex;
+                position:absolute;
+                width:14px;
+                height:14px;
+                border-radius: 50%;
+                border:solid 4px #fff;
+                flex-shrink: 0;
+                translate:90% -30%;
+            }
+            &::before{
+                left:0;
+                translate:-90% -30%;
+            }
+            &::after{
+                right:0;
+            }
+
+        }
+    }
+}

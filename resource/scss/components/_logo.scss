@@ -1,0 +1,24 @@
+@use "../abstracts";
+.logo{
+    display:flex;
+    align-items: center;
+    gap:14px;
+    white-space: nowrap;
+    // @include abstracts.screen(md){
+    //     translate: 60%;
+    // }
+    &__img{
+        width:32px;
+        height:32px;
+    }
+    &__title{
+        color: var(--Secondary-Color-Secondary-1, #1A162E);
+        font-size: 2.2rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.45; /* 145.455% */
+    }
+    &__user{
+        display: block;
+    }
+}

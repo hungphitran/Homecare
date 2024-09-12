@@ -1,0 +1,271 @@
+@use "../abstracts";
+%flexItemsCenter{
+    display:flex;
+    align-items: center;
+}
+.header{
+    background-color: var(--header-br-color);
+    padding:30px 0;
+     @include abstracts.screen(lg){
+        width:100%;
+        padding:20px 0;
+    }
+    @include abstracts.screen(sm){
+        width:100%;
+        padding:10px;
+    }
+    @include abstracts.screen(xl){
+            width:100%;
+        }
+}
+.nav-top{
+    z-index: 10;
+    @extend %flexItemsCenter;
+    position:relative;
+    @include abstracts.screen(sm){
+        justify-content: space-between;
+    }
+    &__group{
+        display:none;
+        @include abstracts.screen(lg){
+            display:block;
+            margin-right:20px;
+        }
+        @include abstracts.screen(sm){
+            margin-right:0px;
+        }
+        
+    }
+    &__btn{
+        @include abstracts.screen(sm){
+            .icon{
+            margin-right:10px;
+        }
+        }
+    }
+
+}
+.navbar{
+    margin-left:144px;
+    margin-right:auto;
+    @include abstracts.screen(xl){
+            margin-left:50px;
+        }
+    //  @include abstracts.screen(sm){
+    //         display: none;
+    //     }
+    
+    &__list{
+        display:flex;
+        @include abstracts.screen(lg){
+            // display: none;
+            display:flex;
+            position:fixed;
+            inset:0 50% 0 0 ;
+            background-color:var(--Secondary-Color-Background);
+            flex-direction: column;
+            z-index: 9;
+            translate: -100%;
+            transition: translate .5s;
+            overflow-y: auto;
+            // background: orange;
+            height: 100%;
+             overscroll-behavior: contain;
+            &.show{
+                translate:0%;
+            }
+            &.show + .navbar__overlay{
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+    &__close--btn{
+        display: none;
+        @include abstracts.screen(lg){
+            display:inherit;
+            padding:20px 40px;
+            filter: var(--icon-color);
+            // position: sticky;
+            // top: 0;
+            // z-index: 999;
+        }
+    }
+    &-dis{
+        display: none;
+        @include abstracts.screen(lg){
+            display: block;
+            position:sticky;
+            top: 0;
+            z-index: 999;
+            background-color:  var( --color-navbar-dis);
+            .nav-btn{
+                display: none;
+            }
+
+        }
+        // @include abstracts.screen(md){
+        //     display: grid;
+        //     grid-template-rows: repeat(3, 1fr);
+        //     position: sticky;
+        //     top: 0;
+        //     z-index: 999;
+        //     background-color:  var( --color-navbar-dis);
+
+            
+        // }
+        @include abstracts.screen(md){
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background-color:  var( --color-navbar-dis);
+
+            
+        }
+        .nav-btn{
+            display: none;
+            @include abstracts.screen(md){
+                padding-left:40px;
+                padding-right:40px;
+                display: flex;
+                align-items: center;
+                &__icon{
+                    filter: var(--icon-color);
+                }
+                &__title{
+                    margin-left:16px;
+                }
+                &__qtn{
+                    margin-left:auto;
+                }
+            }
+        }
+    }
+    &__overlay{
+        visibility: hidden;
+        opacity: 0;
+        @include abstracts.screen(lg){
+            position:fixed;
+            inset:0;
+            z-index: 8;
+            background:rgba($color: #000000, $alpha: 0.4)
+        }
+        transition: visibility opacity;
+        transition-duration: 0.5s;
+    }
+    &__item{
+        &:hover .drop-down{
+            display:block;
+            // @include abstracts.screen(lg){
+            //     display:none;
+            // }
+        }
+        &:first-child a{
+            padding-left:0px;
+        }
+        &:last-child a{
+            padding-right:0px;
+        }
+        @include abstracts.screen(lg){
+            padding:0 40px;
+            &:hover .drop-down{
+                display: none;
+            }
+            &--active .drop-down{
+                display:block !important;
+            }
+            &--active .navbar__arrow{
+                rotate: 0deg;
+            }
+        }
+        // @include abstracts.screen(lg){
+        //     &--active{
+        //         display:block;
+        //     }
+        // }
+    }
+    &__link{
+         @extend %flexItemsCenter;
+        gap:6px;
+        height:50px;
+        font-size: 1.5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.46; /* 146.667% */
+        padding:0 15px;
+        @include abstracts.screen(lg){
+            padding:0;
+            justify-content: space-between;
+        }
+
+    }
+    &__arrow{
+        margin-top:3px;
+        @include abstracts.screen(lg){
+            rotate: -90deg;
+            transition: rotate 0.3s;
+        }
+    }
+}
+.top-act{
+     @extend %flexItemsCenter;
+     @include abstracts.screen(md){
+        &__btn{
+        display:none;
+     }
+     }
+    &__group{
+        @extend %flexItemsCenter;
+        justify-content: center;
+        border-radius: 8px;
+        background: var(--Secondary-Color-Background, #fff);
+        box-shadow: var(--box-shadow-group);
+        padding:13px;
+        margin-right:20px;
+        gap:20px;
+        @include abstracts.screen(md){
+            display:none;
+            margin-right:0px;
+        }
+        @include abstracts.screen(sm){
+            display:none;
+            margin-right:0px;
+        }
+    }
+    &__btn{
+        @extend %flexItemsCenter;
+        gap:10px;
+        cursor: pointer;
+    }
+    &__btn--extra{
+        padding:6px;
+    }
+    &__group--first{
+        @include abstracts.screen(lg){
+            padding:0px;
+            display:none;
+        }
+    }
+    &__avatar{
+        width:50px;
+        height:50px;
+        border-radius: 8px;
+        box-shadow: var(--box-shadow-avatar);
+        object-fit: cover;
+        cursor: pointer;
+    }
+    &__title{
+        // color: var(--Secondary-Color-Secondary-1, #1A162E);
+        /* Medium 15 */
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.46; /* 146.667% */
+    }
+    &__separate{
+        width: 1px;
+        height: 30px;
+        background: var(--br-separate, #EDEDF6);
+    }
+}
