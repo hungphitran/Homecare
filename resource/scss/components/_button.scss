@@ -1,0 +1,83 @@
+// filter
+.filter{
+    &-btn{
+        display: flex;
+        gap:14px;
+        padding:10px 12px;
+        background-color: var(--br-filter);
+        border-radius: 6px;
+        /* Medium 16 */
+        font-size: 1.6rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 24px; /* 150% */
+    }
+}
+// like
+ .like-btn{
+        width:50px;
+        height:50px;
+        border-radius:50%;
+        background-color:var(--br-like);
+        box-shadow: 0px 20px 60px rgba(124, 124, 124, 0.20);
+        // .liked-btn &__icon{
+        //     filter: brightness(0) saturate(100%) invert(65%) sepia(67%) saturate(6554%) hue-rotate(335deg) brightness(100%) contrast(96%);
+        // }
+        // &:has(.liked-btn) .like-btn__icon{
+        //     display:none;
+        // }
+        &.liked-btn .like-btn__icon{
+            display:none;
+        }
+        &:not(.liked-btn) .like-btn__icon--liked{
+            display:none;
+        }
+}
+ .btn{
+    height:46px;
+    padding:0 20px;
+    border-radius: 6px;
+    background:#292E39;
+    font-size:1.8rem;
+    font-weight:500;
+    user-select: none;
+    white-space: nowrap;
+    // + .btn{
+    //     margin-left:30px;
+    // }
+    &--text{
+        color:#9E9DA8;
+        background-color: transparent;
+        font-weight:400;
+    }
+    &--primary{
+        background-color: #ffb700;
+        color:#1A162E;
+        white-space: nowrap;
+    }
+    &--outline{
+        background: transparent;
+        border: solid 1px #9E9DA8;
+    }
+    &[disabled],
+    &--disabled{
+        opacity: 0.5;
+        pointer-events: none;
+    }
+    &--rounded{
+        border-radius: 99px;
+        border: solid 1px #fff;
+    }
+    &:hover{
+        opacity:0.9;
+    }
+    &-center{
+        margin-top:30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:10px;
+        width:100%;
+    }
+    
+ }

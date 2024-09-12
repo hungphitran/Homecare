@@ -7,7 +7,7 @@ const accountController={
     },
         //show login page
     showRegister: async (req,res,next)=>{
-        res.render('partials/register')
+        res.render('pages/register',{layout:false})
     },
     //login and show account
     login: async (req,res,next)=>{

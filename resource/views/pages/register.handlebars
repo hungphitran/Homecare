@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project 8</title>
+    <!-- link css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- script -->
+    <script src="/js/scripts.js"></script>
+</head>
+
+<body>
+    <main class="auth">
+        <div class="auth__intro">
+            <!-- logo -->
+            <a href="./">
+                <div class="logo auth__logo">
+                    <img src="/icon/main-logo.svg" alt="Homecare" class="logo__img">
+                    <h1 class="logo__title">Homecare</h1>
+                </div>
+            </a>
+            <img src="/img/sign-up.svg" alt="sign-up" class="auth__intro-img">
+            <button class="auth-btn js-toggle" toggle-target="#btn-content">
+                <img src="/icon/the-next-page.svg" alt="the next page" class="auth__icon-the-next-page">
+            </button>
+        </div>
+        <div id="btn-content" class="auth__content hide">
+            <div class="auth__content-inner">
+                <!-- logo -->
+                <a href="./">
+                    <div class="logo">
+                        <img src="/icon/main-logo.svg" alt="grocerymart" class="logo__img">
+                        <h1 class="logo__title">Homecare</h1>
+                    </div>
+                </a>
+                <h2 class="auth__heading">Sign Up</h2>
+                <p class="auth__desc">Let’s create your account and Shop like a pro and save money.</p>
+                <form method="post" action="/account/register" class="form auth__form">
+                    <!-- input 1 -->
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input id="email-input" placeholder="Email" type="email" class="form__input" value="{{account}}" required>
+                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error">email này nhập chưa chính xác</p>
+                    </div>
+                    <!-- input 2 -->
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input id="password-input" placeholder="password" type="password" class="form__input" minlength="6" value="{{account}}" required>
+                            <img src="/icon/key.svg" alt="key" class="form__input-icon">
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error">mật khẩu nhập ít nhất 6 kí tự</p>
+                    </div>
+                    <!-- input 3 -->
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input  id="confirm-password-input" placeholder="confirm password" type="password" class="form__input" minlength="6"
+                                required value="{{account}}">
+                            <img src="/icon/key.svg" alt="key" class="form__input-icon">
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error">mật khẩu nhập ít nhất 6 kí tự</p>
+                    </div>
+                    <!-- input 4 -->
+                    <div class="form__group form__group-inline">
+                        <label class="form__check-box">
+                            <input type="checkbox" class="form__checkbox-input">
+                            <span class="form__checkbox-label">Set as default card</span>
+                        </label>
+                    </div>
+                    <!-- item 5  -->
+                    <div class="form__group form__group-btn form__submit-btn">
+                        <button class="submit-btn btn btn--primary">Sign Up</button>
+                        <button class="btn btn--outline btn-center">
+                            <img src="/icon/gg.svg" alt="google" class="btn__icon icon">
+                            Sign in with Gmail
+                        </button>
+                    </div>
+                </form>
+                <p class="auth__text">
+                    You have an account yet?
+                    <a href="/account" class="auth__link">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </main>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
+    <script>
+        const formRegister = document.querySelector('form')
+        const submitBtn = formRegister.querySelector('.submit-btn');
+        const emailInput= document.querySelector('#email-input');
+        const passWordInput= document.querySelector('#password-input');
+        const confirmPasswordInput= document.querySelector('#confirm-password-input');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+*, ::before, ::after{
+    box-sizing: border-box;
+}
+
+html{
+    font-size:62.5%;
+}
+body{
+    color:var(--text-color);
+    font-size:1.6rem;
+    font-family: 'Gordita', sans-serif;
+    background-color: var(--color-body);
+}
+
+a{
+    color:inherit;
+    text-decoration: none;
+}
+button{
+    outline: none;
+    border: none;
+    background-color:transparent;
+}
+button,input,textarea,select,a,img{
+    font-family: inherit;
+    color:inherit;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.icon {
+    filter: var(--icon-color);
+}

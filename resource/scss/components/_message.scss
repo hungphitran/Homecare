@@ -1,0 +1,10 @@
+.message{
+    width: 100%;
+    padding: 16px;
+    text-align: start;
+    border-radius: 10px;
+    &__error{
+        border: 1px solid #5bc45f;
+        background: rgba(39, 243, 117, 0.2);
+    }
+}
