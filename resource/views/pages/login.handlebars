@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -16,17 +16,14 @@
         <div class="auth__intro">
             <!-- logo -->
             <a href="./">
-                <div class="logo auth__logo">
+                <div class="logo auth__logo auth__logo-sign-in">
                     <img src="/icon/main-logo.svg" alt="Homecare" class="logo__img">
                     <h1 class="logo__title">Homecare</h1>
                 </div>
             </a>
             <img src="/img/sign-up.svg" alt="sign-up" class="auth__intro-img">
-            <button class="auth-btn js-toggle" toggle-target="#btn-content">
-                <img src="/icon/the-next-page.svg" alt="the next page" class="auth__icon-the-next-page">
-            </button>
         </div>
-        <div id="btn-content" class="auth__content hide">
+        <div id="btn-content" class="auth__content">
             <div class="auth__content-inner">
                 <!-- logo -->
                 <a href="./">
@@ -35,49 +32,51 @@
                         <h1 class="logo__title">Homecare</h1>
                     </div>
                 </a>
-                <h2 class="auth__heading">Sign Up</h2>
-                <p class="auth__desc">Let’s create your account and Shop like a pro and save money.</p>
+                <h2 class="auth__heading">Hello Again!</h2>
+                <p class="auth__desc">Welcome back to sign in. As a returning customer, you have access to your previously saved all information.</p>
                 <form id="form-1" method="post" action="/account/register" class="form auth__form">
                     <!-- input 1 -->
                     <div class="form__group">
                         <div class="form__text-input form-control">
-                            <input id="tel-input" placeholder="Phone" type="tel" class="form__input" value="{{account}}" name="phone" minlength="10" required>
+                            <input id="tel-input" placeholder="phone" type="tel" class="form__input" name="phone"
+                                value="{{account}}" required min-length="10" >
                             <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                         </div>
                         <p class="form__error"></p>
+                        {{!-- please enter at least about 10 number --}}
                     </div>
                     <!-- input 2 -->
                     <div class="form__group">
                         <div class="form__text-input form-control">
-                            <input name="password" id="password" placeholder="password" type="password" class="form__input" minlength="6" value="{{account}}" required>
+                            <input name="password" id="password" placeholder="password" type="password" class="form__input"
+                                minlength="6" value="{{account}}"  required>
                             <img src="/icon/key.svg" alt="key" class="form__input-icon">
                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                         </div>
                         <p class="form__error"></p>
                     </div>
                     <!-- input 3 -->
-                    <div class="form__group">
-                        <div class="form__text-input form-control">
-                            <input   id="password_confirmation" placeholder="confirm password" type="password" class="form__input" minlength="6"
-                                required value="{{account}}">
-                            <img src="/icon/key.svg" alt="key" class="form__input-icon">
-                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                        </div>
-                        <p class="form__error"></p>
+                    <!-- input 4 -->
+                    <div class="form__group form__group-inline">
+                        <label class="form__check-box">
+                            <input type="checkbox" class="form__checkbox-input">
+                            <span class="form__checkbox-label">Set as default card</span>
+                        </label>
+                        <a href="./forgot-password.html" class="auth__link">Forgot Password</a>
                     </div>
                     <!-- item 5  -->
                     <div class="form__group form__group-btn form__submit-btn">
-                        <button class="submit-btn btn btn--primary">Sign Up</button>
+                        <button type="submit" class="btn btn--primary">Log In</button>
                         <button class="btn btn--outline btn-center">
                             <img src="/icon/gg.svg" alt="google" class="btn__icon icon">
-                            Sign in with Gmail
+                            Set as default card
                         </button>
                     </div>
                 </form>
                 <p class="auth__text">
                     You have an account yet?
-                    <a href="/account" class="auth__link">Sign In</a>
+                    <a href="/account/register" class="auth__link">Sign Up</a>
                 </p>
             </div>
         </div>
@@ -90,17 +89,10 @@
             errorElement: ".form__error",
             formGroupElement: ".form__group",
             rules: [
-                validator.isRequire("#tel-input", "You haven't entered yet."),
-                validator.isPhone("#tel-input", "Please enter the phone number in the correct format"),
+            validator.isRequire("#tel-input","You haven't entered yet."),
+            validator.isPhone("#tel-input","Please enter the phone number in the correct format"),
                 validator.isRequire("#password", "You haven't entered yet."),
                 validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
-                validator.isRequire("#password_confirmation", "bạn vẫn chưa nhập!"),
-                validator.isConfirmationPassword("#password_confirmation", function getPassword() {
-                    var element = validator.form
-                    var password = document.querySelector("#password").value;
-                    console.log(password);
-                    return password;
-                }, "Your password is incorrect!")
             ],
             onsubmit: function (data) {
                 console.log(data);
@@ -113,9 +105,9 @@
     <script>
         const formRegister = document.querySelector('form')
         const submitBtn = formRegister.querySelector('.submit-btn');
-        const emailInput= document.querySelector('#email-input');
-        const passWordInput= document.querySelector('#password-input');
-        const confirmPasswordInput= document.querySelector('#confirm-password-input');
+        const emailInput = document.querySelector('#email-input');
+        const passWordInput = document.querySelector('#password-input');
+        const confirmPasswordInput = document.querySelector('#confirm-password-input');
     </script>
 </body>
 
