@@ -17,7 +17,9 @@ const accountController={
 
         // console.log(req.body)
         // res.render('partials/detailedaccount')
+        // console.log(req.body);
         res.render('pages/login',{layout: false})
+        // res.send(req.body);
     },
     register: async (req,res,next)=>{
         // res.send(req.body)

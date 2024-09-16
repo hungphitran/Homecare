@@ -17,8 +17,8 @@
             <!-- logo -->
             <a href="./">
                 <div class="logo auth__logo">
-                    <img src="/icon/main-logo.svg" alt="Homecare" class="logo__img">
-                    <h1 class="logo__title">Homecare</h1>
+                    <img src="/icon/logo-removeBg.png" alt="Homecare" class="logo__img">
+                    {{!-- <h1 class="logo__title">Homecare</h1> --}}
                 </div>
             </a>
             <img src="/img/sign-up.svg" alt="sign-up" class="auth__intro-img">
@@ -31,14 +31,34 @@
                 <!-- logo -->
                 <a href="./">
                     <div class="logo">
-                        <img src="/icon/main-logo.svg" alt="grocerymart" class="logo__img">
-                        <h1 class="logo__title">Homecare</h1>
+                        <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img">
+                        {{!-- <h1 class="logo__title">Homecare</h1> --}}
                     </div>
                 </a>
                 <h2 class="auth__heading">Sign Up</h2>
                 <p class="auth__desc">Let’s create your account and Shop like a pro and save money.</p>
                 <form id="form-1" method="post" action="/account/register" class="form auth__form">
-                    <!-- input 1 -->
+                {{!-- input 1 --}}
+                    <div class="form__group">
+                        <div class="form__text-input form-control">
+                            <input id="full-name-input" placeholder="Full Name" type="text" class="form__input" value="{{account}}" name="full-name"
+                                 required>
+                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error"></p>
+                    </div>
+                     {{!-- input 2 --}}
+                    <div class="form__group">
+                        <div class="form__text-input form-control">
+                            <input id="address-input" placeholder="Address" type="text" class="form__input" value="{{account}}" name="address"
+                                 required>
+                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error"></p>
+                    </div>
+                    <!-- input 3 -->
                     <div class="form__group">
                         <div class="form__text-input form-control">
                             <input id="tel-input" placeholder="Phone" type="tel" class="form__input" value="{{account}}" name="phone" minlength="10" required>
@@ -47,7 +67,7 @@
                         </div>
                         <p class="form__error"></p>
                     </div>
-                    <!-- input 2 -->
+                    <!-- input 4 -->
                     <div class="form__group">
                         <div class="form__text-input form-control">
                             <input name="password" id="password" placeholder="password" type="password" class="form__input" minlength="6" value="{{account}}" required>
@@ -56,7 +76,7 @@
                         </div>
                         <p class="form__error"></p>
                     </div>
-                    <!-- input 3 -->
+                    <!-- input 5 -->
                     <div class="form__group">
                         <div class="form__text-input form-control">
                             <input   id="password_confirmation" placeholder="confirm password" type="password" class="form__input" minlength="6"
@@ -90,6 +110,8 @@
             errorElement: ".form__error",
             formGroupElement: ".form__group",
             rules: [
+                validator.isRequire("#full-name-input", "You haven't entered yet."),
+                validator.isRequire("#address-input", "You haven't entered yet."),
                 validator.isRequire("#tel-input", "You haven't entered yet."),
                 validator.isPhone("#tel-input", "Please enter the phone number in the correct format"),
                 validator.isRequire("#password", "You haven't entered yet."),

@@ -5,7 +5,7 @@
 }
 .header{
     background-color: var(--header-br-color);
-    padding:30px 0;
+    // padding:30px 0;
      @include abstracts.screen(lg){
         width:100%;
         padding:20px 0;
@@ -46,7 +46,7 @@
 
 }
 .navbar{
-    margin-left:144px;
+    margin-left:auto;
     margin-right:auto;
     @include abstracts.screen(xl){
             margin-left:50px;
@@ -190,11 +190,12 @@
          @extend %flexItemsCenter;
         gap:6px;
         height:50px;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 700;
         line-height: 1.46; /* 146.667% */
-        padding:0 15px;
+        padding:0 10px;
+        white-space: nowrap;
         @include abstracts.screen(lg){
             padding:0;
             justify-content: space-between;
@@ -203,6 +204,7 @@
     }
     &__arrow{
         margin-top:3px;
+        transform: translateY(-50%);
         @include abstracts.screen(lg){
             rotate: -90deg;
             transition: rotate 0.3s;

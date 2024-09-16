@@ -1213,10 +1213,10 @@ button, input, textarea, select, a, img {
   }
 }
 html {
-  --text-color:#1A162E;
+  --text-color:#2b571c;
   --icon-color: brightness(0) saturate(100%) invert(8%) sepia(16%) saturate(2698%) hue-rotate(212deg) brightness(94%) contrast(95%);
   --icon-color-footer: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(2%) hue-rotate(331deg) brightness(102%) contrast(101%);
-  --header-br-color: #02571c;
+  --header-br-color: #ffffff;
   --color-body:#FFFFFF;
   --Secondary-Color-Secondary-1:#1A162E;
   --Secondary-Color-Background:#fff;
@@ -1252,7 +1252,7 @@ html {
 }
 @media (max-width: 991.98px) {
   html {
-    --header-br-color:#02571c;
+    --header-br-color:#ffffff;
     --color-body:#FFFFFF;
     --Secondary-Color-Background:#EEEEEE;
     --br-separate:black;
@@ -1301,7 +1301,6 @@ html.dark {
 
 .header {
   background-color: var(--header-br-color);
-  padding: 30px 0;
 }
 @media (max-width: 991.98px) {
   .header {
@@ -1351,7 +1350,7 @@ html.dark {
 }
 
 .navbar {
-  margin-left: 144px;
+  margin-left: auto;
   margin-right: auto;
 }
 @media (max-width: 1199.98px) {
@@ -1479,11 +1478,12 @@ html.dark {
 .navbar__link {
   gap: 6px;
   height: 50px;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.46; /* 146.667% */
-  padding: 0 15px;
+  padding: 0 10px;
+  white-space: nowrap;
 }
 @media (max-width: 991.98px) {
   .navbar__link {
@@ -1493,6 +1493,7 @@ html.dark {
 }
 .navbar__arrow {
   margin-top: 3px;
+  transform: translateY(-50%);
 }
 @media (max-width: 991.98px) {
   .navbar__arrow {
@@ -1731,8 +1732,11 @@ html.dark {
   white-space: nowrap;
 }
 .logo__img {
-  width: 32px;
-  height: 32px;
+  width: 100px;
+  height: 100px;
+}
+.logo__img-header {
+  transform: translateY(-10px);
 }
 .logo__title {
   color: var(--Secondary-Color-Secondary-1, #1A162E);
@@ -2083,7 +2087,7 @@ html.dark {
   font-weight: 400;
 }
 .btn--primary {
-  background-color: #ffb700;
+  background-color: #80ab8d;
   color: #1A162E;
   white-space: nowrap;
 }

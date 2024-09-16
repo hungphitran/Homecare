@@ -6,10 +6,14 @@
     <title>
         PROCLEANER
     </title>
+    <!-- link css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- script -->
+    <script src="/js/scripts.js"></script>
     <link rel="shortcut icon" href="/img/logo_PRO.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/01acedffd5.js" crossorigin="anonymous"></script>
-    <style>
-        body {
+    {{!-- <style>
+       /* body {
             min-height: 100rem;
             background-image: url(/img/slide3.jpg);
             background-repeat: no-repeat;
@@ -22,20 +26,23 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
-        }
-    </style>
+        }*/
+    </style> --}}
 </head>
 
 <body>
-    <h1 style="background-color: white;">
+    {{!-- <h1 style="background-color: white;">
         <a href="/">
             <img src="/img/logo_small.png">
         </a>
-    </h1>
-    <div class="funtion-btn">
+    </h1> --}}
+    <header id="header" class="header">
+        {{>header}}
+    </header>
+    {{!-- <div class="funtion-btn">
         <a href="/account">Sign in/up</a>
-    </div>
-    {{{body}}}
+    </div> --}}
+    {{!-- {{{body}}}
 
     <div class="footer" style="margin-top: 100px; height:200px">
         <h1>Contact</h1>
@@ -50,7 +57,10 @@
             <input type="text" name="message" id="" required>
             <button>submit</button>
         </form>
-    </div>
+    </div> --}}
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
 </body>
 
 </html>

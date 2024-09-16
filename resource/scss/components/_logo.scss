@@ -8,8 +8,11 @@
     //     translate: 60%;
     // }
     &__img{
-        width:32px;
-        height:32px;
+        width:100px;
+        height: 100px;
+    }
+    &__img-header{
+        transform: translateY(-10px);
     }
     &__title{
         color: var(--Secondary-Color-Secondary-1, #1A162E);

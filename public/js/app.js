@@ -39,7 +39,7 @@ function validator(options) {
     }
     
     formElement.onsubmit = function (e) {
-        e.preventDefault();
+        // e.preventDefault();
         var isvalid = true;
         options.rules.forEach(function (rule) {
             var inputElement = formElement.querySelector(rule.selector);
