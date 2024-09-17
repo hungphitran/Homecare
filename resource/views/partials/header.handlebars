@@ -20,10 +20,10 @@
                     <button class="navbar__close--btn js-toggle" toggle-target="#navbar">
                         <img src="/icon/arrow-left.svg" alt="arrow-left">
                     </button>
-                    <a href="./sign-in.html" class="nav-btn">
+                    <a href="/account" class="nav-btn">
                         <button class="btn btn--text">Sign-in</button>
                     </a>
-                    <a href="./sign-up.html" class="nav-btn">
+                    <a href="/account/register" class="nav-btn">
                         <button class="btn btn--primary">Sign-up</button>
                     </a>
                 </div>
@@ -46,6 +46,28 @@
                     <a href="#!" class="navbar__link">BẢNG GIÁ
                         <img src="/icon/arrow-down.svg" alt="arrow-down" class="icon navbar__arrow">
                     </a>
+
+                    <div class="price-list">
+                        <table>
+                            <thead>
+                                <th scope="col" style="width:20%">Service</th>
+                                <th scope="col" style="width:20%">Description</th>
+                                <th scope="col" style="width:20%">Extra Fee</th>
+                                <th scope="col" style="width:20%">Basic Price</th>
+                            </thead>
+                            <tbody>
+                                {{#each services}}
+                                <tr>
+                                    <td>{{this.title}}</td>
+                                    <td>{{{this.description}}}</td>
+                                    <td>{{this.extraFee}}</td>
+                                    <td>{{this.basicPrice}}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+
+                        </table>
+                    </div>
                 </li>
                 <li class="navbar__item">
                     <a href="#!" class="navbar__link">HỎI ĐÁP
@@ -71,10 +93,10 @@
             <div class="navbar__overlay js-toggle" toggle-target="#navbar"></div>
         </nav>
         <div class="top-act top-act__btn">
-            <a href="./sign-in.html">
+            <a href="/account/register">
                 <button class="btn btn--text">Sign-in</button>
             </a>
-            <a href="./sign-up.html">
+            <a href="/account">
                 <button class="btn btn--primary">Sign-up</button>
             </a>
         </div>
