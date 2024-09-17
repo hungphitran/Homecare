@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -38,21 +38,21 @@
                 <h2 class="auth__heading">Sign Up</h2>
                 <p class="auth__desc">Let’s create your account and Shop like a pro and save money.</p>
                 <form id="form-1" method="post" action="/account/register" class="form auth__form">
-                {{!-- input 1 --}}
+                    {{!-- input 1 --}}
                     <div class="form__group">
                         <div class="form__text-input form-control">
-                            <input id="full-name-input" placeholder="Full Name" type="text" class="form__input" value="{{account}}" name="full-name"
-                                 required>
+                            <input id="full-name-input" placeholder="Full Name" type="text" class="form__input"
+                                value="{{account}}" name="name" required>
                             <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                         </div>
                         <p class="form__error"></p>
                     </div>
-                     {{!-- input 2 --}}
+                    {{!-- input 2 --}}
                     <div class="form__group">
                         <div class="form__text-input form-control">
-                            <input id="address-input" placeholder="Address" type="text" class="form__input" value="{{account}}" name="address"
-                                 required>
+                            <input id="address-input" placeholder="Address" type="text" class="form__input"
+                                value="{{account}}" name="address" required>
                             <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                         </div>
@@ -61,7 +61,8 @@
                     <!-- input 3 -->
                     <div class="form__group">
                         <div class="form__text-input form-control">
-                            <input id="tel-input" placeholder="Phone" type="tel" class="form__input" value="{{account}}" name="phone" minlength="10" required>
+                            <input id="tel-input" placeholder="Phone" type="tel" class="form__input" value="{{account}}"
+                                name="phone" minlength="10" required>
                             <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                         </div>
@@ -70,7 +71,8 @@
                     <!-- input 4 -->
                     <div class="form__group">
                         <div class="form__text-input form-control">
-                            <input name="password" id="password" placeholder="password" type="password" class="form__input" minlength="6" value="{{account}}" required>
+                            <input name="password" id="password" placeholder="password" type="password"
+                                class="form__input" minlength="6" value="{{account}}" required>
                             <img src="/icon/key.svg" alt="key" class="form__input-icon">
                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                         </div>
@@ -79,8 +81,8 @@
                     <!-- input 5 -->
                     <div class="form__group">
                         <div class="form__text-input form-control">
-                            <input   id="password_confirmation" placeholder="confirm password" type="password" class="form__input" minlength="6"
-                                required value="{{account}}">
+                            <input id="password_confirmation" placeholder="confirm password" type="password"
+                                class="form__input" minlength="6" required value="{{account}}">
                             <img src="/icon/key.svg" alt="key" class="form__input-icon">
                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                         </div>
@@ -135,9 +137,9 @@
     <script>
         const formRegister = document.querySelector('form')
         const submitBtn = formRegister.querySelector('.submit-btn');
-        const emailInput= document.querySelector('#email-input');
-        const passWordInput= document.querySelector('#password-input');
-        const confirmPasswordInput= document.querySelector('#confirm-password-input');
+        const emailInput = document.querySelector('#email-input');
+        const passWordInput = document.querySelector('#password-input');
+        const confirmPasswordInput = document.querySelector('#confirm-password-input');
     </script>
 </body>
 

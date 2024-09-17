@@ -1,46 +1,58 @@
 require('dotenv').config()
-const dashboardController={
+const dashboardController = {
     //GET of dashboard
-    show: async (req,res,next)=>{
+    show: async (req, res, next) => {
         let locations;
         let services;
         let helpers;
-            try{
-                //call api to get locations
-               locations= await fetch(process.env.API_URL+'/location')
-               .then(data=>data.json())
-               .then(data=>data)
-               
-            }
-            catch(err){
-                console.error(err);
-            }
+        let user;
+        try {
+            //call api to get current user
+            let phone = req.session.user;
+            user = await fetch(process.env.API_URL + '/customer/' + phone)
+                .then(data => data.json())
+                .then(data => data)
+        }
+        catch (err) {
+            console.error(err);
+        }
+        try {
+            //call api to get locations
+            locations = await fetch(process.env.API_URL + '/location')
+                .then(data => data.json())
+                .then(data => data)
 
-            try{
-                services= await fetch(process.env.API_URL+'/service')
-                .then(data=>data.json())
-                .then(data=>data)
-            }
-            catch(err){
-                console.error(err)
-            }
-            try{
-                //call api to get helpers
-               helpers= await fetch(process.env.API_URL+'/helper')
-               .then(data=>data.json())
-               .then(data=>data)
-               
-            }
-            catch(err){
-                console.error(err);
-            }
+        }
+        catch (err) {
+            console.error(err);
+        }
+
+        try {
+            services = await fetch(process.env.API_URL + '/service')
+                .then(data => data.json())
+                .then(data => data)
+        }
+        catch (err) {
+            console.error(err)
+        }
+        try {
+            //call api to get helpers
+            helpers = await fetch(process.env.API_URL + '/helper')
+                .then(data => data.json())
+                .then(data => data)
+
+        }
+        catch (err) {
+            console.error(err);
+        }
         // give data to dashboard
-        res.render('partials/index',{
-            locations:locations,
-            services:services,
-            helpers:helpers
+        res.render('partials/index', {
+            user: user,
+            locations: locations,
+            services: services,
+            helpers: helpers,
         })
     }
 }
 
-module.exports= dashboardController;
+module.exports = dashboardController;
