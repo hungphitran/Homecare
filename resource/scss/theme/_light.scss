@@ -1,6 +1,6 @@
 @use "../abstracts";
 html{
-    --text-color:#2b571c;
+    --text-color:#000;
     --icon-color: brightness(0) saturate(100%) invert(8%) sepia(16%) saturate(2698%) hue-rotate(212deg) brightness(94%) contrast(95%);
     --icon-color-footer: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(2%) hue-rotate(331deg) brightness(102%) contrast(101%);
     --header-br-color: #ffffff;
@@ -58,4 +58,12 @@ html{
       --Secondary-Color-Secondary-2:#171C28;
       --Secondary-Color-Secondary-3: #171C28;
       --Blue-Blue: #0071DC;
+      // menu-top
+      --color-menu-top-heading:#fff;
+      --br-menu-top-heading:#02571C;
+      // column 1
+      --br-row-2: rgb(140 193 61);
+      --color-text-menu-top: rgb(37 110 59);
+      --color-text-detail:rgb(37 110 59);
+
 }

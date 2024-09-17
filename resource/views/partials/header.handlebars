@@ -7,7 +7,7 @@
             </button>
         </div>
         <!-- logo -->
-        <a href="./">
+        <a href="/">
             <div class="logo">
                 <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo __img-header">
             </div>
@@ -15,7 +15,12 @@
         <!-- nav -->
         <nav class="navbar">
 
-            <ul id="navbar" class="navbar__list">
+            <ul id="navbar" class="navbar__list js-dropdown-list">
+                {{#if user}}
+                <p>{{user.phone}}</p>
+                {{else}}
+                <p>no login</p>
+                {{/if}}
                 <div class="navbar-dis">
                     <button class="navbar__close--btn js-toggle" toggle-target="#navbar">
                         <img src="/icon/arrow-left.svg" alt="arrow-left">
@@ -46,6 +51,7 @@
                     <a href="#!" class="navbar__link">BẢNG GIÁ
                         <img src="/icon/arrow-down.svg" alt="arrow-down" class="icon navbar__arrow">
                     </a>
+<<<<<<< HEAD
 
                     <div class="price-list">
                         <table>
@@ -67,22 +73,111 @@
                             </tbody>
 
                         </table>
+=======
+                    <div class="drop-down">
+                        <div class="drop-down__inner">
+                            <div class="menu-top">
+                                <div class="menu-top__title">
+                                    <h2 class="menu-top__heading">BẢNG GIÁ</h2>
+                                </div>
+                                <div class="menu-top__content">
+                                    <h2 class="menu-top__content-heading">Bảng giá của một người giúp việc</h2>
+                                    <table class="menu-top__content-table">
+                                        <tr class="menu-top__content-row menu-top__content-table-row-1">
+                                            <th class="menu-top__content-col">Dịch vụ</th>
+                                            <th class="menu-top__content-col">Phí cơ bản (VNĐ/Giờ</th>
+                                            <th class="menu-top__content-col">Phụ phí</th>
+                                            <th class="menu-top__content-col">Phí ngoài giờ</th>
+                                        </tr>
+                                        {{#each services}}
+                                        <tr class="menu-top__content-row menu-top__content-table-row-2">
+                                            <td class="menu-top__content-col">{{this.title}}</td>
+                                            <td class="menu-top__content-col">{{this.basicPrice}}VNĐ</td>
+                                            <td class="menu-top__content-col">{{this.extraFee}}</td>
+                                            <td class="menu-top__content-col">{{overTimePrice_Customer}}%</td>
+                                        </tr>
+                                        {{/each}}
+                                    </table>
+                                    <div class="menu-top__content-infor">
+                                        <h2 class="menu-top__content-heading">Ghi Chú</h2>
+                                        <div class="menu-top__content-detail">
+                                            <p class="menu-top__content-desc">Phụ phí: là phí tính cho những dịch vụ mà
+                                                khách hàng có những yêu cầu thêm nhưng chưa được xác định trước. Phụ phí
+                                                này
+                                                sẽ được nhân viên công ty tư vấn cho quý khách hàng ứng với từng trường
+                                                hợp cụ thể.</p>
+                                        </div>
+                                        <div class="menu-top__content-detail">
+                                            <p class="menu-top__content-desc">Phí ngoài giờ: là % phí cơ bản, tính cho
+                                                những dịch vụ mà khách hàng yêu cầu được phục vụ ngoài khung giờ chuẩn.
+                                                Khung
+                                                giờ chuẩn của công ty là từ 8 giờ sáng đến 6 giờ chiều.</p>
+                                        </div>
+                                    </div>
+                                    <div class="menu-top__content-infor">
+                                        <h2 class="menu-top__content-heading">Chính sách đặc biệt về giá</h2>
+                                        <div class="menu-top__content-detail">
+                                            <p class="menu-top__content-desc">Trường hợp quý khách hàng đặt đơn hàng có
+                                                thời hạn từ 7 đến 15 ngày, quý khách hàng được giảm giá 5% tổng chi phí
+                                                cho cả
+                                                đơn hàng.</p>
+                                        </div>
+                                        <div class="menu-top__content-detail">
+                                            <p class="menu-top__content-desc">Trường hợp quý khách hàng đặt đơn hàng có
+                                                thời hạn hơn 15 ngày, quý khách hàng được giảm giá 10% tổng chi phí cho
+                                                cả đơn
+                                                hàng.</p>
+                                        </div>
+                                        <div class="menu-top__content-detail">
+                                            <p class="menu-top__content-desc">Ngoài ra, công ty còn có những mã khuyến
+                                                mãi sẽ được gửi trực tiếp đến quý khách hàng cho những dịp đặc biệt
+                                                và/hoặc
+                                                những khách hàng thân thiết.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+>>>>>>> 834bb75c02fa49649fbb444275942348d1e59f27
                     </div>
                 </li>
                 <li class="navbar__item">
                     <a href="#!" class="navbar__link">HỎI ĐÁP
                         <img src="/icon/arrow-down.svg" alt="arrow-down" class="icon navbar__arrow">
                     </a>
+                    {{!-- <div class="drop-down">
+                        <div class="drop-down__inner">
+                            <div class="menu-top">
+                                <div class="menu-top__main">
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
                 </li>
                 <li class="navbar__item">
                     <a href="#!" class="navbar__link">CHÍNH SÁCH
                         <img src="/icon/arrow-down.svg" alt="arrow-down" class="icon navbar__arrow">
                     </a>
+                    {{!-- <div class="drop-down">
+                        <div class="drop-down__inner">
+                            <div class="menu-top">
+                                <div class="menu-top__main">
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
                 </li>
                 <li class="navbar__item">
                     <a href="#!" class="navbar__link">LIÊN HỆ
                         <img src="/icon/arrow-down.svg" alt="arrow-down" class="icon navbar__arrow">
                     </a>
+                    {{!-- <div class="drop-down">
+                        <div class="drop-down__inner">
+                            <div class="menu-top">
+
+                            </div>
+                        </div>
+                    </div> --}}
                 </li>
                 <li class="navbar__item">
                     <a href="#!" class="navbar__link">BLOG
@@ -92,13 +187,25 @@
             </ul>
             <div class="navbar__overlay js-toggle" toggle-target="#navbar"></div>
         </nav>
+        {{#if user}}
+        <p>{{user.phone}}</p>
+        {{else}}
         <div class="top-act top-act__btn">
+<<<<<<< HEAD
             <a href="/account/register">
                 <button class="btn btn--text">Sign-in</button>
             </a>
             <a href="/account">
+=======
+            <a href="/account">
+                <button class="btn btn--text">Sign-in</button>
+            </a>
+            <a href="/account/register">
+>>>>>>> 834bb75c02fa49649fbb444275942348d1e59f27
                 <button class="btn btn--primary">Sign-up</button>
             </a>
         </div>
+        {{/if}}
+
     </div>
 </div>
