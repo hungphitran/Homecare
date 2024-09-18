@@ -2,8 +2,7 @@
     <div class="nav-top">
         <!-- ba gach -->
         <div class="nav-top__group">
-            <button class="nav-top__btn js-toggle" toggle-target="#navbar">
-                <img src="/icon/ba-gach.svg" alt="ba-gach" class="icon nav-top__icon">
+            <button class="nav-top__btn"                <img src="/icon/ba-gach.svg" alt="ba-gach" class="icon nav-top__icon">
             </button>
         </div>
         <!-- logo -->
@@ -22,8 +21,7 @@
                 <p>no login</p>
                 {{/if}}
                 <div class="navbar-dis">
-                    <button class="navbar__close--btn js-toggle" toggle-target="#navbar">
-                        <img src="/icon/arrow-left.svg" alt="arrow-left">
+                    <button class="navbar__close--btn" >                      <img src="/icon/arrow-left.svg" alt="arrow-left">
                     </button>
                     <a href="/account" class="nav-btn">
                         <button class="btn btn--text">Sign-in</button>
@@ -121,31 +119,471 @@
                     <a href="#!" class="navbar__link">HỎI ĐÁP
                         <img src="/icon/arrow-down.svg" alt="arrow-down" class="icon navbar__arrow">
                     </a>
-                    {{!-- <div class="drop-down">
+                    <div class="drop-down">
                         <div class="drop-down__inner">
                             <div class="menu-top">
-                                <div class="menu-top__main">
+                                <div class="menu-top__title">
+                                    <h2 class="menu-top__heading">F.A.Q - Câu hỏi thường gặp</h2>
                                 </div>
+                                <ul class="menu-top__list-question">
+                                    <li class="menu-top__item-question">
+                                        <button class="menu-top__button-question active" >
+                                            1. Tại sao Quý khách hàng nên chọn người giúp việc thông qua Homecare?
+                                            <div class="menu-top__dropdown">
+                                                <div class="menu-top__dropdown-inner">
+                                                    <div class="menu-top__content-infor">
+                                                        <h3 class="menu-top__content-heading">Những lý do sau đây sẽ giúp cho quý khách hàng giải đáp được thắc mắc
+                                                            trên:
+                                                        </h3>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Người giúp việc là nhân viên của Homecare, chịu sự quản lý và chấp
+                                                                hành nội quy của Công ty nên Quý khách hàng không
+                                                                cần lo lắng về việc quản lý Người giúp việc.</p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Người giúp việc có lý lịch nhân thân rõ ràng, có giấy chứng nhận sức
+                                                                khỏe của bệnh viện.</p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Quý khách hàng sẽ luôn có Người giúp việc ổn định trong suốt thời gian
+                                                                hợp đồng.</p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Quý khách hàng được Homecare chịu trách nhiệm vật chất nếu có thất
+                                                                thoát xảy ra do người giúp việc.</p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Quý khách hàng được Homecare xếp hạng nhân viên thông qua đánh giá của
+                                                                khách hàng nên luôn đảm bảo chất lượng Người giúp việc..</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                       
+                                        {{!-- <div id="answer-1" class="menu-top__dropdown hide">
+                                            <div class="menu-top__dropdown-inner">
+                                                <div class="menu-top__content-infor">
+                                                    <h3 class="menu-top__content-heading">Những lý do sau đây sẽ giúp cho quý khách hàng giải đáp được thắc mắc trên:
+</h3>
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Người giúp việc là nhân viên của Homecare, chịu sự quản lý và chấp hành nội quy của Công ty nên Quý khách hàng không
+                                                        cần lo lắng về việc quản lý Người giúp việc.</p>
+                                                    </div>
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Người giúp việc có lý lịch nhân thân rõ ràng, có giấy chứng nhận sức khỏe của bệnh viện.</p>
+                                                    </div>
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Quý khách hàng sẽ luôn có Người giúp việc ổn định trong suốt thời gian hợp đồng.</p>
+                                                    </div>
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Quý khách hàng được Homecare chịu trách nhiệm vật chất nếu có thất thoát xảy ra do người giúp việc.</p>
+                                                    </div>
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Quý khách hàng được Homecare xếp hạng nhân viên thông qua đánh giá của khách hàng nên luôn đảm bảo chất lượng Người giúp việc..</p>
+                                                    </div>
+                                            </div>
+                                        </div> --}}
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                        <button class="menu-top__button-question"  >
+                                        2. Liên hệ với Homecare như thế nào?
+                                        <div   class="menu-top__dropdown">
+                                            <div class="menu-top__dropdown-inner">
+                                                <div class="menu-top__content-infor">
+                                                    <h3 class="menu-top__content-heading">Vui lòng gọi số: 08.3930.5057 08.3930.5058 hoặc gửi email đến địa chỉ:
+                                                        cs@Homecare.vn
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </button>
+                                       
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                        <button class="menu-top__button-question">
+                                            3. Ứng dụng Homecare đòi các quyền truy cập (permission) để làm gì?
+                                            <div id="answer-3" class="menu-top__dropdown">
+                                                <div class="menu-top__dropdown-inner">
+                                                    <div class="menu-top__content-infor">
+                                                        <h3 class="menu-top__content-heading">Ứng dụng Homecare khi cài đặt sẽ sử dụng các quyền truy cập sau đây:
+                                                        </h3>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Vị trí người dùng: Giúp ứng dụng tìm vị trí hiện tại của người dùng để
+                                                                thiết lập địa điểm phục vụ dễ dàng hơn.</p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">SMS: Giúp ứng dụng tự động điền mã kích hoạt tài khoản mà không cần
+                                                                phải vào ứng dụng tin nhắn.</p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Điện thoại: Giúp khách hàng khi click vào số điện thoại thì có thể gọi
+                                                                ngay cho Homecare.</p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Ảnh/phương tiện/tệp: Homecare lưu lại một số hình ảnh ít thay đổi để
+                                                                giúp ứng dụng chạy nhanh hơn.</p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Lịch sử ứng dụng và thiết bị: Homecare sẽ tự động ghi nhận những
+                                                                trường hợp chạy ứng dụng bị lỗi tạo điều kiện cho
+                                                                nhóm phát triển nâng cao chất lượng ứng dụng.</p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Quyền truy cập mạng: Homecare là ứng dụng cần kết nối mạng để có thể
+                                                                hoạt động</p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Nhận dạng: Homecare sử dụng nhận dạng để gửi thông tin trạng thái Yêu
+                                                                cầu cho người dùng thông qua trung tâm thông báo
+                                                                của điện thoại.
+                                                            </p>
+                                                        </div>
+                                                        <div class="menu-top__content-detail">
+                                                            <p class="menu-top__content-desc">Các quyền truy cập còn lại Homecare dùng để ghi nhận thói quen sử dụng
+                                                                của người dùng nhằm giúp nhóm phát triển liên
+                                                                tục cải tiến ứng dụng để phục vụ người sử dụng tốt hơn.
+                                                            </p>
+                                                        </div>
+                                            
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                       
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                        <button class="menu-top__button-question">
+                                            4. Tại sao phải đánh giá người giúp việc?
+                                            <div id="answer-4" class="menu-top__dropdown">
+                                                <div class="menu-top__dropdown-inner">
+                                                    <div class="menu-top__content-infor">
+                                                        <h3 class="menu-top__content-heading">Đánh giá người giúp việc vừa là quyền lợi vừa là trách nhiệm của Quý
+                                                            khách hàng. Việc này giúp cho Công ty đánh giá
+                                                            chính xác hơn về chất lượng công việc mà nhân viên chúng tôi đang mang đến phục vụ Quý khách, đồng thời
+                                                            giúp chúng tôi
+                                                            có cơ sở để xác nhận với Quý khách hàng rằng chúng tôi đã mang đến cho Quý khách một dịch vụ đúng như
+                                                            cam kết.
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                        
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                    <button class="menu-top__button-question">
+                                        5. Làm thế nào để sử dụng dịch vụ của Homecare?
+                                        <div id="answer-5" class="menu-top__dropdown">
+                                            <div class="menu-top__dropdown-inner">
+                                                <div class="menu-top__content-infor">
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Đặt yêu cầu trực tiếp hoặc bằng ứng dụng Homecare trên smartphone hoặc
+                                                            thông qua website Homecare.vn.
+                                                        </p>
+                                                    </div>
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Liên hệ với chúng tôi:
+                                                        </p>
+                                                        <div class="menu-top__content-desc-list">
+                                                            <p class="menu-top__content-desc-child">Điện thoại: 08.3930.5057 08.3930.5058</p>
+                                                            <p class="menu-top__content-desc-child">Email: cs@Homecare.vn</p>
+                                                            <p class="menu-top__content-desc-child">Đến Trụ sở: 216 Nguyễn Thị Minh Khai, Phường 6, Quận 3, TP.
+                                                                HCM</p>
+                                                        </div>
+                                                    </div>
+                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                    <button class="menu-top__button-question">
+                                        6. Hình thức thanh toán phí sử dụng dịch vụ như thế nào?
+                                        <div id="answer-6" class="menu-top__dropdown">
+                                            <div class="menu-top__dropdown-inner">
+                                                <div class="menu-top__content-infor">
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Quý khách hàng thanh toán tiền phí sử dụng dịch theo từng tháng nếu là
+                                                            hợp đồng dài hạn hoặc ngay khi kết thúc thời gian
+                                                            sử dụng dịch vụ nếu là hợp đồng ngắn hạn (dưới một tháng).
+                                                        </p>
+                                                    </div>
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Quý khách hàng thanh toán bằng tiền mặt cho nhân viên do Công ty chỉ
+                                                            định theo giấy giới thiệu của Công ty.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                        <button class="menu-top__button-question">
+                                        7. Có cần phải ký hợp đồng giúp việc không?
+                                        <div id="answer-7" class="menu-top__dropdown">
+                                            <div class="menu-top__dropdown-inner">
+                                                <div class="menu-top__content-infor">
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Để thuận tiện cho Quý khách hàng, chúng tôi đã ghi sẵn các điều khoản
+                                                            trong mục “CHÍNH SÁCH” trên website Công ty
+                                                            (Homecare.vn). Khi Quý khách hàng đặt yêu cầu sử dụng dịch vụ của Công ty, thì mặc nhiên là đã đọc
+                                                            và đồng ý tất cả
+                                                            các điều khoản này.
+                                                        </p>
+                                                    </div>
+                                                    <div class="menu-top__content-detail">
+                                                        <p class="menu-top__content-desc">Nếu Quý khách hàng cần ký hợp đồng, Công ty chúng tôi sẽ tư vấn và gửi
+                                                            đến Quý khách hàng từng hợp đồng riêng cho từng
+                                                            trường hợp cụ thể.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </button>
+                                       
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                    <button class="menu-top__button-question">
+                                    8. Có được đổi người giúp việc không?
+                                    <div id="answer-8" class="menu-top__dropdown">
+                                        <div class="menu-top__dropdown-inner">
+                                            <div class="menu-top__content-infor">
+                                                <h3 class="menu-top__content-heading">Quý khách có toàn quyền yêu cầu thay đổi người giúp việc nhưng phải
+                                                    báo trước cho Công ty trước 24h của buổi làm đó.
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </button>
+                                   
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                        <button class="menu-top__button-question">
+                                        9. Người giúp việc có thu tiền mặt của khách hàng không?
+                                        <div id="answer-9" class="menu-top__dropdown">
+                                            <div class="menu-top__dropdown-inner">
+                                                <div class="menu-top__content-infor">
+                                                    <h3 class="menu-top__content-heading">Việc thu tiền sẽ do nhân viên có giấy giới thiệu của Công ty đến thu.
+                                                        Người giúp việc sẽ không được phép thu tiền mặt
+                                                        của Quý khách hàng ngoại trừ đơn hàng yêu cầu dịch vụ dưới 1 tuần. Khi đó Người giúp việc cũng phải có
+                                                        giấy giới thiệu
+                                                        của Công ty thì mới được phép thu tiền của Quý khách hàng.
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </button>
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                    <button class="menu-top__button-question"">
+                                    10. Thời gian từ lúc đặt yêu cầu đến lúc có người giúp việc tối thiểu là bao lâu?
+                                    <div id="answer-10" class="menu-top__dropdown">
+                                        <div class="menu-top__dropdown-inner">
+                                            <div class="menu-top__content-infor">
+                                                <h3 class="menu-top__content-heading"> Để chúng tôi có thể sắp xếp Người giúp việc cho Quý khách hàng một
+                                                    cách thuận lợi, thời gian mà Người giúp việc của Công
+                                                    ty có thể đến phục vụ yêu cầu của Quý khách tối thiểu là 03 (ba) giờ đồng hồ kể từ lúc Quý khách đặt yêu
+                                                    cầu..
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </button>
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                    <button class="menu-top__button-question">
+                                    11. Thời gian phục vụ của người giúp việc bắt đầu và kết thúc khi nào?
+                                    <div id="answer-11" class="menu-top__dropdown">
+                                        <div class="menu-top__dropdown-inner">
+                                            <div class="menu-top__content-infor">
+                                                <h3 class="menu-top__content-heading">Việc thu tiền sẽ do nhân viên có giấy giới thiệu của Công ty đến thu.
+                                                    Người giúp việc sẽ không được phép thu tiền mặt
+                                                    của Quý khách hàng ngoại trừ đơn hàng yêu cầu dịch vụ dưới 1 tuần. Khi đó Người giúp việc cũng phải có
+                                                    giấy giới thiệu
+                                                    của Công ty thì mới được phép thu tiền của Quý khách hàng.
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </button>
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                    <button class="menu-top__button-question"">
+                                    12. Giá dịch vụ có tăng trong thời điểm Tết hay không?
+                                    <div id="answer-12" class="menu-top__dropdown">
+                                        <div class="menu-top__dropdown-inner">
+                                            <div class="menu-top__content-infor">
+                                                <h3 class="menu-top__content-heading">Việc Đối với những ngày thường hay ngày Tết lượng Khách hàng đăng ký
+                                                    sử dụng dịch vụ đang tăng lên rất nhanh nhưng với
+                                                    phương châm phục vụ Khách hàng đặt chất lượng lên hàng đầu, trở thành Khách hàng thường xuyên và gắn bó
+                                                    với Công ty thì
+                                                    Homecare vẫn giữ giá dịch vụ như cũ đối với tất cả các dịch vụ. Trừ những Khách hàng có nhu cầu sử dụng
+                                                    trong khoảng
+                                                    thời gian Công ty nghỉ Tết Nguyên Đán bắt đâu từ 30 Tết – hết mùng 4 Tết thì giá dịch vụ sẽ tính 300% so
+                                                    với ngày thường
+                                                    theo quy định Luật lao động của Việt Nam.
+                                                </h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </button>
+                                   
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                        <button class="menu-top__button-question">
+                                        13. Homecare cung cấp dịch vụ ở những nơi nào?
+                                        <div id="answer-13" class="menu-top__dropdown">
+                                            <div class="menu-top__dropdown-inner">
+                                                <div class="menu-top__content-infor">
+                                                    <h3 class="menu-top__content-heading">Công ty chúng tôi cung cấp dịch vụ ở tất cả các Quận trong địa bàn
+                                                        Thành phố Hồ Chí Minh.
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </button>
+                                    </li>
+                                    <li class="menu-top__item-question">
+                                    <button class="menu-top__button-question">
+                                        14. Chất lượng người giúp việc của Homecare được đảm bảo như thế nào?
+                                        <div id="answer-14" class="menu-top__dropdown">
+                                            <div class="menu-top__dropdown-inner">
+                                                <div class="menu-top__content-infor">
+                                                    <h3 class="menu-top__content-heading">Chúng tôi có một quy trình tuyển dùng và đạo tạo người giúp việc
+                                                        chuyên nhiệp từ khâu tìm kiếm nguồn lực người giúp
+                                                        việc, lựa chọn tuyển dùng và đào tạo đến khâu điều phối người giúp việc phù hợp với từng đối tượng khách
+                                                        hàng. Điều đó
+                                                        giúp chúng tôi có thể tự tin để mang để cho Quý khách hàng những dịch vụ với chất lượng cao nhất. Ngoải
+                                                        ra, chúng tôi
+                                                        cũng thiết kế các kênh liên lạc một cách linh động nhất để Quý khách có thể trao đổi trực tiếp với Công
+                                                        ty về chất lượng
+                                                        dịch vụ và con người mà Công ty chúng tôi đang mang đến cho Quý khách. Điều này giúp chúng tôi có thể
+                                                        lắng nghe phản ánh
+                                                        của Quý khách một cách nhanh chóng, chính xác và đầy đủ nhất để có thể ngày một nâng cao chất lượng dịch
+                                                        vụ mà chúng tôi
+                                                        mong muốn mang đến cho Quý khách, làm cho cuộc sống của Quý khách ngày càng tiện lợi hơn.
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    </li>
+                                </ul>
+
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                 </li>
                 <li class="navbar__item">
                     <a href="#!" class="navbar__link">CHÍNH SÁCH
                         <img src="/icon/arrow-down.svg" alt="arrow-down" class="icon navbar__arrow">
                     </a>
-                    {{!-- <div class="drop-down">
-                        <div class="drop-down__inner">
-                            <div class="menu-top">
-                                <div class="menu-top__main">
+                <div class="drop-down">
+                    <div class="drop-down__inner">
+                        <div class="menu-top">
+                            <div class="menu-top__title">
+                                <h2 class="menu-top__heading">Chính sách</h2>
+                            </div>
+                            <div class="menu-top__content">
+                                <h2 class="menu-top__content-heading">Hai bên đồng ý cung cấp và sử dụng dịch vụ theo các điều khoản sau:</h2>
+                                <div class="menu-top__content-infor">
+                                    <h2 class="menu-top__content-heading">1. Quyền và nghĩa vụ của Khách hàng</h2>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Đảm bảo môi trường làm việc tốt, an toàn và lành mạnh cho nhân viên Công ty (không có hoá chất độc hại, không bị ô
+                                        nhiễm, không có các hành vi quấy rối, xâm hại đến tính mạng, danh dự, nhân phẩm, thân thể của nhân viên Công ty);</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Tự bảo quản và chịu trách nhiệm trong việc quản lý tài sản của mình trong mọi trường hợp; Trường hợp Khách hàng giao
+                                        chìa khóa cho nhân viên của Công ty để thực hiện công việc, Khách hàng cam kết hành vi này của Khách hàng không tạo ra
+                                        quan hệ gửi giữ tài sản giữa Khách hàng và Công ty;</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Hủy buổi làm việc: để đảm bảo lịch làm việc ổn định cho nhân viên Công ty, Khách hàng sẽ không được quyền hủy buổi làm việc. Trong trường hợp Khách hàng cần hủy buổi làm việc thì buổi làm việc đó sẽ được Công ty sắp xếp nhân viên làm bù buổi làm bị hủy cho Khách hàng. Buổi làm bù này sẽ được thực hiện trong thời gian tối đa là 01 (một) tuần tính từ ngày Khách hàng đăng ký dịch vụ. Sau thời gian này, nếu các bên không sắp xếp được thời gian để làm bù thì Công ty sẽ không có trách nhiệm làm bù cho Khách hàng nữa;</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Trong trường hợp Khách hàng muốn thay đổi lịch làm việc, Khách hàng cần thông báo cho Công ty trước 24h của buổi làm đó,
+                                        nếu Khách hàng không thông báo trước thời gian 24h, Khách hàng sẽ phải chịu 100% phí dịch vụ của buổi làm việc đó;</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Không nhận nhân viên Công ty vào làm việc trực tiếp bằng bất kỳ hình thức nào trong thời gian sử dụng dịch vụ hoặc trong
+                                        vòng 3 tháng kể từ ngày đăng ký dịch vụ của Công ty; nếu vi phạm sẽ phải bồi thường chi phí tuyển dụng và đào tạo nhân
+                                        viên đó cho Công ty, chi phí do Công ty xác định nhưng sẽ không thấp hơn 5.000.000 đồng (bằng chữ: năm triệu đồng) một
+                                        nhân viên. Công ty có quyền công khai thông tin cá nhân của Khách hàng và nội dung các vi phạm của Khách hàng (nếu có)
+                                        trên các phương tiện truyền thông của Công ty nếu Khách hàng vi phạm điều khoản này;</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Có trách nhiệm theo dõi, xác nhận thời gian làm việc và các thông tin khác vào “Bảng đánh giá” của nhân viên Công ty.
+                                        Giờ làm việc phát sinh ngoài thời gian đã đăng ký sẽ được tính thêm phí;</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Kịp thời thông báo cho Công ty trong vòng 24 giờ nếu phát hiện những hành vi tiêu cực từ phía nhân viên Công ty để hai
+                                        bên cùng phối hợp xử lý;</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Trong trường hợp Khách hàng không hài lòng với chất lượng công việc hoặc phát hiện mất, hoặc hư hỏng tài sản trong thời
+                                        gian nhân viên Công ty đang làm việc cho Khách hàng thì Khách hàng phải ghi nhận vào "Bảng đánh giá”, thông báo ngay cho
+                                        đại diện của Công ty, giữ chân Nhân viên của Công ty đến khi đại diện của Công ty có mặt;</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Trong trường hợp nghi ngờ nhân viên Công ty có hành vi trộm cắp tài sản hoặc làm hư hỏng tài sản của Khách hàng nhưng
+                                        chưa có kết luận của cơ quan điều tra, Khách hàng không được cung cấp thông tin cho bất kỳ cá nhân, tổ chức nào làm ảnh
+                                        hưởng đến uy tín, thương hiệu của Công ty. Nếu vi phạm, Khách hàng phải thanh toán cho Công ty một khoản tiền bồi
+                                        thường, khoản tiền này sẽ do Công ty xác định;</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Trong trường hợp nghi ngờ nhân viên Công ty có hành vi trộm cắp tài sản hoặc làm
+                                            hư hỏng tài sản của Khách hàng nhưng
+                                            chưa có kết luận của cơ quan điều tra, Khách hàng không được cung cấp thông tin cho bất kỳ cá nhân, tổ chức nào
+                                            làm ảnh
+                                            hưởng đến uy tín, thương hiệu của Công ty. Nếu vi phạm, Khách hàng phải thanh toán cho Công ty một khoản tiền
+                                            bồi
+                                            thường, khoản tiền này sẽ do Công ty xác định;</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Không tự ý thoả thuận với nhân viên Công ty để thay đổi, làm sai khác các nội dung đã thống nhất trong văn bản này</p>
+                                    </div>
+                                </div>
+                                <div class="menu-top__content-infor">
+                                    <h2 class="menu-top__content-heading">2. Quyền và nghĩa vụ của Công ty</h2>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Cung cấp nhân viên giúp việc cho Khách hàng đảm bảo lý lịch, nguồn gốc rõ ràng và có xác nhận của chính quyền địa
+                                        phương, đã được đào tạo về nghiệp vụ giúp việc gia đình theo tiêu chuẩn của Công ty;</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Thường xuyên trao đổi và tiếp nhận thông tin phản hồi từ Khách hàng về chất lượng dịch vụ; cung cấp lại dịch vụ cho phần
+                                        việc xảy ra do lỗi của nhân viên Công ty làm Khách hàng chưa hài lòng, thể hiện trên “Bảng đánh giá” của nhân viên.</p>
+                                    </div>
+                                </div>
+                                <div class="menu-top__content-infor">
+                                    <h2 class="menu-top__content-heading">3. Giải quyết tranh chấp và khiếu nại</h2>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Khi xảy ra mâu thuẫn, tranh chấp, hai bên sẽ ưu tiên tiến hành giải quyết công việc thông qua việc tự thương lượng, hoà
+                                        giải, trên tinh thần hỗ trợ lẫn nhau. Nếu không, mọi mâu thuẫn, tranh chấp sẽ được đưa ra giải quyết tại Toà án Nhân dân
+                                        có thẩm quyền.</p>
+                                    </div>
+                                </div>
+                                <div class="menu-top__content-infor">
+                                    <h2 class="menu-top__content-heading">4. Thanh toán phí dịch vụ</h2>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Khách hàng có nghĩa vụ thanh toán tiền phí sử dụng dịch theo từng tháng nếu là hợp đồng dài hạn hoặc ngay khi kết thúc
+                                        thời gian sử dụng dịch vụ nếu là hợp đồng ngắn hạn (dưới một tháng).</p>
+                                    </div>
+                                    <div class="menu-top__content-detail">
+                                        <p class="menu-top__content-desc">Khách hàng thanh toán bằng tiền mặt cho nhân viên do Công ty chỉ định theo giấy giới thiệu của Công ty.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
+                </div>
                 </li>
                 <li class="navbar__item">
                     <a href="#!" class="navbar__link">LIÊN HỆ
-                        <img src="/icon/arrow-down.svg" alt="arrow-down" class="icon navbar__arrow">
+                        {{!-- <img src="/icon/arrow-down.svg" alt="arrow-down" class="icon navbar__arrow"> --}}
                     </a>
                     {{!-- <div class="drop-down">
                         <div class="drop-down__inner">
@@ -161,7 +599,7 @@
                     </a>
                 </li>
             </ul>
-            <div class="navbar__overlay js-toggle" toggle-target="#navbar"></div>
+            <div class="navbar__overlay"/div>
         </nav>
         {{#if user}}
         <p>{{user.phone}}</p>

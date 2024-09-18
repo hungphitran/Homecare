@@ -83,6 +83,8 @@
         margin:20px 0 10px;
         font-size: 2rem;
         color: var(--color-text-menu-top);
+        padding-left:10px;
+        padding-right:10px;
     }
     &__content{
         flex-grow: 1;
@@ -119,12 +121,75 @@
             margin-right: 10px;
 
         }
+        &-list{
+            margin-top:20px;
+        }
+        &-child{
+            font-size:1.4rem;
+            margin-left:65px;
+            color:var(--color-text-detail);
+            line-height: 30px;
+        }
+    }
+    &__content-infor{
+        display: flex;
+        flex-direction: column;
+    /* justify-content: flex-start; */
+    /* align-content: flex-start; */
+        text-align: start;
+        // padding-left:10px;
+        // padding-right:10px;
+    }
+    &__content-detail{
+        display: flex;
+        flex-direction: column;
+    /* justify-content: flex-start; */
+    /* align-content: flex-start; */
+        text-align: start;
     }
     &__content-detail + &__content-detail{
         margin-top:20px;
     }
     &__list{
         margin-top:26px;
+    }
+    &__list-question{
+        margin-top:17px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        max-height:calc(min(582px, 100vh - 175px) - var(--inner-padding) * 2);
+        overflow-y: auto;
+    }
+    &__button-question{
+       background-color: var(--br-row-2);
+        color: #ffffff;
+        padding:17px;
+        font-weight: 600;
+        width:100%;
+        &.active .menu-top__dropdown{
+            display:block;
+            opacity: 1;
+            visibility: visible;
+            // display:block;
+            background: #fff;
+            padding-right: 20px;
+            border-radius: 20px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-top: 10px;
+        }
+    }
+    &__item-question{
+        // position:relative;
+    }
+    &__dropdown{
+        // position:absolute;
+        opacity:0;
+        visibility: hidden;
+         display:none;
+        transition: opacity visibility;
+        transition-duration: 1s;
     }
     &__link{
         display: block;
@@ -148,6 +213,12 @@
         &--active .sub-menu{
             display: grid;
         }
+    }
+    .hide{
+        display:none;
+    }
+    .show{ 
+        display:block;
     }
 }
 .menu-column{
