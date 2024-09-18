@@ -187,3 +187,15 @@ window.addEventListener("template-loaded", () => {
     });
 });
 
+window.addEventListener("template-loaded", activeForMenuTop);
+function activeForMenuTop() {
+    const menuTopDropDown = $(".menu-top__button-question.active");
+    const menuTopDropDowns = $$(".menu-top__button-question");
+    menuTopDropDowns.forEach(function(child, index){
+        child.onclick = function () {
+        
+            $(".menu-top__button-question.active").classList.remove('active');
+            this.classList.add('active');
+    }
+})
+}
