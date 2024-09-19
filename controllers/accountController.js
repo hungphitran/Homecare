@@ -1,4 +1,7 @@
 
+require('dotenv').config()
+
+
 const accountController = {
     //show login page
     showLogin: async (req, res, next) => {
