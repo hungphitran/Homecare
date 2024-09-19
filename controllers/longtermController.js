@@ -23,7 +23,21 @@ const longtermController = {
             let phone = req.session.user;
             user = await fetch(process.env.API_URL + '/customer/' + phone)
                 .then(data => data.json())
-                .then(data => data)
+                .then(data => {
+                    if (!data) {
+                        return {
+                            name: "Name",
+                            phone: "Phone",
+                            address: "Address"
+                        }
+                    }
+                    else {
+                        let address = data.addresses[0].detailedAddress;
+
+                        data.address = address;
+                        return data;
+                    }
+                })
         }
         catch (err) {
             console.error(err);
@@ -44,7 +58,8 @@ const longtermController = {
         res.render('partials/detailedRequest', {
             customer: user,
             request: req.body,
-            helper: helper
+            helper: helper,
+            layout: false
         });
     }
 }
