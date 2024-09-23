@@ -9,8 +9,9 @@
         display: none;
     }
 </style>
-<form method="post" action="/long-term/submit">
+<form method="post" action="/long-term">
     <ul>
+        <li><input type="hidden" name="requestType" value="Dài hạn">Hình thức: Dài hạn</li>
         <li><input type="hidden" name="startDate" value="{{order.startDate}}"> {{order.startDate}}</li>
         <li><input type="hidden" name="endDate" value="{{order.endDate}}">{{order.endDate}}</li>
         <li><input type="hidden" name="province" value="{{order.province}}">{{order.province}}</li>
@@ -35,7 +36,7 @@
     </div>
 
     
-    <button >Submit</button>
+    <button >Xác nhận</button>
 </form>
 
 <script>

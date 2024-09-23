@@ -164,7 +164,10 @@
             <div class="navbar__overlay js-toggle" toggle-target="#navbar"></div>
         </nav>
         {{#if user}}
-        <p>{{user.phone}}</p>
+        <a href="/account/detailed">
+            <p>{{user.phone}}</p>
+        </a>
+        
         {{else}}
         <div class="top-act top-act__btn">
             <a href="/account">
