@@ -31,6 +31,15 @@ const accountController = {
             res.redirect('/account/detailed');
         }
     },
+    showChangePassword: async( req,res,next)=>{
+        res.render('pages/changePassword',
+            {
+                phone:req.session.user,
+                err:req.query.err,
+                layout:false
+            }
+        )
+    },
     register: async (req, res, next) => {
 
         req.body.addresses = [{ detailedAddress: req.body.address }]
@@ -71,8 +80,38 @@ const accountController = {
             requests:requests,
             layout:false
         });
-    }
+    },
+    sendotp: async(req,res,next)=>{
+        if(req.body.phone){
+            let option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(req.body.phone)
+            }
+            await fetch(process.env.API_URL+'/message',option)
+            .then(()=>res.redirect('/account'))
+            .catch(err=>{
+                console.error(err)
+            })
+        }
+        else{
+            res.redirect('back')
+        }
+    },
+    changePassword: async (req,res,next)=>{
+        const message = await fetch(process.env.API_URL+'/message?phone=')
+        .then(data=>data.json())
+        .catch(err=>console.error(err))
 
+        if(!message || message.otp!=req.body.otp){
+            res.redirect('/account/changepassword?err=sai otp')
+        }
+        else{
+            res.send(req.body)
+        }
+    }
 
 }
 
