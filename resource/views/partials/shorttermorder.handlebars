@@ -1,15 +1,6 @@
-<style>
-    .selected{
-        background-color: greenyellow;
-    }
-    .helper-list{
-        display: flex;
-    }
-    .hide{
-        display: none;
-    }
-</style>
-<form method="post" action="/request">
+
+<form method="post" action="/short-term/submit">
+
     <ul>
         <li><input type="hidden" name="requestType" value="Ngắn hạn">Hình thức: Ngắn hạn</li>
         <li><input type="date" name="startDate" value="{{order.startDate}}"></li>

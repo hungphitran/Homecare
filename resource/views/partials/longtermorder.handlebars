@@ -1,4 +1,4 @@
-<style>
+{{!-- <style>
     .helper-list{
         display: flex;
     }
@@ -8,8 +8,9 @@
     .hide{
         display: none;
     }
-</style>
-<form method="post" action="/long-term">
+
+</style> --}}
+{{!-- <form method="post" action="/long-term/submit">
     <ul>
         <li><input type="hidden" name="requestType" value="Dài hạn">Hình thức: Dài hạn</li>
         <li><input type="hidden" name="startDate" value="{{order.startDate}}"> {{order.startDate}}</li>
@@ -36,8 +37,10 @@
     </div>
 
     
-    <button >Xác nhận</button>
-</form>
+
+    <button >Submit</button>
+</form> --}}
+
 
 <script>
     let helperElements=document.querySelectorAll('div.basic-helper')

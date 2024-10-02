@@ -35,3 +35,19 @@ button,input,textarea,select,a,img{
 th{
     font-weight:700;
 }
+h1,h2,h3,h4,h5,h6{
+    color: #02571C;
+}
+.input-date{
+    border:1px solid #02571C;
+        border-left:none;
+        border-right:none;
+    border-radius: 0;
+    padding: 0;
+    width: 100%;
+    font-weight: 600;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+}

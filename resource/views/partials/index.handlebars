@@ -1,192 +1,528 @@
-<style>
-    form {
-        display: flex;
-    }
 
-    .hide {
-        display: none;
-    }
-
-    table {
-        border-style: solid;
-        box-sizing: 10px;
-        text-align: center;
-    }
-</style>
-<div>
-
-    <h2>DASHBOARD</h2>
-    <button id="short-term-btn">Short Term Order</button>
-    <button id="long-term-btn">Long Term Order</button>
-
-    {{!-- short term order form --}}
-    <form id="short-term-form" method='post' action="request/shortterm">
-        <select name="province" class="province">
-            <option value="" disabled selected>--Choose province--</option>
-            {{#each locations}}
-                <option value="{{this.province}}">{{this.province}}</option>
-            {{/each}}
-        </select>
-        <select name="district" class="district">
-            <option value="" disabled selected>--Choose district--</option>
-        </select>
-        <label>Service</label>
-        <select name="service_id" class="service">
-            <option disabled selected>--Choose services--</option>
-            {{#each services}}
-                <option value="{{this._id}}">{{this.title}}</option>
-            {{/each}}
-        </select>
-        <label for="date">Date</label>
-        <input type="date" id="date" name="startDate">
-        <label for="time">Select start time:</label>
-        <input type="time" id="start-time" name="startTime">
-        <label for="time">Select end time:</label>
-        <input type="time" id="end-time" name="endTime">
-        <button class="submit-btn" disabled>Find</button>
-    </form>
-    {{!-- long term order form --}}
-    <form id="long-term-form" class="hide" method="post" action="request/longterm">
-
-        <select name="province" class="province">
-            <option value="" disabled selected>--Choose province--</option>
-            {{#each locations}}
-                <option value="{{this.province}}">{{this.province}}</option>
-            {{/each}}
-        </select>
-        <select name="district" class="district">
-            <option value="" disabled selected>--Choose district--</option>
-        </select>
-        <label for="">Service</label>
-        <select name="service" class="service">
-            <option disabled selected>--Choose services--</option>
-            {{#each services}}
-                <option>{{this.title}}</option>
-            {{/each}}
-        </select>
-
-
-        <label for="date">from:</label>
-        <input type="date" id="start-date" name="startDate">
-        <label for="date">to:</label>
-        <input type="date" id="end-date" name="endDate">
-        <label for="time">Select start time:</label>
-        <input class="long-term" type="time" id="start-time" name="startTime">
-        <label for="time">Select end time:</label>
-        <input class="long-term" type="time" id="end-time" name="endTime">
-        <button class="submit-btn" disabled>Find</button>
-    </form>
-
-
-    {{!-- show list of helpers --}}
-    <h2>Helper List</h2>
-    <div class="helper-list" style="display: flex;">
-        {{#each helpers}}
-            <div class="basic-helper" style="text-align: center;border:5px; border-style:solid; margin:10px">
-                <a href="/helper/{{this._id}}"><img src="{{this.avatar}}" style="max-width: 50px; max-height:50px;"></a>
-                <h3>{{this.fullName}}</h3>
-                <p>{{this.yearOfExperience}} years of exprerience</p>
+<div class="slideshow">
+    <div class="slideshow__inner">
+        <div class="slideshow__list">
+            {{!-- item 1 --}}
+            <div class="slideshow__item slideshow__item--fade">
+                <img srcset="/img/picture-home-1-mobile.jpg 500w,/img/picture-home-1-tablet.jpg 1000w,/img/picture-home-1-destop.jpg 1600w"
+                    src="/img/picture-home-1-destop.jpg" alt="Elva dressed as a fairy"
+                    size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" />
             </div>
-        {{/each}}
+            {{!-- item 2 --}}
+          <div class="slideshow__item slideshow__item--fade">
+                <img srcset="/img/picture-home-2-mobile.jpg 500w,/img/picture-home-2-tablet.jpg 1000w,/img/picture-home-2-destop.jpg 1600w"
+                    src="/img/picture-home-2-destop.jpg" alt="Elva dressed as a fairy"
+                    size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" />
+          </div>
+            {{!-- item 3 --}}         
+               <div class="slideshow__item slideshow__item--fade">
+                    <img srcset="/img/picture-home-3-mobile.jpg 500w,/img/picture-home-3-tablet.jpg 1000w,/img/picture-home-3-destop.jpg 1600w"
+                        src="/img/picture-home-3-destop.jpg" alt="Elva dressed as a fairy"
+                        size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" />
+               </div>
+        </div>
+        <div class="slideshow__search">
+            <section class="slideshow__search-inner">
+                <h2 class="slideshow__search-heading">ĐẶT DỊCH VỤ GIÚP VIỆC</h2>
+                <div class="slideshow__search-component">
+                    <div class="slideshow__form-group slideshow__form-group--button">
+                        <button  id="short-term-btn" type="button" class="btn btn__short-term btn__form-term active-term">THEO NGÀY</button>
+                        <button id="long-term-btn" type="button"  class="btn btn__long-term btn__form-term">DÀI HẠN</button>
+                    </div>
+                    <div id="short-term">
+                        <form id="short-term-form" method='post' action="/short-term" class="form__short-term">
+                            <div class="form-group slideshow__form-group slideshow__form-group--adjust">
+                               
+                                    <select name="province" class="province form-select form-select__province status">
+                                        <option value="0">Chọn Tỉnh</option>
+                                        {{#each locations}}
+                                        <option value="{{this.province}}">{{this.province}}</option>
+                                        {{/each}}
+                                    </select>
+                               
+                             
+                                    
+                                        <select name="district" class="district form-select form-select__district status" aria-label="Default select example">
+                                            <option selected>Chon Quận</option>
+                                            
+                                        </select>
+                                  
+                            
+                               
+                               
+                                    <select name="service_id" class="service form-select form-select__service status">
+                                        <option value="0">Chọn dịch vụ</option>
+                                        {{#each services}}
+                                        <option value="{{this._id}}">{{this.title}}</option>
+                                        {{/each}}
+                                    </select>
+                                
+                                <label for="start-date">
+                                    <input type="date" id="start-date" name="startDate" min="{{formatDate}}" style="height:44px"
+                                        onfocus="this.showPicker()" value="{{formatDate}}" class="input-date status">
+                                </label>
+                            </div>
+                            <div class="form-group slideshow__form-group slideshow__form-group--remain">
+                                
+                                    <select id="start-time" name="startTime" class="form-select form-select__start-time status">
+                                        <option value="0">Từ giờ</option>
+                                        <option value="1">6:00 giờ</option>
+                                        <option value="2">7:30 giờ</option>
+                                        <option value="3">8:00 giờ</option>
+                                        <option value="4">8:30 giờ</option>
+                                        <option value="5">9:30 giờ</option>
+                                        <option value="6">10:00 giờ</option>
+                                        <option value="7">10:30 giờ</option>
+                                        <option value="8">11:00 giờ</option>
+                                        <option value="9">11:30 giờ</option>
+                                        <option value="10">12:00 giờ</option>
+                                        <option value="11">12:30 giờ</option>
+                                        <option value="12">13:00 giờ</option>
+                                        <option value="13">13:30 giờ</option>
+                                        <option value="14">14:00 giờ</option>
+                                        <option value="15">14:30 giờ</option>
+                                        <option value="16">15:00 giờ</option>
+                                        <option value="17">15:30 giờ</option>
+                                        <option value="18">16:00 giờ</option>
+                                        <option value="19">16:30 giờ</option>
+                                        <option value="20">17:00 giờ</option>
+                                        <option value="21">17:30 giờ</option>
+                                        <option value="22">18:00 giờ</option>
+                                        <option value="23">18:30 giờ</option>
+                                        <option value="24">19:00 giờ</option>
+                                        <option value="24">19:30 giờ</option>
+                                        <option value="24">20:00 giờ</option>
+                                    </select>
+                               
+                                
+                                    <select id="end-time" name="endTime" class="form-select form-select__end-time status">
+                                        <option value="0">Đến giờ</option>
+                                        <option value="1">6:00 giờ</option>
+                                        <option value="2">7:30 giờ</option>
+                                        <option value="3">8:00 giờ</option>
+                                        <option value="4">8:30 giờ</option>
+                                        <option value="5">9:30 giờ</option>
+                                        <option value="6">10:00 giờ</option>
+                                        <option value="7">10:30 giờ</option>
+                                        <option value="8">11:00 giờ</option>
+                                        <option value="9">11:30 giờ</option>
+                                        <option value="10">12:00 giờ</option>
+                                        <option value="11">12:30 giờ</option>
+                                        <option value="12">13:00 giờ</option>
+                                        <option value="13">13:30 giờ</option>
+                                        <option value="14">14:00 giờ</option>
+                                        <option value="15">14:30 giờ</option>
+                                        <option value="16">15:00 giờ</option>
+                                        <option value="17">15:30 giờ</option>
+                                        <option value="18">16:00 giờ</option>
+                                        <option value="19">16:30 giờ</option>
+                                        <option value="20">17:00 giờ</option>
+                                        <option value="21">17:30 giờ</option>
+                                        <option value="22">18:00 giờ</option>
+                                        <option value="23">18:30 giờ</option>
+                                        <option value="24">19:00 giờ</option>
+                                        <option value="24">19:30 giờ</option>
+                                        <option value="24">20:00 giờ</option>
+                                    </select>
+                               
+                            </div>
+                            <button id="submitForm1" class="btn btn-find" disabled>TÌM KIẾM</button>
+                        </form>
+                    </div>
+                    <div id="long-term">
+                        <form id="long-term-form"  method="post" action="/long-term" class="form__long-term hide-form">
+                            <div class="form-group slideshow__form-group slideshow__form-group--adjust">
+                                
+                                    <select name="province" class="province form-select form-select__province status">
+                                        <option value="0">Chọn Tỉnh</option>
+                                        {{#each locations}}
+                                        <option value="{{this.province}}">{{this.province}}</option>
+                                        {{/each}}
+                                    </select>
+                               
+                           
+                                <select name="district" class="district form-select form-select__district status" aria-label="Default select example">
+                                    <option selected>Chọn Quận</option>
+                                </select>            
+                               
+                                    <select name="service" class="service form-select form-select__service status">
+                                        <option value="0">Chọn dịch vụ</option>
+                                        {{#each services}}
+                                        <option value="{{this._id}}">{{this.title}}</option>
+                                        {{/each}}
+                                    </select>
+                                
+                            <label for="start-date">
+                                <input type="date" id="start-date" name="startDate" min="{{formatDate}}" style="height:44px"
+                                    onfocus="this.showPicker()" value="{{formatDate}}" class="input-date status">
+                            </label>
+                            <label for="end-date">
+                                <input type="date" id="end-date" name="endDate" style="height:44px"
+                                    onfocus="this.showPicker()" min="{{formatDate}}" value="{{formatDate}}" class="input-date status">
+                            </label>                            
+                            </div>
+                            <div class="form-group slideshow__form-group slideshow__form-group--remain">
+                               
+                                    <select id="start-time" name="startTime" class="form-select form-select__start-time status">
+                                        <option value="0">Từ giờ</option>
+                                        <option value="1">6:00 giờ</option>
+                                        <option value="2">7:30 giờ</option>
+                                        <option value="3">8:00 giờ</option>
+                                        <option value="4">8:30 giờ</option>
+                                        <option value="5">9:30 giờ</option>
+                                        <option value="6">10:00 giờ</option>
+                                        <option value="7">10:30 giờ</option>
+                                        <option value="8">11:00 giờ</option>
+                                        <option value="9">11:30 giờ</option>
+                                        <option value="10">12:00 giờ</option>
+                                        <option value="11">12:30 giờ</option>
+                                        <option value="12">13:00 giờ</option>
+                                        <option value="13">13:30 giờ</option>
+                                        <option value="14">14:00 giờ</option>
+                                        <option value="15">14:30 giờ</option>
+                                        <option value="16">15:00 giờ</option>
+                                        <option value="17">15:30 giờ</option>
+                                        <option value="18">16:00 giờ</option>
+                                        <option value="19">16:30 giờ</option>
+                                        <option value="20">17:00 giờ</option>
+                                        <option value="21">17:30 giờ</option>
+                                        <option value="22">18:00 giờ</option>
+                                        <option value="22">18:00 giờ</option>
+                                        <option value="22">18:00 giờ</option>
+                                        <option value="22">18:00 giờ</option>
+                                    </select>
+                               
+                               
+                                    <select id="end-time" name="endTime" class="form-select form-select__end-time status">
+                                        <option value="0">Đến giờ</option>
+                                        <option value="1">6:00 giờ</option>
+                                        <option value="2">7:30 giờ</option>
+                                        <option value="3">8:00 giờ</option>
+                                        <option value="4">8:30 giờ</option>
+                                        <option value="5">9:30 giờ</option>
+                                        <option value="6">10:00 giờ</option>
+                                        <option value="7">10:30 giờ</option>
+                                        <option value="8">11:00 giờ</option>
+                                        <option value="9">11:30 giờ</option>
+                                        <option value="10">12:00 giờ</option>
+                                        <option value="11">12:30 giờ</option>
+                                        <option value="12">13:00 giờ</option>
+                                        <option value="13">13:30 giờ</option>
+                                        <option value="14">14:00 giờ</option>
+                                        <option value="15">14:30 giờ</option>
+                                        <option value="16">15:00 giờ</option>
+                                        <option value="17">15:30 giờ</option>
+                                        <option value="18">16:00 giờ</option>
+                                        <option value="19">16:30 giờ</option>
+                                        <option value="20">17:00 giờ</option>
+                                        <option value="21">17:30 giờ</option>
+                                        <option value="22">18:00 giờ</option>
+                                        <option value="22">18:00 giờ</option>
+                                        <option value="22">18:00 giờ</option>
+                                        <option value="22">18:00 giờ</option>
+                                    </select>
+                               
+                            </div>
+                            <button class="btn btn-find" id="submitForm2" disabled>TÌM KIẾM</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+        </div>
     </div>
 </div>
+<section id="about" class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="heading">Tất cả vì sự hài lòng của quý khách hàng</h2>
+                <p class="about__content">
+                    Chúng tôi, Procleaner, là tập hợp những cá nhân xuất thân từ thực tế cuộc sống của những người giúp việc, được sự chắp
+                    cánh của những cộng sự am hiểu công nghệ và giàu kinh nghiệm quản lý.Procleaner mong muốn đem đến cho Quý khách hàng
+                    những dịch vụ tốt nhất với những con người được huấn luyện theo quy trình công nghiệp.
+                    <br>
+                    <br>
+                    Đội ngũ nhân viên giúp việc của Procleaner được trang bị những kỹ năng làm việc chuyên nghiệp, phẩm chất đạo đức tốt, lý
+                    lịch rõ ràng và sức khỏe đầy đủ. Bên cạnh đó, được sự hỗ trợ của những công nghệ tiên tiến nhất hiện nay, chúng tôi đã
+                    sẵn sàng mang đến cho Quý khách hàng những dịch vụ chuyên nghiệp với phương châm “Tất cả vì sự hài lòng của Quý khách
+                    hàng.
+                </p>
+                <a href="https://play.google.com/store" class="google-play" target="_blank">
+                    <img src="/img/google_app_new.png" alt="Google Play" class="btn-google-play__img">
+                </a>
+                <a href="https://www.apple.com/app-store/" class="apple-store" target="_blank">
+                    <img src="/img/apple_app_store.png" alt="apple-store" class="btn-apple-store__img">
+                </a>
+
+            </div>
+        </div>
+        <div class="row about__process">
+            <div class="col-md-8 center">
+                <h2 class="heading">CÁC BƯỚC ĐẶT DỊCH VỤ</h2>
+                <div class="row about__process-inner">
+                    <div class="col-md-3 about__process-center">
+                        <div class="about__process-item">
+                            <span class="about__process-content">1</span>
+                        </div>
+                        <h3 class="about__process-heading">Chọn dịch vụ</h3>
+                    </div>  
+                    <div class="col-md-3 about__process-center">
+                        <div class="about__process-item">
+                            <span class="about__process-content">2</span>
+                        </div>
+                        <h3 class="about__process-heading">Xác nhận, tư vấn</h3>
+                    </div>
+                    <div class="col-md-3 about__process-center">
+                        <div class="about__process-item">
+                            <span class="about__process-content">3</span>
+                        </div>
+                        <h3 class="about__process-heading">Thực hiện công việc</h3>
+                    </div>
+                    <div class="col-md-3 about__process-center">
+                        <div class="about__process-item">
+                            <span class="about__process-content">4</span>
+                        </div>
+                        <h3 class="about__process-heading">Đánh giá người giúp việc</h3>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="service">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="heading">Chúng tôi hân hạnh gửi đến quý khách hàng những dịch vụ sau</h2>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row margin-top">
+            <div class="col-lg-3 col-md-6">
+                <div class="service__box">
+                    <i class="fa-solid fa-child-reaching" style="color: #ffffff;font-size: 40px;"></i>
+                    <h3 class="service__box-heading">Chăm sóc bé</h3>
+                    <p class="service__box-content">Cho bé ăn, uống sữa, ru ngũ, tắm bé, thay tã lót, quần áo, chơi với trẻ, dẫn bé đi dạo ...</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service__box">
+                    <i class="fa-solid fa-wheelchair" style="color: #ffffff;font-size: 40px;"></i>
+                    <h3 class="service__box-heading">Chăm sóc người già</h3>
+                    <p class="service__box-content">Tắm rửa, giặt quần áo, trò chuyện, dẫn đi dạo, nấu thức ăn ... cho người già.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service__box">
+                    <i class="fa-solid fa-person-dress" style="color: #ffffff;font-size: 40px;"></i>
+                    <h3 class="service__box-heading">Chăm sóc sản phụ</h3>
+                    <p class="service__box-content">Đi chợ, nấu ăn, tắm rửa và vệ sinh cho sản phụ, xông hơ, giặt quần áo ... cho sản phụ</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service__box">
+                    <i class="fa-solid fa-stethoscope" style="color: #ffffff;font-size: 40px;"></i>
+                    <h3 class="service__box-heading">Nuôi bệnh</h3>
+                    <p class="service__box-content">Theo dõi mạch, nhiệt, hô hấp, giấc ngủ, cho ăn, cho uống nước, sửa, thuốc, xoa bóp ... cho người bệnh.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top">
+            <div class="col-lg-3 col-md-6">
+                <div class="service__box">
+                    <i class="fa-solid fa-trash" style="color: #ffffff;font-size: 40px;"></i>
+                    <h3 class="service__box-heading">Dọn dẹp vệ sinh</h3>
+                    <p class="service__box-content">Quét dọn nhà cửa, sân vườn, vệ sinh toilet, cầu thang, tưới cây, giặt phơi quần áo, nấu ăn, rửa chén bát, pha trà ...</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service__box">
+                    <i class="fa-solid fa-bus" style="color: #ffffff; font-size: 40px;"></i>
+                    <h3 class="service__box-heading">Đưa đón bé đi học</h3>
+                    <p class="service__box-content">Đưa bé đến trường, trao đổi với giao viên về tình hình học tập của bé, đưa đón bé về nhà, truyền tải thông điệp của giáo
+                    viên đến phụ huynh ...</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service__box">
+                    <i class="fa-solid fa-spoon" style="color: #ffffff;font-size: 40px;"></i>
+                    <h3 class="service__box-heading">Nấu ăn</h3>
+                    <p class="service__box-content">Đi chợ, chọn mua thức ăn, chế biến các món ăn theo yêu cầu, bày biện món, dọn dẹp, rửa chén, lau bàn, bếp ...</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="service__box">
+                    <i class="fa-solid fa-building" style="color: #ffffff; font-size: 40px;"></i>
+                    <h3 class="service__box-heading">Vệ sinh văn phòng</h3>
+                    <p class="service__box-content">Vệ sinh trần, sàn; giặt thảm, ghế sofa; lau chùi cửa, kính, bàn ghế, tủ hồ sơ; vệ sinh văn phòng, công ty, nhà xưởng...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="helper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="heading">Danh sách người giúp việc</h2>
+            </div>
+        </div>
+        <div class="row">
+            {{#each helpers}}
+            <div class="col-lg-3 padding-bottom">
+                <div class="helper__thumbnail">
+                    <a href="/helper/{{this._id}}"><img src="{{this.avatar}}" alt="helper" class="helper__thumbnail-img"></a>
+                    <div class="helper__info">
+                        <div class="row" style="margin-top: 0; align-items: end;">
+                            <h5 class="fa-solid fa-user col-3" style="font-size: 30px;"></h5>
+                            <span class="col-9" style="font-size: 20px; font-weight: 600;text-align:left; white-space: nowrap;">{{this.fullName}}</span>
+                        </div>
+                        <div class="row" style="margin-top: -4px;">
+                            <div class="col-6" style="display: flex;align-items: end;gap: 10px;">
+                                <h5 class="fa-solid fa-clock" style="font-size: 30px;"></h5>
+                                <span style="font-size: 20px; font-weight: 600;text-align:left; white-space: nowrap;">1000 giờ</span>
+                            </div>
+                            <div class="col-6" style="display: flex;align-items: end;gap: 10px;">
+                                <h5 class="fa-solid fa-cake-candles" style="font-size: 30px;"></h5>
+                                <span style="font-size: 20px; font-weight: 600;text-align:left; white-space: nowrap;">20 tuổi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+     
+    </div>
+</section>
+<section class="partnership">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="heading">Các đối tác của chúng tôi</h2>
+            </div>
+        </div>
+    </div>
+</section>
 <script>
-    const shortTerm = document.getElementById('short-term-form')
-    const longTerm = document.getElementById('long-term-form')
 
-    const shortTermBtn = document.getElementById('short-term-btn')
-    const longTermBtn = document.getElementById('long-term-btn')
-
-    shortTerm.onchange = function () {
-        let date = shortTerm.querySelector('#date')
-        let starttime = shortTerm.querySelector('#start-time')
-        let endtime = shortTerm.querySelector('#end-time')
-        let submitBtn = shortTerm.querySelector('button')
-
-        if (date.value != '' && starttime.value != '' && endtime.value != '') {
-            submitBtn.disabled = false;
-        }
-        else {
-            submitBtn.disabled = true;
-        }
-    }
-    longTerm.onchange = function () {
-        let startdate = longTerm.querySelector('#start-date')
-        let enddate = longTerm.querySelector('#end-date')
-        let starttime = longTerm.querySelector('#start-time')
-        let endtime = longTerm.querySelector('#end-time')
-        let submitBtn = longTerm.querySelector('button')
-        console.log(starttime.value,)
-        if (enddate.value != '' && startdate.value != '' && starttime.value != '' && endtime.value != '') {
-            submitBtn.disabled = false;
-        }
-        else {
-            submitBtn.disabled = true;
-        }
-    }
-    provinceSelect = shortTerm.querySelector('.province')
-    districtSelect = shortTerm.querySelector('.district');
-    provinceSelect.onchange = function () {
-        let locations = {{{ json locations }}};
-    let val = provinceSelect.value;
-    let index = 0;
-    for (key in locations) {
-        if (locations[key].province == val) {
-            index = parseInt(key);
-        }
-    }
+        const locations = {{{ json locations }}};
+        console.log(locations);
+        const activeForm = $(".btn__form-term.active-term");
+        const btnFormTerms = $$(".btn__form-term");
+        const shortTerm = document.getElementById('short-term-form')
+        const longTerm = document.getElementById('long-term-form')        
+        const shortTermForm=document.querySelector('.form__short-term')
+        const longTermForm =document.querySelector('.form__long-term')
+        const shortTermBtn = document.getElementById('short-term-btn')
+        const longTermBtn = document.getElementById('long-term-btn')
+      let provinceSelect = shortTerm.querySelector('.province')
+      let  districtSelect = shortTerm.querySelector('.district');
+     
+   function changeProvince() {
+        
+         //get current province
+         let val = provinceSelect.value;
+         console.log(val);
+         //find the index
+         let index = 0;
+         for (key in locations) {
+             if (locations[key].province == val) {
+                 console.log(locations[key].province)
+                 index = parseInt(key);
+             }
+         }
 
 
-    districtSelect.innerHTML = `<option value="" disabled selected>--Choose district--</option>`;
-    locations[index].districts.forEach(function (value) {
-        districtSelect.innerHTML += `<option value="${value.district}">${value.district}</option>`
-    })
-    }
+         // give the district selections with index
+         districtSelect.innerHTML = `<option value="${locations[index].districts[0].district}">${locations[index].districts[0].district}</option>`
+         for (let i = 1; i < locations[index].districts.length; i++) {
+             districtSelect.innerHTML += `<option value="${locations[index].districts[i].district}">${locations[index].districts[i].district}</option>`
+         }
+      // widgetSelect()
+     }
+  provinceSelect.onchange = function(){
+    changeProvince();
+  }
+        shortTerm.onchange = function () {
+            console.log("short")
+            let date = shortTerm.querySelector('#start-date')
+            let starttime = shortTerm.querySelector('#start-time')
+            let endtime = shortTerm.querySelector('#end-time')
+           let submitBtn = shortTerm.querySelector('#submitForm1')
 
-    shortTermBtn.onclick = function () {
-        shortTerm.className = '';
-        longTerm.className = 'hide'
-        provinceSelect = shortTerm.querySelector('.province')
-        districtSelect = shortTerm.querySelector('.district');
-        provinceSelect.onchange = function () {
-            let locations = {{{ json locations }}};
-    let val = provinceSelect.value;
-    let index = 0;
-    for (key in locations) {
-        if (locations[key].province == val) {
-            index = parseInt(key);
-        }
-    }
-    districtSelect.innerHTML = `<option value="" disabled selected>--Choose district--</option>`;
-    locations[index].districts.forEach(function (value) {
-        districtSelect.innerHTML += `<option value="${value.district}">${value.district}</option>`
-    })
-    }
-
-    }
-    longTermBtn.onclick = function () {
-        longTerm.className = ''
-        shortTerm.className = 'hide'
-        provinceSelect = longTerm.querySelector('.province')
-        districtSelect = longTerm.querySelector('.district');
-        provinceSelect.onchange = function () {
-            let locations = {{{ json locations }}};
-
-    let val = provinceSelect.value;
-    let index = 0;
-    for (key in locations) {
-        if (locations[key].province == val) {
-            index = parseInt(key);
-        }
-    }
-    districtSelect.innerHTML = `<option value="">--Choose district--</option>`;
-    locations[index].districts.forEach(function (value) {
-        districtSelect.innerHTML += `<option value="${value.district}">${value.district}</option>`
-    })
+          // changeProvince();
+            if (date.value != '' && starttime.value != '' && endtime.value != '') {
+                submitBtn.disabled = false;
             }
+            else {
+                submitBtn.disabled = true;
+            }
+        }
+        longTerm.onchange = function () {
+            console.log("long")
+            let startdate = longTerm.querySelector('#start-date')
+            let enddate = longTerm.querySelector('#end-date')
+            let starttime = longTerm.querySelector('#start-time')
+            let endtime = longTerm.querySelector('#end-time')
+            let submitBtn = longTerm.querySelector('#submitForm2')
+         //  changeProvince();
+            if (enddate.value != '' && startdate.value != '' && starttime.value != '' && endtime.value != '') {
+                submitBtn.disabled = false;
+            }
+            else {
+                submitBtn.disabled = true;
+            }
+        }
+      console.log(provinceSelect)
+       console.log(districtSelect)
+    //when user changes province 
+    //provinceSelect.onchange
 
+        shortTermBtn.onclick = function () {
+           shortTermForm.classList.toggle("hide-form");
+           longTermForm.classList.toggle("hide-form");
+            $(".btn__form-term.active-term").classList.remove('active-term');
+            this.classList.add('active-term')
+            provinceSelect = shortTerm.querySelector('.province')
+            districtSelect = shortTerm.querySelector('.district');
+            provinceSelect.dispatchEvent(new Event('change', { bubbles: true }));
+             provinceSelect.onchange = function () {
+                changeProvince();
+            }
+            }
+        longTermBtn.onclick = function (e) {
+            longTermForm.classList.toggle("hide-form");
+            shortTermForm.classList.toggle("hide-form");
+            $(".btn__form-term.active-term").classList.remove('active-term');
+            this.classList.add('active-term')
+            provinceSelect = longTerm.querySelector('.province')
+           districtSelect = longTerm.querySelector('.district');
+            provinceSelect.dispatchEvent(new Event('change', { bubbles: true }));
+             provinceSelect.onchange = function () {
+                changeProvince();
+            }
+            }
+    let slideShowIndex=0;
+    showSlide();
+    function showSlide(){
+        let i;
+        let slides = document.getElementsByClassName("slideshow__item");
+        for(i=0; i < slides.length; i++){
+         slides[i].style.display="none";
+        }
+        slideShowIndex++;
+        if(slideShowIndex > slides.length){
+            slideShowIndex= 1;
+        }
+        
+        slides[slideShowIndex-1].style.display="block";
+        setTimeout(showSlide,2000);
     }
-
-
+    
+  
+        
 
 </script>

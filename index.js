@@ -17,9 +17,19 @@ const hbs = handlebars.create({
     helpers: {
         json: function (context) {
             return JSON.stringify(context);
+        },
+        formatDate: function () {
+             return new Date().toISOString().split('T')[0];
+        },
+        formatContent: function () {
+            return "chọn ngày"
         }
     }
 });
+// const Handlebars = require('handlebars');
+// Handlebars.registerHelper('formatDate', function() {
+//   return new Date().toISOString().split('T')[0];
+// });
 
 // Register `hbs.engine` with the Express app.
 app.engine('handlebars', hbs.engine);
