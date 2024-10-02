@@ -34,7 +34,7 @@
         }
 }
  .btn{
-    height:46px;
+    height:44px;
     padding:0 20px;
     border-radius: 6px;
     background:#292E39;
@@ -45,6 +45,30 @@
     // + .btn{
     //     margin-left:30px;
     // }
+    &-find{
+        background-color:#478e3a ;
+        border-radius: 0px;
+        height:45px;
+        color:#fff;
+        font-weight:600;
+    }
+    &__short-term,&__long-term{
+        width:50%;
+        color:#fff;
+        font-weight: 700;
+        font-size:2rem;
+        border-radius: 0px;
+        background-color: rgba(2, 87, 28, .5);
+    }
+    &__short-term:hover,&__long-term:hover{
+         background-color: #02571C;
+        border:solid 1px #fff;
+        border-radius:3px;
+    }
+    &__short-term:active,&__long-term:active{
+        background-color: red;
+    }
+
     &--text{
         color:#9E9DA8;
         background-color: transparent;
@@ -81,3 +105,9 @@
     }
     
  }
+ .active-term{
+        background-color: #02571C;
+        border:solid 1px #fff;
+        border-radius:3px;
+         pointer-events: none;
+    }
