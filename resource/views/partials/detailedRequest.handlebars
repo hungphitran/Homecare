@@ -18,10 +18,10 @@
 
 
 
-<form method="post" action="/request">
+<form method="post" action="/request/save">
 
     <ul>
-        <li><input type="hidden" name="requestType" value="{{request.type}}">{{request.type}}</li>
+        <li><input type="hidden" name="requestType" value="{{request.requestType}}">{{request.requestType}}</li>
         <li><input type="hidden" name="startDate" value="{{request.startDate}}">{{request.startDate}}</li>
         {{#if request.endDate}}
         <li><input type="hidden" name="endDate" value="{{request.endDate}}">{{request.endDate}}</li>
@@ -38,7 +38,7 @@
         <li><input type="hidden" name="helperId" value="{{helper._id}}">{{helper.fullName}}</li>
 
     </ul>
-    <button>Send request</button>
+    <button>Gửi yêu cầu</button>
 </form>
 
 <script>

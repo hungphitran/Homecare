@@ -1,3 +1,4 @@
+const { use } = require('../routes/dashboard.route');
 
 require('dotenv').config()
 
@@ -27,10 +28,8 @@ const accountController = {
         }
         else {
             req.session.user = req.body.phone;
-            res.redirect('/');
+            res.redirect('/account/detailed');
         }
-
-
     },
     register: async (req, res, next) => {
 
@@ -53,6 +52,25 @@ const accountController = {
             .then(() => res.redirect('/account'))
             .catch(err => res.send(err))
 
+    },
+    showDetailed: async (req,res,next)=>{
+        if(!req.session.user){
+            res.redirect('/account');
+        }
+
+        let user = await fetch(process.env.API_URL + '/customer/' + req.session.user)
+        .then(data => data.json())
+        
+        let requests=await fetch(process.env.API_URL+'/request').then(data=>data.json())
+        requests= requests.filter((request,index)=>{
+            return request.customerInfo.phone==user.phone;
+        })
+
+        res.render('pages/detailedaccount',{
+            user:user,
+            requests:requests,
+            layout:false
+        });
     }
 
 

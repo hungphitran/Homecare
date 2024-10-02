@@ -1,0 +1,28 @@
+<style>
+    div{
+        padding: 20px;
+    }
+</style>
+
+<h1>Thông tin tài khoản</h1>
+
+<div>
+    <h2>thông tin cơ bản</h2>
+    <ul>
+        <li>{{user.name}}</li>
+        <li>{{user.phone}}</li>
+    </ul>
+</div>
+
+<div>
+    <h2>lịch sử đơn hàng</h2>
+    <ul>
+        {{#each requests}}
+        <li>
+            <p>{{this.orderDate}}</p>
+            <p>{{this.requestType}}</p> 
+            <p>{{this.status}}</p>
+        </li>
+        {{/each}}
+    </ul>
+</div>
