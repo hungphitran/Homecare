@@ -1,5 +1,3 @@
-const { use } = require('../routes/dashboard.route');
-
 require('dotenv').config()
 
 
@@ -88,28 +86,39 @@ const accountController = {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(req.body.phone)
+                body: JSON.stringify(req.body)
             }
             await fetch(process.env.API_URL+'/message',option)
-            .then(()=>res.redirect('/account'))
+            .then(()=>res.status(200).end())
             .catch(err=>{
                 console.error(err)
             })
         }
         else{
-            res.redirect('back')
+            res.redirect('/account/changepassword?err=số không hợp lệ')
         }
     },
     changePassword: async (req,res,next)=>{
-        const message = await fetch(process.env.API_URL+'/message?phone=')
+        const message = await fetch(process.env.API_URL+'/message?phone='+req.body.phone)
         .then(data=>data.json())
         .catch(err=>console.error(err))
-
+        //if there's no message or the otp is incorrect
         if(!message || message.otp!=req.body.otp){
             res.redirect('/account/changepassword?err=sai otp')
         }
         else{
-            res.send(req.body)
+            let option = {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({password:req.body.password})
+            }
+
+            await fetch(process.env.API_URL+'/customer/'+req.body.phone,option)
+            .then(()=>res.redirect('/account'))
+            .catch(err=>console.error(err))
+
         }
     }
 

@@ -1,5 +1,6 @@
 const accountController = require('../controllers/accountController')
 const router= require('express').Router()
+
 router.post('/sendotp',accountController.sendotp)
 router.get('/detailed',accountController.showDetailed)
 router.post('/register',accountController.register)
