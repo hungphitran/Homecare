@@ -1,11 +1,56 @@
+<style>
+
+    .container{
+        margin-left: 33%;
+        margin-right: 33%;
+    }
+    .blogs{
+        display:block;
+    }
+    .blogs div.blog{
+        display: flex;
+        border: 5px;
+        border-style:solid;
+        border-color: darkgreen;
+        margin: 10px;
+    }
+    .blogs img{
+        width: 100%;
+        height: 100%;
+    }
+    .btn{
+        background-color: green;
+        color: white;
+    }
+</style>
+<a href="/">
+    <h1>HOMECARE</h1>
+</a>
+
 <div >
-    BLOG here
+    Bài viết
+</div>
+<div class="container">
+        <form class="d-flex" method="post" action="blog">
+        <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" name="key">
+        <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+      </form>
+    {{#if key}}
+        <h1>Tìm kiếm theo từ khóa: {{key}}</h1>
+    {{/if}}
+    <div class="blogs">
+            {{#each blog}}
+            <div class="blog">
+                <a href="blog/{{this._id}}"><img src={{this.img}}></a>
+                <div>
+                    <h2>{{this.title}}</h2>
+                    <p>{{this.description}}</p>
+                    <p style="font-style: italic;">{{this.date}}</p>
+                </div>
+            </div>
+            {{/each}}
+        
+    
+    </div>
 </div>
 
-<div class="messages">
-
-</div>
-
-<div class="blogs">
-
-</div>
