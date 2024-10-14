@@ -1,0 +1,432 @@
+ @use "../abstracts";
+ .hidden-detail{
+    display:none !important;
+ }
+.home-btn{
+    font-size:1.6rem;
+    font-weight:500;
+    padding:12px 35px;
+    color:white;
+    border-radius:40px;
+    border:none;
+    display:inline-block;
+    white-space:nowrap;
+    background:var(--skin-color);
+    transition: all 0.3s ease;
+}
+.home-btn:hover{
+    transform: scale(1.05);
+}
+// .main-container
+// {
+//     padding-left:270px;
+// @include abstracts.screen(xl){
+//       padding-left:0;
+//     }
+
+// }
+.section{
+    background:var(--bg-black-900);
+    min-height:100vh;
+    display:block;
+    position:fixed;
+    left:270px;
+    bottom:0;
+    z-index:0;
+    top:111px;
+    right:0;
+    opacity:1;
+    padding:0 30px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    transition: all 0.3s ease; 
+    & .home__container-2{
+        min-height:100vh;
+    }
+    @include abstracts.screen(xl){
+        left:0;
+        &.open{
+            left:270px;
+        }
+        & .home__container-2{
+            padding-top:70px;
+        }
+    }
+    &.back-section{
+        z-index:1;
+    }
+    &.home-active{
+        z-index:2;
+        opacity:1;
+        animation:slideSection 1s ease;
+    }
+    @keyframes slideSection{
+        0%{
+            transform:translateX(100%);
+        }
+        100%{
+            transform:translate(0%);
+        }
+    }
+    &-title{
+        flex:0 0 100%;
+        max-width:100%;
+        margin-bottom:60px;
+    }
+    &-title h2{
+        font-size:4.0rem;
+        color:var(--text-black-900);
+        font-weight:700;
+        position:relative;
+    }
+    &-title h2::before{
+        content:'';
+        height:4px;
+        width:50px;
+        background-color: var(--skin-color);
+        position:absolute;
+        top:100%;
+        left:0;
+    }
+    &-title h2::after{
+        content:'';
+        height:4px;
+        width:25px;
+        background-color: var(--skin-color);
+        position:absolute;
+        top:100%;
+        left:0;
+        margin-top:8px;
+    }
+
+
+}
+.padd-15{
+    padding-left:15px;
+    padding-right:15px;
+}
+.home{
+    min-height:100vh;
+    display:flex;
+    color:var(--text-black-900);
+    &__container-2{
+        max-width:1100px;
+        width:100%;
+        margin:auto;
+    }
+    .section &__container-2{
+        padding-top:60px;
+        padding-bottom:70px;
+    }
+
+    &__row-2{
+        display:flex;
+        flex-wrap:wrap;
+        margin-left:-15px;
+        margin-right:-15px;
+        position:relative;
+    }
+    &__infor{
+        flex:0 0 60%;
+        max-width:60%;
+        & p{
+            margin-bottom:70px;
+            font-size:20px;
+            color:var(--text-black-700);
+        }
+        @include abstracts.screen(lg){
+            flex:0 0 100%;
+            max-width:100%;
+        }
+    }
+    &__img{
+        flex:0 0 40%;
+        max-width:40%;
+        text-align:center;
+        position:relative;
+        @include abstracts.screen(lg){
+            display:none;
+        }
+    }
+    &__img::after{
+        content:'';
+        position:absolute;
+        height:80px;
+        width:80px;
+        border-bottom: 10px solid var(--skin-color);
+        border-right: 10px solid var(--skin-color);
+        right: 10px;
+        bottom: -40px;
+        @include abstracts.screen(xl){
+        right: -10px;
+    }
+    }
+     &__img::before{
+        content:'';
+        position:absolute;
+        height:80px;
+        width:80px;
+        border-top: 10px solid var(--skin-color);
+        border-left: 10px solid var(--skin-color);
+        left: 10px;
+        top: -40px;
+        @include abstracts.screen(xl){
+       
+        left: -10px;
+    }
+    }
+    &__img img{
+        margin:auto;
+        border-radius:5px;
+        height:400px;
+        width:300px;
+        object-fit:cover;
+
+    }
+    &__hello{
+        font-size:2.8rem;
+        margin:15px 0;
+       font-weight:700;
+        color:var(--text-black-900);
+        &-name{
+            font-family:'Clicker Script', cursive;
+            font-size: 3.0rem;
+            font-weight:700;
+            color:var(--skin-color);
+        }
+    }
+    &__my-profession{
+        font-size:3.0rem;
+        margin: 15px 0;
+         font-weight:700;
+        color:var(--text-black-900);
+        &-typing{
+            color:var(--skin-color);
+        }
+    }
+
+}
+// about-detail
+.about-detail{
+    &__content{
+        flex:0 0 100%;
+        max-width:100%;
+    }
+    &__text{
+        flex:0 0 100%;
+        max-width:100%;
+    }
+    &__tab-ui{
+        margin-top: 25px;
+        flex:0 0 100%;
+        max-width:100%;
+    }
+    &__text h3{
+        font-size:2.4rem;
+        margin-bottom:15px;
+        font-weight:700;
+        color:var(--text-black-900);
+    }
+    &__text h3 span{
+        color:var(--skin-color);
+        @include abstracts.screen(xl){
+            display:block;
+            margin-left:0;
+        }
+
+    }
+    &__text p{
+        font-size:1.6rem;
+        line-height:1.5;
+        color:var(--text-black-700);
+    }
+    &__personal-infor{
+        flex:0 0 100%;
+        max-width:100%;
+        margin-top:40px;
+        & .button{
+            margin-top:30px;
+            & .home-btn{
+                margin-right:15px;
+                margin-top:10px;
+            }
+        }
+        @include abstracts.screen(xl){
+            flex:0 0 100%;
+            max-width:100%;
+        }
+        @include abstracts.screen(lg){
+            flex :0 0 100%;
+            max-width:100%;
+        }
+    }
+    &__skills{
+        flex:0 0 40%;
+        max-width:40%;
+
+        margin-top:40px;
+    }
+    &__infor-item{
+        flex:0 0 50%;
+        max-width: 50%;
+        & p{
+            font-weight:600;
+            padding :10px 0;
+            font-size:1.6rem;
+            color:var(--text-black-900);
+            border-bottom: 1px solid var(--bg-black-50);
+            white-space: nowrap;
+            & span{
+                font-weight:400;
+                color:var(--text-black-700);
+                margin-left: 4px;
+                display:inline-block;
+            }
+        }
+
+    }
+}
+.tabs {
+    flex:0 0 100%;
+    max-width:100%;
+  display: flex;
+  position: relative;
+}
+.tabs .line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 6px;
+  border-radius: 15px;
+  background-color: #83ca50;
+  transition: all 0.2s ease;
+}
+.tab-item {
+  min-width: 80px;
+  padding: 16px 20px 11px 20px;
+  font-size: 20px;
+  text-align: center;
+  color: #83ca50;
+  background-color: #fff;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: 5px solid transparent;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.tab-icon {
+  font-size: 24px;
+  width: 32px;
+  position: relative;
+  top: 2px;
+}
+.tab-item:hover {
+  opacity: 1;
+  background-color: rgba(194, 53, 100, 0.05);
+  border-color: rgba(194, 53, 100, 0.1);
+}
+.tab-item.active {
+  opacity: 1;
+}
+.tab-content {
+  padding: 28px 0;
+}
+.tab-pane {
+  color: #333;
+  display: none;
+}
+.tab-pane.active {
+  display: block;
+}
+.tab-pane h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+// book item
+.book-item{
+    &__form-tel{
+        flex:0 0 50%;
+        max-width:50%;
+        // background-color:red;
+    }
+    &__form-otp{
+        flex:0 0 50%;
+        max-width:50%;
+        // background-color:green;
+    }
+    &__form-main{
+        flex:0 0 100%;
+        max-width:100%;
+    }
+    &__form-name{
+        flex:0 0 50%;
+        max-width: 50%;
+    }
+    &__form-address{
+        flex:0 0 50%;
+        max-width:50%;
+    }
+    &__form-city{
+        flex:0 0 50%;
+        max-width:50%;
+    }
+    &__form-district{
+        flex:0 0 50%;
+        max-width:50%;
+    }
+    &__form-data{
+        flex:0 0 40%;
+        max-width:40%;
+    }
+    &__form-time{
+        padding-left:40px;
+        flex:0 0 60%;
+        max-width:60%;
+    }
+    &__form-time-start{
+        flex:0 0 50%;
+        max-width:50%;
+    }
+    &__form-time-end{
+        padding-left:18px;
+        flex:0 0 50%;
+        max-width:50%;
+    }
+    &__form-service{
+        flex:0 0 60%;
+        max-width:60%;
+    }
+    &__flex-50{
+        flex: 0 0 50%;
+        max-width:50%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        &-text{
+            font-size:1.6rem;
+            font-weight:600;
+        }
+    }
+    &__form-basic{
+        flex:0 0 50%;
+        max-width:50%
+    }
+    &__form-out{
+        flex:0 0 50%;
+        max-width:50%
+    }
+    &__form-extra{
+        flex:0 0 50%;
+        max-width:50%
+    }
+    &__form-total{
+        padding-left:10px;
+        flex:0 0 50%;
+        max-width:50%;
+    }
+}
+.book-helper__cancel{
+    background-color: #fb2b36;
+}

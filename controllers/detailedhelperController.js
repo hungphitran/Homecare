@@ -37,7 +37,7 @@ const detailedhelperController = {
         res.render('partials/detailedhelper', {
             user: user,
             helper: helper,
-            services: services
+            services: services,
         })
     }
 }
