@@ -1,26 +1,48 @@
 
 <div class="slideshow">
     <div class="slideshow__inner">
-        <div class="slideshow__list">
-            {{!-- item 1 --}}
-            <div class="slideshow__item slideshow__item--fade">
-                <img srcset="/img/picture-home-1-mobile.jpg 500w,/img/picture-home-1-tablet.jpg 1000w,/img/picture-home-1-destop.jpg 1600w"
+        <div class="swiper mySwiper--slideshow">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" style="width:90vw;height:830px"><img srcset="/img/picture-home-1-mobile.jpg 500w,/img/picture-home-1-tablet.jpg 1000w,/img/picture-home-1-destop.jpg 1600w"
                     src="/img/picture-home-1-destop.jpg" alt="Elva dressed as a fairy"
-                    size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" />
-            </div>
-            {{!-- item 2 --}}
-          <div class="slideshow__item slideshow__item--fade">
-                <img srcset="/img/picture-home-2-mobile.jpg 500w,/img/picture-home-2-tablet.jpg 1000w,/img/picture-home-2-destop.jpg 1600w"
+                    size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" /></div>
+                <div class="swiper-slide"style="width:90vw;height:830px"><img srcset="/img/picture-home-2-mobile.jpg 500w,/img/picture-home-2-tablet.jpg 1000w,/img/picture-home-2-destop.jpg 1600w"
                     src="/img/picture-home-2-destop.jpg" alt="Elva dressed as a fairy"
-                    size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" />
-          </div>
-            {{!-- item 3 --}}         
-               <div class="slideshow__item slideshow__item--fade">
+                    size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img"  /></div>
+                <div class="swiper-slide" style="width:90vw;height:830px"><img srcset="/img/picture-home-3-mobile.jpg 500w,/img/picture-home-3-tablet.jpg 1000w,/img/picture-home-3-destop.jpg 1600w"
+                    src="/img/picture-home-3-destop.jpg" alt="Elva dressed as a fairy"
+                    size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" /></div>
+                {{!-- <div class="swiper-slide" style="width:100%">Slide 4</div>
+                <div class="swiper-slide" style="width:100%">Slide 5</div>
+                <div class="swiper-slide" style="width:100%">Slide 6</div>
+                <div class="swiper-slide" style="width:100%">Slide 7</div>
+                <div class="swiper-slide" style="width:100%">Slide 8</div>
+                <div class="swiper-slide" style="width:100%">Slide 9</div> --}}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        {{!-- <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img
+                        srcset="/img/picture-home-1-mobile.jpg 500w,/img/picture-home-1-tablet.jpg 1000w,/img/picture-home-1-destop.jpg 1600w"
+                        src="/img/picture-home-1-destop.jpg" alt="Elva dressed as a fairy"
+                        size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" /></div>
+                <div class="swiper-slide">
+                    <img srcset="/img/picture-home-2-mobile.jpg 500w,/img/picture-home-2-tablet.jpg 1000w,/img/picture-home-2-destop.jpg 1600w"
+                        src="/img/picture-home-2-destop.jpg" alt="Elva dressed as a fairy"
+                        size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" />
+                </div>
+                <div class="swiper-slide">
                     <img srcset="/img/picture-home-3-mobile.jpg 500w,/img/picture-home-3-tablet.jpg 1000w,/img/picture-home-3-destop.jpg 1600w"
                         src="/img/picture-home-3-destop.jpg" alt="Elva dressed as a fairy"
                         size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" />
-               </div>
-        </div>
+                </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div> --}}
+        
         <div class="slideshow__search">
             <section class="slideshow__search-inner">
                 <h2 class="slideshow__search-heading">ĐẶT DỊCH VỤ GIÚP VIỆC</h2>
@@ -30,7 +52,7 @@
                         <button id="long-term-btn" type="button"  class="btn btn__long-term btn__form-term">DÀI HẠN</button>
                     </div>
                     <div id="short-term">
-                        <form id="short-term-form" method='post' action="/short-term" class="form__short-term">
+                        <form id="short-term-form" method='post' action="/request/shortterm" class="form__short-term">
                             <div class="form-group slideshow__form-group slideshow__form-group--adjust">
                                
                                     <select name="province" class="province form-select form-select__province status">
@@ -130,7 +152,7 @@
                         </form>
                     </div>
                     <div id="long-term">
-                        <form id="long-term-form"  method="post" action="/long-term" class="form__long-term hide-form">
+                        <form id="long-term-form"  method="post" action="/request/longterm" class="form__long-term hide-form">
                             <div class="form-group slideshow__form-group slideshow__form-group--adjust">
                                 
                                     <select name="province" class="province form-select form-select__province status">
@@ -362,7 +384,244 @@
         </div>
     </div>
 </section>
-<section class="helper">
+<section class="faq">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="heading">Câu hỏi thường gặp</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="faq__list">
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">1. Tại sao Quý khách hàng nên chọn người giúp việc thông qua Homecare?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                        <div class="faq__item-answer-text">
+                            <p class="faq__item-answer-text--desc faq-title">Những lý do sau đây sẽ giúp cho quý khách hàng giải đáp được thắc mắc trên:</p>
+                            <ul class="faq__item-answer-text--desc">
+                                <li>- Người giúp việc là nhân viên của ProCleaner, chịu sự quản lý và chấp hành nội quy của Công ty nên Quý khách hàng không
+                                cần lo lắng về việc quản lý Người giúp việc.</li>
+                                <li>- Người giúp việc có lý lịch nhân thân rõ ràng, có giấy chứng nhận sức khỏe của bệnh viện.</li>
+                                <li>- Quý khách hàng sẽ luôn có Người giúp việc ổn định trong suốt thời gian hợp đồng.</li>
+                                <li>- Quý khách hàng được ProCleaner chịu trách nhiệm vật chất nếu có thất thoát xảy ra do người giúp việc.</li>
+                                <li>Chăm sóc sản phụ</li>
+                                <li>- ProCleaner xếp hạng nhân viên thông qua đánh giá của khách hàng nên luôn đảm bảo chất lượng Người giúp việc.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">2. Liên hệ với Homecare như thế nào?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                        <div class="faq__item-answer-text">
+                            <p class="faq__item-answer-text--desc faq-title">Vui lòng gọi số: 08.3930.5057 08.3930.5058 hoặc gửi email đến địa chỉ: cs@procleaner.vn</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">3. Ứng dụng Homecare đòi các quyền truy cập (permission) để làm gì?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                        <div class="faq__item-answer-text">
+                            <p class="faq__item-answer-text--desc faq-title">Ứng dụng ProCleaner khi cài đặt sẽ sử dụng các quyền truy cập sau đây:</p>
+                            <ul class="faq__item-answer-text--desc">
+                                <li>- Vị trí người dùng: Giúp ứng dụng tìm vị trí hiện tại của người dùng để thiết lập địa điểm phục vụ dễ dàng hơn.</li>
+                                <li>- SMS: Giúp ứng dụng tự động điền mã kích hoạt tài khoản mà không cần phải vào ứng dụng tin nhắn.</li>
+                                <li>- Điện thoại: Giúp khách hàng khi click vào số điện thoại thì có thể gọi ngay cho ProCleaner.</li>
+                                <li>- Ảnh/phương tiện/tệp: ProCleaner lưu lại một số hình ảnh ít thay đổi để giúp ứng dụng chạy nhanh hơn.</li>
+                                <li>- Lịch sử ứng dụng và thiết bị: ProCleaner sẽ tự động ghi nhận những trường hợp chạy ứng dụng bị lỗi tạo điều kiện cho
+                                nhóm phát triển nâng cao chất lượng ứng dụng.</li>
+                                <li>- Quyền truy cập mạng: ProCleaner là ứng dụng cần kết nối mạng để có thể hoạt động.</li>
+                                <li>- Nhận dạng: ProCleaner sử dụng nhận dạng để gửi thông tin trạng thái Yêu cầu cho người dùng thông qua trung tâm thông
+                                báo của điện thoại.</li>
+                                <li>- Các quyền truy cập còn lại ProCleaner dùng để ghi nhận thói quen sử dụng của người dùng nhằm giúp nhóm phát triển liên
+                                tục cải tiến ứng dụng để phục vụ người sử dụng tốt hơn.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">4. Tại sao phải đánh giá người giúp việc?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                        <div class="faq__item-answer-text">
+                            <p class="faq__item-answer-text--desc faq-title">Đánh giá người giúp việc vừa là quyền lợi vừa là trách nhiệm của Quý khách hàng. Việc này giúp cho Công ty đánh giá
+                            chính xác hơn về chất lượng công việc mà nhân viên chúng tôi đang mang đến phục vụ Quý khách, đồng thời giúp chúng tôi
+                            có cơ sở để xác nhận với Quý khách hàng rằng chúng tôi đã mang đến cho Quý khách một dịch vụ đúng như cam kết.</p>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">5. Làm thế nào để sử dụng dịch vụ của Homecare?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                        <div class="faq__item-answer-text">
+                            <p class="faq__item-answer-text--desc faq-title">• Đặt yêu cầu trực tiếp hoặc bằng ứng dụng ProCleaner trên smartphone hoặc thông qua website ProCleaner.vn.
+                            </p>
+                            <p class="faq__item-answer-text--desc faq-title">• Liên hệ với chúng tôi:</p>
+                            <ul class="faq__item-answer-text--desc">
+                                <li>Gọi điện thoại: 08.3930.5057 08.3930.5058</li>
+                                <li>Gửi email: cs@procleaner.vn</li>
+                                <li>Đến Trụ sở: 216 Nguyễn Thị Minh Khai, Phường 6, Quận 3, TP. HCM</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">6. Hình thức thanh toán phí sử dụng dịch vụ như thế nào?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                        <div class="faq__item-answer-text">
+                            <p class="faq__item-answer-text--desc faq-title">Quý khách hàng thanh toán tiền phí sử dụng dịch theo từng tháng nếu là hợp đồng dài hạn hoặc ngay khi kết thúc thời gian
+                            sử dụng dịch vụ nếu là hợp đồng ngắn hạn (dưới một tháng).
+                            </p>
+                            <p class="faq__item-answer-text--desc faq-title">Quý khách hàng thanh toán bằng tiền mặt cho nhân viên do Công ty chỉ định theo giấy giới thiệu của Công ty.
+                            </p>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">7. Có cần phải ký hợp đồng giúp việc không?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                        <div class="faq__item-answer-text">
+                            <p class="faq__item-answer-text--desc faq-title">Để thuận tiện cho Quý khách hàng, chúng tôi đã ghi sẵn các điều khoản trong mục “CHÍNH SÁCH” trên website Công ty
+                            (ProCleaner.vn). Khi Quý khách hàng đặt yêu cầu sử dụng dịch vụ của Công ty, thì mặc nhiên là đã đọc và đồng ý tất cả
+                            các điều khoản này.
+                            </p>
+                            <p class="faq__item-answer-text--desc faq-title">Nếu Quý khách hàng cần ký hợp đồng, Công ty chúng tôi sẽ tư vấn và gửi đến Quý khách hàng từng hợp đồng riêng cho từng
+                            trường hợp cụ thể.
+                            </p>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">8. Có được đổi người giúp việc không?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                        <div class="faq__item-answer-text">
+                            <p class="faq__item-answer-text--desc faq-title">Quý khách có toàn quyền yêu cầu thay đổi người giúp việc nhưng phải báo trước cho Công ty trước 24h của buổi làm đó.
+                            </p>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">9. Người giúp việc có thu tiền mặt của khách hàng không?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                        <div class="faq__item-answer-text">
+                            <p class="faq__item-answer-text--desc faq-title">Việc thu tiền sẽ do nhân viên có giấy giới thiệu của Công ty đến thu. Người giúp việc sẽ không được phép thu tiền mặt
+                            của Quý khách hàng ngoại trừ đơn hàng yêu cầu dịch vụ dưới 1 tuần. Khi đó Người giúp việc cũng phải có giấy giới thiệu
+                            của Công ty thì mới được phép thu tiền của Quý khách hàng.
+                            </p>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">10. Thời gian từ lúc đặt yêu cầu đến lúc có người giúp việc tối thiểu là bao lâu?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                    <div class="faq__item-answer-text">
+                        <p class="faq__item-answer-text--desc faq-title">Để chúng tôi có thể sắp xếp Người giúp việc cho Quý khách hàng một cách thuận lợi, thời gian mà Người giúp việc của Công
+                        ty có thể đến phục vụ yêu cầu của Quý khách tối thiểu là 03 (ba) giờ đồng hồ kể từ lúc Quý khách đặt yêu cầu.
+                        </p>
+                    
+                    </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">11. Thời gian phục vụ của người giúp việc bắt đầu và kết thúc khi nào?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                    <div class="faq__item-answer-text">
+                        <p class="faq__item-answer-text--desc faq-title">Việc thu tiền sẽ do nhân viên có giấy giới thiệu của Công ty đến thu. Người giúp việc sẽ không được phép thu tiền mặt
+                        của Quý khách hàng ngoại trừ đơn hàng yêu cầu dịch vụ dưới 1 tuần. Khi đó Người giúp việc cũng phải có giấy giới thiệu
+                        của Công ty thì mới được phép thu tiền của Quý khách hàng.
+                        </p>
+                    
+                    </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">12. Giá dịch vụ có tăng trong thời điểm Tết hay không?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                    <div class="faq__item-answer-text">
+                        <p class="faq__item-answer-text--desc faq-title">Việc Đối với những ngày thường hay ngày Tết lượng Khách hàng đăng ký sử dụng dịch vụ đang tăng lên rất nhanh nhưng với
+                        phương châm phục vụ Khách hàng đặt chất lượng lên hàng đầu, trở thành Khách hàng thường xuyên và gắn bó với Công ty thì
+                        ProCleaner vẫn giữ giá dịch vụ như cũ đối với tất cả các dịch vụ. Trừ những Khách hàng có nhu cầu sử dụng trong khoảng
+                        thời gian Công ty nghỉ Tết Nguyên Đán bắt đâu từ 30 Tết – hết mùng 4 Tết thì giá dịch vụ sẽ tính 300% so với ngày thường
+                        theo quy định Luật lao động của Việt Nam.
+                        </p>
+                    </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">13. Homecare cung cấp dịch vụ ở những nơi nào?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                        <div class="faq__item-answer-text">
+                            <p class="faq__item-answer-text--desc faq-title">Công ty chúng tôi cung cấp dịch vụ ở tất cả các Quận trong địa bàn Thành phố Hồ Chí Minh.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq__item">
+                    <div class="faq__item-question">
+                        <p class="faq__item-question-text">14. Chất lượng người giúp việc của Homecare được đảm bảo như thế nào?</p>
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="faq__item-answer">
+                    <div class="faq__item-answer-text">
+                        <p class="faq__item-answer-text--desc faq-title">Chúng tôi có một quy trình tuyển dùng và đạo tạo người giúp việc chuyên nhiệp từ khâu tìm kiếm nguồn lực người giúp
+                        việc, lựa chọn tuyển dùng và đào tạo đến khâu điều phối người giúp việc phù hợp với từng đối tượng khách hàng. Điều đó
+                        giúp chúng tôi có thể tự tin để mang để cho Quý khách hàng những dịch vụ với chất lượng cao nhất. Ngoải ra, chúng tôi
+                        cũng thiết kế các kênh liên lạc một cách linh động nhất để Quý khách có thể trao đổi trực tiếp với Công ty về chất lượng
+                        dịch vụ và con người mà Công ty chúng tôi đang mang đến cho Quý khách. Điều này giúp chúng tôi có thể lắng nghe phản ánh
+                        của Quý khách một cách nhanh chóng, chính xác và đầy đủ nhất để có thể ngày một nâng cao chất lượng dịch vụ mà chúng tôi
+                        mong muốn mang đến cho Quý khách, làm cho cuộc sống của Quý khách ngày càng tiện lợi hơn.
+                        </p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{!-- <section class="helper">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -396,7 +655,7 @@
         </div>
      
     </div>
-</section>
+</section> --}}
 <section class="partnership">
     <div class="container">
         <div class="row">
@@ -406,6 +665,52 @@
         </div>
     </div>
 </section>
+
+<div class="helper">
+    <div class="container">
+        <div class="swiper mySwiper helper__mySwiper">
+            <div class="swiper-wrapper helper__wrapper">
+                {{#each helpers}}
+                <div class="swiper-slide helper__swiper-slide">
+                   <a href="/helper/{{this._id}}"> <img src="{{this.avatar}}" alt="helper" class="helper__swiper-slide-img"></a>
+                    <div class="helper__infor">
+                        <h5 class="helper__infor-name">{{this.fullName}}</h5>
+                        <p class="helper__infor-time">1000 giờ</p>
+                        <p class="helper__infor-age">20 tuổi</p>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            <div class="swiper-pagination" ></div>
+        </div>
+    </div>
+</div>
+{{!-- <div class="container requires-no-scroll">
+    <header class="header-test">
+        <div class="triangle left">
+            <h1 class="header-test__title">CHÀO MỪNG BẠN ĐẾN VỚI HOMECARE</h1>
+        </div>
+        <div class="triangle right">
+            <h1 class="header-test__title">CHÀO MỪNG BẠN ĐẾN VỚI HOMECARE</h1>
+        </div>
+        <button class="header-test__button"></button>
+    </header>
+    
+    <nav class="nav-test">
+        <ul class="nav-test__list">
+            <a href="#section1"><li>Section 1</li></a>
+            <a href="#section2"><li>Section 2</li></a>
+            <a href="#section3"><li>Section 3</li></a>
+        </ul>
+        <div id="nav-close"><i class="fas fa-times"></i></div>
+    </nav>
+</div> --}}
+
+{{!-- <content class="content">
+    <section class="content__section" id="section1">Section 1</section>
+    <section class="content__section" id="section2">Section 2</section>
+    <section class="content__section" id="section3">Section 3</section>
+</content> --}}
 <script>
 
         const locations = {{{ json locations }}};
@@ -434,8 +739,6 @@
                  index = parseInt(key);
              }
          }
-
-
          // give the district selections with index
          districtSelect.innerHTML = `<option value="${locations[index].districts[0].district}">${locations[index].districts[0].district}</option>`
          for (let i = 1; i < locations[index].districts.length; i++) {
@@ -488,10 +791,10 @@
             this.classList.add('active-term')
             provinceSelect = shortTerm.querySelector('.province')
             districtSelect = shortTerm.querySelector('.district');
-            provinceSelect.dispatchEvent(new Event('change', { bubbles: true }));
-             provinceSelect.onchange = function () {
-                changeProvince();
-            }
+            provinceSelect.onchange = function () {
+              changeProvince();
+           }
+           // provinceSelect.dispatchEvent(new Event('change', { bubbles: true }));
             }
         longTermBtn.onclick = function (e) {
             longTermForm.classList.toggle("hide-form");
@@ -500,28 +803,27 @@
             this.classList.add('active-term')
             provinceSelect = longTerm.querySelector('.province')
            districtSelect = longTerm.querySelector('.district');
-            provinceSelect.dispatchEvent(new Event('change', { bubbles: true }));
              provinceSelect.onchange = function () {
                 changeProvince();
             }
+          // provinceSelect.dispatchEvent(new Event('change', { bubbles: true }));
             }
     let slideShowIndex=0;
-    showSlide();
-    function showSlide(){
+    //showSlide();
+    /*function showSlide(){
         let i;
         let slides = document.getElementsByClassName("slideshow__item");
         for(i=0; i < slides.length; i++){
-         slides[i].style.display="none";
+        //slides[i].style.display="none";
         }
         slideShowIndex++;
         if(slideShowIndex > slides.length){
             slideShowIndex= 1;
         }
-        
-        slides[slideShowIndex-1].style.display="block";
+       // slides[slideShowIndex-1].style.display="block";
         setTimeout(showSlide,2000);
     }
-    
+    */
   
         
 
