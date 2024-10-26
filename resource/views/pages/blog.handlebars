@@ -1,4 +1,4 @@
-<style>
+{{!-- <style>
 
     .container{
         margin-left: 33%;
@@ -22,8 +22,8 @@
         background-color: green;
         color: white;
     }
-</style>
-<a href="/">
+</style> --}}
+{{!-- <a href="/">
     <h1>HOMECARE</h1>
 </a>
 
@@ -52,5 +52,246 @@
         
     
     </div>
+</div> --}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {{!-- box icon --}}
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="blog">
+        <div class="blog__nav blog__container">
+            {{!-- <a href="/" class="blog__logo">
+            Home<span>Care</span>
+            </a> --}}
+            <a href="/" class="blog__logo">
+                <div class="logo">
+                    <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo __img-header">
+                </div>
+            </a>
+            <a href="/account/register" class="blog__login">Đăng Kí</a>
+        </div>
+    </header>
+    <section class="blog__home" id="blog-home">
+        <div class="blog__home-text blog__container">
+            <h2 class="blog__home-title">HomeCare Blogger</h2>
+            {{!-- <span class="blog__home-subtitle">Lorem ipsum dolor sit amet consectetur.</span> --}}
+        </div>
+    </section>
+   <section class="blog__about blog__container" id="blog-about">
+    
+    <div class="blog__contentBx">
+        <h2 class="blog__titleText">Lorem ipsum dolor sit amet.</h2>
+        <p class="blog__title-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum, consectetur.
+            <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, repellendus?
+        </p>
+        <a href="#" class="blog__btn2">Đọc thêm</a>
+    </div>
+    <div class="blog__imgbx">
+        <img src="/img/about.png" alt="" class="blog__imgbx-fitBg">
+    </div>
+   </section>
+   <section>
+    <form action="" class="blog__search-bar" style="margin-top:15px">
+        <input type="text" placeholder="tìm kiếm bất cứ điều gì trong HomeCare" name="q" onkeyup="search()"
+            id="search-item">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass" style="font-size:3rem;"></i></button>
+    </form>
+   </section>
+   <div class="blog__post-filter blog__container">
+    <span class="blog__filter-item active-filter" data-filter="all">
+        Tất Cả
+    </span>
+    <span class="blog__filter-item" data-filter="tech">Công Nghệ</span>
+    <span class="blog__filter-item" data-filter="food">
+        Ẩm Thực
+    </span>
+    <span class="blog__filter-item" data-filter="news">Tin Tức</span>
+   </div>
+<div class="blog__post container" id="product-list">
+    <!-- Post 1 -->
+    <div class="blog__post-box tech" data="1">
+        <img src="/img/img1.jpg" alt="" class="blog__post-img">
+        <h2 class="blog__category">Tech</h2>
+        <a href="#" class="blog__post-title">cách để tự lập tài chính khi còn ở độ tuổi trẻ</a>
+        <span class="blog__post-date">12 Feb 2022</span>
+        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur, similique,
+            rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde repudiandae
+            iste architecto. Corporis, voluptates.</p>
+        <div class="blog__profile">
+            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
+            <span class="blog__profile-name">MKHB</span>
+        </div>
+    </div>
+    <!-- Post 2 -->
+    <div class="blog__post-box food" data="2">
+        <img src="/img/img2.jpg" alt="" class="blog__post-img">
+        <h2 class="blog__category">Tech</h2>
+        <a href="#" class="blog__post-title">crypto 101</a>
+        <span class="blog__post-date">12 Feb 2022</span>
+        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
+            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
+            repudiandae iste architecto. Corporis, voluptates.</p>
+        <div class="blog__profile">
+            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
+            <span class="blog__profile-name">MKHB</span>
+        </div>
+    </div>
+    <!-- Post 3 -->
+    <div class="blog__post-box food" data="3">
+        <img src="img/img3.jpg" alt="" class="blog__post-img">
+        <h2 class="blog__category">Food</h2>
+        <a href="#" class="blog__post-title">cách tạo 1 best ui từ con số 0</a>
+        <span class="blog__post-date">12 Feb 2022</span>
+        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
+            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
+            repudiandae iste architecto. Corporis, voluptates.</p>
+        <div class="blog__profile">
+            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
+            <span class="blog__profile-name">MKHB</span>
+        </div>
+    </div>
+    <!-- Post 4 -->
+    <div class="blog__post-box news" data="4">
+        <img src="/img/img4.jpg" alt="" class="blog__post-img">
+        <h2 class="blog__category">Tech</h2>
+        <a href="#" class="blog__post-title">kinh doanh với herbarlife</a>
+        <span class="blog__post-date">12 Feb 2022</span>
+        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
+            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
+            repudiandae iste architecto. Corporis, voluptates.</p>
+        <div class="blog__profile">
+            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
+            <span class="blog__profile-name">MKHB</span>
+        </div>
+    </div>
+    <!-- Post 5 -->
+    <div class="blog__post-box tech" data="5">
+        <img src="img/img5.jpg" alt="" class="blog__post-img">
+        <h2 class="blog__category">Tech</h2>
+        <a href="#" class="blog__post-title">hiểu về tiếp thị mạng lưới</a>
+        <span class="blog__post-date">12 Feb 2022</span>
+        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
+            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
+            repudiandae iste architecto. Corporis, voluptates.</p>
+        <div class="blog__profile">
+            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
+            <span class="blog__profile-name">MKHB</span>
+        </div>
+    </div>
+    <!-- Post 6 -->
+    <div class="blog__post-box news" data="6">
+        <img src="/img/img4.jpg" alt="" class="blog__post-img">
+        <h2 class="blog__category">News</h2>
+        <a href="#" class="blog__post-title">học đầu tư</a>
+        <span class="blog__post-date">12 Feb 2022</span>
+        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
+            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
+            repudiandae iste architecto. Corporis, voluptates.</p>
+        <div class="blog__profile">
+            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
+            <span class="blog__profile-name">MKHB</span>
+        </div>
+    </div>
+    <!-- Post 7 -->
+    <div class="blog__post-box tech" data="7">
+        <img src="/img/img7.jpg" alt="" class="blog__post-img">
+        <h2 class="blog__category">Tech</h2>
+        <a href="#" class="blog__post-title">How to create the best UI with Figma</a>
+        <span class="blog__post-date">12 Feb 2022</span>
+        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
+            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
+            repudiandae iste architecto. Corporis, voluptates.</p>
+        <div class="blog__profile">
+            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
+            <span class="blog__profile-name">MKHB</span>
+        </div>
+    </div>
+    <!-- Post 1 -->
+    <div class="blog__post-box news" data="8">
+        <img src="/img/img8.jpg" alt="" class="blog__post-img">
+        <h2 class="blog__category">News</h2>
+        <a href="#" class="blog__post-title"> to create the best UI with Figma</a>
+        <span class="blog__post-date">12 Feb 2022</span>
+        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
+            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
+            repudiandae iste architecto. Corporis, voluptates.</p>
+        <div class="blog__profile">
+            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
+            <span class="blog__profile-name">MKHB</span>
+        </div>
+    </div>
+    <!-- Post 9 -->
+    <div class="blog__post-box food" data="9">
+        <img src="/img/img10.jpg" alt="" class="blog__post-img">
+        <h2 class="blog__category">Food</h2>
+        <a href="#" class="blog__post-title">cách nấu món cánh chua ngon như mẹ nấu</a>
+        <span class="blog__post-date">12 Feb 2022</span>
+        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
+            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
+            repudiandae iste architecto. Corporis, voluptates.</p>
+        <div class="blog__profile">
+            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
+            <span class="blog__profile-name">MKHB</span>
+        </div>
+    </div>
 </div>
 
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+ //nav background
+ let header= document.querySelector(".blog")
+ window.addEventListener("scroll",()=>{
+    header.classList.toggle("shadow",window.scrollY>0)
+ })
+ //Filter
+    $(document).ready(function () {
+        $(".blog__filter-item").click(function () {
+            const value = $(this).attr("data-filter");
+            if (value == "all") {
+                $(".blog__post-box").show("1000")
+            } else {
+                $(".blog__post-box")
+                    .not("." + value)
+                    .hide(1000);
+                $(".blog__post-box")
+                    .filter("." + value)
+                    .show("1000")
+            }
+        });
+        $(".blog__filter-item").click(function () {
+            $(this).addClass("active-filter").siblings().removeClass("active-filter")
+        });
+    });
+    
+  const search =()=>{
+    const searchbox =document.getElementById("search-item").value.toUpperCase();
+    const storeitems= document.getElementById("product-list");
+    const product = document.querySelectorAll(".blog__post-box");
+    const ptitle= document.querySelectorAll(".blog__post-title");
+    for( var i=0; i < ptitle.length;i++){
+        let match =product[i].getElementsByClassName("blog__post-title")[0];
+        if(match){
+            let textvalue= match.textContent || match.innerHTML;
+            if(textvalue.toUpperCase().indexOf(searchbox)>-1){
+                product[i].style.display="";
+            }else{
+                product[i].style.display="none";
+            }
+        }
+    }
+  }
+</script>
+</html>

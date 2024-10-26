@@ -80,33 +80,9 @@ const accountController = {
         requests= requests.filter((request,index)=>{
             return request.customerInfo.phone==user.phone;
         })
-        //create string of schedule ids for query
-        let schedule_ids="";
-        for(let request of requests){
-            for(let id of request.scheduleIds){
-                schedule_ids+=id+',';
-            }
-        }
-        
-        schedule_ids=schedule_ids.slice(0,schedule_ids.length-1)//eliminate last ","
-        //GET call api to get all details with ids on query
-        let requestDetails =await fetch(process.env.API_URL+'/requestDetail?ids='+schedule_ids)
-        .then(data=>data.json())        
-        //match all detail with its request
-        let startIndex=0;
-        for(let i=0;i<requests.length;i++){
-            requests[i].schedules=[];
-            for(let j=startIndex;j<startIndex+requests[i].scheduleIds.length;j++){
-                let str=""
-                str+=requestDetails[j].workingDate.slice(0,10)+" - "+requestDetails[j].status;
-                requests[i].schedules.push(str)
-            }
-        }
-        for(let i=0;i<requests.length;i++){
-            requests[i].startTime=requests[i].startTime.slice(11,19)
-            requests[i].endTime=requests[i].endTime.slice(11,19)
-        }
-        res.render('pages/detailedaccount',{
+
+
+        res.render('partials/detailedaccount',{
             user:user,
             requests:requests,
             layout:false

@@ -19,7 +19,7 @@
         margin-bottom: 10px;
         font-weight: 600;
         font-size: 3rem;
-        color: #02571C;
+        color: #fff;
     }
     &__list{
         width:100%;
@@ -234,18 +234,25 @@
         margin-bottom: 20px;
         font-weight: 500;
         font-size: 3rem;
-        color: #02571C;
+        color: var(--text-black-900);
+    }
+    .heading.extra-color-white{
+        color:#fff;
     }
     .heading::after{
         content: "";
         display: block;
         width: 50px;
         height: 2px;
-        background-color: #02571C;
+        background-color: var(--text-black-700);
         margin-top: 20px;
         margin-bottom: 20px;
         margin-left: auto;
         margin-right: auto;
+    }
+    .heading::after:has(.extra-color-white) {
+        content: "";
+        background-color: #fff;
     }
 .about{
     padding-top:50px;
@@ -258,7 +265,7 @@
         margin-bottom: 20px;
         font-size: 1.5rem;
         font-weight: 400;
-        color: #02571C;
+        color: var(--text-black-700);
         text-align: justify;
         line-height: 1.5;
     }
@@ -268,7 +275,7 @@
 
     &__process-item{
         text-align: center;
-        border:8px solid #84B742;;
+        border:8px solid #4CAF50;
         border-radius: 50%;
         width: 100px;
         height: 100px;
@@ -276,7 +283,7 @@
         align-items: center;
         justify-content: center;
         font-size: 6rem;
-        color:  #989898;
+        color:  var(--text-black-700);
         position: relative;
     }   
     &__process-item::after{
@@ -294,7 +301,7 @@
         margin-top: 20px;
         font-size: 1.5rem;
         font-weight: 400;
-        color: #02571C;
+        color: var(--text-black-700);
         white-space: nowrap;
     }   
     &__process-center{
@@ -311,7 +318,7 @@
     margin-top: 50px;
     padding-top:100px;
     text-align: center;
-    background-color: #84B742;
+    background-color: #4CAF50;
     padding-bottom: 100px;
 }
 .service{
@@ -327,7 +334,7 @@
         box-shadow: 0 10px 20px rgba(22,22, 22, 0.9);
         transition: transform 0.3s ease;
         opacity: 0.8;
-        border: 1px solid #02571C;
+        border: 1px solid #4CAF50;
         border-radius: 10px;
         
 
@@ -338,14 +345,14 @@
    &__box-heading{
     font-size: 20px;
     font-weight: 600;
-    color: #02571C;
+    color: #fff;
     margin-top: 20px;
     margin-bottom: 10px;
    }
    &__box-content{
     font-size: 16px;
     font-weight: 400;
-    color: #02571C;
+    color: #fff;
     text-align: justify;
     line-height: 1.5;
    }

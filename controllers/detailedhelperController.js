@@ -38,6 +38,7 @@ const detailedhelperController = {
             user: user,
             helper: helper,
             services: services,
+            
         })
     }
 }

@@ -1,86 +1,34 @@
-<style>
-    div{
-        padding: 20px;
-        align-items: center;
-    }
-    .request{
-        margin-top: 10px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: darkolivegreen;
-    }
-    .request *{
-        margin: 10px;
-    }
-    .hide{
-        display: none;
-    }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clicker+Script&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- link css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- script -->
+    <script src="/js/scripts.js"></script>
+    <link rel="shortcut icon" href="/icon/logo-removeBg.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/01acedffd5.js" crossorigin="anonymous"></script>
 
-<h1>Thông tin tài khoản</h1>
-
-<div>
-    <h2>thông tin cơ bản</h2>
-    <dl>
-        <dt>Tên: {{user.fullName}}</dt>
-        <dt>SĐT: {{user.phone}}</dt>
-        <dt>Điểm: {{user.point}}</dt>
-    </dl>
-</div>
-
-<a href="/account/changepassword" style="padding:10px; background-color:green; color:white"> đổi mật khẩu</a>
-
-<div>
-    <h2>lịch sử đơn hàng</h2>
-    {{#if requests}}
-    <dl class="request-list">
-        {{#each requests}}
-        <dt class="request">
-            <p>Loại đơn hàng: {{requestType}}</p> 
-            <p>Ngày đặt đơn: {{formatDate orderDate}}</p>
-            <p>Trạng thái: {{status}}</p>
-            <p>Tổng chi phí: {{totalCost}}</p>
-            <div class="detail-request hide">
-                <p>Giờ bắt đầu: {{startTime}}</p>
-                <p>Giờ kết thúc: {{endTime}}</p>
-                <p>Lịch làm việc:</p>
-                {{#each schedules}}
-                <ul>
-                    <li>{{this}}</li>
-                </ul>
-                {{/each}}
-                <button class ="close-btn">Đóng</button>
-            </div>
-            
-            <button class="detail-btn" >Xem chi tiết đơn hàng</button>
-        </dt>
-        {{/each}}
-    </dl>
-
-    {{else}}
-
-    <p>Bạn chưa đặt đơn hàng nào!</p>
-    {{/if}}
+</head>
+<body>
+<h1>test</h1>
+<h2>why i don't render the element?</h2>
     
-</div>
-
-
-
-<script>
-    let detailBtns= document.querySelectorAll('.detail-btn')
-    let detailBlocks =document.querySelectorAll('.detail-request')
-
-    for(let i=0;i<detailBtns.length;i++){
-        detailBtns[i].onclick= function(){
-            detailBlocks[i].classList.remove('hide')
-            detailBtns[i].classList.add('hide')
-            let closeBtn=detailBlocks[i].querySelector('.close-btn')
-            closeBtn.onclick=function(){
-                detailBlocks[i].classList.add('hide')
-                detailBtns[i].classList.remove('hide')
-            }
-        }
-    }
-       
-
-</script>
+</body>
+</html>
