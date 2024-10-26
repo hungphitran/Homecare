@@ -1,16 +1,53 @@
+<style>
+    .helper-list{
+        display: flex;
+    }
+    .selected{
+        background-color: green;
+    }
+    .basic-helper{
+        width: 300px;
+    }
+</style>
 
-<form method="post" action="/short-term/submit">
+
+
+<form method="post" action="/request">
 
     <ul>
         <li><input type="hidden" name="requestType" value="Ngắn hạn">Hình thức: Ngắn hạn</li>
-        <li><input type="date" name="startDate" value="{{order.startDate}}"></li>
-        <li><input type="hidden" name="province" value="{{order.province}}">{{order.province}}</li>
-        <li><input type="hidden" name="district" value="{{order.district}}">{{order.district}}</li>
-        <li><input type="hidden" name="service_id" value="{{order.service_id}}">Service: {{service.title}}</li>
+        <li>Ngày thực hiện : <input type="date" name="dates" value="{{order.dates}}"></li>
+        <li>
+            <label>Tỉnh/Thành phố:</label>
+            <div class="province form-select form-select__province status">
+                {{#each locations}}
+                    <label class="province-option">
+                        <input type="radio" name="province" value="{{this.province}}" checked>
+                        {{this.province}}
+                    </label><br>
+                {{/each}}
+            </div>
+        </li>
+        <li>
+            <label >Quận/huyện</label>
+            <div class="districts">
+
+            </div>
+        </li>
+        <li>
+            <div>
+                {{#each services}}
+                    <label>
+                        <input type="radio" name="service_id" value="{{_id}}" checked>
+                        {{title}}
+                    </label><br>
+                {{/each}}
+            </div>
+        </li>
         <li>
             <input type="hidden" name="startTime" value="{{order.startTime}}">
             <input type="hidden" name="endTime" value="{{order.endTime}}">
-            Time:{{order.startTime}} to {{order.endTime}}
+            Thời gian :{{order.startTime}} đến {{order.endTime}}
         </li>
     </ul>
     {{#if helpers}}
@@ -21,7 +58,7 @@
                 <div class="basic-helper"  style="text-align:center;border:5px; border-style:solid;  border-color:green";>
                     <a href="/helper/{{this._id}}"><img src="{{this.avatar}}" alt="{{this._id}}" style="max-width: 50px; max-height:50px;"></a>
                     <h3 >{{this.fullName}}</h3>
-                    <p>{{this.yearOfExperience}} years of exprerience</p>
+                    <p>{{this.yearOfExperience}} năm kinh nghiệm</p>
                 </div>
             {{/each}}
         </div>
@@ -29,7 +66,7 @@
 
     {{else}}
         <div>
-            <h2>Can not find helpers, please change location</h2>
+            <h2>Không tìm thấy người giúp việc phù hợp, vui lòng thay đổi lựa chọn</h2>
         </div>
     {{/if}}
 </form>
@@ -38,7 +75,29 @@
     let helperlist=document.querySelector('.helper-list')
     let helperElements=document.querySelectorAll('div.basic-helper')
     let submitBtn= document.querySelector('form button')
+    let provincesLst=document.querySelectorAll('.province-option')
+    let districtLst=document.querySelector('.districts')
     var selectedHelper='';
+    let locations={{{json locations}}}
+    //option of user is in the last of location list
+    for(let l of locations[locations.length-1].districts){
+        districtLst.innerHTML+=`<label>
+        <input type="radio" name="district" value="${l.district}" checked>
+        ${l.district}
+        </label><br>`
+    }
+    //
+    for(let i=0;i<provincesLst.length;i++){
+        provincesLst[i].onchange=()=>{
+            districtLst.innerHTML=''
+            for(let l of locations[i].districts){
+                districtLst.innerHTML+=`<label>
+                        <input type="radio" name="district" value="${l.district}" checked>
+                        ${l.district}
+                    </label><br>`
+            }
+        }
+    }
 
     helperElements.forEach(function(div){
         div.onclick=function(){
@@ -60,4 +119,6 @@
         let input= helperlist.querySelector('input');
         input.value=selectedHelper;
     }
+
+
 </script>

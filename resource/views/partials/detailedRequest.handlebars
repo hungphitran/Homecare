@@ -1,45 +1,76 @@
-<div style="display: block;">
-    {{#if customer}}
-    <h4>
-        Check your information
-    </h4>
+<style>
+
+    .customer-info input{
+        max-width: 30%;
+    }
+
+    .container{
+        width: 60%;
+        margin-left: 20%;
+        border-style:dashed;
+        border-color: darkcyan;
+    }
+    .container *{
+        margin-top: 20px;
+        margin-left: 5%;
+    }
+    dt {
+        border: 0px;
+        border-bottom: 2px;
+        border-style: dotted;
+    }
+    dt label{
+        font-weight: bold;
+    }
+
+</style>
+
+
+<div class="container">
+
+<div class="customer-info">
+    {{#if customer.phone}}
+    <h1>
+        Kiểm tra thông tin của bạn
+    </h1>
     {{else}}
-    <h5>
-        Fill your information
-    </h5>
+    <h2>
+        Vui lòng điền thông tin
+    </h2>
     {{/if}}
 
-    <input type="phone" name="phone" id="phone-input" value="{{customer.phone}}">
+    <input placeholder="Số điện thoại" type="phone" name="phone" id="phone-input" value="{{customer.phone}}">
 
-    <input type="text" name="customerName" id="name-input" value="{{customer.name}}">
+    <input placeholder="Tên " type="text" name="customerName" id="name-input" value="{{customer.fullName}}">
 
-    <input type="text" name="customerAddress" id="address-input" value="{{customer.address}}">
+    <input  placeholder="Địa chỉ" type="text" name="customerAddress" id="address-input" value="{{customer.address}}">
 </div>
 
 
 
 <form method="post" action="/request/save">
 
-    <ul>
-        <li><input type="hidden" name="requestType" value="{{request.requestType}}">{{request.requestType}}</li>
-        <li><input type="hidden" name="startDate" value="{{request.startDate}}">{{request.startDate}}</li>
+    <dl>
+        <dt><label>Hình thức: </label><input type="hidden" name="requestType" value="{{request.requestType}}">{{request.requestType}}</dt>
+        <dt><label>Ngày bắt đầu: </label><input type="hidden" name="startDate" value="{{request.dates}}">{{request.dates}}</dt>
         {{#if request.endDate}}
-        <li><input type="hidden" name="endDate" value="{{request.endDate}}">{{request.endDate}}</li>
+        <dt><input type="hidden" name="endDate" value="{{request.endDate}}">Ngày kết thúc: {{request.endDate}}</dt>
         {{else}}
         <input type="hidden" name="endDate" value="{{request.startDate}}">
         {{/if}}
         <input type="hidden" name="customerInfo" id="customerInfo">
-        <li><input type="hidden" name="fee" value="{{request.fee}}">{{request.fee}}</li>
-        <li><input type="hidden" name="service_id" value="{{service._id}}">{{service.title}}</li>
-        <li><input type="hidden" name="province" value="{{request.province}}">{{request.province}}</li>
-        <li><input type="hidden" name="district" value="{{request.district}}">{{request.district}}</li>
-        <li><input type="hidden" name="startTime" value="{{request.startTime}}">{{request.startTime}}</li>
-        <li><input type="hidden" name="endTime" value="{{request.endTime}}">{{request.endTime}}</li>
-        <li><input type="hidden" name="helperId" value="{{helper._id}}">{{helper.fullName}}</li>
+        <dt><label>Dịch vụ: </label><input type="hidden" name="service_id" value="{{service._id}}">{{service.title}}</dt>
+        <dt><label>Tỉnh/thành phố: </label><input type="hidden" name="province" value="{{request.province}}">{{request.province}} <label>Quận/huyện: </label>  <input type="hidden" name="district" value="{{request.district}}">{{request.district}}</dt>
+        <dt><label>Giờ bắt đầu: </label><input type="hidden" name="startTime" value="{{request.startTime}}">{{request.startTime}}</dt>
+        <dt><label>Giờ kết thúc: </label><input type="hidden" name="endTime" value="{{request.endTime}}">{{request.endTime}}</dt>
+        <dt><label>Người giúp việc: </label><input type="hidden" name="helperId" value="{{helper._id}}">{{helper.fdllName}}</dt>
+        <dt><label>Tổng số tiền: </label><input type="hidden" name="fee" value="{{request.fee}}">{{request.fee}}</dt>
 
-    </ul>
+    </dl>
     <button>Gửi yêu cầu</button>
 </form>
+
+</div>
 
 <script>
     const submitBtn = document.querySelector('button');
