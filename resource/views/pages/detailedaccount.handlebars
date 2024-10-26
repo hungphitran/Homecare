@@ -1,6 +1,19 @@
 <style>
     div{
         padding: 20px;
+        align-items: center;
+    }
+    .request{
+        margin-top: 10px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: darkolivegreen;
+    }
+    .request *{
+        margin: 10px;
+    }
+    .hide{
+        display: none;
     }
 </style>
 
@@ -8,26 +21,41 @@
 
 <div>
     <h2>thông tin cơ bản</h2>
-    <ul>
-        <li>Tên: {{user.fullName}}</li>
-        <li>SĐT: {{user.phone}}</li>
-    </ul>
+    <dl>
+        <dt>Tên: {{user.fullName}}</dt>
+        <dt>SĐT: {{user.phone}}</dt>
+        <dt>Điểm: {{user.point}}</dt>
+    </dl>
 </div>
 
-<a href="/account/changepassword"> đổi mật khẩu</a>
+<a href="/account/changepassword" style="padding:10px; background-color:green; color:white"> đổi mật khẩu</a>
 
 <div>
     <h2>lịch sử đơn hàng</h2>
     {{#if requests}}
-    <ul>
+    <dl class="request-list">
         {{#each requests}}
-        <li>
-            <p>{{this.orderDate}}</p>
-            <p>{{this.requestType}}</p> 
-            <p>{{this.status}}</p>
-        </li>
+        <dt class="request">
+            <p>Loại đơn hàng: {{requestType}}</p> 
+            <p>Ngày đặt đơn: {{formatDate orderDate}}</p>
+            <p>Trạng thái: {{status}}</p>
+            <p>Tổng chi phí: {{totalCost}}</p>
+            <div class="detail-request hide">
+                <p>Giờ bắt đầu: {{startTime}}</p>
+                <p>Giờ kết thúc: {{endTime}}</p>
+                <p>Lịch làm việc:</p>
+                {{#each schedules}}
+                <ul>
+                    <li>{{this}}</li>
+                </ul>
+                {{/each}}
+                <button class ="close-btn">Đóng</button>
+            </div>
+            
+            <button class="detail-btn" >Xem chi tiết đơn hàng</button>
+        </dt>
         {{/each}}
-    </ul>
+    </dl>
 
     {{else}}
 
@@ -35,3 +63,24 @@
     {{/if}}
     
 </div>
+
+
+
+<script>
+    let detailBtns= document.querySelectorAll('.detail-btn')
+    let detailBlocks =document.querySelectorAll('.detail-request')
+
+    for(let i=0;i<detailBtns.length;i++){
+        detailBtns[i].onclick= function(){
+            detailBlocks[i].classList.remove('hide')
+            detailBtns[i].classList.add('hide')
+            let closeBtn=detailBlocks[i].querySelector('.close-btn')
+            closeBtn.onclick=function(){
+                detailBlocks[i].classList.add('hide')
+                detailBtns[i].classList.remove('hide')
+            }
+        }
+    }
+       
+
+</script>

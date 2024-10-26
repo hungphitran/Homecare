@@ -7,7 +7,6 @@ const requestController={
 
         helpers = await fetch(process.env.API_URL + `/helper`)
             .then(data => data.json())
-            .then(data => data)
             .catch(err=>console.error(err))
 
         helpers = helpers.filter((helper) => {
@@ -22,26 +21,44 @@ const requestController={
     shortTermOrder: async (req, res, next) => {
         let order = req.body;
         let helpers;
-        let service;
-        service = await fetch(process.env.API_URL + '/service/' + req.body.service_id)
-            .then(data => data.json())
-            .then(data => data)
-            .catch(err=>console.error(err))
+        let services;
+        let locations;
+        services = await fetch(process.env.API_URL + '/service')
+        .then(data => data.json())
+        .catch(err=>console.error(err))
         helpers = await fetch(process.env.API_URL + `/helper`)
-            .then(data => data.json())
-            .then(data => data)
-            .catch(err=>console.error(err))
+        .then(data => data.json())
+        .catch(err=>console.error(err))
+        locations = await fetch(process.env.API_URL+'/location')
+        .then(data => data.json())
+        .catch(err=>console.error(err))
+        //put the choice in the last of list
+        for(let i=0;i<services.length;i++){
+            if(order.service_id==services[i]._id){
+                let tmp = services[i]
+                services[i]=services[services.length-1]
+                services[services.length-1]=tmp;
+                break;
+            }
+        }
+        for(let i=0;i<locations.length;i++){
+            if(order.province==locations[i].province){
+                let tmp=locations[i];
+                locations[i]=locations[locations.length-1]
+                locations[locations.length-1]=tmp
+                break;
+            }
+        }
 
-        helpers = helpers.filter((helper) => {
-            return helper.workingArea.province == req.body.province && helper.workingArea.districts.includes(req.body.district) && helper.jobs.includes(service._id);
-        })
         res.render('partials/shorttermorder', {
             order: order,
             helpers: helpers, 
-            service: service,
+            services: services,
+            locations:locations,
             layout:false
         });
     },
+    //POST redirect to detail order page
     submit: async (req, res, next) => {
         let user;
         try {
@@ -49,13 +66,14 @@ const requestController={
             let phone = req.session.user;
             if(phone){
                 user = await fetch(process.env.API_URL + '/customer/' + phone)
-                .then(data => data.json())
-                .then(data => data)
+                .then(data =>data.json())
+                user.address = user.addresses[0].detailAddress;
             }
             else{
                 user={
                     
                 }
+
             }
             
         }
@@ -95,7 +113,6 @@ const requestController={
             body: JSON.stringify(req.body)
         }
 
-        // fetch(process.env.API_URL+'/request',option)
         fetch(process.env.API_URL + '/request', option)
             .then((data) => {
                 res.redirect('/')
