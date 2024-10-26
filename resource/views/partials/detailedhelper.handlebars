@@ -1,54 +1,17 @@
-{{!-- <div>
-    <a href="/back">Back</a>
-</div> --}}
 
-{{!-- <div style="display: flex;">
-    <img src="{{helper.avatar}}" alt="">
-    <div>
-        <h1>Basic information</h1>
-        <ul>
-            <li>{{helper.fullName}}</li>
-            <li>{{helper.birthDate}}</li>
-            <li>{{helper.gender}}</li>
-            <li>{{helper.phone}}</li>
-            <li>{{helper.birthPlace}}</li>
-            <li>{{helper.address}}</li>
-            <li>{{helper.height}}cm -- {{helper.weight}}kg</li>
-            <li>
-                Area: {{helper.workingArea.province}} :
-                {{#each helper.workingArea.districts}}
-                    {{this}}
-                {{/each}}
-            </li>
-            <li>year of experience: {{helper.yearOfExperience}}</li>
-        </ul>
-        
-    </div>
-    
-        
-    
-</div> --}}
-{{!-- <div>
-        <h2>Healthcare certificates</h2>
-        <table>
-            {{#each helper.healthCertificates}}
-                <tr>
-                    <th>
-                        <img src="{{this}}" alt="">
-                    </th>
-                </tr>
-            {{/each}}
-          
-        </table>
-    </div> --}}
 {{!-- Main container start --}}
 <div class="main-container" style="padding-top:70px;padding-bottom:1000px">
     {{!-- aside start  --}}
     <div class="aside">
         <div class="aside__logo">
-            <a href="#" class="aside__logo-link">
+            {{!-- <a href="#" class="aside__logo-link">
                 <span>H</span>
                 omeCare
+            </a> --}}
+            <a href="/">
+                <div class="logo">
+                    <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo __img-header">
+                </div>
             </a>
         </div>
         <div class="aside__nav-toggle">
@@ -100,7 +63,7 @@
                         <h3 class="home__my-profession">
                             TÔI LÀ <span class="home__my-profession-typing">NGƯỜI GIÚP VIỆC</span>
                         </h3>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro eveniet pariatur repellendus illo excepturi doloremque unde cupiditate consequatur ipsam tenetur, similique, qui odit nisi ducimus? Deleniti eum animi quaerat reiciendis.</p>
+                        <p class="home__infor-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro eveniet pariatur repellendus illo excepturi doloremque unde cupiditate consequatur ipsam tenetur, similique, qui odit nisi ducimus? Deleniti eum animi quaerat reiciendis.</p>
                         <a href="#service-detail" class="home-btn hire-me" data-section-index="0">XEM THÔNG TIN CHI TIẾT</a>
                     </div>
                 <div class="home__img padd-15">
@@ -490,24 +453,24 @@
             console.log(data);
         }
     })
-     validator({
-            form: "#form-2",
-            errorElement: ".form__error",
-            formGroupElement: ".form__group",
-            rules: [
-                validator.isRequire("#full-name-input", "Bạn chưa nhập gì hết"),
-                validator.isRequire("#address-input","Bạn chưa nhập gì hết"),
-                validator.isRequire("#city-input","Bạn chưa nhập gì hết"),
-                validator.isRequire("#district-input","Bạn chưa nhập gì hết"),
+    validator({
+        form: "#form-2",
+        errorElement: ".form__error",
+        formGroupElement: ".form__group",
+        rules: [
+            validator.isRequire("#full-name-input", "Bạn chưa nhập gì hết"),
+            validator.isRequire("#address-input", "Bạn chưa nhập gì hết"),
+            validator.isRequire("#city-input", "Bạn chưa nhập gì hết"),
+            validator.isRequire("#district-input", "Bạn chưa nhập gì hết"),
 
 
-                //validator.isRequire("#password", "You haven't entered yet."),
-                //validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
-            ],
-            onsubmit: function (data) {
-                console.log(data);
-            }
-        })
+            //validator.isRequire("#password", "You haven't entered yet."),
+            //validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
+        ],
+        onsubmit: function (data) {
+            console.log(data);
+        }
+    })
 </script>
 <script>
     window.dispatchEvent(new Event("template-loaded"));

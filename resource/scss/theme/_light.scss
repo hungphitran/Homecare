@@ -71,7 +71,19 @@ html{
       --bg-black-50:#e8dfec;
       --text-black-900:#302e4d;
       --text-black-700:#504e70;
-      --skin-color: #83ca50;
-
-
+      --skin-color: #4CAF50;
+// theme for the blog
+ --container-color:#1a1e21;
+    --second-color:#4CAF50;
+    --bg-color:#fdf9ff;
+    // theme for the details
+    --primary: #eeeeee;
+    --secondary:#227c70;
+    --green:#82cd47;
+    --secondary-light:rgb(34,124,112,0.2);
+    --secondary-light-2:rgb(127,183,126,0.1);
+    --white:#fff;
+    --black:#393e46;
+    --shadow:0px 2px 8px 0px var(var(--secondary-light));
+    
 }

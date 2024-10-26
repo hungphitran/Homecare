@@ -73,7 +73,7 @@ const accountController = {
             return request.customerInfo.phone==user.phone;
         })
 
-        res.render('pages/detailedaccount',{
+        res.render('partials/detailedaccount',{
             user:user,
             requests:requests,
             layout:false

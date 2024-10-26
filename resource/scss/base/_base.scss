@@ -1,5 +1,7 @@
 *, ::before, ::after{
     box-sizing: border-box;
+    scroll-behavior: smooth;
+    scroll-padding-top: 2rem;
 }
 
 html{
@@ -14,6 +16,7 @@ body{
     color:var(--text-color);
     font-size:1.6rem;
     font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-black-900);
     // background: linear-gradient(to right,black,green);
 }
 // body:has(.requires-no-scroll){

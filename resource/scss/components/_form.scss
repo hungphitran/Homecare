@@ -191,3 +191,9 @@ input[type="checkbox"]:checked:before{
         transform:rotate(45deg) scale(0);
     }
 }
+input:disabled{
+    color:#666;
+}
+input:not(:disabled){
+    color:black;
+}

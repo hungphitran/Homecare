@@ -1,0 +1,77 @@
+@use "../abstracts";
+td img{
+    width: 36px;
+    height:36px;
+    margin-right: .5rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+table,th ,td{
+    padding: 1rem;
+    border-collapse:collapse ;
+    text-align: left;
+}
+.table__main{
+    width:75vw;
+    // height:90vh;
+    background-color: #fff;
+    @include abstracts.screen(xl){
+        width:100vw;
+    }
+}
+.table__header{
+    width:100%;
+    height:10%;
+    background-color: #fff4;
+    padding:0.8rem 1rem;
+}
+.table__body{
+    width:100%;
+    // max-height:calc(40% - 0.8rem);
+    background-color: #fff;
+    margin:0.8rem auto;
+    overflow: auto;
+}
+table__body::-webkit-scrollbar{
+    width: 0.5rem;
+    height:0.5rem;
+}
+.table__body::-webkit-scrollbar-thumb{
+    border-radius: 0.5rem;
+    background-color:#0004;
+}
+thead th{
+    position:sticky;
+    top:0;
+    left:0;
+    background-color: #d5d1defe;
+}
+tbody tr:nth-child(even){
+    background-color: #0000000b;
+}
+tbody tr:hover{
+    background-color: #fff6;
+}
+.status-detail{
+    padding:0.4rem 0;
+    border-radius: 2rem;
+    text-align: center;
+}
+.status-detail.done{
+    background-color: #86e49d;
+    color:#006b21;
+}
+.status-detail.cancel{
+    background-color:#d893a3;
+    color:#b30021;
+}
+.status-detail.pending{
+    background-color: #ebc874;
+}
+td{
+    @include abstracts.screen(lg){
+        td:not(:first-op-type){
+            min-width:12.1rem;
+        }
+    }
+}
