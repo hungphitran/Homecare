@@ -4,15 +4,60 @@
     background:var(--bg-black-100);
     position:fixed;
     left:0;
-    top:111px;
+    top:100px;
     z-index:10;
     display:flex;
     align-items:center;
     justify-content: center;
-    height:100%;
+    height:102%;
     padding:30px;
     border-right: 1px solid var(--bg-black-50);
     transition: all 0.3 ease;
+    &-general{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        position:absolute;
+        top:0;
+    }
+    &-profile-user{
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        
+         background:linear-gradient(180deg, rgba(26, 22, 46, 0.00) 0%, #1A162E 100%), url(/img/backgrond-avatar.jpg) no-repeat center / cover;
+         width:100%;
+         padding:40px 20px 20px;
+        box-shadow: 0px 20px 60px 10px rgba(237, 237, 246, 0.20);
+    }
+    
+    &-profile-user__avatar{
+        width:121px;
+        height:121px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0px 4px 14px 2px rgba(0, 0, 0, 0.08);
+        border: 5px solid rgba(255, 255, 255, 0.20);
+        background:#ccc, content-box;
+    }
+    &-profile-user__name{
+        margin-top:15px;
+        font-size:1.8rem;
+        font-weight:700;
+        line-height:144.444%;
+        color:var(--white) !important;
+    }
+    &-profile-user__desc{
+        margin-top:2px;
+        font-size:1.5rem;
+        font-weight:500;
+        line-height:2.2rem;
+        color:var(--white);
+    }
+    &-detail{
+        align-items: start;
+        top:80px;
+    }
     @include abstracts.screen(xl){
        left:-270px;
        &.open{
@@ -133,6 +178,7 @@
             border-bottom: 1px solid var(--bg-black-50);
             color:var(--text-black-900);
             padding: 5px 15px;
+            white-space: nowrap;
              &.aside__nav-active{
                 color:var(--skin-color);
             }
