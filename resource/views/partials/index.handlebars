@@ -1,48 +1,19 @@
 
 <div class="slideshow">
-    <div class="slideshow__inner">
-        <div class="swiper mySwiper--slideshow">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" style="width:90vw;height:830px"><img srcset="/img/picture-home-1-mobile.jpg 500w,/img/picture-home-1-tablet.jpg 1000w,/img/picture-home-1-destop.jpg 1600w"
-                    src="/img/picture-home-1-destop.jpg" alt="Elva dressed as a fairy"
-                    size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" /></div>
-                <div class="swiper-slide"style="width:90vw;height:830px"><img srcset="/img/picture-home-2-mobile.jpg 500w,/img/picture-home-2-tablet.jpg 1000w,/img/picture-home-2-destop.jpg 1600w"
-                    src="/img/picture-home-2-destop.jpg" alt="Elva dressed as a fairy"
-                    size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img"  /></div>
-                <div class="swiper-slide" style="width:90vw;height:830px"><img srcset="/img/picture-home-3-mobile.jpg 500w,/img/picture-home-3-tablet.jpg 1000w,/img/picture-home-3-destop.jpg 1600w"
-                    src="/img/picture-home-3-destop.jpg" alt="Elva dressed as a fairy"
-                    size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" /></div>
-                {{!-- <div class="swiper-slide" style="width:100%">Slide 4</div>
-                <div class="swiper-slide" style="width:100%">Slide 5</div>
-                <div class="swiper-slide" style="width:100%">Slide 6</div>
-                <div class="swiper-slide" style="width:100%">Slide 7</div>
-                <div class="swiper-slide" style="width:100%">Slide 8</div>
-                <div class="swiper-slide" style="width:100%">Slide 9</div> --}}
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div>
-        {{!-- <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide"><img
-                        srcset="/img/picture-home-1-mobile.jpg 500w,/img/picture-home-1-tablet.jpg 1000w,/img/picture-home-1-destop.jpg 1600w"
-                        src="/img/picture-home-1-destop.jpg" alt="Elva dressed as a fairy"
-                        size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" /></div>
-                <div class="swiper-slide">
-                    <img srcset="/img/picture-home-2-mobile.jpg 500w,/img/picture-home-2-tablet.jpg 1000w,/img/picture-home-2-destop.jpg 1600w"
-                        src="/img/picture-home-2-destop.jpg" alt="Elva dressed as a fairy"
-                        size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" />
-                </div>
-                <div class="swiper-slide">
-                    <img srcset="/img/picture-home-3-mobile.jpg 500w,/img/picture-home-3-tablet.jpg 1000w,/img/picture-home-3-destop.jpg 1600w"
-                        src="/img/picture-home-3-destop.jpg" alt="Elva dressed as a fairy"
-                        size="(max-width:575px) 500px,(max-width:100px) 100px, 1200px" class="slideshow__img" />
-                </div>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-        </div> --}}
+    <div class="slideshow__inner">  
+        <section class="slider-lastest owl-carousel owl-theme">
+            <div class="slider-lastest__item slider-lastest__item--1">
         
+            </div>
+            <div class="slider-lastest__item slider-lastest__item--2">
+        
+            </div>
+            <div class="slider-lastest__item slider-lastest__item--3">
+            </div>
+            <div class="slider-lastest__item slider-lastest__item--4">
+        
+            </div>
+        </section>
         <div class="slideshow__search">
             <section class="slideshow__search-inner">
                 <h2 class="slideshow__search-heading">ĐẶT DỊCH VỤ GIÚP VIỆC</h2>
@@ -89,6 +60,7 @@
                                     <select id="start-time" name="startTime" class="form-select form-select__start-time status">
                                         <option value="0">Từ giờ</option>
                                         <option value="1">6:00 giờ</option>
+                                        <option value="2">6:30 giờ</option>
                                         <option value="2">7:30 giờ</option>
                                         <option value="3">8:00 giờ</option>
                                         <option value="4">8:30 giờ</option>
@@ -120,31 +92,34 @@
                                     <select id="end-time" name="endTime" class="form-select form-select__end-time status">
                                         <option value="0">Đến giờ</option>
                                         <option value="1">6:00 giờ</option>
-                                        <option value="2">7:30 giờ</option>
-                                        <option value="3">8:00 giờ</option>
-                                        <option value="4">8:30 giờ</option>
-                                        <option value="5">9:30 giờ</option>
-                                        <option value="6">10:00 giờ</option>
-                                        <option value="7">10:30 giờ</option>
-                                        <option value="8">11:00 giờ</option>
-                                        <option value="9">11:30 giờ</option>
-                                        <option value="10">12:00 giờ</option>
-                                        <option value="11">12:30 giờ</option>
-                                        <option value="12">13:00 giờ</option>
-                                        <option value="13">13:30 giờ</option>
-                                        <option value="14">14:00 giờ</option>
-                                        <option value="15">14:30 giờ</option>
-                                        <option value="16">15:00 giờ</option>
-                                        <option value="17">15:30 giờ</option>
-                                        <option value="18">16:00 giờ</option>
-                                        <option value="19">16:30 giờ</option>
-                                        <option value="20">17:00 giờ</option>
-                                        <option value="21">17:30 giờ</option>
-                                        <option value="22">18:00 giờ</option>
-                                        <option value="23">18:30 giờ</option>
-                                        <option value="24">19:00 giờ</option>
-                                        <option value="24">19:30 giờ</option>
-                                        <option value="24">20:00 giờ</option>
+                                        <option value="2">6:30 giờ</option>
+                                        <option value="3">7:00 giờ</option>
+                                        <option value="4">7:30 giờ</option>
+                                        <option value="5">8:00 giờ</option>
+                                        <option value="6">8:30 giờ</option>
+                                        <option value="7">9:00 giờ</option>
+                                        <option value="8">9:30 giờ</option>
+                                        <option value="9">10:00 giờ</option>
+                                        <option value="10">10:30 giờ</option>
+                                        <option value="11">11:00 giờ</option>
+                                        <option value="12">11:30 giờ</option>
+                                        <option value="13">12:00 giờ</option>
+                                        <option value="14">12:30 giờ</option>
+                                        <option value="15">13:00 giờ</option>
+                                        <option value="16">13:30 giờ</option>
+                                        <option value="17">14:00 giờ</option>
+                                        <option value="18">14:30 giờ</option>
+                                        <option value="19">15:00 giờ</option>
+                                        <option value="20">15:30 giờ</option>
+                                        <option value="21">16:00 giờ</option>
+                                        <option value="22">16:30 giờ</option>
+                                        <option value="23">17:00 giờ</option>
+                                        <option value="24">17:30 giờ</option>
+                                        <option value="25">18:00 giờ</option>
+                                        <option value="26">18:30 giờ</option>
+                                        <option value="27">19:00 giờ</option>
+                                        <option value="28">19:30 giờ</option>
+                                        <option value="29">20:00 giờ</option>
                                     </select>
                                
                             </div>
@@ -188,60 +163,68 @@
                                     <select id="start-time" name="startTime" class="form-select form-select__start-time status">
                                         <option value="0">Từ giờ</option>
                                         <option value="1">6:00 giờ</option>
-                                        <option value="2">7:30 giờ</option>
-                                        <option value="3">8:00 giờ</option>
-                                        <option value="4">8:30 giờ</option>
-                                        <option value="5">9:30 giờ</option>
-                                        <option value="6">10:00 giờ</option>
-                                        <option value="7">10:30 giờ</option>
-                                        <option value="8">11:00 giờ</option>
-                                        <option value="9">11:30 giờ</option>
-                                        <option value="10">12:00 giờ</option>
-                                        <option value="11">12:30 giờ</option>
-                                        <option value="12">13:00 giờ</option>
-                                        <option value="13">13:30 giờ</option>
-                                        <option value="14">14:00 giờ</option>
-                                        <option value="15">14:30 giờ</option>
-                                        <option value="16">15:00 giờ</option>
-                                        <option value="17">15:30 giờ</option>
-                                        <option value="18">16:00 giờ</option>
-                                        <option value="19">16:30 giờ</option>
-                                        <option value="20">17:00 giờ</option>
-                                        <option value="21">17:30 giờ</option>
-                                        <option value="22">18:00 giờ</option>
-                                        <option value="22">18:00 giờ</option>
-                                        <option value="22">18:00 giờ</option>
-                                        <option value="22">18:00 giờ</option>
+                                        <option value="2">6:30 giờ</option>
+                                        <option value="3">7:00 Giờ</option>
+                                        <option value="3">7:30 giờ</option>
+                                        <option value="4">8:00 giờ</option>
+                                        <option value="5">8:30 giờ</option>
+                                        <option value="6">9:00 giờ</option>
+                                        <option value="7">9:30 giờ</option>
+                                        <option value="8">10:00 giờ</option>
+                                        <option value="9">10:30 giờ</option>
+                                        <option value="10">11:00 giờ</option>
+                                        <option value="11">11:30 giờ</option>
+                                        <option value="12">12:00 giờ</option>
+                                        <option value="13">12:30 giờ</option>
+                                        <option value="14">13:00 giờ</option>
+                                        <option value="15">13:30 giờ</option>
+                                        <option value="16">14:00 giờ</option>
+                                        <option value="17">14:30 giờ</option>
+                                        <option value="18">15:00 giờ</option>
+                                        <option value="19">15:30 giờ</option>
+                                        <option value="20">16:00 giờ</option>
+                                        <option value="21">16:30 giờ</option>
+                                        <option value="22">17:00 giờ</option>
+                                        <option value="23">17:30 giờ</option>
+                                        <option value="24">18:00 giờ</option>
+                                        <option value="25">18:30 giờ</option>
+                                        <option value="26">19:00 giờ</option>
+                                        <option value="27">19:30 giờ</option>
+                                        <option value="28">20:00 giờ</option>
                                     </select>
                                
                                
                                     <select id="end-time" name="endTime" class="form-select form-select__end-time status">
                                         <option value="0">Đến giờ</option>
                                         <option value="1">6:00 giờ</option>
-                                        <option value="2">7:30 giờ</option>
-                                        <option value="3">8:00 giờ</option>
-                                        <option value="4">8:30 giờ</option>
-                                        <option value="5">9:30 giờ</option>
-                                        <option value="6">10:00 giờ</option>
-                                        <option value="7">10:30 giờ</option>
-                                        <option value="8">11:00 giờ</option>
-                                        <option value="9">11:30 giờ</option>
-                                        <option value="10">12:00 giờ</option>
-                                        <option value="11">12:30 giờ</option>
-                                        <option value="12">13:00 giờ</option>
-                                        <option value="13">13:30 giờ</option>
-                                        <option value="14">14:00 giờ</option>
-                                        <option value="15">14:30 giờ</option>
-                                        <option value="16">15:00 giờ</option>
-                                        <option value="17">15:30 giờ</option>
-                                        <option value="18">16:00 giờ</option>
-                                        <option value="19">16:30 giờ</option>
-                                        <option value="20">17:00 giờ</option>
-                                        <option value="21">17:30 giờ</option>
-                                        <option value="22">18:00 giờ</option>
-                                        <option value="22">18:00 giờ</option>
-                                        <option value="22">18:00 giờ</option>
-                                        <option value="22">18:00 giờ</option>
+                                        <option value="2">6:30 giờ</option>
+                                        <option value="3">7:00 Giờ</option>
+                                        <option value="3">7:30 giờ</option>
+                                        <option value="4">8:00 giờ</option>
+                                        <option value="5">8:30 giờ</option>
+                                        <option value="6">9:00 giờ</option>
+                                        <option value="7">9:30 giờ</option>
+                                        <option value="8">10:00 giờ</option>
+                                        <option value="9">10:30 giờ</option>
+                                        <option value="10">11:00 giờ</option>
+                                        <option value="11">11:30 giờ</option>
+                                        <option value="12">12:00 giờ</option>
+                                        <option value="13">12:30 giờ</option>
+                                        <option value="14">13:00 giờ</option>
+                                        <option value="15">13:30 giờ</option>
+                                        <option value="16">14:00 giờ</option>
+                                        <option value="17">14:30 giờ</option>
+                                        <option value="18">15:00 giờ</option>
+                                        <option value="19">15:30 giờ</option>
+                                        <option value="20">16:00 giờ</option>
+                                        <option value="21">16:30 giờ</option>
+                                        <option value="22">17:00 giờ</option>
+                                        <option value="23">17:30 giờ</option>
+                                        <option value="24">18:00 giờ</option>
+                                        <option value="25">18:30 giờ</option>
+                                        <option value="26">19:00 giờ</option>
+                                        <option value="27">19:30 giờ</option>
+                                        <option value="28">20:00 giờ</option>
                                     </select>
                                
                             </div>
@@ -253,8 +236,8 @@
         </div>
         </div>
     </div>
-</div>
-<section id="about" class="about">
+{{!-- </div> --}}
+<section id="introduce" class="about">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -281,7 +264,7 @@
         </div>
         <div class="row about__process">
             <div class="col-md-8 center">
-                <h2 class="heading">CÁC BƯỚC ĐẶT DỊCH VỤ</h2>
+                <h2 class="heading">Các bước đặc dịch vụ</h2>
                 <div class="row about__process-inner">
                     <div class="col-md-3 about__process-center">
                         <div class="about__process-item">
@@ -321,7 +304,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="row margin-top">
+        <div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="service__box">
                     <i class="fa-solid fa-child-reaching" style="color: #ffffff;font-size: 40px;"></i>
@@ -384,7 +367,7 @@
         </div>
     </div>
 </section>
-<section class="faq">
+<section id="faq" class="faq" style="padding-top: 100px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -471,7 +454,7 @@
                         <div class="faq__item-answer-text">
                             <p class="faq__item-answer-text--desc faq-title">• Đặt yêu cầu trực tiếp hoặc bằng ứng dụng ProCleaner trên smartphone hoặc thông qua website ProCleaner.vn.
                             </p>
-                            <p class="faq__item-answer-text--desc faq-title">• Liên hệ với chúng tôi:</p>
+                            <p class="faq__item-answer-text--desc faq-title">��� Liên hệ với chúng tôi:</p>
                             <ul class="faq__item-answer-text--desc">
                                 <li>Gọi điện thoại: 08.3930.5057 08.3930.5058</li>
                                 <li>Gửi email: cs@procleaner.vn</li>
@@ -621,41 +604,7 @@
         </div>
     </div>
 </section>
-{{!-- <section class="helper">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="heading">Danh sách người giúp việc</h2>
-            </div>
-        </div>
-        <div class="row">
-            {{#each helpers}}
-            <div class="col-lg-3 padding-bottom">
-                <div class="helper__thumbnail">
-                    <a href="/helper/{{this._id}}"><img src="{{this.avatar}}" alt="helper" class="helper__thumbnail-img"></a>
-                    <div class="helper__info">
-                        <div class="row" style="margin-top: 0; align-items: end;">
-                            <h5 class="fa-solid fa-user col-3" style="font-size: 30px;"></h5>
-                            <span class="col-9" style="font-size: 20px; font-weight: 600;text-align:left; white-space: nowrap;">{{this.fullName}}</span>
-                        </div>
-                        <div class="row" style="margin-top: -4px;">
-                            <div class="col-6" style="display: flex;align-items: end;gap: 10px;">
-                                <h5 class="fa-solid fa-clock" style="font-size: 30px;"></h5>
-                                <span style="font-size: 20px; font-weight: 600;text-align:left; white-space: nowrap;">1000 giờ</span>
-                            </div>
-                            <div class="col-6" style="display: flex;align-items: end;gap: 10px;">
-                                <h5 class="fa-solid fa-cake-candles" style="font-size: 30px;"></h5>
-                                <span style="font-size: 20px; font-weight: 600;text-align:left; white-space: nowrap;">20 tuổi</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-     
-    </div>
-</section> --}}
+
 <section class="partnership">
     <div class="container">
         <div class="row">
@@ -666,7 +615,7 @@
     </div>
 </section>
 
-<div class="helper">
+<div id="helper" class="helper">
     <div class="container">
         <div class="swiper mySwiper helper__mySwiper">
             <div class="swiper-wrapper helper__wrapper">
@@ -685,32 +634,7 @@
         </div>
     </div>
 </div>
-{{!-- <div class="container requires-no-scroll">
-    <header class="header-test">
-        <div class="triangle left">
-            <h1 class="header-test__title">CHÀO MỪNG BẠN ĐẾN VỚI HOMECARE</h1>
-        </div>
-        <div class="triangle right">
-            <h1 class="header-test__title">CHÀO MỪNG BẠN ĐẾN VỚI HOMECARE</h1>
-        </div>
-        <button class="header-test__button"></button>
-    </header>
-    
-    <nav class="nav-test">
-        <ul class="nav-test__list">
-            <a href="#section1"><li>Section 1</li></a>
-            <a href="#section2"><li>Section 2</li></a>
-            <a href="#section3"><li>Section 3</li></a>
-        </ul>
-        <div id="nav-close"><i class="fas fa-times"></i></div>
-    </nav>
-</div> --}}
 
-{{!-- <content class="content">
-    <section class="content__section" id="section1">Section 1</section>
-    <section class="content__section" id="section2">Section 2</section>
-    <section class="content__section" id="section3">Section 3</section>
-</content> --}}
 <script>
 
         const locations = {{{ json locations }}};

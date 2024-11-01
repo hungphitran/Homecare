@@ -1,4 +1,4 @@
-<style>
+{{!-- <style>
     .helper-list{
         display: flex;
     }
@@ -8,11 +8,10 @@
     .basic-helper{
         width: 300px;
     }
-</style>
+</style> --}}
 
 
-
-<form method="post" action="/request">
+{{!-- <form method="post" action="/request">
 
     <ul>
         <li><input type="hidden" name="requestType" value="Ngắn hạn">Hình thức: Ngắn hạn</li>
@@ -69,9 +68,9 @@
             <h2>Không tìm thấy người giúp việc phù hợp, vui lòng thay đổi lựa chọn</h2>
         </div>
     {{/if}}
-</form>
+</form> --}}
 
-<script>
+{{!-- <script>
     let helperlist=document.querySelector('.helper-list')
     let helperElements=document.querySelectorAll('div.basic-helper')
     let submitBtn= document.querySelector('form button')
@@ -121,4 +120,536 @@
     }
 
 
-</script>
+</script> --}}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Homecare
+    </title>
+    {{!-- font --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clicker+Script&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- link css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- script -->
+    <script src="/js/scripts.js"></script>
+    <link rel="shortcut icon" href="/icon/logo-removeBg.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/01acedffd5.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    {{!-- Main container start --}}
+    <div class="main-container" style="padding-top:70px;padding-bottom:1000px">
+        {{!-- aside start --}}
+        <div class="aside aside__extra">
+            {{!-- <div class="aside__logo">
+                <a href="/">
+                    <div class="logo">
+                        <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img-helper logo __img-header logo_medium">
+                    </div>
+                </a>
+            </div> --}}
+            <div class="aside__nav-toggle">
+                <span></span>
+            </div>
+           <div class="aside__content">
+                <div class="aside__search">
+                    <i class="fa-solid fa-magnifying-glass"></i>Tìm Kiếm
+                </div>
+                <ul class="aside__nav aside__nav--extra">
+                    <li class="aside__item">
+                        <a href="#!" class="aside__nav">
+                            <i class="fa fa-calendar" style="margin-right:5px;color:var(--skin-color)"></i>Ngày
+                            <ul class="aside__nav-child">
+                                <li>
+                                    <div class="form__group" style="margin-top:10px;">
+                                        <div class="form__text-input form-control">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
+                                                value="{{order.dates}}" name="name" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                       <a href="#!">
+                        <i class="fa fa-clock" style="margin-right:5px;color:var(--skin-color)"></i>Giờ
+                            <ul class="aside__nav-child">
+                                <li>
+                                    <div class="form__group" style="margin-top:5px;">
+                                        <div class="form__text-input form-control">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Bắt Đầu" type="text"
+                                                class="form__input" value="{{order.startTime}}" name="name" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="form__group" style="margin-top:5px;">
+                                        <div class="form__text-input form-control">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Kết Thúc" type="text"
+                                                class="form__input" value="{{order.endTime}}" name="name" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
+                                </li>
+                            </ul>
+                       </a>
+                    </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                           <i class="fa fa-briefcase" style="margin-right:5px;color:var(--skin-color)"></i>Kinh nghiệm
+                        <ul class="aside__nav-child">
+                        
+                           
+                            <li>
+                                <label class="province-option">
+                                    <input type="radio">
+                                   Tất cả
+                                </label>
+                            </li>
+                            <li>
+                                <label class="province-option">
+                                    <input type="radio">
+                                   Từ 1 năm trở lên
+                                </label>
+                            </li>
+                            <li>
+                                <label class="province-option">
+                                    <input type="radio">
+                                Từ 2 năm trở lên
+                                </label>
+                            </li>
+                            <li>
+                                <label class="province-option">
+                                    <input type="radio">
+                                    Từ 3 năm trở lên
+                                </label>
+                            </li>
+                            <li>
+                                <label class="province-option">
+                                    <input type="radio">
+                                    Từ 4 năm trở lên
+                                </label>
+                            </li>
+                            <li>
+                                <label class="province-option">
+                                    <input type="radio">
+                                    Từ 5 năm trở lên
+                                </label>
+                            </li>
+                        
+                        </ul>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                          <i class="fa fa-tags" style="margin-right:5px;color:var(--skin-color)"></i>Dịch vụ
+                          <ul class="aside__nav-child">
+                            {{#each services}}
+                            <li>
+                                <div class="form__group" style="margin-top:10px;">
+                                    <input type="checkbox" id="{{_id}}">
+                                    <label for="#{{_id}}" class="book-item__flex-50-text" name="service_id" value="{{_id}}" checked>
+                                        {{title}}</label>
+                                </div>
+                            </li>
+                            {{/each}}
+                          </ul>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                           <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Quận
+                            <ul class="aside__nav-child">
+                                {{#each locations}}
+                                <label class="province-option">
+                                    <input type="radio" name="province" value="{{this.province}}" checked>
+                                    {{this.province}}
+                                </label>
+                                {{/each}}
+                            </ul>
+                        </a>
+                    </li>
+                </ul>
+           </div>
+        </div>
+        {{!-- aside end --}}
+        {{!-- main content start --}}
+        <div class="main-content">
+            {{!-- home section start --}}
+            <section class="home home-active section" id="home">
+                <div class="home__container-2" style="padding-top:15px;">
+                    <div class="home__row-2">
+                       <div class="short-helper">
+                        <div class="short-helper__heading" style="font-size:1.6rem">
+                           <div class="short-helper__heading-left">
+                                <i class="fa fa-list" style="margin-right:10px"></i>Danh sách người giúp việc
+                                <button class="short-helper__btn">
+                                    <i class="fa fa-user"></i>
+                                    <span>0</span>
+                                </button>
+                           </div>
+                            <div class="short-helper__heading-right">
+                                <button onclick="showPopupShort()" class="btn btn-primary" style="margin-left:auto;background-color:var(--skin-color);color:var(--white)">
+                                    <i class="fa fa-shopping-cart" style="margin-right:5px;color:var(--white)"></i>Yêu cầu người giúp việc
+                                </button>
+                                <div class="overlay-short" id="overlay-short"></div>
+                                <div class="short-popup">
+                                    <h2>Yêu cầu người giúp việc</h2>
+                                    <p>Bạn vẫn chưa chọn người giúp việc</p>
+                                    <button type="button" class="short-popup__btn" id="short-popup__btn" onclick="hidePopupShort()">
+                                        OK
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                       </div>
+                    {{#if helpers}}
+                       <div class="short-helper__list" style="flex: 0 0 100%;
+    max-width: 100%;
+    margin-top: 15px;">
+                    {{#each helpers}}
+                       <div class="short-helper__item">
+                        <div class="home__row-2" style="margin-left:0px;margin-right:0px">
+                            <div class="short-helper__item--image" style="flex:0 0 25%; max-width:25%; ">
+                               <a href="/helper/{{this._id}}"> <img src="{{this.avatar}}" alt="{{this._id}}"  style="min-width: 100px; max-height:200px;object-fit:cover" class="short-helper__img-portrait"></a>
+                            </div>
+                            <div class="short-helper__item--helper" style="flex:0 0 75%; max-width:75%; ">
+                                <div class="short-helper__item--helper-name">
+                                    <div class="home__row-2" style="flex:0 0 100%;max-height:100%;margin-left:0; margin-right:0">
+                                        <h1>Nguyễn Văn A</h1>
+                                    </div>
+                                </div>
+                                <div class="home__row-2" style="flex:0 0 100%;max-height:100%;margin-left:0; margin-right:0; margin-top:10px;display: flex;justify-content: space-between;align-items: center;">
+                                    <div class="short-helper__content-left" style="flex:0 0 40%;max-width:48%;">
+                                        <div class="short-helper__content-left-item" style="margin-top:-12px">
+                                            <i class="fa fa-map-marker-alt" style="color:var(--skin-color);"></i>
+                                            <span>Hà Nội</span>
+                                        </div>
+                                    </div>
+                                    <div class="vertical-line"></div>
+                                    <div class="short-helper__content-right" style="flex:0 0 58%;max: width 58%;padding-left:10px;">
+                                        <div class="home__row-2" style="margin-left:0;margin-right:0;flex:0 0 100%;max-height:100%;margin-top:10px;display: flex;justify-content: space-between;align-items: center;">
+                                            <div class="helper-content__left" style="flex:0 0 40%;max-width:40%;">
+                                                <i class="fa fa-venus-mars" style="margin-right:5px;color:var(--skin-color);"></i>
+                                                <span>Nam</span>
+                                            </div>
+                                            <div class="helper-content__left" style="flex:0 0 50%;max-width:50%;">
+                                                <i class="fa fa-birthday-cake" style="margin-right:5px; margin-left:60px;color:var(--skin-color);"></i>
+                                                <span>22 tuổi</span>
+                                            </div>
+                                        </div>
+                                        <div class="home__row-2" style="margin-left:0;margin-right:0;flex:0 0 100%;max-height:100%;margin-top:10px">
+                                            <div class="helper-content__left" style="flex:0 0 50%;max-width:50%;">
+                                                <i class="fa fa-briefcase" style="color:var(--skin-color);margin-right:5px"></i>
+                                                <span style="white-space: nowrap;">2 năm kinh nghiệm</span>
+                                            </div>
+                                            <div class="helper-content__left" style="flex:0 0 50%;max-width:50%;">
+                                                <i class="fa fa-map-marker-alt" style="margin-right:5px; margin-left:60px;color:var(--skin-color);"></i>
+                                                <span>Quận 1</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="short-helper__item--helper-preference">
+                                    <div class="home__row-2" style="flex:0 0 100%;max-height:100%;margin-left:0; margin-right:0;margin-top:10px;">
+                                        <i class="fa fa-tags" style="color:var(--skin-color);color:var(--skin-color); margin-right:5px;"></i>
+                                        <span>Sở trường</span>
+                                    </div>
+                                </div>
+                                <div class="short-helper__item--helper-box">
+                                    <div class="home__row-2" style="flex:0 0 100%;max-height:100%;margin-left:0; margin-right:0;margin-top:10px;">
+                                     <div class="helper-box__list">
+                                           <div class="helper-box">
+                                            <span>Osin part Time</span>
+                                           </div>
+                                        <div class="helper-box">
+                                            <span>Osin part Time</span>
+                                        </div>
+                                        <div class="helper-box">
+                                            <span>Osin part Time</span>
+                                        </div>
+                                     </div>
+
+                                    </div>
+                                </div>
+                                <div class="short-helper__item--helper-detail" style="margin-top:10px">
+                                    <div class="home__row-2" style="flex:0 0 100%;max-height:100%;margin-left:0; margin-right:0; display: flex;justify-content: flex-end;">
+                                      <button class="btn" style="background-color:var(--skin-color);color:var(--white)"><i class="fa fa-arrow-right" style="margin-right:5px"></i>Thông tin chi tiết</button></div>
+                                </div>
+
+                            </div>
+                        </div>
+                       </div>
+                    {{/each}}
+
+                       </div>
+                       {{else}}
+                       <div class="short-helper__item">
+                        <div class="home__row-2" style="margin-left:0px;margin-right:0px">
+                            <h1>Không tìm thấy người giúp việc nào</h1>
+                        </div>
+                       </div>
+                       {{/if}}
+                       </div>
+                       
+                    </div>
+                </div>
+            </section>
+            {{!-- home section end --}}
+        </div>
+        {{!-- main content end --}}
+    </div>
+    {{!-- main contain end --}}
+
+    <script src="/js/app.js"></script>
+
+    <script>
+        // điều mình mong muốn
+        validator({
+            form: "#form-1",
+            errorElement: ".form__error",
+            formGroupElement: ".form__group",
+            rules: [
+                validator.isRequire("#tel-input", "Bạn chưa nhập gì hết"),
+                validator.isPhone("#tel-input", "vui lòng nhập đúng định dạng của số điện thoại"),
+                //validator.isRequire("#password", "You haven't entered yet."),
+                //validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
+            ],
+            onsubmit: function (data) {
+                console.log(data);
+            }
+        })
+        validator({
+            form: "#form-2",
+            errorElement: ".form__error",
+            formGroupElement: ".form__group",
+            rules: [
+                validator.isRequire("#full-name-input", "Bạn chưa nhập gì hết"),
+                validator.isRequire("#address-input", "Bạn chưa nhập gì hết"),
+                validator.isRequire("#city-input", "Bạn chưa nhập gì hết"),
+                validator.isRequire("#district-input", "Bạn chưa nhập gì hết"),
+
+
+                //validator.isRequire("#password", "You haven't entered yet."),
+                //validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
+            ],
+            onsubmit: function (data) {
+                console.log(data);
+            }
+        })
+    </script>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
+    <script>
+        let shortPopup = document.querySelector(".short-popup");
+        let shortPopupBtn = document.querySelector("#short-popup__btn");
+        let overlayShort = document.querySelector(".overlay-short");
+        let aside = document.querySelector(".aside");
+        function showPopupShort(){
+            aside.style.zIndex = "2";
+            overlayShort.classList.add("active");
+            shortPopup.classList.add("open-popup__short");
+        }
+        function hidePopupShort(){
+            aside.style.zIndex = "10";
+            overlayShort.classList.remove("active");
+            shortPopup.classList.remove("open-popup__short");
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#myID1", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            conjunction: " :: ",
+            minTime: "06:00",
+            maxTime: "20:00",
+        });
+        flatpickr("#myID", {
+            minDate: "today",
+            mode: "multiple",
+            dateFormat: "Y-m-d",
+            conjunction: " :: "
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"
+        integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        var typed = new Typed(".home__my-profession-typing", {
+            strings: ["", "web Designer", "Web Developer", "Graphic Designer", "Youtube"],
+            typeSpeed: 100,
+            BackSpeed: 60,
+            loop: true
+        })
+        //aside
+        const nav = document.querySelector(".aside__nav"),
+            navList = nav.querySelectorAll(".aside__item"),
+            totalNavList = navList.length,
+            allSection = document.querySelectorAll(".section"), totalSection = allSection.length;
+        for (let i = 0; i < totalNavList; i++) {
+
+            const a = navList[i].querySelector("a");
+            a.addEventListener("click", function () {
+                console.log(this);
+                removeBackSection();
+                for (let j = 0; j < totalNavList; j++) {
+                    if (navList[j].querySelector("a").classList.contains("aside__nav-active")) {
+                        addBackSection(j);
+                        //allSection[j].classList.add("back-section");
+                    }
+                    navList[j].querySelector("a").classList.remove("aside__nav-active");
+                }
+                this.classList.add("aside__nav-active");
+                showSection(this);
+                if (window.innerWidth < 1200) {
+                    asideSectionToggleBtn();
+                }
+            })
+        }
+        function addBackSection(num) {
+            allSection[num].classList.add("back-section");
+        }
+        function removeBackSection() {
+            for (let i = 0; i < totalSection; i++) {
+                allSection[i].classList.remove("back-section");
+            }
+        }
+        function showSection(element) {
+            for (let i = 0; i < totalSection; i++) {
+                allSection[i].classList.remove("home-active");
+            }
+            const target = element.getAttribute("href").split("#")[1];
+            console.log(target);
+            document.querySelector("#" + target).classList.add("home-active");
+
+        }
+        function updateNav(element) {
+            console.log(element.getAttribute("href").split("#")[1]);
+            for (let i = 0; i < totalSection; i++) {
+                navList[i].querySelector("a").classList.remove("aside__nav-active");
+                const target = element.getAttribute("href").split("#")[1];
+                if (target === navList[i].querySelector("a").getAttribute("href").split("#")[1]) {
+                    navList[i].querySelector("a").classList.add("aside__nav-active");
+                }
+            }
+
+
+        }
+        document.querySelector('.hire-me').addEventListener("click", function () {
+            console.log(this);
+            const sectionIndex = this.getAttribute("data-section-index");
+            console.log(sectionIndex);
+            showSection(this);
+            updateNav(this);
+            removeBackSection();
+            addBackSection(sectionIndex);
+        })
+        document.querySelector('.book-helper').addEventListener("click", function () {
+            console.log(this);
+            const sectionIndex = this.getAttribute("data-section-index");
+            console.log(sectionIndex);
+            showSection(this);
+            updateNav(this);
+            removeBackSection();
+            addBackSection(sectionIndex);
+        })
+        document.querySelector('.book-helper').addEventListener("click", function () {
+            console.log(this);
+            const sectionIndex = this.getAttribute("data-section-index");
+            console.log(sectionIndex);
+            showSection(this);
+            updateNav(this);
+            removeBackSection();
+            addBackSection(sectionIndex);
+        })
+        document.querySelector('.book-helper__cancel').addEventListener("click", function () {
+            console.log(this);
+            const sectionIndex = this.getAttribute("data-section-index");
+            console.log(sectionIndex);
+            showSection(this);
+            updateNav(this);
+            removeBackSection();
+            addBackSection(sectionIndex);
+        })
+        const navToggleBtn = document.querySelector('.aside__nav-toggle'), aside = document.querySelector(".aside");
+        navToggleBtn.addEventListener("click", () => {
+            asideSectionToggleBtn();
+        })
+        function asideSectionToggleBtn() {
+            aside.classList.toggle("open");
+            navToggleBtn.classList.toggle("open");
+            for (let i = 0; i < totalSection; i++) {
+                allSection[i].classList.toggle('open');
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper--slideshow", {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+            centeredSlides: true,
+            grabCursor: true,
+            loop: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                clickable: true,
+            },
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: "3",
+            spaceBetween: 150,
+            centeredSlides: true,
+            grabCursor: true,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
+</body>
+
+</html>

@@ -10,7 +10,7 @@
     }
 
 </style> --}}
-<form method="post" action="/request">
+{{!-- <form method="post" action="/request">
     <ul>
         <li><input type="hidden" name="requestType" value="Dài hạn">Hình thức: Dài hạn</li>
         <li><input type="hidden" name="startDate" value="{{order.startDate}}"> {{order.startDate}}</li>
@@ -39,10 +39,10 @@
     
 
     <button >Submit</button>
-</form>
+</form> --}}
 
 
-<script>
+{{!-- <script>
     let helperElements=document.querySelectorAll('div.basic-helper')
     let numHelperInput= document.querySelector('#num-helper-input')
     let submitBtn= document.querySelector('form button')
@@ -70,4 +70,513 @@
         let input= helperlist.querySelector('input');
         input.value=selectedHelper;
     }
-</script>
+</script> --}}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Homecare
+    </title>
+    {{!-- font --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clicker+Script&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- link css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- script -->
+    <script src="/js/scripts.js"></script>
+    <link rel="shortcut icon" href="/icon/logo-removeBg.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/01acedffd5.js" crossorigin="anonymous"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core/locales/vi.global.min.js'></script>
+</head>
+<style>
+    /* Tùy chỉnh màu sắc calendar */
+    .fc {
+        --fc-button-bg-color: var(--skin-color);
+        --fc-button-border-color: var(--skin-color);
+        --fc-button-hover-bg-color: #45a049;
+        --fc-button-hover-border-color: #45a049;
+        --fc-button-active-bg-color: #45a049;
+        --fc-today-bg-color: rgba(74, 222, 128, 0.1);
+        --fc-border-color: #e5e7eb;
+    }
+
+    /* Màu khi hover ngày */
+    .fc-day:hover {
+        background-color: rgba(74, 222, 128, 0.05) !important;
+    }
+
+    /* Style cho nút Today */
+    .fc .fc-button-primary:not(:disabled).fc-button-active,
+    .fc .fc-button-primary:not(:disabled):active {
+        background-color: #45a049 !important;
+        border-color: #45a049 !important;
+    }
+
+    /* Style cho header */
+    .fc-toolbar-title {
+        color: var(--skin-color) !important;
+        font-weight: 600 !important;
+    }
+
+    /* Style cho các event nếu có */
+    .fc-event {
+        background-color: var(--skin-color) !important;
+        border-color: var(--skin-color) !important;
+    }
+     .fc .fc-toolbar-title {
+        font-size: 1em !important;
+    }
+    .fc .fc-button {
+        padding: 6px 10px;
+        font-size: 0.9em;
+    }
+</style>
+<body>
+    {{!-- Main container start --}}
+    <div class="main-container" style="padding-top:70px;padding-bottom:1000px">
+        {{!-- aside start --}}
+        <div class="aside aside__extra">
+            {{!-- <div class="aside__logo">
+                <a href="/">
+                    <div class="logo">
+                        <img src="/icon/logo-removeBg.png" alt="grocerymart"
+                            class="logo__img-helper logo __img-header logo_medium">
+                    </div>
+                </a>
+            </div> --}}
+            <div class="aside__nav-toggle">
+                <span></span>
+            </div>
+            <div class="aside__content">
+                <div class="aside__search">
+                    <i class="fa-solid fa-magnifying-glass"></i>Tìm Kiếm
+                </div>
+                <ul class="aside__nav aside__nav--extra">
+                    <li class="aside__item">
+                        <a href="#!" class="aside__nav">
+                            <i class="fa fa-calendar" style="margin-right:5px;color:var(--skin-color)"></i>Ngày
+                            <ul class="aside__nav-child">
+                                <li>
+                                    <div class="form__group" style="margin-top:10px;">
+                                        <div class="form__text-input form-control">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
+                                                value="{{order.startDate}}" name="name" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
+                                    <div class="form__group" style="margin-top:10px;">
+                                        <div class="form__text-input form-control">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
+                                                value="{{order.endDate}}" name="name" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                            <i class="fa fa-clock" style="margin-right:5px;color:var(--skin-color)"></i>Giờ
+                            <ul class="aside__nav-child">
+                                <li>
+                                    <div class="form__group" style="margin-top:5px;">
+                                        <div class="form__text-input form-control">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Bắt Đầu" type="text"
+                                                class="form__input" value="{{account}}" name="name" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
+                                </li>
+                                <li>
+                                <div class="form__group" style="margin-top:5px;">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Kết Thúc" type="text"
+                                            class="form__input" value="{{account}}" name="name" required>
+                                        {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                                </li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                            <i class="fa fa-briefcase" style="margin-right:5px;color:var(--skin-color)"></i>Kinh nghiệm
+                            <ul class="aside__nav-child">
+
+
+                                <li>
+                                    <label class="province-option">
+                                        <input type="radio">
+                                        Tất cả
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="province-option">
+                                        <input type="radio">
+                                        Từ 1 năm trở lên
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="province-option">
+                                        <input type="radio">
+                                        Từ 2 năm trở lên
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="province-option">
+                                        <input type="radio">
+                                        Từ 3 năm trở lên
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="province-option">
+                                        <input type="radio">
+                                        Từ 4 năm trở lên
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="province-option">
+                                        <input type="radio">
+                                        Từ 5 năm trở lên
+                                    </label>
+                                </li>
+
+                            </ul>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                            <i class="fa fa-tags" style="margin-right:5px;color:var(--skin-color)"></i>Dịch vụ
+                            <ul class="aside__nav-child">
+                                {{#each services}}
+                                <li>
+                                    <div class="form__group" style="margin-top:10px;">
+                                        <input type="checkbox" id="{{_id}}">
+                                        <label for="#{{_id}}" class="book-item__flex-50-text" name="service_id"
+                                            value="{{_id}}" checked>
+                                            {{title}}</label>
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                            <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Quận
+                            <ul class="aside__nav-child">
+                                {{#each locations}}
+                                <label class="province-option">
+                                    <input type="radio" name="province" value="{{this.province}}" checked>
+                                    {{this.province}}
+                                </label>
+                                {{/each}}
+                            </ul>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        {{!-- aside end --}}
+        {{!-- main content start --}}
+        <div class="main-content">
+            {{!-- home section start --}}
+            <section class="home home-active section" id="home">
+                <div class="home__container-2" style="padding-top:15px;">
+                     <div id='calendar'></div>
+                </div>
+        {{!-- </div> --}}
+        </section>
+        {{!-- home section end --}}
+        </div>
+    {{!-- main content end --}}
+    </div>
+    {{!-- main contain end --}}
+
+    <script src="/js/app.js"></script>
+
+    <script>
+        // điều mình mong muốn
+        validator({
+            form: "#form-1",
+            errorElement: ".form__error",
+            formGroupElement: ".form__group",
+            rules: [
+                validator.isRequire("#tel-input", "Bạn chưa nhập gì hết"),
+                validator.isPhone("#tel-input", "vui lòng nhập đúng định dạng của số điện thoại"),
+                //validator.isRequire("#password", "You haven't entered yet."),
+                //validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
+            ],
+            onsubmit: function (data) {
+                console.log(data);
+            }
+        })
+        validator({
+            form: "#form-2",
+            errorElement: ".form__error",
+            formGroupElement: ".form__group",
+            rules: [
+                validator.isRequire("#full-name-input", "Bạn chưa nhập gì hết"),
+                validator.isRequire("#address-input", "Bạn chưa nhập gì hết"),
+                validator.isRequire("#city-input", "Bạn chưa nhập gì hết"),
+                validator.isRequire("#district-input", "Bạn chưa nhập gì hết"),
+
+
+                //validator.isRequire("#password", "You haven't entered yet."),
+                //validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
+            ],
+            onsubmit: function (data) {
+                console.log(data);
+            }
+        })
+    </script>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar')
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'vi',
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                buttonText: {
+                    today: 'Hôm nay',
+                    month: 'Tháng',
+                    week: 'Tuần',
+                    day: 'Ngày'
+                },
+                events: [
+                    {
+                        title: 'Dọn dẹp nhà cửa', // Tiêu đề sự kiện
+                        start: '{{order.startDate}}', // Thời gian bắt đầu
+                        end: '{{order.endDate}}', // Thời gian kết thúc
+                        color: 'var(--skin-color)', // Màu sắc sự kiện
+                        // Thêm các thông tin tùy chỉnh
+                        extendedProps: {
+                            status: 'confirmed',
+                            location: 'Quận 1, TPHCM',
+                            helper: 'Nguyễn Văn A'
+                        }
+                    },
+                    // Thêm nhiều sự kiện khác...
+                ],
+                // Xử lý khi click vào sự kiện
+                eventClick: function(info) {
+                    alert('Sự kiện: ' + info.event.title + '\n' +
+                          'Địa điểm: ' + info.event.extendedProps.location + '\n' +
+                          'Người giúp việc: ' + info.event.extendedProps.helper);
+                },
+                // Xử lý khi click vào ngày trống
+                dateClick: function(info) {
+                    alert('Đã chọn ngày: ' + info.dateStr);
+                    // Có thể mở modal để tạo sự kiện mới
+                }
+            })
+            calendar.render()
+        })
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#myID1", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            conjunction: " :: ",
+            minTime: "06:00",
+            maxTime: "20:00",
+        });
+        flatpickr("#myID", {
+            minDate: "today",
+            mode: "multiple",
+            dateFormat: "Y-m-d",
+            conjunction: " :: "
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"
+        integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        var typed = new Typed(".home__my-profession-typing", {
+            strings: ["", "web Designer", "Web Developer", "Graphic Designer", "Youtube"],
+            typeSpeed: 100,
+            BackSpeed: 60,
+            loop: true
+        })
+        //aside
+        const nav = document.querySelector(".aside__nav"),
+            navList = nav.querySelectorAll(".aside__item"),
+            totalNavList = navList.length,
+            allSection = document.querySelectorAll(".section"), totalSection = allSection.length;
+        for (let i = 0; i < totalNavList; i++) {
+
+            const a = navList[i].querySelector("a");
+            a.addEventListener("click", function () {
+                console.log(this);
+                removeBackSection();
+                for (let j = 0; j < totalNavList; j++) {
+                    if (navList[j].querySelector("a").classList.contains("aside__nav-active")) {
+                        addBackSection(j);
+                        //allSection[j].classList.add("back-section");
+                    }
+                    navList[j].querySelector("a").classList.remove("aside__nav-active");
+                }
+                this.classList.add("aside__nav-active");
+                showSection(this);
+                if (window.innerWidth < 1200) {
+                    asideSectionToggleBtn();
+                }
+            })
+        }
+        function addBackSection(num) {
+            allSection[num].classList.add("back-section");
+        }
+        function removeBackSection() {
+            for (let i = 0; i < totalSection; i++) {
+                allSection[i].classList.remove("back-section");
+            }
+        }
+        function showSection(element) {
+            for (let i = 0; i < totalSection; i++) {
+                allSection[i].classList.remove("home-active");
+            }
+            const target = element.getAttribute("href").split("#")[1];
+            console.log(target);
+            document.querySelector("#" + target).classList.add("home-active");
+
+        }
+        function updateNav(element) {
+            console.log(element.getAttribute("href").split("#")[1]);
+            for (let i = 0; i < totalSection; i++) {
+                navList[i].querySelector("a").classList.remove("aside__nav-active");
+                const target = element.getAttribute("href").split("#")[1];
+                if (target === navList[i].querySelector("a").getAttribute("href").split("#")[1]) {
+                    navList[i].querySelector("a").classList.add("aside__nav-active");
+                }
+            }
+
+
+        }
+        document.querySelector('.hire-me').addEventListener("click", function () {
+            console.log(this);
+            const sectionIndex = this.getAttribute("data-section-index");
+            console.log(sectionIndex);
+            showSection(this);
+            updateNav(this);
+            removeBackSection();
+            addBackSection(sectionIndex);
+        })
+        document.querySelector('.book-helper').addEventListener("click", function () {
+            console.log(this);
+            const sectionIndex = this.getAttribute("data-section-index");
+            console.log(sectionIndex);
+            showSection(this);
+            updateNav(this);
+            removeBackSection();
+            addBackSection(sectionIndex);
+        })
+        document.querySelector('.book-helper').addEventListener("click", function () {
+            console.log(this);
+            const sectionIndex = this.getAttribute("data-section-index");
+            console.log(sectionIndex);
+            showSection(this);
+            updateNav(this);
+            removeBackSection();
+            addBackSection(sectionIndex);
+        })
+        document.querySelector('.book-helper__cancel').addEventListener("click", function () {
+            console.log(this);
+            const sectionIndex = this.getAttribute("data-section-index");
+            console.log(sectionIndex);
+            showSection(this);
+            updateNav(this);
+            removeBackSection();
+            addBackSection(sectionIndex);
+        })
+        const navToggleBtn = document.querySelector('.aside__nav-toggle'), aside = document.querySelector(".aside");
+        navToggleBtn.addEventListener("click", () => {
+            asideSectionToggleBtn();
+        })
+        function asideSectionToggleBtn() {
+            aside.classList.toggle("open");
+            navToggleBtn.classList.toggle("open");
+            for (let i = 0; i < totalSection; i++) {
+                allSection[i].classList.toggle('open');
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper--slideshow", {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+            centeredSlides: true,
+            grabCursor: true,
+            loop: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                clickable: true,
+            },
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: "3",
+            spaceBetween: 150,
+            centeredSlides: true,
+            grabCursor: true,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
+</body>
+
+</html>

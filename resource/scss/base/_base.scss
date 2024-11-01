@@ -2,17 +2,21 @@
     box-sizing: border-box;
     scroll-behavior: smooth;
     scroll-padding-top: 2rem;
+    margin:0;
+    padding:0;
 }
-
+    
 html{
     font-size:62.5%;
-    overflow:   scroll;
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
 }
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* make scrollbar transparent */
 }
 body{
+   
     color:var(--text-color);
     font-size:1.6rem;
     font-family: 'Poppins', sans-serif;
@@ -59,6 +63,7 @@ h1,h2,h3,h4,h5,h6{
     padding: 0;
     width: 100%;
     font-weight: 600;
+    font-size:1.3rem;
 }
 .center{
     margin-left: auto;
