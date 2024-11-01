@@ -7,6 +7,14 @@
     // @include abstracts.screen(md){
     //     translate: 60%;
     // }
+    &__img-helper{
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        position: absolute;
+        left: -95px;
+        top: -53px;
+    }
     &__img{
         width:100px;
         height: 100px;
@@ -29,4 +37,9 @@
     &__user{
         display: block;
     }
+}
+.logo_medium{
+    width:100px;
+    height: 100px;
+    left:-55px;
 }

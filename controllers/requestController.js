@@ -9,9 +9,9 @@ const requestController={
             .then(data => data.json())
             .catch(err=>console.error(err))
 
-        helpers = helpers.filter((helper) => {
-            return helper.workingArea.province == req.body.province && helper.workingArea.districts.includes(req.body.district) && helper.jobs.includes(service._id);
-        })
+        // helpers = helpers.filter((helper) => {
+        //     return helper.workingArea.province == req.body.province && helper.workingArea.districts.includes(req.body.district) && helper.jobs.includes(service._id);
+        // })
         res.render('partials/longtermorder', {
             order: order,
             helpers: helpers,
