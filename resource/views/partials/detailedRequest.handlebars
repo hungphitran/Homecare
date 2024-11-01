@@ -52,7 +52,8 @@
 
     <dl>
         <dt><label>Hình thức: </label><input type="hidden" name="requestType" value="{{request.requestType}}">{{request.requestType}}</dt>
-        <dt><label>Ngày bắt đầu: </label><input type="hidden" name="startDate" value="{{request.dates}}">{{request.dates}}</dt>
+        <dt><label>Ngày đặt đơn: </label><input type="hidden" name="orderDate" value="{{request.orderDate}}">{{request.orderDate}}</dt>
+        <dt><label>Ngày thực hiện: </label><input type="hidden" name="startDate" value="{{request.dates}}">{{request.dates}}</dt>
         {{#if request.endDate}}
         <dt><input type="hidden" name="endDate" value="{{request.endDate}}">Ngày kết thúc: {{request.endDate}}</dt>
         {{else}}
@@ -63,8 +64,14 @@
         <dt><label>Tỉnh/thành phố: </label><input type="hidden" name="province" value="{{request.province}}">{{request.province}} <label>Quận/huyện: </label>  <input type="hidden" name="district" value="{{request.district}}">{{request.district}}</dt>
         <dt><label>Giờ bắt đầu: </label><input type="hidden" name="startTime" value="{{request.startTime}}">{{request.startTime}}</dt>
         <dt><label>Giờ kết thúc: </label><input type="hidden" name="endTime" value="{{request.endTime}}">{{request.endTime}}</dt>
-        <dt><label>Người giúp việc: </label><input type="hidden" name="helperId" value="{{helper._id}}">{{helper.fdllName}}</dt>
-        <dt><label>Tổng số tiền: </label><input type="hidden" name="fee" value="{{request.fee}}">{{request.fee}}</dt>
+        <dt><label>Người giúp việc: </label><input type="hidden" name="helperId" value="{{helper._id}}">
+        {{#if helper._id}}
+            {{helper.fullName}}
+        {{else}}
+            Chưa có
+        {{/if}}
+        </dt>
+        <dt><label>Tổng số tiền: </label><input type="hidden" name="totalCost" value="{{request.totalCost}}">{{request.totalCost}}</dt>
 
     </dl>
     <button>Gửi yêu cầu</button>
