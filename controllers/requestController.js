@@ -9,9 +9,9 @@ const requestController={
             .then(data => data.json())
             .catch(err=>console.error(err))
 
-        helpers = helpers.filter((helper) => {
-            return helper.workingArea.province == req.body.province && helper.workingArea.districts.includes(req.body.district) && helper.jobs.includes(service._id);
-        })
+        // helpers = helpers.filter((helper) => {
+        //     return helper.workingArea.province == req.body.province && helper.workingArea.districts.includes(req.body.district) && helper.jobs.includes(service._id);
+        // })
         res.render('partials/longtermorder', {
             order: order,
             helpers: helpers,
@@ -61,6 +61,7 @@ const requestController={
     //POST redirect to detail order page
     submit: async (req, res, next) => {
         let user;
+
         try {
             //call api to get current user
             let phone = req.session.user;
@@ -82,7 +83,12 @@ const requestController={
         }
         let service = await fetch(process.env.API_URL + '/service/' + req.body.service_id)
             .then(data => data.json())
-        req.body.fee = service.basicPrice
+
+        req.body.totalCost = service.basicPrice*(req.body.dates.length/10)
+
+        let today= new Date()
+        req.body.orderDate =today.getFullYear() + "-"+(today.getMonth()+1) +"-"+today.getDate()
+
 
         let helper = await fetch(process.env.API_URL + '/helper/' + req.body.helper)
             .then(data => data.json())
@@ -103,8 +109,22 @@ const requestController={
         });
     },
     create: async (req,res,next)=>{
-        req.body.startTime=`${req.body.startDate}T${req.body.startTime}:00`;
-        req.body.endTime=`${req.body.endDate}T${req.body.endTime}:00`;
+        let st =req.body.startTime;
+        st= st.length <2 ?'0'+ st :st
+        let et =req.body.endTime;
+        et= et.length <2 ?'0'+ et :et
+
+        req.body.startTime=`${req.body.startDate}T${st}:00`;
+        req.body.endTime=`${req.body.startDate}T${et}:00`;
+        req.body.status="Chưa tiến hành"
+        let service = await fetch(process.env.API_URL + '/service/' + req.body.service_id)
+        .then(data => data.json())
+        req.body.service = {
+            title: service.title,
+            coefficient_service: Number.parseFloat(service.factor)||1,
+            coefficient_other: 0,
+            cost: service.basicPrice
+        }
         let option={
             method: 'POST',
             headers: {

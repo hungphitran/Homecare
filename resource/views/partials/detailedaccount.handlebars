@@ -149,7 +149,7 @@
                                                 <div class="form__group form__group-tel padd-15" style="margin-top:0px">
                                                     <div class="form__text-input form-control">
                                                         <input id="tel-input" placeholder="Số điện thoại" type="tel" class="form__input"
-                                                            value="0912628661" name="phone" minlength="10" disabled required>
+                                                            value="{{user.phone}}" name="phone" minlength="10" disabled required>
                                                         <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
                                                         <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                                         <p class="form__error form__error-tel"></p>
@@ -163,7 +163,7 @@
                                             <div class="form__group">
                                                 <div class="form__text-input form-control">
                                                     <input id="full-name-input" placeholder="Full Name" type="text" class="form__input"
-                                                        value="Đỗ Việt Hùng" name="name" disabled required>
+                                                        value="{{user.fullName}}" name="fullName" disabled required>
                                                     <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
                                                     <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                                 </div>
@@ -176,7 +176,7 @@
                                             <div class="form__group">
                                                 <div class="form__text-input form-control">
                                                     <input id="district-input" placeholder="Quận" type="text" class="form__input"
-                                                        value="Quận 1" name="district" disabled required>
+                                                        value="{{user.address}}" name="address" disabled required>
                                                     <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
                                                     <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                                 </div>
@@ -305,44 +305,28 @@
                                             <thead>
                                                 <tr>
                                                     <th>Ngày Yêu cầu</th>
-                                                    <th>Ngày Làm</th>
+                                                    <th>Giờ bắt đầu</th>
+                                                    <th>Giờ kết thúc</th>
                                                     <th>Giá Chuẩn</th>
-                                                    <th>Phí Ngoài Giờ</th>
-                                                    <th>Phụ Phí</th>
                                                     <th>Trạng Thái</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {{#each requests}}
                                                 <tr>
-                                                    <td>1</td>
-                                                    <td><img src="/img/testi1.jpg" alt=""></td>
-                                                    <td>Đỗ Việt Hùng</td>
-                                                    <td>e22cdcn01-n</td>
-                                                    <td>23/10/2004</td>
+                                                    
+                                                    <td>{{orderDate}}</td>
+                                                    <td>{{startTime}}</td>
+                                                    <td>{{endTime}}</td>      
                                                     <td>
-                                                        <p class="status-detail cancel">done</p>
+                                                        <p>{{totalCost}}</p>
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><img src="/img/testi1.jpg" alt=""></td>
-                                                    <td>Đỗ Việt Hùng</td>
-                                                    <td>e22cdcn01-n</td>
-                                                    <td>23/10/2004</td>
                                                     <td>
-                                                        <p class="status-detail done">done</p>
+                                                        <p class="status-detail cancel">{{status}}</p>
                                                     </td>
+
                                                 </tr>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><img src="/img/testi1.jpg" alt=""></td>
-                                                    <td>Đỗ Việt Hùng</td>
-                                                    <td>e22cdcn01-n</td>
-                                                    <td>23/10/2004</td>
-                                                    <td>
-                                                        <p class="status-detail pending">done</p>
-                                                    </td>
-                                                </tr>
+                                                {{/each}}
                                             </tbody>
                                         </table>
                                        </section>
