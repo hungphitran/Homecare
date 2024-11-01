@@ -27,7 +27,10 @@
     <script src="/js/scripts.js"></script>
     <link rel="shortcut icon" href="/icon/logo-removeBg.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/01acedffd5.js" crossorigin="anonymous"></script>
-
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     {{!-- <style>
         /* body {
             min-height: 100rem;
@@ -44,6 +47,10 @@
             background-size: cover;
         }*/
     </style> --}}
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- owl carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
    
 </head>
 
@@ -78,6 +85,42 @@
     <footer id="footer" class="footer">
         {{>footer}}
     </footer>
+   <script>
+        let header= document.querySelector(".header__slideshow")
+        window.addEventListener("scroll",()=>{
+        header.classList.toggle("shadow",window.scrollY>0)
+        })
+   </script>
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('.slider-lastest').owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: false,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 1
+                    },
+                    1000: {
+                        items: 1
+                    }
+                }
+            });
+        });
+    </script>
+   <script>
+        let profileDropdownList= document.querySelector(".profile-dropdown__list");
+        let btn = document.querySelector(".profile-dropdown__btn");
+        //this function display or hide profile dropdown list
+        const toggle=()=> profileDropdownList.classList.toggle("active");
+     //   window.addEventListener("click",function(e){
+        //hide dropdown list if user click outside dropdown button
+      //  if(!btn.contains(e.target)) profileDropdownList.classList.remove("active");
+    //    })
+   </script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         flatpickr("#myID1", {

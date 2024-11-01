@@ -89,13 +89,12 @@
     </nav>
     <div class="main-container" style="padding-top:70px;padding-bottom:1000px"></div>
         {{!-- aside start --}}
-        <div class="aside aside-detail">
+        <div class="aside">
             <div class="aside__nav-toggle">
                 <span></span>
             </div>
             {{!-- user --}}
-            <div class="aside-general">
-                <div class="aside-profile-user">
+                {{!-- <div class="aside-profile-user">
                     <img src="/img/testi1.jpg" alt="" class="aside-profile-user__avatar">
                     <h1 class="aside-profile-user__name">
                         Đỗ Việt Hùng
@@ -103,6 +102,13 @@
                     <p class="aside-profile-user__desc">
                         Lorem ipsum dolor sit amet.
                     </p>
+                </div> --}}
+                <div class="aside__logo">
+                    <a href="/">
+                        <div class="logo">
+                            <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img-helper logo __img-header">
+                        </div>
+                    </a>
                 </div>
                 <ul class="aside__nav">
                     <li class="aside__item">
@@ -117,17 +123,16 @@
                         </a>
                     </li>
                     <li class="aside__item">
-                        <a href="#hire-helper">
+                        <a href="#">
                             <i class="fa-brands fa-hire-a-helper"></i>Chưa thanh toán
                         </a>
                     </li>
                     <li class="aside__item">
-                        <a href="/account">
+                        <a href="/">
                             <i class="fa-solid fa-right-to-bracket"></i>Tìm kiếm người giúp việc
                         </a>
                     </li>
                 </ul>
-            </div>
         </div>
         {{!-- aside end --}}
         {{!-- main content start --}}
@@ -149,7 +154,7 @@
                                                 <div class="form__group form__group-tel padd-15" style="margin-top:0px">
                                                     <div class="form__text-input form-control">
                                                         <input id="tel-input" placeholder="Số điện thoại" type="tel" class="form__input"
-                                                            value="{{user.phone}}" name="phone" minlength="10" disabled required>
+                                                            value="0912628661" name="phone" minlength="10" disabled required>
                                                         <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
                                                         <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                                         <p class="form__error form__error-tel"></p>
@@ -163,7 +168,7 @@
                                             <div class="form__group">
                                                 <div class="form__text-input form-control">
                                                     <input id="full-name-input" placeholder="Full Name" type="text" class="form__input"
-                                                        value="{{user.fullName}}" name="fullName" disabled required>
+                                                        value="Đỗ Việt Hùng" name="name" disabled required>
                                                     <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
                                                     <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                                 </div>
@@ -176,7 +181,7 @@
                                             <div class="form__group">
                                                 <div class="form__text-input form-control">
                                                     <input id="district-input" placeholder="Quận" type="text" class="form__input"
-                                                        value="{{user.address}}" name="address" disabled required>
+                                                        value="Quận 1" name="district" disabled required>
                                                     <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
                                                     <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                                 </div>
@@ -200,9 +205,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="home__img-detail padd-15">
-                            <img src="{{helper.avatar}}" alt="" style="height:400px">
-                        </div>
+                       
                    </div>
                        {{!-- <div class="home__row-2 popup" id="popup" style="align-items:center; justify-content:center">
                             <div class="home__infor padd-15" style="flex:0 0 100%; max-height:100%">
@@ -305,28 +308,44 @@
                                             <thead>
                                                 <tr>
                                                     <th>Ngày Yêu cầu</th>
-                                                    <th>Giờ bắt đầu</th>
-                                                    <th>Giờ kết thúc</th>
+                                                    <th>Ngày Làm</th>
                                                     <th>Giá Chuẩn</th>
+                                                    <th>Phí Ngoài Giờ</th>
+                                                    <th>Phụ Phí</th>
                                                     <th>Trạng Thái</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{#each requests}}
                                                 <tr>
-                                                    
-                                                    <td>{{orderDate}}</td>
-                                                    <td>{{startTime}}</td>
-                                                    <td>{{endTime}}</td>      
+                                                    <td>1</td>
+                                                    <td><img src="/img/testi1.jpg" alt=""></td>
+                                                    <td>Đỗ Việt Hùng</td>
+                                                    <td>e22cdcn01-n</td>
+                                                    <td>23/10/2004</td>
                                                     <td>
-                                                        <p>{{totalCost}}</p>
+                                                        <p class="status-detail cancel">done</p>
                                                     </td>
-                                                    <td>
-                                                        <p class="status-detail cancel">{{status}}</p>
-                                                    </td>
-
                                                 </tr>
-                                                {{/each}}
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td><img src="/img/testi1.jpg" alt=""></td>
+                                                    <td>Đỗ Việt Hùng</td>
+                                                    <td>e22cdcn01-n</td>
+                                                    <td>23/10/2004</td>
+                                                    <td>
+                                                        <p class="status-detail done">done</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td><img src="/img/testi1.jpg" alt=""></td>
+                                                    <td>Đỗ Việt Hùng</td>
+                                                    <td>e22cdcn01-n</td>
+                                                    <td>23/10/2004</td>
+                                                    <td>
+                                                        <p class="status-detail pending">done</p>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                        </section>
@@ -387,243 +406,6 @@
             </section>
             {{!-- about section end --}}
             {{!-- book section start --}}
-            <section class="book-item section" id="hire-helper">
-                <div class="home__container-2">
-                    <div class="home__row-2" style="margin-left:0px">
-                        <div class="section-title padd-15">
-                            <h2>THÔNG TIN YÊU CẦU</h2>
-                        </div>
-                    </div>
-                    <div class="home__row-2" style="margin-left:0px">
-                        <div class="book-item__form">
-                            <div class="home__row-2" style="margin-left:0px">
-                                <form id="form-1" action="/account/sendotp" method="post" class="book-item__form-tel"
-                                    style="inline-block">
-                                    <div class="form__group form__group-tel padd-15" style="margin-top:0px">
-                                        <div class="form__text-input form-control">
-                                            <input id="tel-input" placeholder="Số điện thoại" type="tel" class="form__input"
-                                                value="{{account}}" name="phone" minlength="10" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                            <p class="form__error form__error-tel"></p>
-                                        </div>
-                                        <button class="submit-btn btn btn--primary otp-btn">Nhận mã OTP </button>
-                                        {{!-- <p class="form__error"></p> --}}
-                                    </div>
-                                </form>
-                                <div class="book-item__form-otp">
-                                    <div class="form__group" style="padding-left:76px; margin-top:0px">
-                                        <div class="input-field">
-                                            <input class="otp-input" type="number" />
-                                            <input class="otp-input" type="number" disabled />
-                                            <input class="otp-input" type="number" disabled />
-                                            <input class="otp-input" type="number" disabled />
-                                            <input class="otp-input" type="number" disabled />
-                                            <input class="otp-input" type="number" disabled />
-            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="home__row-2 padd-15" style"margin-left:15px">
-                        <form id="form-2" action="" class="book-item__form-main padd-15">
-                            <div class="home__row-2 padd-15">
-                                <div class="book-item__form-name">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input id="full-name-input" placeholder="Full Name" type="text" class="form__input"
-                                                value="{{account}}" name="name" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                                <div class="book-item__form-address">
-                                    <div class="form__group" style="padding-left:10px">
-                                        <div class="form__text-input form-control">
-                                            <input id="address-input" placeholder="Address" type="text" class="form__input"
-                                                value="{{account}}" name="address" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__row-2 padd-15">
-                                <div class="book-item__form-city">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input id="city-input" placeholder="Thành phố" type="text" class="form__input"
-                                                value="{{account}}" name="city" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                                <div class="book-item__form-district">
-                                    <div class="form__group" style="padding-left:10px">
-                                        <div class="form__text-input form-control">
-                                            <input id="district-input" placeholder="Quận" type="text" class="form__input"
-                                                value="{{account}}" name="district" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__row-2 padd-15">
-                                <div class="book-item__form-date">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input id="myID" placeholder="Chọn ngày" type="text" class="form__input"
-                                                value="{{account}}" name="name" required>
-                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                                <div class="book-item__form-time">
-                                    <div class="home__row-2">
-                                        <div class="book-item__form-time-start">
-                                            <div class="form__group">
-                                                <div class="form__text-input form-control">
-                                                    <input id="myID1" placeholder="Giờ Bắt Đầu" type="text" class="form__input"
-                                                        value="{{account}}" name="name" required>
-                                                    {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
-                                                    <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                                </div>
-                                                <p class="form__error"></p>
-                                            </div>
-                                        </div>
-                                        <div class="book-item__form-time-end">
-                                            <div class="form__group">
-                                                <div class="form__text-input form-control">
-                                                    <input id="myID1" placeholder="Giờ Kết Thúc" type="text" class="form__input"
-                                                        value="{{account}}" name="name" required>
-                                                    {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
-                                                    <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                                </div>
-                                                <p class="form__error"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__row-2 padd-15" style="margin-top:20px;font-size:2.4rem;font-weight:500;">
-                                <h3 style="color:var(--text-black-700)">Dịch vụ</h3>
-                            </div>
-                            <div class="home__row-2 padd-15">
-                                <div class="book-item__form-service">
-                                    <div class="home__row-2 padd-15">
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check1">
-                                            <label for="#check1" class="book-item__flex-50-text">Osin part time</label>
-                                        </div>
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check2">
-                                            <label for="#check2" class="book-item__flex-50-text">Dọn dẹp</label>
-                                        </div>
-                                    </div>
-                                    <div class="home__row-2 padd-15">
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check3">
-                                            <label for="#check3" class="book-item__flex-50-text">Osin part time</label>
-                                        </div>
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check4">
-                                            <label for="#check4" class="book-item__flex-50-text">Dọn dẹp</label>
-                                        </div>
-                                    </div>
-                                    <div class="home__row-2 padd-15">
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check5">
-                                            <label for="#check5" class="book-item__flex-50-text">Osin part time</label>
-                                        </div>
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check6">
-                                            <label for="#check6" class="book-item__flex-50-text">Dọn dẹp</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__row-2 padd-15" style="display: flex;
-                justify-content: space-between;">
-                                <div class="book-item__form-basic">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input id="full-name-input" placeholder="Phí Cơ bản" type="text" class="form__input"
-                                                value="{{account}}" name="city" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                                <div class="book-item__form-out">
-                                    <div class="form__group" style="padding-left:10px">
-                                        <div class="form__text-input form-control">
-                                            <input id="full-name-input" placeholder="Phí Ngoài Giờ" type="text" class="form__input"
-                                                value="{{account}}" name="district" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-            
-                            </div>
-                            <div class="home__row-2 padd-15" style="display: flex;
-                justify-content: space-between;">
-                                <div class="book-item__form-extra">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input id="full-name-input" placeholder="Phụ Phí" type="text" class="form__input"
-                                                value="{{account}}" name="district" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                                <div class="book-item__form-total">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input id="full-name-input" placeholder="Tổng Chí Phí" type="text" class="form__input"
-                                                value="{{account}}" name="city" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__row-2 padd-15" style="padding-bottom:100px">
-                                <div class="home__img padd-15" style="margin-top:60px">
-                                    <img src="{{helper.avatar}}" alt="">
-                                </div>
-                                <div class="button padd-15" style="flex: 0 0 60%;
-                max-width: 60%;
-                display:inline-flex;
-                align-items: start;
-                justify-content: end;
-                gap: 10px;
-                margin-top:60px">
-                                    <a href="#service-detail" class="home-btn book-helper book-helper__cancel"
-                                        data-section-index="2">HỦY</a>
-                                    <a href="#book-item" class="home-btn book-helper" data-section-index="1">ĐỒNG Ý</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </section>
             {{!-- book section end --}}
         </div>
         {{!-- main content end --}}

@@ -197,13 +197,16 @@
         height:50px;
         font-size: 1.2rem;
         font-style: normal;
-        font-weight: 700;
+        font-weight: 500;
         line-height: 1.46; /* 146.667% */
         padding:0 10px;
         white-space: nowrap;
         @include abstracts.screen(lg){
             padding:0;
             justify-content: space-between;
+        }
+        &:hover{
+            text-shadow: 1px 0 0 black;
         }
 
     }

@@ -25,6 +25,25 @@
 //     }
 
 // }
+.section-account{
+      background:var(--bg-black-900);
+    min-height:100vh;
+    display:block;
+    position:fixed;
+    left:270px;
+    bottom:0;
+    z-index:0;
+    top:111px;
+    right:0;
+    opacity:1;
+    padding:0 30px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    transition: all 0.3s ease; 
+    & .home__container-2{
+        min-height:100vh;
+    }
+}
 .section{
     background:var(--bg-black-900);
     min-height:100vh;
@@ -33,7 +52,7 @@
     left:270px;
     bottom:0;
     z-index:0;
-    top:111px;
+    top:0;
     right:0;
     opacity:1;
     padding:0 30px;
@@ -74,7 +93,7 @@
         margin-bottom:60px;
     }
     &-title h2{
-        font-size:4.0rem;
+        font-size:2.5rem;
         color:var(--text-black-900);
         font-weight:700;
         position:relative;
@@ -130,8 +149,9 @@
         flex:0 0 60%;
         max-width:60%;
         & .home__infor-desc{
-            margin-bottom:70px;
-            font-size:20px;
+            margin-bottom:20px;
+            font-size:1.5rem;
+            line-height:1.5;
             color:var(--text-black-700);
         }
         @include abstracts.screen(lg){
@@ -204,19 +224,19 @@
         object-fit:cover;
     }
     &__hello{
-        font-size:2.8rem;
+        font-size:2.0rem;
         margin:15px 0;
        font-weight:700;
         color:var(--text-black-900);
         &-name{
             font-family:'Clicker Script', cursive;
-            font-size: 3.0rem;
+            font-size: 2.5rem;
             font-weight:700;
             color:var(--skin-color);
         }
     }
     &__my-profession{
-        font-size:3.0rem;
+        font-size:2.0rem;
         margin: 15px 0;
          font-weight:700;
         color:var(--text-black-900);
@@ -247,7 +267,7 @@
         }
     }
     &__text h3{
-        font-size:2.4rem;
+        font-size:2.0rem;
         margin-bottom:15px;
         font-weight:700;
         color:var(--text-black-900);
@@ -334,7 +354,7 @@
 .tab-item {
   min-width: 80px;
   padding: 16px 20px 11px 20px;
-  font-size: 20px;
+  font-size: 1.5rem;
   text-align: center;
   color: var(--skin-color);
   background-color: #fff;
@@ -344,6 +364,7 @@
   opacity: 0.6;
   cursor: pointer;
   transition: all 0.5s ease;
+  white-space: nowrap;
 }
 .tab-icon {
   font-size: 24px;
