@@ -22,7 +22,7 @@
                         <button id="long-term-btn" type="button"  class="btn btn__long-term btn__form-term">DÀI HẠN</button>
                     </div>
                     <div id="short-term">
-                        <form id="short-term-form" method='post' action="/request/shortterm" class="form__short-term">
+                        <form id="short-term-form" method='get' action="/request/shortterm" class="form__short-term">
                             <div class="form-group slideshow__form-group slideshow__form-group--adjust">
                                
                                     <select name="province" class="province form-select form-select__province status">
@@ -126,7 +126,7 @@
                         </form>
                     </div>
                     <div id="long-term">
-                        <form id="long-term-form"  method="post" action="/request/longterm" class="form__long-term hide-form">
+                        <form id="long-term-form"  method="get" action="/request/longterm" class="form__long-term hide-form">
                             <div class="form-group slideshow__form-group slideshow__form-group--adjust">
                                 
                                     <select name="province" class="province form-select form-select__province status">
@@ -141,7 +141,7 @@
                                     <option selected>Chọn Quận</option>
                                 </select>            
                                
-                                    <select name="service" class="service form-select form-select__service status">
+                                    <select name="service_id" class="service form-select form-select__service status">
                                         <option value="0">Chọn dịch vụ</option>
                                         {{#each services}}
                                         <option value="{{this._id}}">{{this.title}}</option>

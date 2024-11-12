@@ -1,8 +1,8 @@
 const requestController =require('../controllers/requestController')
 const router =require('express').Router()
 
-router.post('/longterm',requestController.longTermOrder)
-router.post('/shortterm',requestController.shortTermOrder)
+router.get('/longterm',requestController.longTermOrder)
+router.get('/shortterm',requestController.shortTermOrder)
 router.post('/save',requestController.create);
-router.post('/',requestController.submit)
+router.get('/',requestController.submit)
 module.exports=router;

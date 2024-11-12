@@ -26,13 +26,37 @@ const hbs = handlebars.create({
         },
         getElement: function(arr,index){
             return JSON.stringify(arr[index]);
+        },
+        isEquals : function(value1,value2,options){
+            if (value1 == value2) {
+                return options.fn(this); 
+              } else {
+                return options.inverse(this); 
+              }
+        },
+        compareProperties:function (obj, prop, thisProp, options) {
+            if (obj[prop] === this[thisProp]) {
+                return options.fn(this);  // Khi hai giá trị bằng nhau
+            } else {
+                return options.inverse(this);  // Khi hai giá trị khác nhau
+            }
+        },
+        getAge: function(birthDate){
+            const birth = new Date(birthDate);
+            const today = new Date();
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+        
+            // Điều chỉnh tuổi nếu chưa đến ngày sinh trong năm hiện tại
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            console.log(age);
+            return age;
         }
     }
 });
-// const Handlebars = require('handlebars');
-// Handlebars.registerHelper('formatDate', function() {
-//   return new Date().toISOString().split('T')[0];
-// });
+
 
 // Register `hbs.engine` with the Express app.
 app.engine('handlebars', hbs.engine);// set up the template engine handle .handlebars file

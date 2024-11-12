@@ -129,6 +129,7 @@
     <title>
         Homecare
     </title>
+
     {{!-- font --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -150,6 +151,11 @@
     <script src="/js/scripts.js"></script>
     <link rel="shortcut icon" href="/icon/logo-removeBg.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/01acedffd5.js" crossorigin="anonymous"></script>
+    <style>
+        .selected{
+            background-color: greenyellow;
+        }
+    </style>
 </head>
 
 <body>
@@ -167,9 +173,11 @@
             <div class="aside__nav-toggle">
                 <span></span>
             </div>
-           <div class="aside__content">
+           <form method="get" action="/request/shortterm" class="aside__content">
                 <div class="aside__search">
                     <i class="fa-solid fa-magnifying-glass"></i>Tìm Kiếm
+
+                    <button type="submit" style="background-color:floralwhite; color:black; margin-left:50px; padding:8px; border-radius:5px;" ><i class="fa-solid fa-filter"></i>Lọc</button>
                 </div>
                 <ul class="aside__nav aside__nav--extra">
                     <li class="aside__item">
@@ -180,7 +188,7 @@
                                     <div class="form__group" style="margin-top:10px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
-                                                value="{{order.dates}}" name="name" required>
+                                                value="{{order.dates}}" name="dates" required>
                                             {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
@@ -198,7 +206,7 @@
                                     <div class="form__group" style="margin-top:5px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Bắt Đầu" type="text"
-                                                class="form__input" value="{{order.startTime}}" name="name" required>
+                                                class="form__input" value="{{order.startTime}}" name="startTime" required>
                                             {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
@@ -209,7 +217,7 @@
                                     <div class="form__group" style="margin-top:5px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Kết Thúc" type="text"
-                                                class="form__input" value="{{order.endTime}}" name="name" required>
+                                                class="form__input" value="{{order.endTime}}" name="endTime" required>
                                             {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
@@ -227,37 +235,38 @@
                            
                             <li>
                                 <label class="province-option">
-                                    <input type="radio">
+                                    <input type="radio" {{#unless order.exp}}checked{{/unless}} >
+                                    
                                    Tất cả
                                 </label>
                             </li>
                             <li>
                                 <label class="province-option">
-                                    <input type="radio">
+                                    <input type="radio" name="exp" value=1 {{#isEquals 1 order.exp}}checked{{/isEquals}} >
                                    Từ 1 năm trở lên
                                 </label>
                             </li>
                             <li>
                                 <label class="province-option">
-                                    <input type="radio">
+                                    <input type="radio" name="exp" value=2 {{#isEquals 2 order.exp}}checked{{/isEquals}}>
                                 Từ 2 năm trở lên
                                 </label>
                             </li>
                             <li>
                                 <label class="province-option">
-                                    <input type="radio">
+                                    <input type="radio" name="exp" value=3 {{#isEquals 3 order.exp}}checked{{/isEquals}}>
                                     Từ 3 năm trở lên
                                 </label>
                             </li>
                             <li>
-                                <label class="province-option">
-                                    <input type="radio">
+                                <label class="province-option" >
+                                    <input type="radio" name="exp" value=4 {{#isEquals 4 order.exp}}checked{{/isEquals}}>
                                     Từ 4 năm trở lên
                                 </label>
                             </li>
                             <li>
                                 <label class="province-option">
-                                    <input type="radio">
+                                    <input type="radio" name="exp" value=5 {{#isEquals 5 order.exp}}checked{{/isEquals}}>
                                     Từ 5 năm trở lên
                                 </label>
                             </li>
@@ -272,9 +281,10 @@
                             {{#each services}}
                             <li>
                                 <div class="form__group" style="margin-top:10px;">
-                                    <input type="checkbox" id="{{_id}}">
-                                    <label for="#{{_id}}" class="book-item__flex-50-text" name="service_id" value="{{_id}}" checked>
-                                        {{title}}</label>
+                                    <input type="checkbox"  id="{{_id}}" name="service_id" value="{{_id}}" {{#compareProperties ../order 'service_id' '_id'}}checked="checked"{{/compareProperties}}>
+                                    <label for="#{{_id}}" class="book-item__flex-50-text" >
+                                        {{title}}
+                                    </label>
                                 </div>
                             </li>
                             {{/each}}
@@ -283,19 +293,34 @@
                     </li>
                     <li class="aside__item">
                         <a href="#!">
-                           <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Quận
+                           <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Tỉnh/Thành phố
                             <ul class="aside__nav-child">
                                 {{#each locations}}
                                 <label class="province-option">
-                                    <input type="radio" name="province" value="{{this.province}}" checked>
+                                    <input type="radio" name="province" value="{{this.province}}" {{#compareProperties ../order 'province' 'province'}}checked{{/compareProperties}}>
                                     {{this.province}}
                                 </label>
                                 {{/each}}
                             </ul>
                         </a>
                     </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                           <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Quận/ Huyện
+                            <ul class="aside__nav-child">
+                                <label class="district-option">
+                                    <input type="radio" name="district" value="{{order.district}}" checked>
+                                    {{order.district}}
+                                </label>
+                            </ul>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                        <input type="hidden" name="helperId" value="">
+                        <input type="hidden" name="requestType" value="Ngắn hạn">
+                    </li>
                 </ul>
-           </div>
+           </form>
         </div>
         {{!-- aside end --}}
         {{!-- main content start --}}
@@ -330,8 +355,8 @@
                        </div>
                     {{#if helpers}}
                        <div class="short-helper__list" style="flex: 0 0 100%;
-    max-width: 100%;
-    margin-top: 15px;">
+                                        max-width: 100%;
+                                        margin-top: 15px;">
                     {{#each helpers}}
                        <div class="short-helper__item">
                         <div class="home__row-2" style="margin-left:0px;margin-right:0px">
@@ -341,14 +366,14 @@
                             <div class="short-helper__item--helper" style="flex:0 0 75%; max-width:75%; ">
                                 <div class="short-helper__item--helper-name">
                                     <div class="home__row-2" style="flex:0 0 100%;max-height:100%;margin-left:0; margin-right:0">
-                                        <h1>Nguyễn Văn A</h1>
+                                        <h1>{{fullName}}</h1>
                                     </div>
                                 </div>
                                 <div class="home__row-2" style="flex:0 0 100%;max-height:100%;margin-left:0; margin-right:0; margin-top:10px;display: flex;justify-content: space-between;align-items: center;">
                                     <div class="short-helper__content-left" style="flex:0 0 40%;max-width:48%;">
                                         <div class="short-helper__content-left-item" style="margin-top:-12px">
                                             <i class="fa fa-map-marker-alt" style="color:var(--skin-color);"></i>
-                                            <span>Hà Nội</span>
+                                            <span>{{birthPlace}}</span>
                                         </div>
                                     </div>
                                     <div class="vertical-line"></div>
@@ -356,21 +381,25 @@
                                         <div class="home__row-2" style="margin-left:0;margin-right:0;flex:0 0 100%;max-height:100%;margin-top:10px;display: flex;justify-content: space-between;align-items: center;">
                                             <div class="helper-content__left" style="flex:0 0 40%;max-width:40%;">
                                                 <i class="fa fa-venus-mars" style="margin-right:5px;color:var(--skin-color);"></i>
-                                                <span>Nam</span>
+                                                <span>{{gender}}</span>
                                             </div>
                                             <div class="helper-content__left" style="flex:0 0 50%;max-width:50%;">
                                                 <i class="fa fa-birthday-cake" style="margin-right:5px; margin-left:60px;color:var(--skin-color);"></i>
-                                                <span>22 tuổi</span>
+                                                <span>{{#getAge this.birthDate}}{{/getAge}}</span>
                                             </div>
                                         </div>
                                         <div class="home__row-2" style="margin-left:0;margin-right:0;flex:0 0 100%;max-height:100%;margin-top:10px">
                                             <div class="helper-content__left" style="flex:0 0 50%;max-width:50%;">
                                                 <i class="fa fa-briefcase" style="color:var(--skin-color);margin-right:5px"></i>
-                                                <span style="white-space: nowrap;">2 năm kinh nghiệm</span>
+                                                <span style="white-space: nowrap;">{{yearOfExperience}} năm kinh nghiệm</span>
                                             </div>
                                             <div class="helper-content__left" style="flex:0 0 50%;max-width:50%;">
                                                 <i class="fa fa-map-marker-alt" style="margin-right:5px; margin-left:60px;color:var(--skin-color);"></i>
-                                                <span>Quận 1</span>
+                                                {{#each workingArea.districts}}
+                                                    
+                                                    <span>{{this}}</span>
+                                                    
+                                                {{/each}}
                                             </div>
                                         </div>
                                     </div>
@@ -384,17 +413,17 @@
                                 <div class="short-helper__item--helper-box">
                                     <div class="home__row-2" style="flex:0 0 100%;max-height:100%;margin-left:0; margin-right:0;margin-top:10px;">
                                      <div class="helper-box__list">
-                                           <div class="helper-box">
-                                            <span>Osin part Time</span>
-                                           </div>
-                                        <div class="helper-box">
-                                            <span>Osin part Time</span>
-                                        </div>
-                                        <div class="helper-box">
-                                            <span>Osin part Time</span>
-                                        </div>
+                                        {{#each ../services}}
+                                            {{_id}}
+                                            {{#each ../this.jobs}}
+                                                {{#isEquals ../this._id this}}
+                                                <div class="helper-box">
+                                                 <span>Osin part Time</span>
+                                                </div>
+                                                {{/isEquals}}
+                                            {{/each}}
+                                        {{/each}}
                                      </div>
-
                                     </div>
                                 </div>
                                 <div class="short-helper__item--helper-detail" style="margin-top:10px">
@@ -425,6 +454,39 @@
         {{!-- main content end --}}
     </div>
     {{!-- main contain end --}}
+
+<script>
+    const helperItems= document.querySelectorAll('.short-helper__item');
+    const numHelper = document.querySelector('.short-helper__btn span');
+    const helperInput = document.querySelector('input[name="helperId"]')
+    const submitBtn= document.querySelector('.btn.btn-primary')
+    const submitForm=document.querySelector('form');
+    submitBtn.onclick =function(){
+        if(helperInput.value==""){
+            return;
+        }
+        submitForm.method="get";
+        submitForm.action="/request";
+        submitForm.submit();
+    }
+    for(let key in helperItems){
+        helperItems[key].onclick = function(){
+            let id=this.querySelector(".short-helper__img-portrait").alt;
+            if(numHelper.innerHTML!='0'&& this.classList.contains('selected')){
+                this.classList.remove('selected')
+                numHelper.innerHTML='0'
+                helperInput.value= "";
+            }
+            else if(numHelper.innerHTML=='0'){
+                this.classList.add('selected')
+                numHelper.innerHTML='1';
+                helperInput.value=id;
+            }
+        }
+    }
+    
+</script>
+
 
     <script src="/js/app.js"></script>
 

@@ -25,7 +25,7 @@ const accountController = {
             res.redirect('/account')
         }
         else {//correct password
-            req.session.user = req.body.phone;//save user's phone in session
+            req.session.user = user.phone;//save user's phone in session
             res.redirect('/account/detailed');
         }
     },
@@ -67,7 +67,9 @@ const accountController = {
         let user = await fetch(process.env.API_URL + '/customer/' + req.session.user)
         .then(data => data.json())
         .then(data=>{
-            data.point=data.points[data.points.length-1].point;//format to display only latest point
+            if(data.points){
+                data.point=data.points[data.points.length-1].point;//format to display only latest point
+            } 
             let address = data.addresses[0]
             data.address =address.detailAddress+" "+address.ward+" "+address.district+' '       
             return data
@@ -76,13 +78,18 @@ const accountController = {
             console.error(err);
             res.redirect('/')
         })
-console.log(user)
-
         //GET call api getting all requests which were created by current user
         let requests=await fetch(process.env.API_URL+'/request').then(data=>data.json())
+
         requests= requests.filter((request,index)=>{
-            return request.customerInfo.phone==user.phone;
+            if(request.customerInfo){
+                return request.customerInfo.phone==user.phone;
+            }
+            else{
+                return false;
+            }
         })
+
 
         let schedule_ids="";
         for(let request of requests){
@@ -117,7 +124,6 @@ console.log(user)
             requests[i].startTime=requests[i].startTime.slice(11,19)
             requests[i].endTime=requests[i].endTime.slice(11,19)
         }
-
         res.render('partials/detailedaccount',{
             user:user,
             requests:requests,
