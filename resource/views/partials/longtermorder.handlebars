@@ -163,9 +163,10 @@
             <div class="aside__nav-toggle">
                 <span></span>
             </div>
-            <div class="aside__content">
+            <form method="get" action="/request"  class="aside__content">
                 <div class="aside__search">
                     <i class="fa-solid fa-magnifying-glass"></i>Tìm Kiếm
+                    <button type="submit">Đặt</button>
                 </div>
                 <ul class="aside__nav aside__nav--extra">
                     <li class="aside__item">
@@ -176,7 +177,7 @@
                                     <div class="form__group" style="margin-top:10px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
-                                                value="{{order.startDate}}" name="name" required>
+                                                value="{{order.startDate}}" name="startDate" required>
                                             {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
@@ -185,7 +186,7 @@
                                     <div class="form__group" style="margin-top:10px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
-                                                value="{{order.endDate}}" name="name" required>
+                                                value="{{order.endDate}}" name="endDate" required>
                                             {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
@@ -203,7 +204,7 @@
                                     <div class="form__group" style="margin-top:5px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Bắt Đầu" type="text"
-                                                class="form__input" value="{{account}}" name="name" required>
+                                                class="form__input" value="{{order.startTime}}" name="startTime" required>
                                             {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
@@ -214,7 +215,7 @@
                                 <div class="form__group" style="margin-top:5px;">
                                     <div class="form__text-input form-control">
                                         <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Kết Thúc" type="text"
-                                            class="form__input" value="{{account}}" name="name" required>
+                                            class="form__input" value="{{order.endTime}}" name="endTime" required>
                                         {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                         <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                     </div>
@@ -232,37 +233,37 @@
 
                                 <li>
                                     <label class="province-option">
-                                        <input type="radio">
+                                        <input type="radio" {{#unless exp}}checked{{/unless}}>
                                         Tất cả
                                     </label>
                                 </li>
                                 <li>
                                     <label class="province-option">
-                                        <input type="radio">
+                                        <input type="radio" {{#isEquals 1 order.exp}}checked{{/isEquals}}>
                                         Từ 1 năm trở lên
                                     </label>
                                 </li>
                                 <li>
                                     <label class="province-option">
-                                        <input type="radio">
+                                        <input type="radio"{{#isEquals 2 order.exp}}checked{{/isEquals}}>
                                         Từ 2 năm trở lên
                                     </label>
                                 </li>
                                 <li>
                                     <label class="province-option">
-                                        <input type="radio">
+                                        <input type="radio"{{#isEquals 3 order.exp}}checked{{/isEquals}}>
                                         Từ 3 năm trở lên
                                     </label>
                                 </li>
                                 <li>
                                     <label class="province-option">
-                                        <input type="radio">
+                                        <input type="radio"{{#isEquals 4 order.exp}}checked{{/isEquals}}>
                                         Từ 4 năm trở lên
                                     </label>
                                 </li>
                                 <li>
                                     <label class="province-option">
-                                        <input type="radio">
+                                        <input type="radio"{{#isEquals 5 order.exp}}checked{{/isEquals}}>
                                         Từ 5 năm trở lên
                                     </label>
                                 </li>
@@ -277,10 +278,10 @@
                                 {{#each services}}
                                 <li>
                                     <div class="form__group" style="margin-top:10px;">
-                                        <input type="checkbox" id="{{_id}}">
-                                        <label for="#{{_id}}" class="book-item__flex-50-text" name="service_id"
-                                            value="{{_id}}" checked>
-                                            {{title}}</label>
+                                        <input type="checkbox" id="{{_id}}" name="service_id"  value="{{_id}}" {{#compareProperties ../order 'service_id' '_id'}}checked="checked"{{/compareProperties}}>
+                                        <label for="#{{_id}}" class="book-item__flex-50-text">
+                                            {{title}}
+                                        </label>
                                     </div>
                                 </li>
                                 {{/each}}
@@ -289,7 +290,7 @@
                     </li>
                     <li class="aside__item">
                         <a href="#!">
-                            <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Quận
+                            <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Tỉnh/Thành phố
                             <ul class="aside__nav-child">
                                 {{#each locations}}
                                 <label class="province-option">
@@ -300,8 +301,22 @@
                             </ul>
                         </a>
                     </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                           <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Quận/ Huyện
+                            <ul class="aside__nav-child">
+                                <label class="district-option">
+                                    <input type="radio" name="district" value="{{order.district}}" checked>
+                                    {{order.district}}
+                                </label>
+                            </ul>
+                        </a>
+                    </li>
+                    <li><input type="hidden" name="helperId" value="{{helper._id}}"></li>
+                    <li><input type="hidden" name="requestType" value="Dài hạn"></li>
+                    <li><input type="hidden" name="dates"></li>
                 </ul>
-            </div>
+            </form>
         </div>
         {{!-- aside end --}}
         {{!-- main content start --}}
@@ -361,7 +376,12 @@
     </script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <script>
-
+            var datesInput = document.querySelector("input[name='dates']");
+            var dates="";
+            const submitBtn = document.querySelector('button[type="submit"]')
+            submitBtn.onclick=function(){
+                datesInput.value=dates;
+            }
             document.addEventListener('DOMContentLoaded', function () {
             const calendarEl = document.getElementById('calendar')
             const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -397,11 +417,18 @@
                 eventClick: function(info) {
                     alert('Sự kiện: ' + info.event.title + '\n' +
                           'Địa điểm: ' + info.event.extendedProps.location + '\n' +
-                          'Người giúp việc: ' + info.event.extendedProps.helper);
+                          'Người giúp việc: ' + info.event.extendedProps.helper+dates);
                 },
                 // Xử lý khi click vào ngày trống
                 dateClick: function(info) {
-                    alert('Đã chọn ngày: ' + info.dateStr);
+                    if(dates.indexOf(info.dateStr)!=-1){
+                        dates=dates.replace(info.dateStr+",","");
+                        alert('Đã chọn ngày: ' +" "+dates)
+                        return;
+                    }
+                    dates+=info.dateStr+",";
+                    datesInput.value=dates;
+                    alert('Đã chọn ngày: '+" "+dates);
                     // Có thể mở modal để tạo sự kiện mới
                 }
             })

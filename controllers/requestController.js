@@ -2,24 +2,32 @@ require('dotenv').config()
 const requestController={
         //show order information
     longTermOrder: async (req, res, next) => {
-        let order = req.body;
+        let order = req.query;
         let helpers;
+        let services;
+        let locations;
 
         helpers = await fetch(process.env.API_URL + `/helper`)
             .then(data => data.json())
             .catch(err=>console.error(err))
+        services = await fetch(process.env.API_URL + '/service')
+            .then(data => data.json())
+            .catch(err=>console.error(err))
+        locations = await fetch(process.env.API_URL+'/location')
+            .then(data => data.json())
+            .catch(err=>console.error(err))
 
-        // helpers = helpers.filter((helper) => {
-        //     return helper.workingArea.province == req.body.province && helper.workingArea.districts.includes(req.body.district) && helper.jobs.includes(service._id);
-        // })
         res.render('partials/longtermorder', {
             order: order,
-            helpers: helpers,
+            helper: helpers[0],
+            locations:locations,
+            services:services,
             layout:false
         });
     },
     shortTermOrder: async (req, res, next) => {
-        let order = req.body;
+        console.log(req.query)
+        let order = req.query;
         let helpers;
         let services;
         let locations;
@@ -32,24 +40,8 @@ const requestController={
         locations = await fetch(process.env.API_URL+'/location')
         .then(data => data.json())
         .catch(err=>console.error(err))
-        //put the choice in the last of list
-        for(let i=0;i<services.length;i++){
-            if(order.service_id==services[i]._id){
-                let tmp = services[i]
-                services[i]=services[services.length-1]
-                services[services.length-1]=tmp;
-                break;
-            }
-        }
-        for(let i=0;i<locations.length;i++){
-            if(order.province==locations[i].province){
-                let tmp=locations[i];
-                locations[i]=locations[locations.length-1]
-                locations[locations.length-1]=tmp
-                break;
-            }
-        }
 
+        
         res.render('partials/shorttermorder', {
             order: order,
             helpers: helpers, 
@@ -58,10 +50,9 @@ const requestController={
             layout:false
         });
     },
-    //POST redirect to detail order page
+    //GET redirect to detail order page
     submit: async (req, res, next) => {
         let user;
-
         try {
             //call api to get current user
             let phone = req.session.user;
@@ -81,16 +72,16 @@ const requestController={
         catch (err) {
             console.error(err);
         }
-        let service = await fetch(process.env.API_URL + '/service/' + req.body.service_id)
+        let service = await fetch(process.env.API_URL + '/service/' + req.query.service_id)
             .then(data => data.json())
 
-        req.body.totalCost = service.basicPrice*(req.body.dates.length/10)
+        req.query.totalCost = service.basicPrice*(req.query.dates.length/10)
 
         let today= new Date()
-        req.body.orderDate =today.getFullYear() + "-"+(today.getMonth()+1) +"-"+today.getDate()
+        req.query.orderDate =today.getFullYear() + "-"+(today.getMonth()+1) +"-"+today.getDate()
 
 
-        let helper = await fetch(process.env.API_URL + '/helper/' + req.body.helper)
+        let helper = await fetch(process.env.API_URL + '/helper/'+req.query.helperId)
             .then(data => data.json())
             .then(data => {
                 if (data.length > 1) {
@@ -102,7 +93,7 @@ const requestController={
 
         res.render('partials/detailedRequest', {
             customer: user,
-            request: req.body,
+            request: req.query,
             helper: helper,
             service: service,
             layout:false
@@ -114,9 +105,10 @@ const requestController={
         let et =req.body.endTime;
         et= et.length <2 ?'0'+ et :et
 
-        req.body.startTime=`${req.body.startDate}T${st}:00`;
-        req.body.endTime=`${req.body.startDate}T${et}:00`;
+        req.body.startTime=`${req.body.orderDate}T${st}:00`;
+        req.body.endTime=`${req.body.orderDate}T${et}:00`;
         req.body.status="Chưa tiến hành"
+        
         let service = await fetch(process.env.API_URL + '/service/' + req.body.service_id)
         .then(data => data.json())
         req.body.service = {
@@ -125,6 +117,7 @@ const requestController={
             coefficient_other: 0,
             cost: service.basicPrice
         }
+        res.send(req.body)
         let option={
             method: 'POST',
             headers: {
