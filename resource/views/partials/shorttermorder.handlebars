@@ -472,15 +472,15 @@
     for(let key in helperItems){
         helperItems[key].onclick = function(){
             let id=this.querySelector(".short-helper__img-portrait").alt;
-            if(numHelper.innerHTML!='0'&& this.classList.contains('selected')){
-                this.classList.remove('selected')
-                numHelper.innerHTML='0'
-                helperInput.value= "";
-            }
-            else if(numHelper.innerHTML=='0'){
-                this.classList.add('selected')
-                numHelper.innerHTML='1';
-                helperInput.value=id;
+            for(let i in helperItems){
+                if(i==key){
+                    helperItems[i].classList.add('selected');
+                    numHelper.innerHTML='1'
+                    helperInput.value= id;
+                }
+                else{
+                    helperItems[i].classList.remove('selected');
+                }
             }
         }
     }

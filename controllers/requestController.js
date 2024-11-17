@@ -117,7 +117,6 @@ const requestController={
             coefficient_other: 0,
             cost: service.basicPrice
         }
-        res.send(req.body)
         let option={
             method: 'POST',
             headers: {
@@ -128,9 +127,17 @@ const requestController={
 
         fetch(process.env.API_URL + '/request', option)
             .then((data) => {
-                res.redirect('/')
+                res.render("pages/notificationpage",{
+                    layout:false,
+                    noti: "create new order successfully"
+                })
             })
-            .catch(err => res.send(err))
+            .catch(err => {
+                res.render("pages/notificationpage",{
+                    layout:false,
+                    noti: err
+                })
+            })
 
     }
 }

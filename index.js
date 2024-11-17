@@ -47,11 +47,10 @@ const hbs = handlebars.create({
             let age = today.getFullYear() - birth.getFullYear();
             const monthDiff = today.getMonth() - birth.getMonth();
         
-            // Điều chỉnh tuổi nếu chưa đến ngày sinh trong năm hiện tại
+            //get exactly age 
             if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
                 age--;
             }
-            console.log(age);
             return age;
         }
     }
