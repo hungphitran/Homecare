@@ -398,6 +398,7 @@
                     alert('Sự kiện: ' + info.event.title + '\n' +
                           'Địa điểm: ' + info.event.extendedProps.location + '\n' +
                           'Người giúp việc: ' + info.event.extendedProps.helper);
+                          document.getElementById('calendar').style.display = 'none';
                 },
                 // Xử lý khi click vào ngày trống
                 dateClick: function(info) {
