@@ -1,87 +1,352 @@
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homecare</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/scripts.js"></script>
+</head>
+<body>
+    <div class="container-request" style="margin-top: 100px">
+        {{!-- <section class="customer-info">
+            {{#if customer.phone}}
+            <h1 class="section-title">Kiểm tra thông tin của bạn</h1>
+            {{else}}
+            <h2 class="section-title">Vui lòng điền thông tin</h2>
+            {{/if}}
+    
+            <div class="form-group__request">
+                <label for="phone-input">Số điện thoại</label>
+                <input type="tel" name="phone" id="phone-input" value="{{customer.phone}}" required>
+            </div>
+    
+            <div class="form-group__request">
+                <label for="name-input">Họ và tên</label>
+                <input type="text" name="customerName" id="name-input" value="{{customer.fullName}}" required>
+            </div>
+    
+            <div class="form-group__request">
+                <label for="address-input">Địa chỉ</label>
+                <input type="text" name="customerAddress" id="address-input" value="{{customer.address}}" required>
+            </div>
+        </section>
+    
+        <form method="post" action="/request/save" class="request-form">
+            <input type="hidden" name="customerInfo" id="customerInfo">
+    
+            <div class="form-details__request">
+                <div class="form-group__request">
+                    <label>Hình thức</label>
+                    <input type="hidden" name="requestType" value="{{request.requestType}}">
+                    <span class="value">{{request.requestType}}</span>
+                </div>
+    
+                <div class="form-group__request">
+                    <label>Ngày đặt đơn</label>
+                    <input type="hidden" name="orderDate" value="{{request.orderDate}}">
+                    <span class="value">{{request.orderDate}}</span>
+                </div>
+    
+                <div class="form-group__request">
+                    <label>Ngày thực hiện</label>
+                    <input type="hidden" name="startDate" value="{{request.dates}}">
+                    <span class="value">{{request.dates}}</span>
+                </div>
+    
+                <div class="form-group__request">
+                    <label>Dịch vụ</label>
+                    <input type="hidden" name="service_id" value="{{service._id}}">
+                    <span class="value">{{service.title}}</span>
+                </div>
+    
+                <div class="form-group__request location">
+                    <div>
+                        <label>Tỉnh/thành phố</label>
+                        <input type="hidden" name="province" value="{{request.province}}">
+                        <span class="value">{{request.province}}</span>
+                    </div>
+                    <div>
+                        <label>Quận/huyện</label>
+                        <input type="hidden" name="district" value="{{request.district}}">
+                        <span class="value">{{request.district}}</span>
+                    </div>
+                </div>
+    
+                <div class="form-group__request">
+                    <label>Giờ bắt đầu</label>
+                    <input type="hidden" name="startTime" value="{{request.startTime}}">
+                    <span class="value">{{request.startTime}}</span>
+                </div>
+    
+                <div class="form-group__request">
+                    <label>Giờ kết thúc</label>
+                    <input type="hidden" name="endTime" value="{{request.endTime}}">
+                    <span class="value">{{request.endTime}}</span>
+                </div>
+    
+                <div class="form-group__request">
+                    <label>Người giúp việc</label>
+                    <input type="hidden" name="helperId" value="{{helper._id}}">
+                    <span class="value">
+                        {{#if helper._id}}
+                        {{helper.fullName}}
+                        {{else}}
+                        Chưa có
+                        {{/if}}
+                    </span>
+                </div>
+    
+                <div class="form-group__request">
+                    <label>Tổng số tiền</label>
+                    <input type="hidden" name="totalCost" value="{{request.totalCost}}">
+                    <span class="value">{{request.totalCost}}</span>
+                </div>
+            </div>
+    
+            <div class="form-actions">
+                <button type="submit" class="submit-btn submit-btn__request">Gửi yêu cầu</button>
+            </div>
+        </form> --}}
+        <section class="book-item section-3" id="hire-helper">
+            <div class="home__container-2">
+                <div class="home__row-2" style="margin-left:0px">
+                    <div class="section-title padd-15">
+                        <h2>Thông tin yêu cầu</h2>
+                    </div>
+                </div>
+                <div class="home__row-2 padd-15" style"margin-left:15px">
+                    <form id="form-2" action="/request/save" method="post" class="book-item__form-main padd-15">
+                        <input type="hidden" name="customerInfo" id="customerInfo">
+                        <input type="hidden" name="requestType" value="{{request.requestType}}">
+                        <input type="hidden" name="orderDate" value="{{request.orderDate}}">
+                        <input type="hidden" name="service_id" value="{{service._id}}">
+                        <input type="hidden" name="helperId" value="{{helper._id}}">
 
-    .customer-info input{
-        max-width: 30%;
-    }
-
-    .container{
-        width: 60%;
-        margin-left: 20%;
-        border-style:dashed;
-        border-color: darkcyan;
-    }
-    .container *{
-        margin-top: 20px;
-        margin-left: 5%;
-    }
-    dt {
-        border: 0px;
-        border-bottom: 2px;
-        border-style: dotted;
-    }
-    dt label{
-        font-weight: bold;
-    }
-
-</style>
-
-
-<div class="container">
-
-<div class="customer-info">
-    {{#if customer.phone}}
-    <h1>
-        Kiểm tra thông tin của bạn
-    </h1>
-    {{else}}
-    <h2>
-        Vui lòng điền thông tin
-    </h2>
-    {{/if}}
-
-    <input placeholder="Số điện thoại" type="phone" name="phone" id="phone-input" value="{{customer.phone}}">
-
-    <input placeholder="Tên " type="text" name="customerName" id="name-input" value="{{customer.fullName}}">
-
-    <input  placeholder="Địa chỉ" type="text" name="customerAddress" id="address-input" value="{{customer.address}}">
-</div>
-
-
-
-<form method="post" action="/request/save">
-
-    <dl>
-        <dt><label>Hình thức: </label><input type="hidden" name="requestType" value="{{request.requestType}}">{{request.requestType}}</dt>
-        <dt><label>Ngày đặt đơn: </label><input type="hidden" name="orderDate" value="{{request.orderDate}}">{{request.orderDate}}</dt>
-        <dt><label>Ngày thực hiện: </label><input type="hidden" name="startDate" value="{{request.dates}}">{{request.dates}}</dt>
-        <input type="hidden" name="customerInfo" id="customerInfo">
-        <dt><label>Dịch vụ: </label><input type="hidden" name="service_id" value="{{service._id}}">{{service.title}}</dt>
-        <dt><label>Tỉnh/thành phố: </label><input type="hidden" name="province" value="{{request.province}}">{{request.province}} <label>Quận/huyện: </label>  <input type="hidden" name="district" value="{{request.district}}">{{request.district}}</dt>
-        <dt><label>Giờ bắt đầu: </label><input type="hidden" name="startTime" value="{{request.startTime}}">{{request.startTime}}</dt>
-        <dt><label>Giờ kết thúc: </label><input type="hidden" name="endTime" value="{{request.endTime}}">{{request.endTime}}</dt>
-        <dt><label>Người giúp việc: </label><input type="hidden" name="helperId" value="{{helper._id}}">
-        {{#if helper._id}}
-            {{helper.fullName}}
-        {{else}}
-            Chưa có
-        {{/if}}
-        </dt>
-        <dt><label>Tổng số tiền: </label><input type="hidden" name="totalCost" value="{{request.totalCost}}">{{request.totalCost}}</dt>
-
-    </dl>
-    <button>Gửi yêu cầu</button>
-</form>
-
-</div>
-
+                        <div class="home__row-2 padd-15">
+                            <div class="book-item__form-name">
+                                <div class="form__group">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="phone-input" placeholder="Số điện thoại" type="text"
+                                            class="form__input" value="{{customer.phone}}" name="phone" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+                            <div class="book-item__form-address">
+                                <div class="form__group" style="padding-left:10px">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="name-input" placeholder="Họ và tên" type="text"
+                                            class="form__input" value="{{customer.fullName}}" name="customerName" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="home__row-2 padd-15">
+                            <div class="book-item__form-name">
+                                <div class="form__group">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="city-input"
+                                            placeholder="Thành phố" type="text" class="form__input" value="{{request.province}}"
+                                            name="province" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+                            <div class="book-item__form-address">
+                                <div class="form__group" style="padding-left:10px">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="address-input" placeholder="Address"
+                                            type="text" class="form__input" value="{{customer.address}}" name="address" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="home__row-2 padd-15">
+                            <div class="book-item__form-city">
+                                <div class="form__group">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="district-input" placeholder="Quận"
+                                            type="text" class="form__input" value="{{request.district}}" name="district" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="home__row-2 padd-15">
+                            <div class="book-item__form-date">
+                                <div class="form__group">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="myID" placeholder="Chọn ngày"
+                                            type="text" class="form__input" value="{{request.dates}}" name="startDate" required>
+                                        {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+                            <div class="book-item__form-time">
+                                <div class="home__row-2">
+                                    <div class="book-item__form-time-start">
+                                        <div class="form__group">
+                                            <div class="form__text-input form-control">
+                                                <input style="font-size: 1.5rem;height:30px" id="myID1"
+                                                    placeholder="Giờ Bắt Đầu" type="text" class="form__input"
+                                                    value="{{request.startTime}}" name="startTime" required>
+                                                {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                                <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                            </div>
+                                            <p class="form__error"></p>
+                                        </div>
+                                    </div>
+                                    <div class="book-item__form-time-end">
+                                        <div class="form__group">
+                                            <div class="form__text-input form-control">
+                                                <input style="font-size: 1.5rem;height:30px" id="myID1"
+                                                    placeholder="Giờ Kết Thúc" type="text" class="form__input"
+                                                    value="{{request.endTime}}" name="endTime" required>
+                                                {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                                <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                            </div>
+                                            <p class="form__error"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="home__row-2 padd-15" style="margin-top:20px;font-size:2.4rem;font-weight:500;">
+                            <h3 style="color:var(--text-black-700)">Dịch vụ</h3>
+                        </div>
+                        <div class="home__row-2 padd-15" style="justify-content: space-between;">
+                            <div class="book-item__form-service-checkbox">
+                                <div class="home__row-2 padd-15">
+                                    <div class="form__group book-item__flex-30">
+                                        <input type="checkbox" id="check1">
+                                        <label for="#check1" class="book-item__flex-50-text">Osin part time</label>
+                                    </div>
+                                    <div class="form__group book-item__flex-30">
+                                        <input type="checkbox" id="check2">
+                                        <label for="#check2" class="book-item__flex-50-text">Dọn dẹp</label>
+                                    </div>
+                                    <div class="form__group book-item__flex-30">
+                                        <input type="checkbox" id="check2">
+                                        <label for="#check2" class="book-item__flex-50-text">Dọn dẹp</label>
+                                    </div>
+                                </div>
+                                <div class="home__row-2 padd-15">
+                                    <div class="form__group book-item__flex-30">
+                                        <input type="checkbox" id="check3">
+                                        <label for="#check3" class="book-item__flex-50-text">Osin part time</label>
+                                    </div>
+                                    <div class="form__group book-item__flex-30">
+                                        <input type="checkbox" id="check4">
+                                        <label for="#check4" class="book-item__flex-50-text">Dọn dẹp</label>
+                                    </div>
+                                    <div class="form__group book-item__flex-30">
+                                        <input type="checkbox" id="check4">
+                                        <label for="#check4" class="book-item__flex-50-text">Dọn dẹp</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{!-- <div class="home__row-2 padd-15" style="display: flex;
+                justify-content: space-between;display:none;">
+                            <div class="book-item__form-basic">
+                                <div class="form__group">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="full-name-input"
+                                            placeholder="Phí Cơ bản" type="text" class="form__input" value="{{customer.city}}"
+                                            name="city" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+                            <div class="book-item__form-out">
+                                <div class="form__group" style="padding-left:10px">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="full-name-input"
+                                            placeholder="Phí Ngoài Giờ" type="text" class="form__input" value="{{customer.district}}"
+                                            name="district" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+        
+                        </div> --}}
+                        <div class="home__row-2 padd-15" style="display: flex;
+                justify-content: space-between;">
+                            {{!-- <div class="book-item__form-extra" style="display:none;">
+                                <div class="form__group">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="full-name-input" placeholder="Phụ Phí"
+                                            type="text" class="form__input" value="{{customer.district}}" name="district" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div> --}}
+                            <div class="book-item__form-total">
+                                <div class="form__group">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="full-name-input"
+                                            placeholder="Tổng Chí Phí" type="text" class="form__input" value="{{request.totalCost}}"
+                                            name="totalCost" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="home__row-2 padd-15" style="padding-bottom:100px; width:127%">
+                          
+                            <div class="button padd-15" style="flex: 0 0 60%;
+                max-width: 60%;
+                display:inline-flex;
+                align-items: start;
+                justify-content: end;
+                gap: 10px;
+                margin-top:60px">
+                                <a href="#service-detail" class="home-btn book-helper book-helper__cancel"
+                                    data-section-index="2">Hủy</a>
+                               <button type="submit" id="submitBtn"> <a  class="home-btn book-helper" data-section-index="1">Đồng ý</a></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
 <script>
-    const submitBtn = document.querySelector('button');
+
+    const submitBtn = document.getElementById('submitBtn');
     const customerInfo = document.querySelector('#customerInfo')
     const nameInput = document.querySelector('#name-input');
     const phoneInput = document.querySelector('#phone-input');
     const addressInput = document.querySelector('#address-input');
-
-
+    console.log(submitBtn);
+    console.log(customerInfo);
+    console.log(nameInput);
+    console.log(phoneInput);
+    console.log(addressInput);
     submitBtn.onclick = function () {
         customerInfo.value = JSON.stringify({
             fullName: nameInput.value,
@@ -90,3 +355,4 @@
         })
     }
 </script>
+</html>

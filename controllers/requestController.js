@@ -107,8 +107,8 @@ const requestController={
 
         req.body.startTime=`${req.body.orderDate}T${st}:00`;
         req.body.endTime=`${req.body.orderDate}T${et}:00`;
-        req.body.status="Chưa tiến hành"
-        
+        req.body.status = "Chưa tiến hành"
+      
         let service = await fetch(process.env.API_URL + '/service/' + req.body.service_id)
         .then(data => data.json())
         req.body.service = {

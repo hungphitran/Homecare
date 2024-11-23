@@ -175,6 +175,42 @@ function initJsToggle() {
 };
     });
 }
+window.addEventListener("template-loaded", initJsToggle_2);
+
+function initJsToggle_2() {
+    $$(".js-toggle-2").forEach((button) => {
+        const target = button.getAttribute("toggle-target-2");
+        if (!target) {
+            document.body.innerText = `Cần thêm toggle-target cho: ${button.outerHTML}`;
+        }
+        button.onclick = (e) => {
+            e.preventDefault();
+            if (!$(target)) {
+                return (document.body.innerText = `Không tìm thấy phần tử "${target}"`);
+            }
+            const isHidden = $(target).classList.contains("hide-2");
+            console.log(isHidden);
+            if (isHidden) {
+            document.getElementById("aside-longterm").classList.remove("show");
+            document.getElementById("aside-longterm").classList.add("hide");
+            }
+            requestAnimationFrame(() => {
+                $(target).classList.toggle("hide-2", !isHidden);
+                $(target).classList.toggle("show-2", isHidden);
+            });
+        };
+        document.onclick = function (e) {
+    if (!e.target.closest(target)) {
+        const isHidden = $(target).classList.contains("hide-2");
+        if (!isHidden) {
+            // document.getElementById("aside-longterm").classList.remove("show");
+            // document.getElementById("aside-longterm").classList.add("hide");
+            button.click();
+        }
+    }
+};
+    });
+}
 window.addEventListener("template-loaded", () => {
     const links = $$(".js-dropdown-list > li > a");
 

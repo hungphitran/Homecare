@@ -38,6 +38,8 @@
         display: flex;
         flex-direction: column;
         gap: 2px;
+        box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
+    border: 1px solid #4CAF50;
     }
     &__item-answer &__item-answer-text--desc {
         padding: 10px 40px;

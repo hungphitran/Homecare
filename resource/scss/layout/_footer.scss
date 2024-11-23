@@ -85,3 +85,11 @@
         filter:var(--icon-color-footer);
     }
 }
+.row-footer{
+    @include abstracts.screen(lg){
+        display: flex!important;
+        flex-direction: column!important;
+        align-items: center!important;
+        justify-content: center!important;
+    }
+}

@@ -4,8 +4,15 @@
         opacity:0.5;
         pointer-events: none;
     }
+    &__group-footer{
+        box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
+    border: 1px solid #4CAF50;
+    border-radius: 10px;
+    background-color: var(--white);
+    }
     &__group{
         margin-top:30px;
+        
     }
     &__group-tel{
         display: flex;

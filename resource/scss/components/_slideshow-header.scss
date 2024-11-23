@@ -2,17 +2,21 @@
 /* } */
 /* common */
 /* slider-lastest */
+@use "../abstracts";
 .header__slideshow{
     &.shadow{
-        background-color: linear-gradient(to right, rgba(0,0,0,1.0), rgba(0,0,0,0.0));
+        // background-color: linear-gradient(to right, rgba(0,0,0,1.0), rgba(0,0,0,0.0));
         transition: .5s;
-        box-shadow: 0 1px 4px hsl(0 4% 14% /10%);
+        // box-shadow: 0 1px 4px hsl(0 4% 14% /10%);
         backdrop-filter: blur(10px);
         border-bottom: 1px solid hsl(0 4% 14% /10%);
         border-top: 1px solid hsl(0 4% 14% /10%);
         border-radius: 0;
         border-left: none;
-        border-right: none;       
+        border-right: none;     
+        box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9); 
+        border: 1px solid #4CAF50;
+        background-color: var(--white);  
     }   
 }
 .owl-carousel{
@@ -117,6 +121,11 @@
     position: fixed;
     z-index: 100;
     width:100%;
+    // box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
+    // border: 1px solid #4CAF50;
+    // background-color: var(--white);
+    border: 1px solid #4CAF50;
+    background-color: var(--white);
 }
 .header-slideshow__row{
     display: flex;
@@ -131,6 +140,11 @@ a{
 ul{
     list-style: none;
 }
+.header-menu{
+    @include abstracts.screen(xl){
+        display: none;
+    }
+}
 .header-menu>ul{
     display: flex;
     align-items: center;
@@ -138,12 +152,18 @@ ul{
     height:100%;
 }
 .header-logo__img{
-    width: 120px;
-    height: 105px;
+    width: 160px;
+    height: 80px;
 } 
 .header-menu__item{
     font-size: 1.4rem;
     padding:0 10px;
+    @include abstracts.screen(xl){
+        padding:0 5px;
+    }
+    @include abstracts.screen(lg){
+       font-size: 1.2rem;
+    }
 }
 .header-menu__item a{
     color:black;
@@ -163,7 +183,7 @@ ul{
 .header-menu__item:nth-child(8){
     margin-right: 20px;
 }
-.header-menu__item:nth-child(9) a{
+.header-menu__item:nth-child(10) a{
      color:var(--color,#fff);
     background-color:#02571c;
     padding:10px 20px;
@@ -177,5 +197,22 @@ ul{
     background-color: #02571c;
     color:#fff;
 }
-
+.hamburger-icon{
+    @include abstracts.screen(xl){
+        font-size: 2rem;
+    }   
+}
+.mobile-menu-btn{
+    @include abstracts.screen(xxl){
+        display: none;
+    }
+    @include abstracts.screen(xl){
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+ 
+}
 

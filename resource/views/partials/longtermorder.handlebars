@@ -324,7 +324,237 @@
             {{!-- home section start --}}
             <section class="home home-active section" id="home">
                 <div class="home__container-2" style="padding-top:15px;">
-                     <div id='calendar'></div>
+                     <div id='calendar'class="show-longterm"></div>
+                    <div class="long-helper__item hide-longterm" >
+                       <div class="home-row-2">
+                        <div class="detail-longterm__tittle">
+                           <div class="detail-longterm__title--heading"> <i class="fa-solid fa-magnifying-glass" style="margin-right:10px;"></i>Thông tin chi tiết - ngày 26/11/2024</div>
+                        <div class="detail-longterm__tittle--back">
+                            <button id="btn-forward"class="btn" style="background-color:var(--skin-button);color:var(--white)">
+                                <i class="fa-solid fa-backward" style="margin-right:5px"></i>Quay lai
+                                    </button>
+                                    </div>
+                            
+                        </div>
+                        </div>
+                        <div class="home-row-2">
+                            <div class="detail-employee">
+                                <p>Chi tiết nhân viên</p>
+                                <button class="short-helper__btn js-toggle" toggle-target="#aside-longterm">
+                                    <i class="fa-solid fa-bars"></i>
+                                </button>
+                            <div class="aside-detail__longterm hide" id ="aside-longterm">
+                                <ul>
+                                   <li>
+                                    <a href="#!"><div class="form_  _group" style="margin-top:10px;display: flex
+;
+    align-items: center;
+    justify-content: space-around;">
+                                        <input type="checkbox" id="check" name="service_id" >
+                                        <label for="check" class="book-item__flex-50-text">
+                                            tran phi hung
+                                        </label>
+                                        <button class="short-helper__btn js-toggle-2" toggle-target-2="#aside-longterm__detail" style="width:30px; height:30px;">
+                                            <i class="fa-solid fa-info"></i>
+                                        </button>
+                                    </div></a>
+                                   </li>
+                                   <li>
+                                    <a href="#!">
+                                        <div class="form_  _group" style="margin-top:10px;display: flex
+                                    ;
+                                        align-items: center;
+                                        justify-content: space-around;">
+                                            <input type="checkbox" id="check" name="service_id">
+                                            <label for="check" class="book-item__flex-50-text">
+                                                tran phi hung
+                                            </label>
+                                            <button class="short-helper__btn js-toggle-2" toggle-target-2="#aside-longterm__detail" style="width:30px; height:30px;">
+                                                <i class="fa-solid fa-info"></i>
+                                            </button>
+                                        </div>
+                                    </a>
+                                   </li>
+                                   <li>
+                                    <a href="#!">
+                                        <div class="form_  _group" style="margin-top:10px;display: flex
+                                    ;
+                                        align-items: center;
+                                        justify-content: space-around;">
+                                            <input type="checkbox" id="check" name="service_id">
+                                            <label for="check" class="book-item__flex-50-text">
+                                                tran phi hung
+                                            </label>
+                                            <button class="short-helper__btn js-toggle-2" toggle-target-2="#aside-longterm__detail" style="width:30px; height:30px;">
+                                                <i class="fa-solid fa-info"></i>
+                                            </button>
+                                        </div>
+                                    </a>
+                                   </li>
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="home-row-2">
+                            <section class="about-detail section-longterm" id="service-detail" style="padding:0px;">
+                                <div class="home__container-2 aside-longterm__detail" id="aside-longterm__detail" style="padding-left:50px;padding-right:50px;">
+                                    <div class="home__row-2">
+                                        <div class="section-title padd-15">
+                                            <h2>Thông tin chi tiết</h2>
+                            
+                                        </div>
+                                    </div>
+                                    <div class="home__row-2">
+                                        <div class="about-detail__content padd-15">
+                                            <div class="about-detail__text">
+                                                <h3>Tôi tên là {{helper.fullName}} và <span>
+                                                        người giúp việc
+                                                    </span>
+                                                </h3>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum repudiandae doloremque
+                                                    ullam voluptate, omnis harum ratione ea incidunt magni placeat in! Eius nam illum
+                                                    molestiae voluptates cum magnam laboriosam corporis?</p>
+                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="home__row-2">
+                                        <div class="about-detail__personal-infor padd-15">
+                                            <div class="home__row-2">
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Quận: <span>
+                                                            {{#each helper.workingArea.districts}}
+                                                            {{this}}
+                                                            {{/each}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Tuổi: <span>22</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Ngày sinh nhật: <span>{{helper.birthDate}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Giới tính:<span>{{helper.gender}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Số điện thoại:<span>{{helper.phone}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Quê quán:<span>{{helper.birthPlace}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Tỉnh:<span>{{helper.workingArea.province}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Địa chỉ:<span>{{helper.address}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Chiều cao:<span>{{helper.height}} cm</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Chiều cao:<span>{{helper.weight}} kg</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Năm kim nghiệm:<span>{{helper.yearOfExperience}} năm</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="home__row-2">
+                                                <div class="button padd-15">
+                                                    <a href="#hire-helper" class="home-btn book-helper" data-section-index="1">Thuê người này</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="about-detail__skills padd-15">
+                            
+                                        </div>
+                                    </div>
+                                    <div class="home__row-2">
+                                        <div class="about-detail__tab-ui padd-15" style="padding-bottom:50px;">
+                                            <div class="tabs">
+                                                <div class="tab-item active">
+                                                    <i class="tab-icon fas fa-code"></i>
+                                                    Đánh giá chung
+                                                </div>
+                                                <div class="tab-item">
+                                                    <i class="tab-icon fas fa-cog"></i>
+                                                    Mô tả kinh nghiệm
+                                                </div>
+                                                <div class="tab-item">
+                                                    <i class="tab-icon fas fa-plus-circle"></i>
+                                                    Thông tin chi tiết
+                                                </div>
+                                                <div class="tab-item">
+                                                    <i class="tab-icon fas fa-pen-nib"></i>
+                                                    Giấy khám sức khỏe
+                                                </div>
+                                                <div class="line"></div>
+                                            </div>
+                            
+                                            <!-- Tab content -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active">
+                                                    <h2>React</h2>
+                                                    <p>React makes it painless to create interactive UIs. Design simple views for each state
+                                                        in your application,
+                                                        and React will efficiently update and render just the right components when your
+                                                        data changes.
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio delectus accusantium
+                                                        assumenda ullam in molestiae alias? Maxime corporis explicabo vel voluptate earum
+                                                        hic amet ducimus expedita magni harum aperiam, provident pariatur itaque beatae
+                                                        atque. Nobis sed corrupti totam dolorem necessitatibus distinctio voluptate,
+                                                        doloribus quasi! Voluptatum voluptas molestias, rem quo obcaecati laboriosam libero
+                                                        eligendi quos fugit aliquam magni porro sunt nihil laudantium saepe in doloremque
+                                                        incidunt quam. Adipisci facilis minus ut autem? A illo voluptates vitae dolores
+                                                        cumque necessitatibus sed dolore molestias! Sequi quia porro quae amet modi, odio,
+                                                        incidunt iste nemo dolorem asperiores sit non. Aliquam provident explicabo totam,
+                                                        quam quibusdam, numquam assumenda earum vitae qui impedit amet. Illum quidem
+                                                        recusandae praesentium dignissimos velit nobis ducimus officiis, labore enim
+                                                        perspiciatis aperiam perferendis, impedit tempora officia fugiat, placeat quisquam
+                                                        magni maiores qui laudantium numquam sapiente facere doloribus. Voluptas dicta rerum
+                                                        reiciendis tempore voluptates, at voluptatum, assumenda possimus aliquid harum
+                                                        aperiam, sequi quam. Accusantium sapiente ipsa quia veniam placeat soluta enim
+                                                        facere earum ab labore ipsam blanditiis iste eum molestiae eius quam nostrum dicta
+                                                        possimus ad velit id, veritatis ut vel illum. Atque exercitationem necessitatibus
+                                                        error sequi magnam perspiciatis nobis quasi fugit, officiis nostrum rerum, culpa
+                                                        distinctio accusantium qui omnis sit incidunt, eius velit neque fugiat fuga? Sequi
+                                                        similique unde temporibus quisquam maxime voluptatum expedita molestiae, in
+                                                        accusamus doloribus praesentium sit exercitationem quam sed! Id, vero voluptate
+                                                        doloribus perspiciatis error dolore amet accusantium culpa excepturi optio
+                                                        temporibus! Quibusdam, ea ad. Laborum repellat distinctio, magni commodi enim eos
+                                                        provident quaerat quas. Ratione mollitia omnis autem. Iste quam corporis repellat
+                                                        eum. Cum ex autem omnis iusto hic sed, libero dolores laborum quasi quia consequatur
+                                                        aut animi veritatis nesciunt deserunt nam ipsa dolorem culpa doloremque. Voluptates
+                                                        officiis error eum velit necessitatibus ab quaerat, accusantium amet aut officia
+                                                        quos harum quo temporibus fuga at sunt ea?</p>
+                                                </div>
+                                                <div class="tab-pane">
+                                                    <h2>Angular</h2>
+                                                    <p>Angular is an application design framework and development platform for creating
+                                                        efficient and sophisticated
+                                                        single-page apps.</p>
+                                                </div>
+                                                <div class="tab-pane">
+                                                    <h2>Ember</h2>
+                                                    <p>Ember.js is a productive, battle-tested JavaScript framework for building modern web
+                                                        applications. It
+                                                        includes everything you need to build rich UIs that work on any device.</p>
+                                                </div>
+                                                <div class="tab-pane">
+                                                    <h2>Vue.js</h2>
+                                                    <p>Vue (pronounced /vjuː/, like view) is a progressive framework for building user
+                                                        interfaces. Unlike other
+                                                        monolithic frameworks, Vue is designed from the ground up to be incrementally
+                                                        adoptable. </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                       </div>
+                    </div>
                 </div>
         {{!-- </div> --}}
         </section>
@@ -333,9 +563,16 @@
     {{!-- main content end --}}
     </div>
     {{!-- main contain end --}}
-
+    <script>
+      var btnForward=document.getElementById("btn-forward");
+      btnForward.addEventListener("click",function(){
+        document.getElementById("calendar").classList.remove("hide-longterm");
+        document.querySelector(".long-helper__item").classList.remove("show-longterm");
+          document.querySelector(".long-helper__item").classList.add("hide-longterm");
+      })
+    </script>
     <script src="/js/app.js"></script>
-
+    <script src="/js/scripts.js"></script>
     <script>
         // điều mình mong muốn
         validator({
@@ -353,6 +590,7 @@
             }
         })
         validator({
+            
             form: "#form-2",
             errorElement: ".form__error",
             formGroupElement: ".form__group",
@@ -418,6 +656,12 @@
                     alert('Sự kiện: ' + info.event.title + '\n' +
                           'Địa điểm: ' + info.event.extendedProps.location + '\n' +
                           'Người giúp việc: ' + info.event.extendedProps.helper+dates);
+                        //  document.getElementById('calendar').style.display = 'none';
+                        var test= document.querySelector(".show-longterm");
+                        console.log(test);
+                       document.querySelector(".show-longterm").classList.add("hide-longterm");
+                       document.querySelector(".long-helper__item").classList.remove("hide-longterm");
+                       document.querySelector(".long-helper__item").classList.add("show-longterm");
                 },
                 // Xử lý khi click vào ngày trống
                 dateClick: function(info) {

@@ -1,6 +1,6 @@
 <div id="contact" class="container">
-    <div class="row">
-        <div class="col-6">
+    <div class="row row-footer" style="@include abstracts.screen(lg){flex-direction: column!important;}">
+        <div class="col-7">
             <div class="footer__left">
                 <h2 class="footer__heading">
                     HomeCare
@@ -25,32 +25,32 @@
                 </a>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-5">
             <div class="footer__right">
                 <div class="row">
-                    <h2 class="col-12 footer__heading" style="text-align: center;">LIÊN HỆ</h2>
+                    <h2 class="col-11 footer__heading" style="text-align: center;">LIÊN HỆ</h2>
                 </div>
                 <div class="row" style="margin-top: 20px;">
                     <form method="post" action="/contact">
-                        <div class="row">
-                            <div class="col-6">
+                        <div class="row" style="display: flex;align-items: center; justify-content: flex-start;gap: 35px;">
+                            <div class="col-5 form__group-footer">
                                 <input type="text" name="name" id="" placeholder="Họ và tên" class="footer__input" required>
                             </div>
-                            <div class="col-6">
+                            <div class="col-5 form__group-footer">
                                 <input type="text" name="phone" id="" placeholder="Số điện thoại" class="footer__input" required minlength="10" maxlength="12">
                             </div>
                         </div>
                         <br>
                         <br>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-11 form__group-footer">
                                 <input type="email" name="email" id="" placeholder="Email" class="footer__input" required>
                             </div>
                         </div>
                         <br>
                         <br>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-11 form__group-footer">
                                 <textarea name="message" id="" cols="30" rows="10" placeholder="Nội dung" class="footer__input" required></textarea>
                             </div>
                         </div>

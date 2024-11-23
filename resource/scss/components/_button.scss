@@ -1,3 +1,4 @@
+@use "../abstracts";
 // filter
 .filter{
     &-btn{
@@ -42,6 +43,8 @@
     font-weight:500;
     user-select: none;
     white-space: nowrap;
+    // box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
+    border: 1px solid #4CAF50;
     // + .btn{
     //     margin-left:30px;
     // }
@@ -110,4 +113,16 @@
         border:solid 1px #fff;
         border-radius:3px;
          pointer-events: none;
+    }
+    .btn-google-play__img{
+        @include abstracts.screen(xl){
+            display:inline-block;
+            height:40px;
+        }
+    }
+    .btn-apple-store__img{
+        @include abstracts.screen(xl){
+            display:inline-block;
+            height:40px;
+        }
     }
