@@ -1,0 +1,120 @@
+@use "../abstracts";
+/* Import Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+.wrapper-province,.wrapper-province__long{
+  margin: 15px auto 0;
+}
+.wrapper-province__select-btn{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.wrapper-province__select-btn{
+  height: 33px;
+  padding: 0 20px;
+  font-size: 1.6rem;
+  background: #fff;
+  border-radius: 7px;
+  justify-content: space-between;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.wrapper-province__select-btn i{
+    font-size: 1.5rem;
+  transition: transform 0.3s linear;
+}
+.wrapper-province.active-menu-search .wrapper-province__select-btn i{
+  transform: rotate(-180deg);
+}
+.wrapper-province__long.active-menu-search .wrapper-province__select-btn i{
+  transform: rotate(-180deg);
+}
+.wrapper-province__content{
+  display: none;
+  padding: 20px;
+  margin-top: 15px;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.wrapper-province.active-menu-search .wrapper-province__content{
+  display: block;
+}
+.wrapper-province__long.active-menu-search .wrapper-province__content{
+  display: block;
+}
+.wrapper-province__content .wrapper-province__search{
+  position: relative;
+}
+.wrapper-province__search i{
+  top: 50%;
+  left: 15px;
+  color: #999;
+  font-size: 20px;
+  pointer-events: none;
+  transform: translateY(-50%);
+  position: absolute;
+}
+.wrapper-province__search .wrapper-province__input{
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 17px;
+  border-radius: 5px;
+  padding: 0 20px 0 43px;
+  border: 1px solid #B3B3B3;
+}
+.wrapper-province__search .wrapper-province__input:focus{
+  padding-left: 42px;
+  border: 2px solid #4285f4;
+}
+.wrapper-province__search .wrapper-province__input::placeholder{
+  color: #bfbfbf;
+}
+.wrapper-province__content .wrapper-province__options{
+  margin-top: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: 7px;
+}
+.wrapper-province__options::-webkit-scrollbar{
+  width: 7px;
+}
+.wrapper-province__options::-webkit-scrollbar-track{
+  background: #f1f1f1;
+  border-radius: 25px;
+}
+.wrapper-province__voptions::-webkit-scrollbar-thumb{
+  background: #ccc;
+  border-radius: 25px;
+}
+.wrapper-province__options::-webkit-scrollbar-thumb:hover{
+  background: #b3b3b3;
+}
+.wrapper-province__options li{
+  height: 50px;
+  padding: 0 13px;
+  font-size: 1.5rem;
+}
+.wrapper-province__options li:hover, li.selected{
+  border-radius: 5px;
+  background: #f2f2f2;
+}
+.extra-short{
+  font-size: 1.3rem;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #02571C;
+    border-right: none;
+    border-radius: 0px;
+    font-weight:600;
+    @include abstracts.screen(xl){
+      padding:0 8px;
+    }
+}
+.extra-province{
+  @include abstracts.screen(xl){
+    height:40px;
+    width:100%;
+  }
+
+}

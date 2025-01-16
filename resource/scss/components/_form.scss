@@ -9,6 +9,9 @@
     border: 1px solid #4CAF50;
     border-radius: 10px;
     background-color: var(--white);
+    @include abstracts.screen(md){
+        width:100%;
+    }
     }
     &__group{
         margin-top:30px;
@@ -63,6 +66,7 @@
     &__group-inline{
         display:flex;
         align-items: center;
+        justify-content: flex-end;
     }
     &__check-box{
         position: relative;

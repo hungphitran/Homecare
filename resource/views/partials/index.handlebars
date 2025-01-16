@@ -25,12 +25,25 @@
                         <form id="short-term-form" method='get' action="/request/shortterm" class="form__short-term">
                             <div class="form-group slideshow__form-group slideshow__form-group--adjust">
                                
-                                    <select name="province" class="province form-select form-select__province status">
+                                    {{!-- <select name="province" class="province form-select form-select__province status">
                                         <option value="0">Chọn Tỉnh</option>
                                         {{#each locations}}
-                                        <option value="{{this.province}}">{{this.province}}</option>
+                                        <option value="{{this.Name}}">{{this.Name}}</option>
                                         {{/each}}
-                                    </select>
+                                    </select> --}}
+                                    <div class="wrapper-province extra-province" style="margin:0;">
+                                        <div class="wrapper-province__select-btn extra-short">
+                                            <span style="white-space:nowrap">Chọn Tỉnh</span>
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </div>
+                                        <div class="wrapper-province__content" style="position:relative;">
+                                            <div class="warapper-province__search" style="display:flex; gap:5px;">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                                <input name="province" class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm" >
+                                            </div>
+                                            <ul class="wrapper-province__options"></ul>
+                                        </div>
+                                    </div>
                                
                              
                                     
@@ -92,7 +105,7 @@
                                         <option value="0">Đến giờ</option>
                                         <option value="1">6:00 giờ</option>
                                         <option value="2">6:30 giờ</option>
-                                        <option value="3">7:00 giờ</option>
+                                        <option value="3">7:00 Giờ</option>
                                         <option value="4">7:30 giờ</option>
                                         <option value="5">8:00 giờ</option>
                                         <option value="6">8:30 giờ</option>
@@ -129,12 +142,25 @@
                         <form id="long-term-form"  method="get" action="/request/longterm" class="form__long-term hide-form">
                             <div class="form-group slideshow__form-group slideshow__form-group--adjust">
                                 
-                                    <select name="province" class="province form-select form-select__province status">
+                                    {{!-- <select name="province" class="province form-select form-select__province status">
                                         <option value="0">Chọn Tỉnh</option>
                                         {{#each locations}}
-                                        <option value="{{this.province}}">{{this.province}}</option>
+                                        <option value="{{this.Name}}">{{this.Name}}</option>
                                         {{/each}}
-                                    </select>
+                                    </select> --}}
+                                    <div class="wrapper-province__long extra-province" style="margin:0;">
+                                        <div class="wrapper-province__select-btn extra-short">
+                                            <span style="white-space:nowrap">Chọn Tỉnh</span>
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </div>
+                                        <div class="wrapper-province__content" style="position:relative;">
+                                            <div class="warapper-province__search" style="display:flex; gap:5px;">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                                <input class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm">
+                                            </div>
+                                            <ul class="wrapper-province__options"></ul>
+                                        </div>
+                                    </div>
                                
                            
                                 <select name="district" class="district form-select form-select__district status" aria-label="Default select example">
@@ -588,7 +614,8 @@
                     </div>
                     <div class="faq__item-answer">
                     <div class="faq__item-answer-text">
-                        <p class="faq__item-answer-text--desc faq-title">Chúng tôi có một quy trình tuyển dùng và đạo tạo người giúp việc chuyên nhiệp từ khâu tìm kiếm nguồn lực người giúp
+                        <p class="faq__item-answer-text--desc faq-title">Chúng tôi có một quy trình tuyển dùng và đạo tạo người giúp
+                        việc chuyên nhiệp từ khâu tìm kiếm nguồn lực người giúp
                         việc, lựa chọn tuyển dùng và đào tạo đến khâu điều phối người giúp việc phù hợp với từng đối tượng khách hàng. Điều đó
                         giúp chúng tôi có thể tự tin để mang để cho Quý khách hàng những dịch vụ với chất lượng cao nhất. Ngoải ra, chúng tôi
                         cũng thiết kế các kênh liên lạc một cách linh động nhất để Quý khách có thể trao đổi trực tiếp với Công ty về chất lượng
@@ -633,7 +660,207 @@
         </div>
     </div>
 </div>
+<script>
+    function makeAction_short(){
+        document.addEventListener('DOMContentLoaded', function () {
+                    const wrapper = document.querySelector(".wrapper-province");
+                    const selectBtn = wrapper.querySelector(".wrapper-province__select-btn");
+                    const searchInp = wrapper.querySelector(".wrapper-province__input");
+                    const options = wrapper.querySelector(".wrapper-province__options");
 
+                    // Kiểm tra xem các element có tồn tại không
+                    if (!wrapper || !selectBtn || !searchInp || !options) {
+                        console.error("Không tìm thấy các element cần thiết");
+                        return;
+                    }
+
+
+                    let countries = {{{ json locations }}}.map(location => location.Name);
+            console.log(countries);
+
+            function addCountry(selectedCountry) {
+                options.innerHTML = "";
+                countries.forEach((country, index) => {
+                    let isSelected = country == selectedCountry ? "selected" : "";
+                    let li = `<li onclick="updateName(this, ${index})" class="${isSelected}">${country}</li>`;
+                    options.insertAdjacentHTML("beforeend", li);
+                });
+            }
+
+            function updateName(selectedLi, selectedIndex) {
+                searchInp.value = selectedLi.innerText;
+                addCountry(selectedLi.innerText);
+                wrapper.classList.remove("active-menu-search");
+                selectBtn.firstElementChild.innerText = selectedLi.innerText;
+                console.log("Selected index:", selectedIndex); // Log ra index
+                // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+                // give the district selections with index
+                districtSelect.innerHTML = `<option value="${locations[selectedIndex].Districts[0].Name}">${locations[selectedIndex].Districts[0].Name}</option>`
+                for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+                    districtSelect.innerHTML += `<option value="${locations[selectedIndex].Districts[i].Name}">${locations[selectedIndex].Districts[i].Name}</option>`
+                }
+            }
+            // Đưa updateName vào global scope để onclick có thể truy cập
+            window.updateName = updateName;
+            searchInp.addEventListener("keyup", () => {
+                let arr = [];
+                let searchWord = searchInp.value.toLowerCase();
+                arr = countries.filter((data, index) => {
+                    return data.toLowerCase().startsWith(searchWord);
+                }).map((data, index) => {
+                    let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
+                    return `<li onclick="updateName(this, ${index})" class="${isSelected}">${data}</li>`;
+                }).join("");
+                options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+            });
+
+            selectBtn.addEventListener("click", () => wrapper.classList.toggle("active-menu-search"));
+
+            // Khởi tạo danh sách ban đầu
+            addCountry();
+        });
+    }
+
+      document.addEventListener('DOMContentLoaded', function () {
+            const wrapper = document.querySelector(".wrapper-province");
+            const selectBtn = wrapper.querySelector(".wrapper-province__select-btn");
+            const searchInp = wrapper.querySelector(".wrapper-province__input");
+            const options = wrapper.querySelector(".wrapper-province__options");
+
+            // Kiểm tra xem các element có tồn tại không
+            if (!wrapper || !selectBtn || !searchInp || !options) {
+                console.error("Không tìm thấy các element cần thiết");
+                return;
+            }
+
+
+            let countries = {{{ json locations }}}.map(location => location.Name);
+        console.log(countries);
+
+        function addCountry(selectedCountry) {
+            options.innerHTML = "";
+            countries.forEach((country, index) => {
+                let isSelected = country == selectedCountry ? "selected" : "";
+                let li = `<li onclick="updateName(this, ${index})" class="${isSelected}">${country}</li>`;
+                options.insertAdjacentHTML("beforeend", li);
+            });
+        }
+
+        function updateName(selectedLi, selectedIndex) {
+
+            searchInp.value = selectedLi.innerText;
+            addCountry(selectedLi.innerText);
+            wrapper.classList.remove("active-menu-search");
+            selectBtn.firstElementChild.innerText = selectedLi.innerText;
+            console.log("Selected index:", selectedIndex); // Log ra index
+            // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+            // give the district selections with index
+            districtSelect.innerHTML = `<option value="${locations[selectedIndex].Districts[0].Name}">${locations[selectedIndex].Districts[0].Name}</option>`
+            for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+                districtSelect.innerHTML += `<option value="${locations[selectedIndex].Districts[i].Name}">${locations[selectedIndex].Districts[i].Name}</option>`
+            }
+        }
+
+        // Đưa updateName vào global scope để onclick có thể truy cập
+        window.updateName = updateName;
+
+        searchInp.addEventListener("keyup", () => {
+            let arr = [];
+            let searchWord = searchInp.value.toLowerCase();
+            arr = countries.filter((data, index) => {
+                return data.toLowerCase().startsWith(searchWord);
+            }).map((data, index) => {
+                let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
+                return `<li onclick="updateName(this, ${index})" class="${isSelected}">${data}</li>`;
+            }).join("");
+            options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+        });
+
+        selectBtn.addEventListener("click", () => wrapper.classList.toggle("active-menu-search"));
+
+        // Khởi tạo danh sách ban đầu
+        addCountry();
+        });
+    function makeAction() {
+        const wrapper_long = document.querySelector(".wrapper-province__long");
+        const selectBtn_long = wrapper_long.querySelector(".wrapper-province__select-btn");
+        const searchInp_long = wrapper_long.querySelector(".wrapper-province__input");
+        const options_long = wrapper_long.querySelector(".wrapper-province__options");
+
+        // Kiểm tra xem các element có tồn tại không
+        if (!wrapper_long || !selectBtn_long || !searchInp_long || !options_long) {
+            console.error("Không tìm thấy các element cần thiết");
+            return;
+        }
+
+        let countries = locations.map(location => location.Name);
+
+        function addCountry_long(selectedCountry) {
+            options_long.innerHTML = "";
+            countries.forEach((country, index) => {
+                let isSelected = country == selectedCountry ? "selected" : "";
+                // Thay đổi từ onclick sang data attribute
+                let li = `<li data-index="${index}" class="${isSelected}">${country}</li>`;
+                options_long.insertAdjacentHTML("beforeend", li);
+            });
+
+            // Thêm event listener cho tất cả các li elements
+            options_long.querySelectorAll('li').forEach(li => {
+                li.addEventListener('click', function() {
+                    const selectedIndex = this.dataset.index;
+                    console.log(selectedIndex);
+                    searchInp_long.value = "";
+                    addCountry_long(this.innerText);
+                    wrapper_long.classList.remove("active-menu-search");
+                    selectBtn_long.firstElementChild.innerText = this.innerText;
+                    
+                   // give the district selections with index
+                    districtSelect.innerHTML = `<option value="${locations[selectedIndex].Districts[0].Name}">${locations[selectedIndex].Districts[0].Name}</option>`
+                    for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+                        districtSelect.innerHTML += `<option value="${locations[selectedIndex].Districts[i].Name}">${locations[selectedIndex].Districts[i].Name}</option>`
+                    }
+                });
+            });
+        }
+        
+        searchInp_long.addEventListener("keyup", () => {
+            let arr = [];
+            let searchWord = searchInp_long.value.toLowerCase();
+            arr = countries.filter(data => {
+                return data.toLowerCase().startsWith(searchWord);
+            }).map((data, index) => {
+                let isSelected = data == selectBtn_long.firstElementChild.innerText ? "selected" : "";
+                // Cập nhật cách tạo li elements ở đây nữa
+                return `<li data-index="${index}" class="${isSelected}">${data}</li>`;
+            }).join("");
+            options_long.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+            
+            // Thêm lại event listeners cho các li elements mới
+            options_long.querySelectorAll('li').forEach(li => {
+                li.addEventListener('click', function() {
+                    const selectedIndex = this.dataset.index;
+                    console.log(selectedIndex);
+                    searchInp_long.value = "";
+                    addCountry_long(this.innerText);
+                    wrapper_long.classList.remove("active-menu-search");
+                    selectBtn_long.firstElementChild.innerText = this.innerText;
+                    
+                    // give the district selections with index
+                    districtSelect.innerHTML = `<option value="${locations[selectedIndex].Districts[0].Name}">${locations[selectedIndex].Districts[0].Name}</option>`
+                    for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+                        districtSelect.innerHTML += `<option value="${locations[selectedIndex].Districts[i].Name}">${locations[selectedIndex].Districts[i].Name}</option>`
+                    }
+                });
+            });
+        });
+
+        selectBtn_long.addEventListener("click", () => wrapper_long.classList.toggle("active-menu-search"));
+
+        // Khởi tạo danh sách ban đầu
+        addCountry_long();
+    }
+   
+</script>
 <script>
 
         const locations = {{{ json locations }}};
@@ -648,32 +875,9 @@
         const longTermBtn = document.getElementById('long-term-btn')
       let provinceSelect = shortTerm.querySelector('.province')
       let  districtSelect = shortTerm.querySelector('.district');
-     
-   function changeProvince() {
-        
-         //get current province
-         let val = provinceSelect.value;
-         console.log(val);
-         //find the index
-         let index = 0;
-         for (key in locations) {
-             if (locations[key].province == val) {
-                 console.log(locations[key].province)
-                 index = parseInt(key);
-             }
-         }
-         // give the district selections with index
-         districtSelect.innerHTML = `<option value="${locations[index].districts[0].district}">${locations[index].districts[0].district}</option>`
-         for (let i = 1; i < locations[index].districts.length; i++) {
-             districtSelect.innerHTML += `<option value="${locations[index].districts[i].district}">${locations[index].districts[i].district}</option>`
-         }
-      // widgetSelect()
-     }
-  provinceSelect.onchange = function(){
-    changeProvince();
-  }
+
+ 
         shortTerm.onchange = function () {
-            console.log("short")
             let date = shortTerm.querySelector('#start-date')
             let starttime = shortTerm.querySelector('#start-time')
             let endtime = shortTerm.querySelector('#end-time')
@@ -688,7 +892,6 @@
             }
         }
         longTerm.onchange = function () {
-            console.log("long")
             let startdate = longTerm.querySelector('#start-date')
             let enddate = longTerm.querySelector('#end-date')
             let starttime = longTerm.querySelector('#start-time')
@@ -702,51 +905,27 @@
                 submitBtn.disabled = true;
             }
         }
-      console.log(provinceSelect)
-       console.log(districtSelect)
-    //when user changes province 
-    //provinceSelect.onchange
+   
 
         shortTermBtn.onclick = function () {
            shortTermForm.classList.toggle("hide-form");
            longTermForm.classList.toggle("hide-form");
             $(".btn__form-term.active-term").classList.remove('active-term');
-            this.classList.add('active-term')
-            provinceSelect = shortTerm.querySelector('.province')
+            this.classList.add('active-term');
             districtSelect = shortTerm.querySelector('.district');
-            provinceSelect.onchange = function () {
-              changeProvince();
-           }
-           // provinceSelect.dispatchEvent(new Event('change', { bubbles: true }));
+            makeAction_short();
             }
         longTermBtn.onclick = function (e) {
             longTermForm.classList.toggle("hide-form");
             shortTermForm.classList.toggle("hide-form");
             $(".btn__form-term.active-term").classList.remove('active-term');
-            this.classList.add('active-term')
-            provinceSelect = longTerm.querySelector('.province')
-           districtSelect = longTerm.querySelector('.district');
-             provinceSelect.onchange = function () {
-                changeProvince();
-            }
-          // provinceSelect.dispatchEvent(new Event('change', { bubbles: true }));
+            this.classList.add('active-term');
+             districtSelect = longTerm.querySelector('.district');
+            makeAction();
+          
             }
     let slideShowIndex=0;
-    //showSlide();
-    /*function showSlide(){
-        let i;
-        let slides = document.getElementsByClassName("slideshow__item");
-        for(i=0; i < slides.length; i++){
-        //slides[i].style.display="none";
-        }
-        slideShowIndex++;
-        if(slideShowIndex > slides.length){
-            slideShowIndex= 1;
-        }
-       // slides[slideShowIndex-1].style.display="block";
-        setTimeout(showSlide,2000);
-    }
-    */
+   
   
         
 

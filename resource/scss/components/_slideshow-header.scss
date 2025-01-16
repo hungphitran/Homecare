@@ -126,6 +126,9 @@
     // background-color: var(--white);
     border: 1px solid #4CAF50;
     background-color: var(--white);
+    @include abstracts.screen(sm){
+        width: 94%;
+    }
 }
 .header-slideshow__row{
     display: flex;
@@ -154,6 +157,24 @@ ul{
 .header-logo__img{
     width: 160px;
     height: 80px;
+      @include abstracts.screen(xl){
+        width:150px;
+        height:100%;
+    }
+    @include abstracts.screen(lg){
+        width:150px;
+        height:100%;
+    }
+     @include abstracts.screen(md){
+        width:140px;
+        height:100%;
+    }
+     @include abstracts.screen(sm){
+        max-width:100px;
+        height:100%;
+    }
+    
+    
 } 
 .header-menu__item{
     font-size: 1.4rem;
@@ -179,6 +200,9 @@ ul{
     background-color: #02571c;
     padding:10px 20px;
     border-radius: 5px;
+      display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .header-menu__item:nth-child(8){
     margin-right: 20px;
@@ -188,6 +212,9 @@ ul{
     background-color:#02571c;
     padding:10px 20px;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .header-menu__item:last-child a:hover{
     background-color: #02571c;

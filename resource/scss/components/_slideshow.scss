@@ -5,7 +5,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-       
     }
     &__search{
         z-index: 100;
@@ -23,9 +22,12 @@
     @include abstracts.screen(xl){
         width:55%;
     }
-    @include abstracts.screen(sm){
-        width:90%;
+    @include abstracts.screen(md){
+        width: 90% !important;
     }
+
+ 
+    
 }
     &__search-heading{
         text-align: center;
@@ -86,6 +88,9 @@
             justify-content: center;
             align-items: center;
             width:66%;
+        }
+        @include abstracts.screen(md){
+            width:100%;
         }
     }
     &__form-group--adjust{
@@ -305,10 +310,31 @@
         text-shadow: 1px 1px 1px black;
         font-size: 2rem;
         color: var(--text-black-900);
-        @include abstracts.screen(xl){
-            font-size: 1.5rem;
+        
+       @include abstracts.screen(xxl) {  // xxl
+            font-size: 2.5rem;
+           
         }
-
+        
+         @include abstracts.screen(xl) {  // xl
+            font-size: 1.5rem;
+            
+        }
+        
+         @include abstracts.screen(lg) {   // lg
+            font-size: 1.0rem;
+           
+        }
+        
+         @include abstracts.screen(md) {   // md
+            font-size: 1.5rem;
+           
+        }
+        
+         @include abstracts.screen(sm) {   // sm
+            font-size: 2.0rem;
+           
+        }
     }
     .heading.extra-color-white{
         color:#fff;
@@ -347,14 +373,20 @@
         @include abstracts.screen(xl){
             font-size: 1.2rem;
         }
+        @include abstracts.screen(md){
+            font-size:1rem;
+        }
+
     }
     &__process-inner{
         height: 100%;
+
         @include abstracts.screen(lg){
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap:15px;
         }
     }   
 
@@ -416,7 +448,10 @@
     background-color: #4CAF50;
     box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
     border: 1px solid #4CAF50;
-    overflow-y:scroll ;
+    //overflow-y:scroll ;
+    @include abstracts.screen(lg){
+        overflow-y:scroll;
+    }
 }
 .service{
     &__box{
@@ -543,6 +578,19 @@
             transform: scale(1.05);
             opacity: 0.9;
         }
+        @include abstracts.screen(lg){
+             width: 200px;
+        height: 250px;
+        }
+        @include abstracts.screen(md){
+             width: 150px;
+        height: 200px;
+        }
+         @include abstracts.screen(sm){
+             width: 350px;
+        height: 250px;
+        }
+
     }
     }
 }  
@@ -640,6 +688,9 @@
         grid-template-columns: repeat(2, 1fr)!important;
         column-gap:20px!important;
     }
+    @include abstracts.screen(sm){
+        display:flex!important;
+    }
 }
 .container .col-mobile-12{
     @include abstracts.screen(lg){
@@ -648,4 +699,8 @@
         margin-left: auto!important;
         margin-right: auto!important;
     }
+     @include abstracts.screen(sm){
+        display:flex!important;
+    }
 }
+

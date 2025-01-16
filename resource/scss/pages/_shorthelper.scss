@@ -1,3 +1,4 @@
+@use "../abstracts";
 .short-helper{
     flex:0 0 100%;
     max-width: 100%;
@@ -16,7 +17,7 @@
     &__item{
         margin-top: 15px;
         padding:20px;
-        box-shadow: 0 10px 15px rgba(22,22, 22, 0.9);
+        // box-shadow: 0 10px 15px rgba(22,22, 22, 0.9);
         border: 1px solid #4CAF50;
         border-radius: 10px;
         background-color: var(--white);
@@ -29,6 +30,7 @@
             height: 1px;
             background-color: #666;
             margin-top: 10px;
+            margin-bottom:20px;
         }
     }
     &__item--helper-box{
@@ -49,6 +51,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        @include abstracts.screen(md){
+            display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+        }
     }
   &__btn{
     display: inline-flex;

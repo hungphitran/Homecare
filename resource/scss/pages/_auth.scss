@@ -39,18 +39,18 @@
         padding: 0 30px;
         flex-grow: 1;
         padding-top:20px;
-        @include abstracts.screen(md){
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            background: var(--color-body);
-            transition: transform;
-            transition-duration: 1s;
-            overflow-y: auto;
-            &.hide{
-            transform: translateX(100%);
-        }
-        }
+        // @include abstracts.screen(md){
+        //     position: fixed;
+        //     inset: 0;
+        //     z-index: 1;
+        //     background: var(--color-body);
+        //     transition: transform;
+        //     transition-duration: 1s;
+        //     overflow-y: auto;
+        //     &.hide{
+        //     transform: translateX(100%);
+        // }
+        // }
         // position: fixed;
         // inset: 0;
         // z-index: 1;

@@ -340,6 +340,9 @@
     flex:0 0 100%;
     max-height:100%;
   }
+  @include abstracts.screen(md){
+    flex-direction: column;
+  }
 }
 .tabs .line {
   position: absolute;
@@ -365,6 +368,9 @@
   cursor: pointer;
   transition: all 0.5s ease;
   white-space: nowrap;
+  @include abstracts.screen(lg){
+    font-size:1rem;
+  }
 }
 .tab-icon {
   font-size: 24px;
@@ -494,4 +500,16 @@
 }
 .book-helper__cancel{
     background-color: #fb2b36;
+}
+.extra-flex{
+    @include abstracts.screen(lg){
+        display: flex;
+        flex-direction: column;
+    }
+}
+.extra-flex-direction{
+    @include abstracts.screen(lg){
+        display: flex;
+        flex-direction: column;
+    }
 }

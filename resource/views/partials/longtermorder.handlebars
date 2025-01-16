@@ -77,6 +77,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         Homecare
     </title>
@@ -146,6 +147,88 @@
         padding: 6px 10px;
         font-size: 0.9em;
     }
+
+    /* Responsive Calendar Styles */
+    .fc {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Desktop (>= 1024px) */
+    @media screen and (min-width: 1024px) {
+        .fc .fc-toolbar-title {
+            font-size: 1.5em !important;
+        }
+        .fc .fc-button {
+            padding: 8px 16px;
+            font-size: 1em;
+        }
+    }
+
+    /* Tablet (768px - 1023px) */
+    @media screen and (max-width: 1023px) {
+        .fc .fc-toolbar {
+            flex-direction: column;
+            gap: 10px;
+        }
+        .fc .fc-toolbar-title {
+            font-size: 1.2em !important;
+        }
+        .fc .fc-button {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        .fc .fc-toolbar > * > :not(:first-child) {
+            margin-left: 5px;
+        }
+    }
+
+    /* Mobile (< 768px) */
+    @media screen and (max-width: 767px) {
+        .fc .fc-toolbar-title {
+            font-size: 1em !important;
+        }
+        .fc .fc-button {
+            padding: 4px 8px;
+            font-size: 0.8em;
+        }
+        .fc .fc-toolbar > * > * {
+            float: none !important;
+            margin: 5px 0;
+        }
+        .fc .fc-toolbar-chunk {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+        /* Ẩn một số nút trên mobile để tránh quá tải UI */
+        .fc .fc-dayGridMonth-button,
+        .fc .fc-timeGridWeek-button,
+        .fc .fc-timeGridDay-button {
+            display: none;
+        }
+        /* Điều chỉnh cỡ chữ trong ô ngày */
+        .fc-daygrid-day-number {
+            font-size: 0.9em;
+        }
+        /* Điều chỉnh padding cho ô ngày */
+        .fc td, .fc th {
+            padding: 1px !important;
+        }
+    }
+
+    /* Điều chỉnh cho màn hình siêu nhỏ */
+    @media screen and (max-width: 375px) {
+        .fc .fc-toolbar-title {
+            font-size: 0.9em !important;
+        }
+        .fc .fc-button {
+            padding: 3px 6px;
+            font-size: 0.7em;
+        }
+    }
 </style>
 <body>
     {{!-- Main container start --}}
@@ -173,7 +256,7 @@
                         <a href="#!" class="aside__nav">
                             <i class="fa fa-calendar" style="margin-right:5px;color:var(--skin-color)"></i>Ngày
                             <ul class="aside__nav-child">
-                                <li>
+                                <li style="flex-direction:column">
                                     <div class="form__group" style="margin-top:10px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
@@ -291,14 +374,27 @@
                     <li class="aside__item">
                         <a href="#!">
                             <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Tỉnh/Thành phố
-                            <ul class="aside__nav-child">
+                            {{!-- <ul class="aside__nav-child">
                                 {{#each locations}}
                                 <label class="province-option">
                                     <input type="radio" name="province" value="{{this.province}}" checked>
                                     {{this.province}}
                                 </label>
                                 {{/each}}
-                            </ul>
+                            </ul> --}}
+                            <div class="wrapper-province">
+                                <div class="wrapper-province__select-btn">
+                                    <span>lựa chọn thành phố</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="wrapper-province__content">
+                                    <div class="wrapper-province__search">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                        <input class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm">
+                                    </div>
+                                    <ul class="wrapper-province__options"></ul>
+                                </div>
+                            </div>
                         </a>
                     </li>
                     <li class="aside__item">
@@ -420,7 +516,7 @@
                                     </div>
                                     <div class="home__row-2">
                                         <div class="about-detail__personal-infor padd-15">
-                                            <div class="home__row-2">
+                                            <div class="home__row-2 extra-flex-direction">
                                                 <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
                                                     <p>Quận: <span>
                                                             {{#each helper.workingArea.districts}}
@@ -564,6 +660,63 @@
     </div>
     {{!-- main contain end --}}
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const wrapper = document.querySelector(".wrapper-province");
+            const selectBtn = wrapper.querySelector(".wrapper-province__select-btn");
+            const searchInp = wrapper.querySelector(".wrapper-province__input");
+            const options = wrapper.querySelector(".wrapper-province__options");
+
+            // Kiểm tra xem các element có tồn tại không
+            if (!wrapper || !selectBtn || !searchInp || !options) {
+                console.error("Không tìm thấy các element cần thiết");
+                return;
+            }
+
+          
+             let countries = {{{ json locations }}}.map(location => location.Name);
+                console.log(countries);
+
+            function addCountry(selectedCountry) {
+                options.innerHTML = "";
+                countries.forEach((country, index) => {
+                    let isSelected = country == selectedCountry ? "selected" : "";
+                    let li = `<li onclick="updateName(this, ${index})" class="${isSelected}">${country}</li>`;
+                    options.insertAdjacentHTML("beforeend", li);
+                });
+            }
+
+            function updateName(selectedLi, selectedIndex) {
+                searchInp.value = "";
+                addCountry(selectedLi.innerText);
+                wrapper.classList.remove("active-menu-search");
+                selectBtn.firstElementChild.innerText = selectedLi.innerText;
+                console.log("Selected index:", selectedIndex); // Log ra index
+                // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+            }
+
+            // Đưa updateName vào global scope để onclick có thể truy cập
+            window.updateName = updateName;
+
+            searchInp.addEventListener("keyup", () => {
+                let arr = [];
+                let searchWord = searchInp.value.toLowerCase();
+                arr = countries.filter((data, index) => {
+                    return data.toLowerCase().startsWith(searchWord);
+                }).map((data, index) => {
+                    let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
+                    return `<li onclick="updateName(this, ${index})" class="${isSelected}">${data}</li>`;
+                }).join("");
+                options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+            });
+
+            selectBtn.addEventListener("click", () => wrapper.classList.toggle("active-menu-search"));
+
+            // Khởi tạo danh sách ban đầu
+            addCountry();
+        });
+    </script>
+   
+    <script>
       var btnForward=document.getElementById("btn-forward");
       btnForward.addEventListener("click",function(){
         document.getElementById("calendar").classList.remove("hide-longterm");
@@ -700,114 +853,54 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"
         integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+       
     <script>
-        var typed = new Typed(".home__my-profession-typing", {
-            strings: ["", "web Designer", "Web Developer", "Graphic Designer", "Youtube"],
-            typeSpeed: 100,
-            BackSpeed: 60,
-            loop: true
-        })
-        //aside
-        const nav = document.querySelector(".aside__nav"),
-            navList = nav.querySelectorAll(".aside__item"),
-            totalNavList = navList.length,
-            allSection = document.querySelectorAll(".section"), totalSection = allSection.length;
-        for (let i = 0; i < totalNavList; i++) {
+        // Aside navigation handling
+        document.addEventListener('DOMContentLoaded', function () {
+            const nav = document.querySelector(".aside__nav"),
+                navList = nav.querySelectorAll(".aside__item"),
+                navToggleBtn = document.querySelector('.aside__nav-toggle'),
+                aside = document.querySelector(".aside");
 
-            const a = navList[i].querySelector("a");
-            a.addEventListener("click", function () {
-                console.log(this);
-                removeBackSection();
-                for (let j = 0; j < totalNavList; j++) {
-                    if (navList[j].querySelector("a").classList.contains("aside__nav-active")) {
-                        addBackSection(j);
-                        //allSection[j].classList.add("back-section");
+            // Add click handlers to nav items
+            navList.forEach(item => {
+                const link = item.querySelector("a");
+                if (!link) return;
+
+                link.addEventListener("click", function (e) {
+                    // Prevent default only if href is #!
+                    if (this.getAttribute("href") === "#!") {
+                        e.preventDefault();
                     }
-                    navList[j].querySelector("a").classList.remove("aside__nav-active");
-                }
-                this.classList.add("aside__nav-active");
-                showSection(this);
-                if (window.innerWidth < 1200) {
-                    asideSectionToggleBtn();
-                }
-            })
-        }
-        function addBackSection(num) {
-            allSection[num].classList.add("back-section");
-        }
-        function removeBackSection() {
-            for (let i = 0; i < totalSection; i++) {
-                allSection[i].classList.remove("back-section");
-            }
-        }
-        function showSection(element) {
-            for (let i = 0; i < totalSection; i++) {
-                allSection[i].classList.remove("home-active");
-            }
-            const target = element.getAttribute("href").split("#")[1];
-            console.log(target);
-            document.querySelector("#" + target).classList.add("home-active");
 
-        }
-        function updateNav(element) {
-            console.log(element.getAttribute("href").split("#")[1]);
-            for (let i = 0; i < totalSection; i++) {
-                navList[i].querySelector("a").classList.remove("aside__nav-active");
-                const target = element.getAttribute("href").split("#")[1];
-                if (target === navList[i].querySelector("a").getAttribute("href").split("#")[1]) {
-                    navList[i].querySelector("a").classList.add("aside__nav-active");
-                }
+                    // Remove active class from all nav items
+                    navList.forEach(navItem => {
+                        const navLink = navItem.querySelector("a");
+                        if (navLink) {
+                            navLink.classList.remove("aside__nav-active");
+                        }
+                    });
+
+                    // Add active class to clicked item
+                    this.classList.add("aside__nav-active");
+
+                    // Không tự động đóng aside khi click vào nav items nữa
+                });
+            });
+
+            // Toggle button handler (nút X)
+            if (navToggleBtn) {
+                navToggleBtn.addEventListener("click", toggleAside);
             }
 
-
-        }
-        document.querySelector('.hire-me').addEventListener("click", function () {
-            console.log(this);
-            const sectionIndex = this.getAttribute("data-section-index");
-            console.log(sectionIndex);
-            showSection(this);
-            updateNav(this);
-            removeBackSection();
-            addBackSection(sectionIndex);
-        })
-        document.querySelector('.book-helper').addEventListener("click", function () {
-            console.log(this);
-            const sectionIndex = this.getAttribute("data-section-index");
-            console.log(sectionIndex);
-            showSection(this);
-            updateNav(this);
-            removeBackSection();
-            addBackSection(sectionIndex);
-        })
-        document.querySelector('.book-helper').addEventListener("click", function () {
-            console.log(this);
-            const sectionIndex = this.getAttribute("data-section-index");
-            console.log(sectionIndex);
-            showSection(this);
-            updateNav(this);
-            removeBackSection();
-            addBackSection(sectionIndex);
-        })
-        document.querySelector('.book-helper__cancel').addEventListener("click", function () {
-            console.log(this);
-            const sectionIndex = this.getAttribute("data-section-index");
-            console.log(sectionIndex);
-            showSection(this);
-            updateNav(this);
-            removeBackSection();
-            addBackSection(sectionIndex);
-        })
-        const navToggleBtn = document.querySelector('.aside__nav-toggle'), aside = document.querySelector(".aside");
-        navToggleBtn.addEventListener("click", () => {
-            asideSectionToggleBtn();
-        })
-        function asideSectionToggleBtn() {
-            aside.classList.toggle("open");
-            navToggleBtn.classList.toggle("open");
-            for (let i = 0; i < totalSection; i++) {
-                allSection[i].classList.toggle('open');
+            // Aside toggle function
+            function toggleAside() {
+                aside.classList.toggle("open");
+                if (navToggleBtn) {
+                    navToggleBtn.classList.toggle("open");
+                }
             }
-        }
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
