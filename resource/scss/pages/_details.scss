@@ -13,6 +13,10 @@
 .profile-dropdown{
     position:relative;
     width:fit-content;
+    z-index: 100;
+    margin-left: auto;
+    top: -50px;
+    right: 30px;
     &__list{
     position:absolute;
     top:68px;
@@ -119,5 +123,35 @@
     top:30%;
     transform:translate(-50%,-50%) scale(1);
     
+}
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    /* Tùy chọn: làm mịn cuộn trên các trình duyệt webkit */
+    -webkit-overflow-scrolling: touch;
+}
+
+.table__main {
+    min-width: 800px; /* hoặc chiều rộng tối thiểu phù hợp với nội dung bảng của bạn */
+    width: 100%;
+}
+
+/* Tùy chọn: Tùy chỉnh thanh cuộn */
+.table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 

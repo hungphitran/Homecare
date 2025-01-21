@@ -29,13 +29,65 @@
 </head>
 
 <body>
-    <nav class="detail-nav">
+    {{!-- <nav class="detail-nav">
         <!-- logo -->
         <a href="/">
             <div class="logo detail-nav__logo">
                 <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo __img-header">
             </div>
         </a>
+    </nav> --}}
+        {{!-- <div class="profile-dropdown">
+            <div class="profile-dropdown__btn" onclick="toggle()">
+                <div class="profile-dropdown__img">
+                    <i class="fa-solid fa-circle"></i>
+                </div>
+                <span>
+                    Victoria
+                    <i class="fa-solid fa-angle-down"></i>
+                </span>
+            </div>
+            <ul class="profile-dropdown__list">
+                <li class="profile-dropdown__item">
+                    <a href="#">
+                        <i class="fa-regular fa-user"></i>
+                        Edit Profile
+                    </a>
+                </li>
+                <li class="profile-dropdown__item">
+                    <a href="#">
+                        <i class="fa-regular fa-envelope"></i>
+                        Inbox
+                    </a>
+                </li>
+                <li class="profile-dropdown__item">
+                    <a href="#">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Analytics
+                    </a>
+                </li>
+                <li class="profile-dropdown__item">
+                    <a href="#">
+                        <i class="fa-solid fa-sliders"></i>
+                        Settings
+                    </a>
+                </li>
+                <li class="profile-dropdown__item">
+                    <a href="#">
+                        <i class="fa-regular fa-circle-question"></i>
+                        Help & Support
+                    </a>
+                </li>
+                <hr>
+                <li class="profile-dropdown__item">
+                    <a href="#">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        Log out
+                    </a>
+                </li>
+            </ul>
+        </div> --}}
+    <div class="main-container" style="padding-top:70px;padding-bottom:1000px">
         <div class="profile-dropdown">
             <div class="profile-dropdown__btn" onclick="toggle()">
                 <div class="profile-dropdown__img">
@@ -86,8 +138,6 @@
                 </li>
             </ul>
         </div>
-    </nav>
-    <div class="main-container" style="padding-top:70px;padding-bottom:1000px"></div>
         {{!-- aside start --}}
         <div class="aside">
             <div class="aside__nav-toggle">
@@ -196,7 +246,8 @@
                                                             align-items: start;
                                                             justify-content: end;
                                                             gap: 10px;
-                                                            margin-top:60px">
+                                                            margin-top:60px;flex-direction: column;
+    align-items: center;">
                                             <a  class="home-btn book-helper book-helper__cancel"
                                                 onclick="lockDisable()">LƯU THAY ĐỔI</a>
                                             <a href="#book-item" class="home-btn book-helper" data-section-index="1" onclick="unlockDisable()">SỬA THÔNG TIN</a>
@@ -285,14 +336,14 @@
                     </div>
                     <div class="home__row-2" style="padding-left:15px">
                         <div class="about-detail__tab-ui about__tab-ui-detail padd-15" style="padding-bottom:50px;">
-                            <div class="home__row-2">
-                                <div class="tabs tabs-details">
+                            <div class="home__row-2" style ="margin:auto">
+                                <div class="tabs tabs-details" style="display:flex;flex-direction:row;">
                                     <div class="tab-item active" style="flex:0 0 50%; max-width:50%">
-                                        <i class="tab-icon fas fa-code"></i>
+                                        {{!-- <i class="tab-icon fas fa-code"></i> --}}
                                         NGẮN HẠN
                                     </div>
                                     <div class="tab-item" style="flex:0 0 50%; max-width:50%">
-                                        <i class="tab-icon fas fa-cog"></i>
+                                        {{!-- <i class="tab-icon fas fa-cog"></i> --}}
                                         DÀI HẠN
                                     </div>
                                     <div class="line"></div>
@@ -300,36 +351,40 @@
                             </div>
             
                             <!-- Tab content -->
-                           <div class="home__row-2">
-                                <div class="tab-content">
+                           <div class="home__row-2" style="overscroll-behavior-x: auto;
+    width: 100%;">
+                                <div class="tab-content" style="overscroll-behavior-x: auto;
+    width: 100%;">
                                     <div class="tab-pane active">
                                        <section class="table__body">
-                                        <table class="table__main">
-                                            <thead>
-                                                <tr>
-                                                    <th>Ngày Yêu cầu</th>
-                                                    <th>Loại Đơn</th>
-                                                    <th>Giá Chuẩn</th>
-                                                    <th>Phí Ngoài Giờ</th>
-                                                    <th>Phụ Phí</th>
-                                                    <th>Trạng Thái</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {{#each requests}}
+                                        <div class="table-container">
+                                            <table class="table__main">
+                                                <thead>
                                                     <tr>
-                                                        <td>{{orderDate}}</td>
-                                                        <td>{{requestType}}</td>
-                                                        <td>{{totalCost}}</td>
-                                                        <td>e22cdcn01-n</td>
-                                                        <td>{{status}}</td>
-                                                        <td>
-                                                            <p class="status-detail cancel">{{status}}</p>
-                                                        </td>
+                                                        <th>Ngày Yêu cầu</th>
+                                                        <th>Loại Đơn</th>
+                                                        <th>Giá Chuẩn</th>
+                                                        <th>Phí Ngoài Giờ</th>
+                                                        <th>Phụ Phí</th>
+                                                        <th>Trạng Thái</th>
                                                     </tr>
-                                                    {{/each}}
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                {{#each requests}}
+                                                        <tr>
+                                                            <td>{{orderDate}}</td>
+                                                            <td>{{requestType}}</td>
+                                                            <td>{{totalCost}}</td>
+                                                            <td>e22cdcn01-n</td>
+                                                            <td>{{status}}</td>
+                                                            <td>
+                                                                <p class="status-detail cancel">{{status}}</p>
+                                                            </td>
+                                                        </tr>
+                                                        {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                        </section>
                                     </div>
                                     <div class="tab-pane">

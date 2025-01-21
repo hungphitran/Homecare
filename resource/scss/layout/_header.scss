@@ -278,3 +278,9 @@
         background: var(--br-separate, #EDEDF6);
     }
 }
+.short-helper__btn{
+    @include abstracts.screen(xxl){
+        display:none;
+    }
+}
+

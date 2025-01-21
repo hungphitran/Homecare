@@ -500,6 +500,7 @@
 }
 .book-helper__cancel{
     background-color: #fb2b36;
+    width:190px;
 }
 .extra-flex{
     @include abstracts.screen(lg){

@@ -98,7 +98,7 @@ const accountController = {
             }
         }
         
-        schedule_ids=schedule_ids.slice(0,schedule_ids.length-1)//eliminate last ","
+        schedule_ids = schedule_ids.slice(0, schedule_ids.length - 1)//eliminate last ","
         //GET call api to get all details with ids on query
         let requestDetails =await fetch(process.env.API_URL+'/requestDetail?ids='+schedule_ids)
         .then(data=>data.json())        
@@ -106,12 +106,12 @@ const accountController = {
         let startIndex=0;
         for(let i=0;i<requests.length;i++){
             let orderDate= requests[i].orderDate
-            requests[i].orderDate = orderDate.slice(0,10)
+            requests[i].orderDate = orderDate.slice(0, 10)
             requests[i].schedules=[];
             for(let j=startIndex;j<startIndex+requests[i].scheduleIds.length;j++){
                 let str=""
                 try{
-                    str+=requestDetails[j].workingDate.slice(0,10)+" - "+requestDetails[j].status;
+                    str += requestDetails[j].workingDate.slice(0, 10) + " - " + requestDetails[j].status;
                 }
                 catch(err){
                     continue;
@@ -121,8 +121,10 @@ const accountController = {
             startIndex+=requests[i].scheduleIds.length;
         }
         for(let i=0;i<requests.length;i++){
-            requests[i].startTime=requests[i].startTime.slice(11,19)
-            requests[i].endTime=requests[i].endTime.slice(11,19)
+            requests[i].startTime = requests[i].startTime
+                // .slice(11, 19)
+            requests[i].endTime = requests[i].endTime
+                // .slice(11, 19)
         }
         res.render('partials/detailedaccount',{
             user:user,

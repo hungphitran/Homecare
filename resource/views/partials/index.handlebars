@@ -38,8 +38,8 @@
                                         </div>
                                         <div class="wrapper-province__content" style="position:relative;">
                                             <div class="warapper-province__search" style="display:flex; gap:5px;">
+                                                <input name="province" class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm" style="width:100%" >
                                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                                <input name="province" class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm" >
                                             </div>
                                             <ul class="wrapper-province__options"></ul>
                                         </div>
@@ -47,29 +47,65 @@
                                
                              
                                     
-                                        <select name="district" class="district form-select form-select__district status" aria-label="Default select example">
+                                        {{!-- <select name="district" class="district form-select form-select__district status" aria-label="Default select example">
                                             <option selected>Chon Quận</option>
                                             
-                                        </select>
+                                        </select> --}}
                                   
-                            
+                            <div class="wrapper-district extra-district" style="margin:0;">
+                                <div class="wrapper-district__select-btn extra-short">
+                                    <span style="white-space:nowrap">Chọn Quận</span>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                </div>
+                                <div class="wrapper-district__content" style="position:relative;">
+                                    <div class="warapper-district__search" style="display:flex; gap:5px;">
+                                        <input name="district" class="wrapper-district__input" spellcheck="false" type="text"
+                                            placeholder="Tìm kiếm" style="width:100%">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </div>
+                                    <ul class="wrapper-district__options"></ul>
+                                </div>
+                            </div>
                                
                                
-                                    <select name="service_id" class="service form-select form-select__service status">
+                                    {{!-- <select name="service_id" class="service form-select form-select__service status">
                                         <option value="0">Chọn dịch vụ</option>
                                         {{#each services}}
                                         <option value="{{this._id}}">{{this.title}}</option>
                                         {{/each}}
-                                    </select>
+                                    </select> --}}
+                                    <div class="wrapper-service extra-service" style="margin:0;">
+                                        <div class="wrapper-service__select-btn extra-short">
+                                            <span style="white-space:nowrap">Chọn Dịch Vụ</span>
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </div>
+                                        <div class="wrapper-service__content" style="position:relative;">
+                                            <div class="warapper-service__search" style="display:flex; gap:5px;">
+                                                <input name="service" class="wrapper-service__input" spellcheck="false" type="text"
+                                                    placeholder="Tìm kiếm" style="width:100%">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </div>
+                                            <ul class="wrapper-service__options"></ul>
+                                        </div>
+                                    </div>
                                 
-                                <label for="start-date" class="form-label__start-date">
+                                {{!-- <label for="start-date" class="form-label__start-date">
                                     <input type="date" id="start-date" name="dates" min="{{formatDate}}" style="height:44px"
                                         onfocus="this.showPicker()" value="{{formatDate}}" class="input-date status">
-                                </label>
+                                </label> --}}
+                                <div class="form__group form-label__start-date" style="margin-top:0px;">
+                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
+                                        <input style="font-size: 1.5rem;height:20px" id="myID2" placeholder="Chọn ngày" type="text" class="form__input"
+                                            value="{{order.dates}}" name="dates" required class="input-date status">
+                                        {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
                             </div>
                             <div class="form-group slideshow__form-group slideshow__form-group--remain">
                                 
-                                    <select id="start-time" name="startTime" class="form-select form-select__start-time status">
+                                    {{!-- <select id="start-time" name="startTime" class="form-select form-select__start-time status">
                                         <option value="0">Từ giờ</option>
                                         <option value="1">6:00 giờ</option>
                                         <option value="2">6:30 giờ</option>
@@ -98,10 +134,19 @@
                                         <option value="24">19:00 giờ</option>
                                         <option value="24">19:30 giờ</option>
                                         <option value="24">20:00 giờ</option>
-                                    </select>
+                                    </select> --}}
+                                    <div class="form__group hour_short" style="margin-top:0px;">
+                                        <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID3" placeholder="Giờ Bắt Đầu" type="text"
+                                                class="form__input" value="{{order.startTime}}" name="startTime" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
                                
                                 
-                                    <select id="end-time" name="endTime" class="form-select form-select__end-time status">
+                                    {{!-- <select id="end-time" name="endTime" class="form-select form-select__end-time status">
                                         <option value="0">Đến giờ</option>
                                         <option value="1">6:00 giờ</option>
                                         <option value="2">6:30 giờ</option>
@@ -132,7 +177,16 @@
                                         <option value="27">19:00 giờ</option>
                                         <option value="28">19:30 giờ</option>
                                         <option value="29">20:00 giờ</option>
-                                    </select>
+                                    </select> --}}
+                                    <div class="form__group hour_short" style="margin-top:0px;">
+                                        <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID4" placeholder="Giờ Bắt Đầu" type="text"
+                                                class="form__input" value="{{order.startTime}}" name="startTime" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
                                
                             </div>
                             <button id="submitForm1" class="btn btn-find">TÌM KIẾM</button>
@@ -140,121 +194,188 @@
                     </div>
                     <div id="long-term">
                         <form id="long-term-form"  method="get" action="/request/longterm" class="form__long-term hide-form">
-                            <div class="form-group slideshow__form-group slideshow__form-group--adjust">
-                                
-                                    {{!-- <select name="province" class="province form-select form-select__province status">
-                                        <option value="0">Chọn Tỉnh</option>
-                                        {{#each locations}}
-                                        <option value="{{this.Name}}">{{this.Name}}</option>
-                                        {{/each}}
-                                    </select> --}}
-                                    <div class="wrapper-province__long extra-province" style="margin:0;">
-                                        <div class="wrapper-province__select-btn extra-short">
-                                            <span style="white-space:nowrap">Chọn Tỉnh</span>
+                           
+                                <div class="form-group slideshow__form-group slideshow__form-group--adjust">
+                                    
+                                        {{!-- <select name="province" class="province form-select form-select__province status">
+                                            <option value="0">Chọn Tỉnh</option>
+                                            {{#each locations}}
+                                            <option value="{{this.Name}}">{{this.Name}}</option>
+                                            {{/each}}
+                                        </select> --}}
+                                        <div class="wrapper-province__long extra-province" style="margin:0;">
+                                            <div class="wrapper-province__select-btn extra-short">
+                                                <span style="white-space:nowrap">Chọn Tỉnh</span>
+                                                <i class="fa-solid fa-chevron-down"></i>
+                                            </div>
+                                            <div class="wrapper-province__content" style="position:relative;">
+                                                <div class="warapper-province__search" style="display:flex; gap:5px;">
+                                                    <input class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm" style="width:100%">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                </div>
+                                                <ul class="wrapper-province__options"></ul>
+                                            </div>
+                                        </div>
+                                   
+                               
+                                    {{!-- <select name="district" class="district form-select form-select__district status" aria-label="Default select example">
+                                        <option selected>Chọn Quận</option>
+                                    </select>             --}}
+                                    <div class="wrapper-district extra-district wrapper-district__long" style="margin:0;">
+                                        <div class="wrapper-district__select-btn extra-short">
+                                            <span style="white-space:nowrap">Chọn Quận</span>
                                             <i class="fa-solid fa-chevron-down"></i>
                                         </div>
-                                        <div class="wrapper-province__content" style="position:relative;">
-                                            <div class="warapper-province__search" style="display:flex; gap:5px;">
+                                        <div class="wrapper-district__content" style="position:relative;">
+                                            <div class="warapper-district__search" style="display:flex; gap:5px;">
+                                                <input name="district" class="wrapper-district__input" spellcheck="false" type="text" placeholder="Tìm kiếm"
+                                                    style="width:100%">
                                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                                <input class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm">
                                             </div>
-                                            <ul class="wrapper-province__options"></ul>
+                                            <ul class="wrapper-district__options"></ul>
                                         </div>
                                     </div>
-                               
-                           
-                                <select name="district" class="district form-select form-select__district status" aria-label="Default select example">
-                                    <option selected>Chọn Quận</option>
-                                </select>            
-                               
-                                    <select name="service_id" class="service form-select form-select__service status">
-                                        <option value="0">Chọn dịch vụ</option>
-                                        {{#each services}}
-                                        <option value="{{this._id}}">{{this.title}}</option>
-                                        {{/each}}
-                                    </select>
-                                
-                            <label for="start-date" class="form-label__start-date">
-                                <input type="date" id="start-date" name="startDate" min="{{formatDate}}" style="height:44px"
-                                    onfocus="this.showPicker()" value="{{formatDate}}" class="input-date status">
-                            </label>
-                            <label for="end-date" class="form-label__start-date">
-                                <input type="date" id="end-date" name="endDate" style="height:44px"
-                                    onfocus="this.showPicker()" min="{{formatDate}}" value="{{formatDate}}" class="input-date status">
-                            </label>                            
-                            </div>
-                            <div class="form-group slideshow__form-group slideshow__form-group--remain">
-                               
-                                    <select id="start-time" name="startTime" class="form-select form-select__start-time status">
-                                        <option value="0">Từ giờ</option>
-                                        <option value="1">6:00 giờ</option>
-                                        <option value="2">6:30 giờ</option>
-                                        <option value="3">7:00 Giờ</option>
-                                        <option value="3">7:30 giờ</option>
-                                        <option value="4">8:00 giờ</option>
-                                        <option value="5">8:30 giờ</option>
-                                        <option value="6">9:00 giờ</option>
-                                        <option value="7">9:30 giờ</option>
-                                        <option value="8">10:00 giờ</option>
-                                        <option value="9">10:30 giờ</option>
-                                        <option value="10">11:00 giờ</option>
-                                        <option value="11">11:30 giờ</option>
-                                        <option value="12">12:00 giờ</option>
-                                        <option value="13">12:30 giờ</option>
-                                        <option value="14">13:00 giờ</option>
-                                        <option value="15">13:30 giờ</option>
-                                        <option value="16">14:00 giờ</option>
-                                        <option value="17">14:30 giờ</option>
-                                        <option value="18">15:00 giờ</option>
-                                        <option value="19">15:30 giờ</option>
-                                        <option value="20">16:00 giờ</option>
-                                        <option value="21">16:30 giờ</option>
-                                        <option value="22">17:00 giờ</option>
-                                        <option value="23">17:30 giờ</option>
-                                        <option value="24">18:00 giờ</option>
-                                        <option value="25">18:30 giờ</option>
-                                        <option value="26">19:00 giờ</option>
-                                        <option value="27">19:30 giờ</option>
-                                        <option value="28">20:00 giờ</option>
-                                    </select>
-                               
-                               
-                                    <select id="end-time" name="endTime" class="form-select form-select__end-time status">
-                                        <option value="0">Đến giờ</option>
-                                        <option value="1">6:00 giờ</option>
-                                        <option value="2">6:30 giờ</option>
-                                        <option value="3">7:00 Giờ</option>
-                                        <option value="3">7:30 giờ</option>
-                                        <option value="4">8:00 giờ</option>
-                                        <option value="5">8:30 giờ</option>
-                                        <option value="6">9:00 giờ</option>
-                                        <option value="7">9:30 giờ</option>
-                                        <option value="8">10:00 giờ</option>
-                                        <option value="9">10:30 giờ</option>
-                                        <option value="10">11:00 giờ</option>
-                                        <option value="11">11:30 giờ</option>
-                                        <option value="12">12:00 giờ</option>
-                                        <option value="13">12:30 giờ</option>
-                                        <option value="14">13:00 giờ</option>
-                                        <option value="15">13:30 giờ</option>
-                                        <option value="16">14:00 giờ</option>
-                                        <option value="17">14:30 giờ</option>
-                                        <option value="18">15:00 giờ</option>
-                                        <option value="19">15:30 giờ</option>
-                                        <option value="20">16:00 giờ</option>
-                                        <option value="21">16:30 giờ</option>
-                                        <option value="22">17:00 giờ</option>
-                                        <option value="23">17:30 giờ</option>
-                                        <option value="24">18:00 giờ</option>
-                                        <option value="25">18:30 giờ</option>
-                                        <option value="26">19:00 giờ</option>
-                                        <option value="27">19:30 giờ</option>
-                                        <option value="28">20:00 giờ</option>
-                                    </select>
-                               
-                            </div>
-                            <button class="btn btn-find" id="submitForm2">TÌM KIẾM</button>
+                                   
+                                        {{!-- <select name="service_id" class="service form-select form-select__service status">
+                                            <option value="0">Chọn dịch vụ</option>
+                                            {{#each services}}
+                                            <option value="{{this._id}}">{{this.title}}</option>
+                                            {{/each}}
+                                        </select> --}}
+                                        <div class="wrapper-service extra-service wrapper-service__long" style="margin:0;">
+                                            <div class="wrapper-service__select-btn extra-short">
+                                                <span style="white-space:nowrap">Chọn Dịch Vụ</span>
+                                                <i class="fa-solid fa-chevron-down"></i>
+                                            </div>
+                                            <div class="wrapper-service__content" style="position:relative;">
+                                                <div class="warapper-service__search" style="display:flex; gap:5px;">
+                                                    <input name="service" class="wrapper-service__input" spellcheck="false" type="text" placeholder="Tìm kiếm"
+                                                        style="width:100%">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                </div>
+                                                <ul class="wrapper-service__options"></ul>
+                                            </div>
+                                        </div>
+                                    
+                                {{!-- <label for="start-date" class="form-label__start-date">
+                                    <input type="date" id="start-date" name="startDate" min="{{formatDate}}" style="height:44px"
+                                        onfocus="this.showPicker()" value="{{formatDate}}" class="input-date status">
+                                </label> --}}
+                                <div class="form__group form-label__start-date" style="margin-top:0px;">
+                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
+                                        <input style="font-size: 1.5rem;height:20px" id="myID7" placeholder="Chọn ngày" type="text" class="form__input"
+                                            value="{{order.dates}}" name="startDate" required class="input-date status">
+                                        {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                                {{!-- <label for="end-date" class="form-label__start-date">
+                                    <input type="date" id="end-date" name="endDate" style="height:44px"
+                                        onfocus="this.showPicker()" min="{{formatDate}}" value="{{formatDate}}" class="input-date status">
+                                </label>                             --}}
+                                <div class="form__group form-label__start-date" style="margin-top:0px;">
+                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
+                                        <input style="font-size: 1.5rem;height:20px" id="myID8" placeholder="Chọn ngày" type="text" class="form__input"
+                                            value="{{order.dates}}" name="endDate" required class="input-date status">
+                                        {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                                </div>
+                                <div class="form-group slideshow__form-group slideshow__form-group--remain">
+                                   
+                                        {{!-- <select id="start-time" name="startTime" class="form-select form-select__start-time status">
+                                            <option value="0">Từ giờ</option>
+                                            <option value="1">6:00 giờ</option>
+                                            <option value="2">6:30 giờ</option>
+                                            <option value="3">7:00 Giờ</option>
+                                            <option value="3">7:30 giờ</option>
+                                            <option value="4">8:00 giờ</option>
+                                            <option value="5">8:30 giờ</option>
+                                            <option value="6">9:00 giờ</option>
+                                            <option value="7">9:30 giờ</option>
+                                            <option value="8">10:00 giờ</option>
+                                            <option value="9">10:30 giờ</option>
+                                            <option value="10">11:00 giờ</option>
+                                            <option value="11">11:30 giờ</option>
+                                            <option value="12">12:00 giờ</option>
+                                            <option value="13">12:30 giờ</option>
+                                            <option value="14">13:00 giờ</option>
+                                            <option value="15">13:30 giờ</option>
+                                            <option value="16">14:00 giờ</option>
+                                            <option value="17">14:30 giờ</option>
+                                            <option value="18">15:00 giờ</option>
+                                            <option value="19">15:30 giờ</option>
+                                            <option value="20">16:00 giờ</option>
+                                            <option value="21">16:30 giờ</option>
+                                            <option value="22">17:00 giờ</option>
+                                            <option value="23">17:30 giờ</option>
+                                            <option value="24">18:00 giờ</option>
+                                            <option value="25">18:30 giờ</option>
+                                            <option value="26">19:00 giờ</option>
+                                            <option value="27">19:30 giờ</option>
+                                            <option value="28">20:00 giờ</option>
+                                        </select> --}}
+                                        <div  class="form__group hour_short" style="margin-top:0px;">
+                                            <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
+                                                <input style="font-size: 1.5rem;height:20px" id="myID5" placeholder="Giờ Bắt Đầu" type="text"
+                                                    class="form__input" value="{{order.startTime}}" name="startTime" required>
+                                                {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                                <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                            </div>
+                                            <p class="form__error"></p>
+                                        </div>
+                                   
+                                   
+                                        {{!-- <select id="end-time" name="endTime" class="form-select form-select__end-time status">
+                                            <option value="0">Đến giờ</option>
+                                            <option value="1">6:00 giờ</option>
+                                            <option value="2">6:30 giờ</option>
+                                            <option value="3">7:00 Giờ</option>
+                                            <option value="3">7:30 giờ</option>
+                                            <option value="4">8:00 giờ</option>
+                                            <option value="5">8:30 giờ</option>
+                                            <option value="6">9:00 giờ</option>
+                                            <option value="7">9:30 giờ</option>
+                                            <option value="8">10:00 giờ</option>
+                                            <option value="9">10:30 giờ</option>
+                                            <option value="10">11:00 giờ</option>
+                                            <option value="11">11:30 giờ</option>
+                                            <option value="12">12:00 giờ</option>
+                                            <option value="13">12:30 giờ</option>
+                                            <option value="14">13:00 giờ</option>
+                                            <option value="15">13:30 giờ</option>
+                                            <option value="16">14:00 giờ</option>
+                                            <option value="17">14:30 giờ</option>
+                                            <option value="18">15:00 giờ</option>
+                                            <option value="19">15:30 giờ</option>
+                                            <option value="20">16:00 giờ</option>
+                                            <option value="21">16:30 giờ</option>
+                                            <option value="22">17:00 giờ</option>
+                                            <option value="23">17:30 giờ</option>
+                                            <option value="24">18:00 giờ</option>
+                                            <option value="25">18:30 giờ</option>
+                                            <option value="26">19:00 giờ</option>
+                                            <option value="27">19:30 giờ</option>
+                                            <option value="28">20:00 giờ</option>
+                                        </select> --}}
+                                        <div   class="form__group hour_short" style="margin-top:0px;">
+                                            <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
+                                                <input  name="endTime" style="font-size: 1.5rem;height:20px" id="myID6" placeholder="Giờ Kết Thúc" type="text"
+                                                    class="form__input" value="{{order.startTime}}" required>
+                                                {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                                <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                            </div>
+                                            <p class="form__error"></p>
+                                        </div>
+                                   
+                                </div>
+                          
+
                         </form>
+                            <button class="btn btn-find btn-long hide-form" id="submitForm2" form="long-term-form">TÌM KIẾM</button>
                     </div>
                 </div>
             </section>
@@ -661,6 +782,131 @@
     </div>
 </div>
 <script>
+      document.addEventListener('DOMContentLoaded', function () {
+            const wrapper_service = document.querySelector(".wrapper-service");
+            const selectBtn_service = wrapper_service.querySelector(".wrapper-service__select-btn");
+            const searchInp_service = wrapper_service.querySelector(".wrapper-service__input");
+            const options_service = wrapper_service.querySelector(".wrapper-service__options");
+
+            // Kiểm tra xem các element có tồn tại không
+            if (!wrapper_service || !selectBtn_service || !searchInp_service || !options_service) {
+                console.error("Không tìm thấy các element cần thiết");
+                return;
+            }
+
+
+       // let services = ["11","22"];
+      // map(location => { return location.Name.replace(/(Tỉnh|Thành phố) /g, '') });
+        let services = {{{json services}}}.map((service)=>{return {title:service.title,id:service._id}});
+        
+        console.log(services);
+        function addCountry_service(selectedCountry) {
+            options_service.innerHTML = "";
+            services.forEach((country, index) => {
+                let isSelected = country.title == selectedCountry ? "selected" : "";
+                let li = `<li onclick="updateName_service(this)"   class="${isSelected}">${country.title}</li>`;
+                options_service.insertAdjacentHTML("beforeend", li);
+            });
+        }
+
+        function updateName_service(selectedLi) {
+            console.log("updataName service is running")
+            let idService =0;
+            console.log(selectedLi);
+            for(let i =0 ; i< services.length;i++){
+                if (selectedLi.innerText == services[i].title){
+                    idService=services[i].id;
+                    break;
+                }
+            }
+            searchInp_service.Name=idService;
+            searchInp_service.value = selectedLi.innerText;
+            addCountry_service(selectedLi.innerText);
+            wrapper_service.classList.remove("active-menu-search");
+            selectBtn_service.firstElementChild.innerText = selectedLi.innerText;
+            //console.log("Selected index:", selectedIndex); // Log ra index
+            // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+            // give the district selections with index
+           
+        }
+
+        // Đưa updateName vào global scope để onclick có thể truy cập
+        window.updateName_service = updateName_service;
+
+        searchInp_service.addEventListener("keyup", () => {
+            let arr = [];
+            let searchWord = searchInp_service.value.toLowerCase();
+            arr = services.filter((data, index) => {
+                return data.toLowerCase().startsWith(searchWord);
+            }).map((data, index) => {
+                console.log(data);
+                let isSelected = data == selectBtn_service.firstElementChild.innerText ? "selected" : "";
+                return `<li onclick="updateName_service(this)" class="${isSelected}">${data}</li>`;
+            }).join("");
+            options_service.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+        });
+
+        selectBtn_service.addEventListener("click", () => wrapper_service.classList.toggle("active-menu-search"));
+
+        // Khởi tạo danh sách ban đầu
+        addCountry_service();
+        });
+        //long-service
+        document.addEventListener('DOMContentLoaded', function () {
+                const wrapper_service = document.querySelector(".wrapper-service__long");
+                const selectBtn_service = wrapper_service.querySelector(".wrapper-service__select-btn");
+                const searchInp_service = wrapper_service.querySelector(".wrapper-service__input");
+                const options_service = wrapper_service.querySelector(".wrapper-service__options");
+
+                // Kiểm tra xem các element có tồn tại không
+                if (!wrapper_service || !selectBtn_service || !searchInp_service || !options_service) {
+                    console.error("Không tìm thấy các element cần thiết");
+                    return;
+                }
+
+
+                let services = {{{ json services }}}.map((service) => { return service.title });
+                function addCountry_serviceLong(selectedCountry) {
+                    options_service.innerHTML = "";
+                    services.forEach((country, index) => {
+                        let isSelected = country == selectedCountry ? "selected" : "";
+                        let li = `<li onclick="updateName_serviceLong(this)" class="${isSelected}">${country}</li>`;
+                        options_service.insertAdjacentHTML("beforeend", li);
+                    });
+                }
+
+                function updateName_serviceLong(selectedLi) {
+                    console.log("updataName service is running")
+                    searchInp_service.value = selectedLi.innerText;
+                    addCountry_serviceLong(selectedLi.innerText);
+                    wrapper_service.classList.remove("active-menu-search");
+                    selectBtn_service.firstElementChild.innerText = selectedLi.innerText;
+                     // Log ra index
+                    // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+                    // give the district selections with index
+
+                }
+                // Đưa updateName vào global scope để onclick có thể truy cập
+                window.updateName_serviceLong = updateName_serviceLong;
+
+                searchInp_service.addEventListener("keyup", () => {
+                    let arr = [];
+                    let searchWord = searchInp_service.value.toLowerCase();
+                    arr = services.filter((data, index) => {
+                        return data.toLowerCase().startsWith(searchWord);
+                    }).map((data, index) => {
+                        let isSelected = data == selectBtn_service.firstElementChild.innerText ? "selected" : "";
+                        return `<li onclick="updateName_serviceLong(this)" class="${isSelected}">${data}</li>`;
+                    }).join("");
+                    options_service.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+                });
+
+                selectBtn_service.addEventListener("click", () => wrapper_service.classList.toggle("active-menu-search"));
+
+                // Khởi tạo danh sách ban đầu
+                addCountry_serviceLong();
+            });
+    let districts=[];
     function makeAction_short(){
         document.addEventListener('DOMContentLoaded', function () {
                     const wrapper = document.querySelector(".wrapper-province");
@@ -668,15 +914,16 @@
                     const searchInp = wrapper.querySelector(".wrapper-province__input");
                     const options = wrapper.querySelector(".wrapper-province__options");
 
-                    // Kiểm tra xem các element có tồn tại không
+                    // Kiểm tra xem các element có tồn  tại không
                     if (!wrapper || !selectBtn || !searchInp || !options) {
                         console.error("Không tìm thấy các element cần thiết");
                         return;
                     }
 
 
-                    let countries = {{{ json locations }}}.map(location => location.Name);
+                    let countries = {{{ json locations }}}.map(location =>{return  location.Name.replace(/(Tỉnh|Thành phố) /g, '')});
             console.log(countries);
+            
 
             function addCountry(selectedCountry) {
                 options.innerHTML = "";
@@ -695,10 +942,16 @@
                 console.log("Selected index:", selectedIndex); // Log ra index
                 // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
                 // give the district selections with index
-                districtSelect.innerHTML = `<option value="${locations[selectedIndex].Districts[0].Name}">${locations[selectedIndex].Districts[0].Name}</option>`
+                 districts = [];
+               
                 for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
-                    districtSelect.innerHTML += `<option value="${locations[selectedIndex].Districts[i].Name}">${locations[selectedIndex].Districts[i].Name}</option>`
+                   let districtName;
+                    console.log(districtName);
+                    
+                    districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
                 }
+                console.log(districts);
+                makeWrapperDistrict(districts,selectedLi);
             }
             // Đưa updateName vào global scope để onclick có thể truy cập
             window.updateName = updateName;
@@ -706,8 +959,15 @@
                 let arr = [];
                 let searchWord = searchInp.value.toLowerCase();
                 arr = countries.filter((data, index) => {
+
                     return data.toLowerCase().startsWith(searchWord);
                 }).map((data, index) => {
+                    for(let i =0 ; i < countries.length;i++){
+                        if(data == countries[i]){
+                            index=i;
+                            break;
+                        }
+                    }
                     let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
                     return `<li onclick="updateName(this, ${index})" class="${isSelected}">${data}</li>`;
                 }).join("");
@@ -734,7 +994,7 @@
             }
 
 
-            let countries = {{{ json locations }}}.map(location => location.Name);
+            let countries = {{{ json locations }}}.map(location =>{return  location.Name.replace(/(Tỉnh|Thành phố) /g, '')});
         console.log(countries);
 
         function addCountry(selectedCountry) {
@@ -755,10 +1015,15 @@
             console.log("Selected index:", selectedIndex); // Log ra index
             // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
             // give the district selections with index
-            districtSelect.innerHTML = `<option value="${locations[selectedIndex].Districts[0].Name}">${locations[selectedIndex].Districts[0].Name}</option>`
+            districts = [];
+           
             for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
-                districtSelect.innerHTML += `<option value="${locations[selectedIndex].Districts[i].Name}">${locations[selectedIndex].Districts[i].Name}</option>`
+                let districtName;
+                 console.log(districtName);
+                districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
             }
+            console.log(districts);
+            makeWrapperDistrict(districts,selectedLi);
         }
 
         // Đưa updateName vào global scope để onclick có thể truy cập
@@ -770,6 +1035,12 @@
             arr = countries.filter((data, index) => {
                 return data.toLowerCase().startsWith(searchWord);
             }).map((data, index) => {
+                for (let i = 0; i < countries.length; i++) {
+                    if (data == countries[i]) {
+                        index = i;
+                        break;
+                    }
+                }
                 let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
                 return `<li onclick="updateName(this, ${index})" class="${isSelected}">${data}</li>`;
             }).join("");
@@ -793,8 +1064,8 @@
             return;
         }
 
-        let countries = locations.map(location => location.Name);
-
+        let countries = locations.map(location =>   {return location.Name.replace(/(Tỉnh|Thành phố) /g, '')});
+/*
         function addCountry_long(selectedCountry) {
             options_long.innerHTML = "";
             countries.forEach((country, index) => {
@@ -803,9 +1074,18 @@
                 let li = `<li data-index="${index}" class="${isSelected}">${country}</li>`;
                 options_long.insertAdjacentHTML("beforeend", li);
             });
+            */
+              function addCountry_long(selectedCountry) {
+                options_long.innerHTML = "";
+                countries.forEach((country, index) => {
+                    let isSelected = country == selectedCountry ? "selected" : "";
+                    let li = `<li onclick="updateNameLong(this, ${index})" class="${isSelected}">${country}</li>`;
+                    options_long.insertAdjacentHTML("beforeend", li);
+                });
+            }
 
             // Thêm event listener cho tất cả các li elements
-            options_long.querySelectorAll('li').forEach(li => {
+           /* options_long.querySelectorAll('li').forEach(li => {
                 li.addEventListener('click', function() {
                     const selectedIndex = this.dataset.index;
                     console.log(selectedIndex);
@@ -815,43 +1095,57 @@
                     selectBtn_long.firstElementChild.innerText = this.innerText;
                     
                    // give the district selections with index
-                    districtSelect.innerHTML = `<option value="${locations[selectedIndex].Districts[0].Name}">${locations[selectedIndex].Districts[0].Name}</option>`
+                    districts = [];
+
                     for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
-                        districtSelect.innerHTML += `<option value="${locations[selectedIndex].Districts[i].Name}">${locations[selectedIndex].Districts[i].Name}</option>`
+                        let districtName;
+                        console.log(districtName);
+                        districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
                     }
+                    console.log(districts);
+                    makeWrapperDistrictLong(districts, selectedIndex);
                 });
             });
-        }
+        }*/
+         function updateNameLong(selectedLi, selectedIndex) {
+
+                searchInp_long.value = selectedLi.innerText;
+                addCountry_long(selectedLi.innerText);
+                wrapper_long.classList.remove("active-menu-search");
+                selectBtn_long.firstElementChild.innerText = selectedLi.innerText;
+                console.log("Selected index:", selectedIndex); // Log ra index
+                // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+                // give the district selections with index
+                districts = [];
+
+                for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+                    let districtName;
+                    console.log(districtName);
+                    districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
+                }
+                console.log(districts);
+                makeWrapperDistrictLong(districts, selectedLi);
+            }
+
+            // Đưa updateName vào global scope để onclick có thể truy cập
+            window.updateNameLong = updateNameLong;
         
         searchInp_long.addEventListener("keyup", () => {
             let arr = [];
             let searchWord = searchInp_long.value.toLowerCase();
-            arr = countries.filter(data => {
+            arr = countries.filter((data, index) => {
                 return data.toLowerCase().startsWith(searchWord);
             }).map((data, index) => {
+                for (let i = 0; i < countries.length; i++) {
+                    if (data == countries[i]) {
+                        index = i;
+                        break;
+                    }
+                }
                 let isSelected = data == selectBtn_long.firstElementChild.innerText ? "selected" : "";
-                // Cập nhật cách tạo li elements ở đây nữa
-                return `<li data-index="${index}" class="${isSelected}">${data}</li>`;
+                return `<li onclick="updateNameLong(this, ${index})" class="${isSelected}">${data}</li>`;
             }).join("");
             options_long.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
-            
-            // Thêm lại event listeners cho các li elements mới
-            options_long.querySelectorAll('li').forEach(li => {
-                li.addEventListener('click', function() {
-                    const selectedIndex = this.dataset.index;
-                    console.log(selectedIndex);
-                    searchInp_long.value = "";
-                    addCountry_long(this.innerText);
-                    wrapper_long.classList.remove("active-menu-search");
-                    selectBtn_long.firstElementChild.innerText = this.innerText;
-                    
-                    // give the district selections with index
-                    districtSelect.innerHTML = `<option value="${locations[selectedIndex].Districts[0].Name}">${locations[selectedIndex].Districts[0].Name}</option>`
-                    for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
-                        districtSelect.innerHTML += `<option value="${locations[selectedIndex].Districts[i].Name}">${locations[selectedIndex].Districts[i].Name}</option>`
-                    }
-                });
-            });
         });
 
         selectBtn_long.addEventListener("click", () => wrapper_long.classList.toggle("active-menu-search"));
@@ -859,6 +1153,129 @@
         // Khởi tạo danh sách ban đầu
         addCountry_long();
     }
+     const wrapper_district = document.querySelector(".wrapper-district");
+        console.log(wrapper_district);
+        const selectBtn_district = wrapper_district.querySelector(".wrapper-district__select-btn");
+        console.log(selectBtn_district);
+        const searchInp_district = wrapper_district.querySelector(".wrapper-district__input");
+        console.log(searchInp_district);
+        const options_district = wrapper_district.querySelector(".wrapper-district__options");
+        const wrapper_districtLong = document.querySelector(".wrapper-district__long");
+            console.log(wrapper_districtLong);
+            const selectBtn_districtLong = wrapper_districtLong.querySelector(".wrapper-district__select-btn");
+            console.log(selectBtn_districtLong);
+            const searchInp_districtLong = wrapper_districtLong.querySelector(".wrapper-district__input");
+            console.log(searchInp_districtLong);
+            const options_districtLong = wrapper_districtLong.querySelector(".wrapper-district__options");
+   //makeWrapperDistrict(districts);
+    function makeWrapperDistrictLong(districts, selectedLi) {
+            console.log(1);
+            selectBtn_districtLong.firstElementChild.innerText = districts[0];
+            searchInp_districtLong.value = districts[0];
+            // Kiểm tra xem các element có tồn tại không
+            if (!wrapper_districtLong || !selectBtn_districtLong || !searchInp_districtLong || !options_districtLong) {
+                console.error("Không tìm thấy các element cần thiết");
+                return;
+            }
+
+            console.log(districts);
+            function addCountry_districtLong(selectedCountry) {
+                options_districtLong.innerHTML = "";
+                districts.forEach((country, index) => {
+                    let isSelected = country == selectedCountry ? "selected" : "";
+                    let li = `<li onclick="updateName_districtLong(this, ${index})" class="${isSelected}">${country}</li>`;
+                    options_districtLong.insertAdjacentHTML("beforeend", li);
+                });
+            }
+
+            function updateName_districtLong(selectedLi, selectedIndex) {
+
+                searchInp_districtLong.value = selectedLi.innerText;
+                addCountry_districtLong(selectedLi.innerText);
+                wrapper_districtLong.classList.remove("active-menu-search");
+                console.log(selectedLi);
+                selectBtn_districtLong.firstElementChild.innerText = selectedLi.innerText;
+                console.log("Selected index:", selectedIndex); // Log ra index
+            }
+
+            // Đưa updateName vào global scope để onclick có thể truy cập
+            window.updateName_districtLong = updateName_districtLong;
+
+            searchInp_districtLong.addEventListener("keyup", () => {
+                let arr = [];
+                let searchWord = searchInp_districtLong.value.toLowerCase();
+                arr = districts.filter((data, index) => {
+                    return data.toLowerCase().startsWith(searchWord);
+                }).map((data, index) => {
+                    let isSelected = data == selectBtn_districtLong.firstElementChild.innerText ? "selected" : "";
+                    return `<li onclick="updateName_districtLong(this, ${index})" class="${isSelected}">${data}</li>`;
+                }).join("");
+                options_districtLong.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+            });
+
+
+            // Khởi tạo danh sách ban đầu
+            addCountry_districtLong();
+        }
+        selectBtn_districtLong.addEventListener("click", (e) => {
+            e.stopPropagation(); // Ngăn event bubbling
+            wrapper_districtLong.classList.toggle("active-menu-search");
+            console.log("District button clicked"); // Debug log);
+        })
+    function makeWrapperDistrict(districts,selectedLi){
+        console.log(1);
+           selectBtn_district.firstElementChild.innerText = districts[0];
+           searchInp_district.value = districts[0];
+            // Kiểm tra xem các element có tồn tại không
+            if (!wrapper_district || !selectBtn_district || !searchInp_district || !options_district) {
+                console.error("Không tìm thấy các element cần thiết");
+                return;
+            }
+
+console.log(districts);
+        function addCountry_district(selectedCountry) {
+            options_district.innerHTML = "";
+            districts.forEach((country, index) => {
+                let isSelected = country == selectedCountry ? "selected" : "";
+                let li = `<li onclick="updateName_district(this, ${index})" class="${isSelected}">${country}</li>`;
+                options_district.insertAdjacentHTML("beforeend", li);
+            });
+        }
+
+        function updateName_district(selectedLi, selectedIndex) {
+
+            searchInp_district.value = selectedLi.innerText;
+            addCountry_district(selectedLi.innerText);
+            wrapper_district.classList.remove("active-menu-search");
+            console.log(selectedLi);
+            selectBtn_district.firstElementChild.innerText = selectedLi.innerText;
+            console.log("Selected index:", selectedIndex); // Log ra index
+        }
+
+        // Đưa updateName vào global scope để onclick có thể truy cập
+        window.updateName_district = updateName_district;
+
+        searchInp_district.addEventListener("keyup", () => {
+            let arr = [];
+            let searchWord = searchInp_district.value.toLowerCase();
+            arr = districts.filter((data, index) => {
+                return data.toLowerCase().startsWith(searchWord);
+            }).map((data, index) => {
+                let isSelected = data == selectBtn_district.firstElementChild.innerText ? "selected" : "";
+                return `<li onclick="updateName_district(this, ${index})" class="${isSelected}">${data}</li>`;
+            }).join("");
+            options_district.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+        });
+        
+
+        // Khởi tạo danh sách ban đầu
+        addCountry_district();
+    }
+        selectBtn_district.addEventListener("click", (e) =>{ e.stopPropagation(); // Ngăn event bubbling
+        wrapper_district.classList.toggle("active-menu-search");
+        console.log("District button clicked"); // Debug log);
+    })
+      
    
 </script>
 <script>
@@ -873,11 +1290,12 @@
         const longTermForm =document.querySelector('.form__long-term')
         const shortTermBtn = document.getElementById('short-term-btn')
         const longTermBtn = document.getElementById('long-term-btn')
+        const btnLong =document.getElementById('submitForm2');
       let provinceSelect = shortTerm.querySelector('.province')
       let  districtSelect = shortTerm.querySelector('.district');
 
  
-        shortTerm.onchange = function () {
+       /* shortTerm.onchange = function () {
             let date = shortTerm.querySelector('#start-date')
             let starttime = shortTerm.querySelector('#start-time')
             let endtime = shortTerm.querySelector('#end-time')
@@ -892,10 +1310,10 @@
             }
         }
         longTerm.onchange = function () {
-            let startdate = longTerm.querySelector('#start-date')
-            let enddate = longTerm.querySelector('#end-date')
-            let starttime = longTerm.querySelector('#start-time')
-            let endtime = longTerm.querySelector('#end-time')
+            let startdate = longTerm.querySelector('#myID7')
+            let enddate = longTerm.querySelector('#myID8')
+            let starttime = longTerm.querySelector('#myID5')
+            let endtime = longTerm.querySelector('#myID6')
             let submitBtn = longTerm.querySelector('#submitForm2')
          //  changeProvince();
             if (enddate.value != '' && startdate.value != '' && starttime.value != '' && endtime.value != '') {
@@ -904,12 +1322,13 @@
             else {
                 submitBtn.disabled = true;
             }
-        }
+        }*/
    
 
         shortTermBtn.onclick = function () {
            shortTermForm.classList.toggle("hide-form");
            longTermForm.classList.toggle("hide-form");
+           btnLong.classList.add("hide-form");
             $(".btn__form-term.active-term").classList.remove('active-term');
             this.classList.add('active-term');
             districtSelect = shortTerm.querySelector('.district');
@@ -918,6 +1337,7 @@
         longTermBtn.onclick = function (e) {
             longTermForm.classList.toggle("hide-form");
             shortTermForm.classList.toggle("hide-form");
+            btnLong.classList.remove("hide-form");
             $(".btn__form-term.active-term").classList.remove('active-term');
             this.classList.add('active-term');
              districtSelect = longTerm.querySelector('.district');
@@ -925,8 +1345,57 @@
           
             }
     let slideShowIndex=0;
-   
-  
-        
-
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    flatpickr("#myID3", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        conjunction: " :: ",
+        minTime: "06:00",
+        maxTime: "20:00",
+    });
+     flatpickr("#myID4", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            conjunction: " :: ",
+            minTime: "06:00",
+            maxTime: "20:00",
+        });
+        flatpickr("#myID5", {
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+                conjunction: " :: ",
+                minTime: "06:00",
+                maxTime: "20:00",
+            });
+            flatpickr("#myID6", {
+                    enableTime: true,
+                    noCalendar: true,
+                    dateFormat: "H:i",
+                    conjunction: " :: ",
+                    minTime: "06:00",
+                    maxTime: "20:00",
+                });
+    flatpickr("#myID2", {
+        minDate: "today",
+        mode: "multiple",
+        dateFormat: "Y-m-d",
+        conjunction: " :: "
+    });
+    flatpickr("#myID7", {
+            minDate: "today",
+            mode: "multiple",
+            dateFormat: "Y-m-d",
+            conjunction: " :: "
+        });
+        flatpickr("#myID8", {
+                minDate: "today",
+                mode: "multiple",
+                dateFormat: "Y-m-d",
+                conjunction: " :: "
+            });
 </script>

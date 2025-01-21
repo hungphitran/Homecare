@@ -182,7 +182,7 @@
                                 </label>
                                 {{/each}}
                             </ul> --}}
-                            <div class="wrapper-province">
+                            <div class="wrapper-province extra-wrapper" >
                                 
                                 <div class="wrapper-province__select-btn">
                                     <span>{{order.province}}</span>
@@ -202,10 +202,24 @@
                         <a href="#!">
                            <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Quận/ Huyện
                             <ul class="aside__nav-child">
-                                <label class="district-option">
+                                {{!-- <label class="district-option">
                                     <input type="radio" name="district" value="{{order.district}}" checked>
                                     {{order.district}}
-                                </label>
+                                </label> --}}
+                                <div class="wrapper-district extra-district extra-district-short" style="margin:0;">
+                                    <div class="wrapper-district__select-btn extra-short">
+                                        <span style="white-space:nowrap">Chọn Quận</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </div>
+                                    <div class="wrapper-district__content" style="position:relative;">
+                                        <div class="warapper-district__search" style="display:flex; gap:5px;">
+                                            <input name="district" class="wrapper-district__input" spellcheck="false" type="text" placeholder="Tìm kiếm"
+                                                style="width:100%">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                        <ul class="wrapper-district__options"></ul>
+                                    </div>
+                                </div>
                             </ul>
                         </a>
                     </li>
@@ -352,11 +366,15 @@
     </div>
     {{!-- main contain end --}}
 <script>
+    const locations = {{{ json locations }}};
+    let districts =[];
     document.addEventListener('DOMContentLoaded', function () {
         const wrapper = document.querySelector(".wrapper-province");
         const selectBtn = wrapper.querySelector(".wrapper-province__select-btn");
         const searchInp = wrapper.querySelector(".wrapper-province__input");
         const options = wrapper.querySelector(".wrapper-province__options");
+        const extraWrapper= document.querySelector(".extra-wrapper");
+        const extraWrapperDistrict= document.querySelector(".extra-district-short")
 
         // Kiểm tra xem các element có tồn tại không
         if (!wrapper || !selectBtn || !searchInp || !options) {
@@ -371,18 +389,27 @@
         console.log(orderTest)
         function addCountry(selectedCountry) {
             options.innerHTML = "";
-            countries.forEach(country => {
+            countries.forEach((country,index) => {
                 let isSelected = country == selectedCountry ? "selected" : "";
-                let li = `<li onclick="updateName(this)" class="${isSelected}">${country}</li>`;
+                let li = `<li onclick="updateName(this, ${index})" class="${isSelected}">${country}</li>`;
                 options.insertAdjacentHTML("beforeend", li);
             });
         }
 
-        function updateName(selectedLi) {
-            searchInp.value = "";
+        function updateName(selectedLi,selectedIndex) {
+            searchInp.value = selectedLi.innerText;
             addCountry(selectedLi.innerText);
             wrapper.classList.remove("active-menu-search");
             selectBtn.firstElementChild.innerText = selectedLi.innerText;
+             districts = [];
+
+            for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+                let districtName;
+                console.log(districtName);
+                districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện|Quận) /g, ''));
+            }
+            console.log(districts);
+            makeWrapperDistrict(districts, selectedLi);
         }
 
         // Đưa updateName vào global scope để onclick có thể truy cập
@@ -400,11 +427,72 @@
             options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
         });
 
-        selectBtn.addEventListener("click", () => wrapper.classList.toggle("active-menu-search"));
+        selectBtn.addEventListener("click", () => extraWrapper.classList.toggle("active-menu-search"));
 
         // Khởi tạo danh sách ban đầu
         addCountry();
     });
+     const wrapper_district = document.querySelector(".wrapper-district");
+        console.log(wrapper_district);
+        const selectBtn_district = wrapper_district.querySelector(".wrapper-district__select-btn");
+        console.log(selectBtn_district);
+        const searchInp_district = wrapper_district.querySelector(".wrapper-district__input");
+        console.log(searchInp_district);
+        const options_district = wrapper_district.querySelector(".wrapper-district__options");
+     function makeWrapperDistrict(districts, selectedLi) {
+            console.log(1);
+            selectBtn_district.firstElementChild.innerText = districts[0];
+            searchInp_district.value = districts[0];
+            // Kiểm tra xem các element có tồn tại không
+            if (!wrapper_district || !selectBtn_district || !searchInp_district || !options_district) {
+                console.error("Không tìm thấy các element cần thiết");
+                return;
+            }
+
+            console.log(districts);
+            function addCountry_district(selectedCountry) {
+                options_district.innerHTML = "";
+                districts.forEach((country, index) => {
+                    let isSelected = country == selectedCountry ? "selected" : "";
+                    let li = `<li onclick="updateName_district(this, ${index})" class="${isSelected}">${country}</li>`;
+                    options_district.insertAdjacentHTML("beforeend", li);
+                });
+            }
+
+            function updateName_district(selectedLi, selectedIndex) {
+
+                searchInp_district.value = selectedLi.innerText;
+                addCountry_district(selectedLi.innerText);
+                wrapper_district.classList.remove("active-menu-search");
+                console.log(selectedLi);
+                selectBtn_district.firstElementChild.innerText = selectedLi.innerText;
+                console.log("Selected index:", selectedIndex); // Log ra index
+            }
+
+            // Đưa updateName vào global scope để onclick có thể truy cập
+            window.updateName_district = updateName_district;
+
+            searchInp_district.addEventListener("keyup", () => {
+                let arr = [];
+                let searchWord = searchInp_district.value.toLowerCase();
+                arr = districts.filter((data, index) => {
+                    return data.toLowerCase().startsWith(searchWord);
+                }).map((data, index) => {
+                    let isSelected = data == selectBtn_district.firstElementChild.innerText ? "selected" : "";
+                    return `<li onclick="updateName_district(this, ${index})" class="${isSelected}">${data}</li>`;
+                }).join("");
+                options_district.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+            });
+
+
+            // Khởi tạo danh sách ban đầu
+            addCountry_district();
+        }
+        selectBtn_district.addEventListener("click", (e) => {
+            e.stopPropagation(); // Ngăn event bubbling
+           wrapper_district.classList.toggle("active-menu-search");
+            console.log("District button clicked"); // Debug log);
+        })
 </script>
 <script>
     const helperItems= document.querySelectorAll('.short-helper__item');

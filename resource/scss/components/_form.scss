@@ -9,6 +9,7 @@
     border: 1px solid #4CAF50;
     border-radius: 10px;
     background-color: var(--white);
+    padding-top:10px;
     @include abstracts.screen(md){
         width:100%;
     }

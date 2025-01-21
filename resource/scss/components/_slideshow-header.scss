@@ -220,10 +220,10 @@ ul{
     background-color: #02571c;
     color:#fff;
 }
-.header-menu__item:nth-child(9) a:hover{
-    background-color: #02571c;
-    color:#fff;
-}
+// .header-menu__item:nth-child(9) a:hover{
+//     background-color: #02571c;
+//     color:#fff;
+// }
 .hamburger-icon{
     @include abstracts.screen(xl){
         font-size: 2rem;

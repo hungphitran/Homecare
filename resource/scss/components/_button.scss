@@ -126,3 +126,13 @@
             height:40px;
         }
     }
+   .btn.btn-find::hover{
+        opacity: 0.7;
+    }
+    .btn-long{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 10px;
+    }

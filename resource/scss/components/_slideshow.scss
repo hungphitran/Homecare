@@ -116,6 +116,9 @@
             flex-direction: column;
             margin-bottom:15px;
         }
+        @include abstracts.screen(xl){
+            margin-top:20px;
+        }
     }
     .form-select__province{
         width: 35%;
@@ -273,7 +276,7 @@
 .form__short-term{
     margin-top:20px;
     display:flex;
-    width: 80%;
+    width: 92%;
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 10px 15px lightyellow;
@@ -446,7 +449,7 @@
     height:100vh;
     text-align: center;
     background-color: #4CAF50;
-    box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
+    // box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
     border: 1px solid #4CAF50;
     //overflow-y:scroll ;
     @include abstracts.screen(lg){

@@ -162,6 +162,7 @@
         @include abstracts.screen(xl){
             display:flex;
             left:30px;
+            top:13px;
             &.open{
                 left:280px;
             }
