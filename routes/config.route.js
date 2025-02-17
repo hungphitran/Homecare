@@ -13,7 +13,7 @@ function route(app) {
     app.use('/account', accountRoute)
     app.use('/contact', mailRoute)
     //dashboard
-    app.use('/Home', headerLoad, dashboardRoute)
+    app.use('/Home', headerLoad,dashboardRoute)
     app.use('/', headerLoad, dashboardRoute)
 }
 
