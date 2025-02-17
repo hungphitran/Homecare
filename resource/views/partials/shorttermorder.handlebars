@@ -67,7 +67,7 @@
                                 <li>
                                     <div class="form__group" style="margin-top:10px;">
                                         <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
+                                            <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="date" class="form__input"
                                                 value="{{order.dates}}" name="dates" required>
                                             {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
@@ -161,7 +161,7 @@
                             {{#each services}}
                             <li>
                                 <div class="form__group" style="margin-top:10px;">
-                                    <input type="checkbox"  id="{{_id}}" name="service_id" value="{{_id}}" {{#compareProperties ../order 'service_id' '_id'}}checked="checked"{{/compareProperties}}>
+                                    <input type="checkbox"  id="{{_id}}" name="service_id" value="{{_id}}" {{#compareProperties ../order 'service' 'title'}}checked="checked"{{/compareProperties}}>
                                     <label for="#{{_id}}" class="book-item__flex-50-text" >
                                         {{title}}
                                     </label>
@@ -191,7 +191,7 @@
                                 <div class="wrapper-province__content">
                                     <div class="warapper-province__search">
                                         <i class="fa-solid fa-magnifying-glass"></i>
-                                        <input class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm" name="province">
+                                        <input class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm" name="province" value="{{order.province}}">
                                     </div>
                                     <ul class="wrapper-province__options"></ul>
                                 </div>
@@ -214,7 +214,7 @@
                                     <div class="wrapper-district__content" style="position:relative;">
                                         <div class="warapper-district__search" style="display:flex; gap:5px;">
                                             <input name="district" class="wrapper-district__input" spellcheck="false" type="text" placeholder="Tìm kiếm"
-                                                style="width:100%">
+                                                style="width:100%" value="{{order.district}}">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </div>
                                         <ul class="wrapper-district__options"></ul>

@@ -180,8 +180,8 @@
                                     </select> --}}
                                     <div class="form__group hour_short" style="margin-top:0px;">
                                         <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
-                                            <input style="font-size: 1.5rem;height:20px" id="myID4" placeholder="Giờ Bắt Đầu" type="text"
-                                                class="form__input" value="{{order.startTime}}" name="startTime" required>
+                                            <input style="font-size: 1.5rem;height:20px" id="myID4" placeholder="Giờ Kết Thúc" type="text"
+                                                class="form__input" value="{{order.startTime}}" name="endTime" required>
                                             {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
@@ -602,9 +602,9 @@
                             </p>
                             <p class="faq__item-answer-text--desc faq-title">Liên hệ với chúng tôi:</p>
                             <ul class="faq__item-answer-text--desc">
-                                <li>Gọi điện thoại: 08.3930.5057 08.3930.5058</li>
-                                <li>Gửi email: cs@procleaner.vn</li>
-                                <li>Đến Trụ sở: 216 Nguyễn Thị Minh Khai, Phường 6, Quận 3, TP. HCM</li>
+                                <li>Gọi điện thoại: {{general.companyPhone}}</li>
+                                <li>Gửi email: {{general.companyEmail}}</li>
+                                <li>Đến Trụ sở: {{general.companyAddress}}</li>
                             </ul>
                         </div>
                     </div>

@@ -3,24 +3,24 @@
         <div class="col-md-7">
             <div class="footer__left">
                 <h2 class="footer__heading">
-                    HomeCare
+                    {{general.companyName}}
                 </h2>
                 <a href="#!">
                     <div class="footer__more">
                         <h5 class="fa-sharp fa-solid fa-location-dot" style="color: #fff;"></h5>
-                        <span style="line-height: 1.2;">216 Nguyễn Thị Minh Khai, P. 6, Quận 3, TP. HCM</span>
+                        <span style="line-height: 1.2;">{{general.companyAddress}}</span>
                     </div>
                 </a>
                 <a href="#!">
                     <div class="footer__more">
                         <h5 class="fa-solid fa-envelope" style="color: #fff;"></h5>
-                        <span>cs@homecare.com</span>
+                        <span>{{general.companyEmail}}</span>
                     </div>
                 </a>
                 <a href="#!">
                     <div class="footer__more">
                         <h5 class="fa-solid fa-phone" style="color: #fff;"></h5>
-                        <span>08 3930 5057 - 08 3930 5058</span>
+                        <span>{{general.companyPhone}}</span>
                     </div>
                 </a>
             </div>
@@ -114,3 +114,8 @@
             </div>
         </div>
    </div>
+
+   <script>
+        let general ={{{json general}}};
+        console.log(general, "general in footer.hbs");
+   </script>

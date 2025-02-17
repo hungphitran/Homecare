@@ -160,19 +160,6 @@
                                     <p class="form__error"></p>
                                 </div>
                             </div>
-                            <div class="book-item__form-address">
-                                <div class="form__group" style="padding-left:10px">
-                                    <div class="form__text-input form-control">
-                                        <input style="font-size: 1.5rem;height:30px" id="address-input" placeholder="Address"
-                                            type="text" class="form__input" value="{{customer.address}}" name="address" required>
-                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                    </div>
-                                    <p class="form__error"></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="home__row-2 padd-15">
                             <div class="book-item__form-city">
                                 <div class="form__group">
                                     <div class="form__text-input form-control">
@@ -184,12 +171,38 @@
                                     <p class="form__error"></p>
                                 </div>
                             </div>
+
+                        </div>
+                        <div class="home__row-2 padd-15">
+                            <div class="book-item__form-ward">
+                                <div class="form__group" style="padding-left:10px">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="address-input" placeholder="Phuờng"
+                                            type="text" class="form__input"  name="ward" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+                            <div class="book-item__form-address">
+                                <div class="form__group" style="padding-left:10px">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:30px" id="address-input" placeholder="Địa chỉ chi tiết"
+                                            type="text" class="form__input" value="{{customer.address}}" name="address" required>
+                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="home__row-2 padd-15">
                             <div class="book-item__form-date">
                                 <div class="form__group">
                                     <div class="form__text-input form-control">
-                                        <input style="font-size: 1.5rem;height:30px" id="myID" placeholder="Chọn ngày"
+                                        <input style="font-size: 1.5rem;height:30px" id="myID" 
                                             type="text" class="form__input" value="{{request.dates}}" name="startDate" required>
                                         {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                         <img src="/icon/error.svg" alt="" class="form__input-icon-error">
@@ -233,30 +246,8 @@
                             <div class="book-item__form-service-checkbox">
                                 <div class="home__row-2 padd-15">
                                     <div class="form__group book-item__flex-30">
-                                        <input type="checkbox" id="check1">
+                                        <input type="checkbox" id="check1" checked>
                                         <label for="#check1" class="book-item__flex-50-text">Osin part time</label>
-                                    </div>
-                                    <div class="form__group book-item__flex-30">
-                                        <input type="checkbox" id="check2">
-                                        <label for="#check2" class="book-item__flex-50-text">Dọn dẹp</label>
-                                    </div>
-                                    <div class="form__group book-item__flex-30">
-                                        <input type="checkbox" id="check2">
-                                        <label for="#check2" class="book-item__flex-50-text">Dọn dẹp</label>
-                                    </div>
-                                </div>
-                                <div class="home__row-2 padd-15">
-                                    <div class="form__group book-item__flex-30">
-                                        <input type="checkbox" id="check3">
-                                        <label for="#check3" class="book-item__flex-50-text">Osin part time</label>
-                                    </div>
-                                    <div class="form__group book-item__flex-30">
-                                        <input type="checkbox" id="check4">
-                                        <label for="#check4" class="book-item__flex-50-text">Dọn dẹp</label>
-                                    </div>
-                                    <div class="form__group book-item__flex-30">
-                                        <input type="checkbox" id="check4">
-                                        <label for="#check4" class="book-item__flex-50-text">Dọn dẹp</label>
                                     </div>
                                 </div>
                             </div>
@@ -354,5 +345,19 @@
             address: addressInput.value
         })
     }
+</script>
+<script>
+    document.getElementById('form-2').addEventListener('submit', function(event) {
+        const startDateInput = document.getElementById('myID');
+        const startDateValue = new Date(startDateInput.value);
+        
+        // Format the date to ensure leading zeros
+        const formattedDate = startDateValue.getFullYear() + '-' +
+            String(startDateValue.getMonth() + 1).padStart(2, '0') + '-' +
+            String(startDateValue.getDate()).padStart(2, '0');
+        
+        // Set the formatted date back to the input
+        startDateInput.value = formattedDate;
+    });
 </script>
 </html>
