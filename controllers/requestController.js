@@ -115,6 +115,60 @@ function totalCostForMultipleDays(dateList, request, costFactors) {
 }
 
 
+function getDayOfWeek(dateString) {
+    const [day, month, year] = dateString.split("-").map(Number);
+    const date = new Date(year, month - 1, day); // month is 0-based in JS
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
+    return daysOfWeek[date.getDay()];
+}
+
+function calculateTotalCost(service,costFactors,req) {
+    const [startHour, startMinute] = req.query.startTime.split(":").map(Number);
+    const [endHour, endMinute] = req.query.endTime.split(":").map(Number);
+
+    let workingTime = endHour - startHour;
+    if(endMinute < startMinute){//if endtime =0 and starttime =30
+        workingTime -= 0.5;
+    }
+    else if(endMinute > startMinute){//if endtime =30 and starttime =0
+        workingTime += 0.5;
+    }
+    else{//if endtime = starttime}
+    }
+
+    let serviceCostFactors = costFactors.find(e => e.title === 'Hệ số lương cho dịch vụ');
+    let serviceCostFactor = serviceCostFactors.coefficientList.find(e => e.title === service.title)?.value || 1;
+    let otherCoefficient = costFactors.find(e => e.title === 'Hệ số khác');
+    let coefficient_overtime = 1;
+    let coefficient_weekend = 1;
+    let coefficient_holiday = 1;
+    //if working time is in 6am-8am or 6pm-8pm
+    if(startHour < 8 || endHour > 18){
+        let overTime = otherCoefficient.coefficientList.find(e => e.title === 'Hệ số ngoài giờ')?.value || 1;
+        workingTime = workingTime + (endHour - 18) + (8 - startHour);
+        coefficient_overtime *= overTime;
+    }
+
+    //if working time is in weekend
+    if(getDayOfWeek(req.query.orderDate) === 'Saturday' || getDayOfWeek(req.query.orderDate) === 'Sunday'){
+        coefficient_weekend = otherCoefficient.coefficientList.find(e => e.title === 'Hệ số làm việc ngày cuối tuần')?.value || 1;
+    }
+
+    //count working date
+    let workingDate = req.query.dates.split(",").length;
+
+    req.query.service = {
+        title: service.title,
+        coefficient_service: Number.parseFloat(serviceCostFactor) || 1,
+        coefficient_other: coefficient_weekend*coefficient_holiday*coefficient_overtime,
+        cost: service.basicPrice
+    }
+
+    return service.basicPrice * serviceCostFactor * workingTime * coefficient_overtime * Math.max(coefficient_weekend, coefficient_holiday)  * workingDate;
+
+}
+
 const requestController={
         //show order information
     longTermOrder: async (req, res, next) => {
@@ -122,6 +176,7 @@ const requestController={
         let helpers;
         let services;
         let locations;
+        req.query.exp = req.query.exp || 0;
 
         helpers = await fetch(process.env.API_URL + `/helper`)
             .then(data => data.json())
@@ -141,18 +196,48 @@ const requestController={
             layout:false
         });
     },
+    //GET redirect to short term order page
     shortTermOrder: async (req, res, next) => {
         console.log(req.query)
+        
         let order = req.query;
         let helpers;
         let services;
         let locations;
+        req.query.exp = req.query.exp || 0;
+        console.log(req.query)
+        //get all helpers, services, locations
         services = await fetch(process.env.API_URL + '/service')
         .then(data => data.json())
         .catch(err=>console.error(err))
         helpers = await fetch(process.env.API_URL + `/helper`)
         .then(data => data.json())
         .catch(err=>console.error(err))
+
+        //filter helpers by experience, location
+        helpers = helpers.filter(helper=>{
+            return helper.yearOfExperience >= Number.parseInt(req.query.exp) && helper.jobs.includes(req.query.service)//filter by experience and service
+            //return helper.workingArea.province === order.province &&helper.workingArea.districts.contains(req.query.district) &&helper.yearOfExperience >= Number.parseInt(req.query.exp);
+        })
+        //filter helpers by time off
+        // helpers = helpers.filter( async (helper)=>{
+        //    let timeOffs = await fetch(process.env.API_URL + `/timeoff/${helper.id}`)//get all time off of each helper
+        //    .then(data=>data.json())
+        //    .catch(err=>console.error(err))
+
+        //     let isAvailable = true;
+        //         timeOffs.forEach(timeOff=>{
+        //             if(timeOff.dateOff === order.orderDate //if helper has time off on order date
+        //                 && (timeOff.startTime >= order.startTime && timeOff.starTime <= order.endTime)
+        //                 && (timeOff.endTime >= order.startTime && timeOff.endTime <= order.endTime)
+        //             ){
+        //                 isAvailable = false;
+        //             }
+        //     })
+        //     return isAvailable;
+
+        // })
+
         locations = await fetch(process.env.API_URL+'/location')
         .then(data => data.json())
         .catch(err=>console.error(err))
@@ -168,10 +253,20 @@ const requestController={
     },
     //GET redirect to detail order page
     submit: async (req, res, next) => {
-        let user;
+        console.log(req.query)
+        //format dates if ordertype is longterm
+        if(req.query.orderType === 'longterm'){
+            req.query.dates = req.query.dates.split("::")
+            for(let i=0;i<req.query.dates.length;i++){
+                req.query.dates[i] = req.query.dates[i].strip();
+            }
+        }
+
+        //get user information if user is logged in
+        let user=null;
         try {
             //call api to get current user
-            let phone = req.session.user;
+            let phone = req.session.phone;
             if(phone){
                 user = await fetch(process.env.API_URL + '/customer/' + phone)
                 .then(data =>data.json())
@@ -188,20 +283,28 @@ const requestController={
         catch (err) {
             console.error(err);
         }
-        let service = await fetch(process.env.API_URL + '/service/' + req.query.service_id)
+
+
+        //get service information
+        let service = await fetch(process.env.API_URL + '/service/' + req.query.service)
             .then(data => data.json())
-        req.query.service = {
-            title: service.title,
-            coefficient_service: Number.parseFloat(service.factor)||1,
-            coefficient_other: 0,
-            cost: service.basicPrice
-        }
-        req.query.totalCost = totalCostCalculation(req.query.orderDate, req.query.startTime, req.query.endTime, req.query, service.costFactors).finalCost;
+            .catch(err=>console.error(err))
+
+        //get cost factors
+        let costFactors = await fetch(process.env.API_URL + '/costfactor/')
+        .then(data => data.json())
+        .catch(err=>console.error(err))
+
+
+        //cost = basicCost * HSDV * [(HSovertime * T1) + (max(Hscuoituan, lễ) * T2)] * T3(nếu có)
+        //req.query.totalCost = totalCostCalculation(req.query.orderDate, req.query.startTime, req.query.endTime, req.query, service.costFactors).finalCost;
+        
 
         let today= new Date()
-        req.query.orderDate =today.getFullYear() + "-"+(today.getMonth()+1) +"-"+today.getDate()
+        req.query.orderDate = today.getFullYear() + "-"+(today.getMonth()+1) +"-"+today.getDate()
+        req.query.totalCost= calculateTotalCost(service,costFactors,req)
 
-
+        //get helper information
         let helper = await fetch(process.env.API_URL + '/helper/'+req.query.helperId)
             .then(data => data.json())
             .then(data => {
@@ -226,8 +329,8 @@ const requestController={
         let et =req.body.endTime;
         et= et.length <2 ?'0'+ et :et
 
-        req.body.startTime=`${req.body.orderDate}T${st}:00`;
-        req.body.endTime=`${req.body.orderDate}T${et}:00`;
+        req.body.startTime=`${req.body.startDate}T${st}:00`;
+        req.body.endTime=`${req.body.startDate}T${et}:00`;
         req.body.status = "Chưa tiến hành"
       
         let service = await fetch(process.env.API_URL + '/service/' + req.body.service_id)
@@ -238,7 +341,7 @@ const requestController={
             coefficient_other: 0,
             cost: service.basicPrice
         }
-
+        console.log(req.body)
         let option={
             method: 'POST',
             headers: {

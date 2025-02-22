@@ -29,6 +29,7 @@ const dashboardController = {
         }
 
         try {
+            //call api to get services
             services = await fetch(process.env.API_URL + '/service')
                 .then(data => data.json())
                 .then(data => data)

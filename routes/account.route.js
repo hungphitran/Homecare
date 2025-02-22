@@ -7,6 +7,7 @@ router.post('/register',accountController.register)
 router.get('/register',accountController.showRegister)
 router.post('/changepassword',accountController.changePassword)
 router.get('/changepassword',accountController.showChangePassword)
+router.get('/logout',accountController.logout)
 router.post('/',accountController.login)
 router.get('/',accountController.showLogin);
 

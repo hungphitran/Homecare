@@ -65,7 +65,7 @@ const mailController={
         .then(data=>res.send(data))
         .catch(err=>res.send(err))
         let mailOptions = {
-            from: `PROCLEANER ${process.env.MAIL}`,
+            from: `HOMEKARE.SITE - ${process.env.MAIL}`,
             to: req.query.account,
             subject: 'Authentication',
             text: "your OTP is: "+message,

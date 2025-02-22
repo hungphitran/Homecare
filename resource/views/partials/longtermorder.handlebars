@@ -10,7 +10,8 @@
     }
 
 </style> --}}
-{{!-- <form method="post" action="/request">
+<!--
+<form method="post" action="/request">
     <ul>
         <li><input type="hidden" name="requestType" value="Dài hạn">Hình thức: Dài hạn</li>
         <li><input type="hidden" name="startDate" value="{{order.startDate}}"> {{order.startDate}}</li>
@@ -39,7 +40,9 @@
     
 
     <button >Submit</button>
-</form> --}}
+</form> 
+
+-->
 
 
 {{!-- <script>
@@ -246,7 +249,7 @@
             <div class="aside__nav-toggle">
                 <span></span>
             </div>
-            <form method="get" action="/request"  class="aside__content">
+            <form method="get" action="/request/longterm"  class="aside__content">
                 <div class="aside__search">
                     <i class="fa-solid fa-magnifying-glass"></i>Tìm Kiếm
                     <button type="submit">Đặt</button>
@@ -260,12 +263,13 @@
                                     <div class="form__group" style="margin-top:10px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
-                                                value="{{order.startDate}}" name="startDate" required>
+                                                value="{{order.dates}}" name="dates" required>
                                             {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
                                         <p class="form__error"></p>
                                     </div>
+                                    <!--
                                     <div class="form__group" style="margin-top:10px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
@@ -275,6 +279,7 @@
                                         </div>
                                         <p class="form__error"></p>
                                     </div>
+                                    -->
                                 </li>
                             </ul>
                         </a>
@@ -309,59 +314,56 @@
                         </a>
                     </li>
                     <li class="aside__item">
-                        <a href="#!">
                             <i class="fa fa-briefcase" style="margin-right:5px;color:var(--skin-color)"></i>Kinh nghiệm
                             <ul class="aside__nav-child">
 
 
                                 <li>
-                                    <label class="province-option">
-                                        <input type="radio" {{#unless exp}}checked{{/unless}}>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="0"  {{#isEquals 0 order.exp}}checked{{/isEquals}}>
                                         Tất cả
                                     </label>
                                 </li>
                                 <li>
-                                    <label class="province-option">
-                                        <input type="radio" {{#isEquals 1 order.exp}}checked{{/isEquals}}>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="1"  {{#isEquals 1 order.exp}}checked{{/isEquals}}>
                                         Từ 1 năm trở lên
                                     </label>
                                 </li>
                                 <li>
-                                    <label class="province-option">
-                                        <input type="radio"{{#isEquals 2 order.exp}}checked{{/isEquals}}>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="2" {{#isEquals 2 order.exp}}checked{{/isEquals}}>
                                         Từ 2 năm trở lên
                                     </label>
                                 </li>
                                 <li>
-                                    <label class="province-option">
-                                        <input type="radio"{{#isEquals 3 order.exp}}checked{{/isEquals}}>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="3" {{#isEquals 3 order.exp}}checked{{/isEquals}}>
                                         Từ 3 năm trở lên
                                     </label>
                                 </li>
                                 <li>
-                                    <label class="province-option">
-                                        <input type="radio"{{#isEquals 4 order.exp}}checked{{/isEquals}}>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="4" {{#isEquals 4 order.exp}}checked{{/isEquals}}>
                                         Từ 4 năm trở lên
                                     </label>
                                 </li>
                                 <li>
-                                    <label class="province-option">
-                                        <input type="radio"{{#isEquals 5 order.exp}}checked{{/isEquals}}>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="5" {{#isEquals 5 order.exp}}checked{{/isEquals}}>
                                         Từ 5 năm trở lên
                                     </label>
                                 </li>
 
                             </ul>
-                        </a>
                     </li>
                     <li class="aside__item">
-                        <a href="#!">
                             <i class="fa fa-tags" style="margin-right:5px;color:var(--skin-color)"></i>Dịch vụ
                             <ul class="aside__nav-child">
                                 {{#each services}}
                                 <li>
                                     <div class="form__group" style="margin-top:10px;">
-                                        <input type="checkbox" id="{{_id}}" name="service_id"  value="{{_id}}" {{#compareProperties ../order 'service_id' '_id'}}checked="checked"{{/compareProperties}}>
+                                        <input type="radio" id="{{_id}}" name="service_id"  value="{{_id}}" {{#compareProperties ../order 'service_id' '_id'}}checked="checked"{{/compareProperties}}>
                                         <label for="#{{_id}}" class="book-item__flex-50-text">
                                             {{title}}
                                         </label>
@@ -369,7 +371,6 @@
                                 </li>
                                 {{/each}}
                             </ul>
-                        </a>
                     </li>
                     <li class="aside__item">
                         <a href="#!">
@@ -426,7 +427,7 @@
                     </li>
                     <li><input type="hidden" name="helperId" value="{{helper._id}}"></li>
                     <li><input type="hidden" name="requestType" value="Dài hạn"></li>
-                    <li><input type="hidden" name="dates"></li>
+                    <li><input type="hidden" name="date"></li>
                 </ul>
             </form>
         </div>
@@ -610,28 +611,6 @@
                                                         in your application,
                                                         and React will efficiently update and render just the right components when your
                                                         data changes.
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio delectus accusantium
-                                                        assumenda ullam in molestiae alias? Maxime corporis explicabo vel voluptate earum
-                                                        hic amet ducimus expedita magni harum aperiam, provident pariatur itaque beatae
-                                                        atque. Nobis sed corrupti totam dolorem necessitatibus distinctio voluptate,
-                                                        doloribus quasi! Voluptatum voluptas molestias, rem quo obcaecati laboriosam libero
-                                                        eligendi quos fugit aliquam magni porro sunt nihil laudantium saepe in doloremque
-                                                        incidunt quam. Adipisci facilis minus ut autem? A illo voluptates vitae dolores
-                                                        cumque necessitatibus sed dolore molestias! Sequi quia porro quae amet modi, odio,
-                                                        incidunt iste nemo dolorem asperiores sit non. Aliquam provident explicabo totam,
-                                                        quam quibusdam, numquam assumenda earum vitae qui impedit amet. Illum quidem
-                                                        recusandae praesentium dignissimos velit nobis ducimus officiis, labore enim
-                                                        perspiciatis aperiam perferendis, impedit tempora officia fugiat, placeat quisquam
-                                                        magni maiores qui laudantium numquam sapiente facere doloribus. Voluptas dicta rerum
-                                                        reiciendis tempore voluptates, at voluptatum, assumenda possimus aliquid harum
-                                                        aperiam, sequi quam. Accusantium sapiente ipsa quia veniam placeat soluta enim
-                                                        facere earum ab labore ipsam blanditiis iste eum molestiae eius quam nostrum dicta
-                                                        possimus ad velit id, veritatis ut vel illum. Atque exercitationem necessitatibus
-                                                        error sequi magnam perspiciatis nobis quasi fugit, officiis nostrum rerum, culpa
-                                                        distinctio accusantium qui omnis sit incidunt, eius velit neque fugiat fuga? Sequi
-                                                        similique unde temporibus quisquam maxime voluptatum expedita molestiae, in
-                                                        accusamus doloribus praesentium sit exercitationem quam sed! Id, vero voluptate
-                                                        doloribus perspiciatis error dolore amet accusantium culpa excepturi optio
                                                         temporibus! Quibusdam, ea ad. Laborum repellat distinctio, magni commodi enim eos
                                                         provident quaerat quas. Ratione mollitia omnis autem. Iste quam corporis repellat
                                                         eum. Cum ex autem omnis iusto hic sed, libero dolores laborum quasi quia consequatur
@@ -856,12 +835,20 @@
     </script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <script>
-            var datesInput = document.querySelector("input[name='dates']");
+            var datesInput = document.querySelector("input[name='date']");
             var dates="";
-            const submitBtn = document.querySelector('button[type="submit"]')
-            submitBtn.onclick=function(){
-                datesInput.value=dates;
+            var form = document.querySelector('form[action="/request/longterm"]');
+            var submitBtn = document.querySelector('button[type="submit"]');
+            console.log("form", form);
+            console.log("submitBtn", submitBtn);
+            form.onchange = function () {
+                form.submit();
             }
+            submitBtn.onclick = function () {
+                form.action = "/request";
+                form.submit();
+            }
+
             document.addEventListener('DOMContentLoaded', function () {
             const calendarEl = document.getElementById('calendar')
             const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -1029,6 +1016,10 @@
         crossorigin="anonymous"></script>
     <script>
         window.dispatchEvent(new Event("template-loaded"));
+    </script>
+
+    <script>
+
     </script>
 </body>
 
