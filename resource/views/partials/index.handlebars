@@ -820,7 +820,8 @@
                 }
             }
             searchInp_service.Name=idService;
-            searchInp_service.value = selectedLi.innerText;
+            //searchInp_service.value = selectedLi.innerText;
+            searchInp_service.value = idService;
             addCountry_service(selectedLi.innerText);
             wrapper_service.classList.remove("active-menu-search");
             selectBtn_service.firstElementChild.innerText = selectedLi.innerText;

@@ -29,64 +29,8 @@
 </head>
 
 <body>
-    {{!-- <nav class="detail-nav">
-        <!-- logo -->
-        <a href="/">
-            <div class="logo detail-nav__logo">
-                <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo __img-header">
-            </div>
-        </a>
-    </nav> --}}
-        {{!-- <div class="profile-dropdown">
-            <div class="profile-dropdown__btn" onclick="toggle()">
-                <div class="profile-dropdown__img">
-                    <i class="fa-solid fa-circle"></i>
-                </div>
-                <span>
-                    Victoria
-                    <i class="fa-solid fa-angle-down"></i>
-                </span>
-            </div>
-            <ul class="profile-dropdown__list">
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-regular fa-user"></i>
-                        Edit Profile
-                    </a>
-                </li>
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-regular fa-envelope"></i>
-                        Inbox
-                    </a>
-                </li>
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-solid fa-chart-line"></i>
-                        Analytics
-                    </a>
-                </li>
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-solid fa-sliders"></i>
-                        Settings
-                    </a>
-                </li>
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-regular fa-circle-question"></i>
-                        Help & Support
-                    </a>
-                </li>
-                <hr>
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        Log out
-                    </a>
-                </li>
-            </ul>
-        </div> --}}
+
+
     <div class="main-container" style="padding-top:70px;padding-bottom:1000px">
         <div class="profile-dropdown">
             <div class="profile-dropdown__btn" onclick="toggle()">
@@ -143,16 +87,6 @@
             <div class="aside__nav-toggle">
                 <span></span>
             </div>
-            {{!-- user --}}
-                {{!-- <div class="aside-profile-user">
-                    <img src="/img/testi1.jpg" alt="" class="aside-profile-user__avatar">
-                    <h1 class="aside-profile-user__name">
-                        Đỗ Việt Hùng
-                    </h1>
-                    <p class="aside-profile-user__desc">
-                        Lorem ipsum dolor sit amet.
-                    </p>
-                </div> --}}
                 <div class="aside__logo">
                     <a href="/">
                         <div class="logo">
@@ -168,7 +102,7 @@
                         </a>
                     </li>
                     <li class="aside__item">
-                        <a href="#service-detail">
+                        <a >
                             <i class="fa fa-user"></i>Lịnh sử yêu cầu
                         </a>
                     </li>
@@ -178,8 +112,8 @@
                         </a>
                     </li>
                     <li class="aside__item">
-                        <a href="/">
-                            <i class="fa-solid fa-right-to-bracket"></i>Tìm kiếm người giúp việc
+                        <a href="/logout">
+                            <i class="fa-solid fa-right-to-bracket"></i>Đăng xuất
                         </a>
                     </li>
                 </ul>
@@ -364,24 +298,24 @@
                                                         <th>Ngày Yêu cầu</th>
                                                         <th>Loại Đơn</th>
                                                         <th>Giá Chuẩn</th>
-                                                        <th>Phí Ngoài Giờ</th>
-                                                        <th>Phụ Phí</th>
+                                                        <th>Giờ bắt đầu</th>
+                                                        <th>Giờ kết thúc</th>
                                                         <th>Trạng Thái</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                {{#each requests}}
+                                                {{#each shortTermRequests}}
                                                         <tr>
                                                             <td>{{orderDate}}</td>
                                                             <td>{{requestType}}</td>
                                                             <td>{{totalCost}}</td>
-                                                            <td>e22cdcn01-n</td>
-                                                            <td>{{status}}</td>
+                                                            <td>{{startTime}}</td>
+                                                            <td>{{endTime}}</td>
                                                             <td>
                                                                 <p class="status-detail cancel">{{status}}</p>
                                                             </td>
                                                         </tr>
-                                                        {{/each}}
+                                                {{/each}}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -396,19 +330,19 @@
                                                         <th>Ngày Yêu cầu</th>
                                                         <th>Loại Đơn</th>
                                                         <th>Giá Chuẩn</th>
-                                                        <th>Phí Ngoài Giờ</th>
-                                                        <th>Phụ Phí</th>
+                                                        <th>Giờ bắt đầu</th>
+                                                        <th>Giờ kết thúc</th>
                                                         <th>Trạng Thái</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {{#each requests}}
+                                                    {{#each longTermRequests}}
                                                     <tr>
-                                                        <td>{{orderDate}}</td>
-                                                        <td>{{requestType}}</td>
-                                                        <td>{{totalCost}}</td>
-                                                        <td>e22cdcn01-n</td>
-                                                        <td>{{status}}</td>
+                                                            <td>{{orderDate}}</td>
+                                                            <td>{{requestType}}</td>
+                                                            <td>{{totalCost}}</td>
+                                                            <td>{{startTime}}</td>
+                                                            <td>{{endTime}}</td>
                                                         <td>
                                                             <p class="status-detail cancel">{{status}}</p>
                                                         </td>

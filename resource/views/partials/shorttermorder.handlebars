@@ -40,13 +40,6 @@
     <div class="main-container" style="padding-top:70px;padding-bottom:1000px">
         {{!-- aside start --}}
         <div class="aside aside__extra">
-            {{!-- <div class="aside__logo">
-                <a href="/">
-                    <div class="logo">
-                        <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img-helper logo __img-header logo_medium">
-                    </div>
-                </a>
-            </div> --}}
             <div class="aside__nav-toggle">
                 <span></span>
             </div>
@@ -57,7 +50,8 @@
                         <span style="display: inline-block;">Tìm Kiếm</span>
                     </div>
 
-                    <button type="submit" style="display:inline-block;background-color:floralwhite; color:black; padding:4px; border-radius:5px;" ><i class="fa-solid fa-filter"></i>Lọc</button>
+
+
                 </div>
                 <ul class="aside__nav aside__nav--extra">
                     <li class="aside__item">
@@ -69,7 +63,6 @@
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="date" class="form__input"
                                                 value="{{order.dates}}" name="dates" required>
-                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
                                         <p class="form__error"></p>
@@ -87,7 +80,6 @@
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Bắt Đầu" type="text"
                                                 class="form__input" value="{{order.startTime}}" name="startTime" required>
-                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
                                         <p class="form__error"></p>
@@ -108,60 +100,57 @@
                        </a>
                     </li>
                     <li class="aside__item">
-                        <a href="#!">
                            <i class="fa fa-briefcase" style="margin-right:5px;color:var(--skin-color)"></i>Kinh nghiệm
                         <ul class="aside__nav-child">
                         
                            
                             <li>
-                                <label class="province-option">
-                                    <input type="radio" {{#unless order.exp}}checked{{/unless}} >
+                                <label class="exp-option">
+                                    <input type="radio" name="exp" value="0" {{#isEquals 0 order.exp}}checked{{/isEquals}} >
                                     
                                    Tất cả
                                 </label>
                             </li>
                             <li>
-                                <label class="province-option">
-                                    <input type="radio" name="exp" value=1 {{#isEquals 1 order.exp}}checked{{/isEquals}} >
+                                <label class="exp-option">
+                                    <input type="radio" name="exp" value="1" {{#isEquals 1 order.exp}}checked{{/isEquals}} >
                                    Từ 1 năm trở lên
                                 </label>
                             </li>
                             <li>
-                                <label class="province-option">
-                                    <input type="radio" name="exp" value=2 {{#isEquals 2 order.exp}}checked{{/isEquals}}>
+                                <label class="exp-option">
+                                    <input type="radio" name="exp" value="2" {{#isEquals 2 order.exp}}checked{{/isEquals}}>
                                 Từ 2 năm trở lên
                                 </label>
                             </li>
                             <li>
-                                <label class="province-option">
-                                    <input type="radio" name="exp" value=3 {{#isEquals 3 order.exp}}checked{{/isEquals}}>
+                                <label class="exp-option">
+                                    <input type="radio" name="exp" value="3" {{#isEquals 3 order.exp}}checked{{/isEquals}}>
                                     Từ 3 năm trở lên
                                 </label>
                             </li>
                             <li>
-                                <label class="province-option" >
-                                    <input type="radio" name="exp" value=4 {{#isEquals 4 order.exp}}checked{{/isEquals}}>
+                                <label class="exp-option" >
+                                    <input type="radio" name="exp" value="4" {{#isEquals 4 order.exp}}checked{{/isEquals}}>
                                     Từ 4 năm trở lên
                                 </label>
                             </li>
                             <li>
-                                <label class="province-option">
-                                    <input type="radio" name="exp" value=5 {{#isEquals 5 order.exp}}checked{{/isEquals}}>
+                                <label class="exp-option">
+                                    <input type="radio" name="exp" value="5" {{#isEquals 5 order.exp}}checked{{/isEquals}}>
                                     Từ 5 năm trở lên
                                 </label>
                             </li>
                         
                         </ul>
-                        </a>
                     </li>
                     <li class="aside__item">
-                        <a href="#!">
                           <i class="fa fa-tags" style="margin-right:5px;color:var(--skin-color)"></i>Dịch vụ
                           <ul class="aside__nav-child">
                             {{#each services}}
                             <li>
                                 <div class="form__group" style="margin-top:10px;">
-                                    <input type="checkbox"  id="{{_id}}" name="service_id" value="{{_id}}" {{#compareProperties ../order 'service' 'title'}}checked="checked"{{/compareProperties}}>
+                                    <input type="radio"  id="{{_id}}" name="service" value="{{_id}}" {{#compareProperties ../order 'service' '_id'}}checked="checked"{{/compareProperties}}>
                                     <label for="#{{_id}}" class="book-item__flex-50-text" >
                                         {{title}}
                                     </label>
@@ -169,7 +158,6 @@
                             </li>
                             {{/each}}
                           </ul>
-                        </a>
                     </li>
                     <li class="aside__item">
                         <a href="#!">
@@ -247,7 +235,7 @@
                                 </button>
                            </div>
                             <div class="short-helper__heading-right">
-                                <button onclick="showPopupShort()" class="btn btn-primary" style="margin-left:auto;background-color:var(--skin-color);color:var(--white)">
+                                <button onclick="showPopupShort()" class="btn btn-primary" style="margin-left:auto;background-color:var(--skin-color);color:var(--white);">
                                     <i class="fa fa-shopping-cart" style="margin-right:5px;color:var(--white)"></i>Yêu cầu người giúp việc
                                 </button>
                                 <div class="overlay-short" id="overlay-short"></div>
@@ -500,6 +488,10 @@
     const helperInput = document.querySelector('input[name="helperId"]')
     const submitBtn= document.querySelector('.btn.btn-primary')
     const submitForm=document.querySelector('form');
+
+    submitForm.onchange = function(){
+        submitForm.submit();
+    }
     submitBtn.onclick =function(){
         if(helperInput.value==""){
             return;
@@ -513,6 +505,7 @@
             let id=this.querySelector(".short-helper__img-portrait").alt;
             for(let i in helperItems){
                 if(i==key){
+                    console.log("shortterm-508: ",i,id,key,helperInput);
                     helperItems[i].classList.add('selected');
                     numHelper.innerHTML='1'
                     helperInput.value= id;
