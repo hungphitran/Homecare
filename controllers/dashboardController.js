@@ -7,6 +7,8 @@ const dashboardController = {
         let helpers;
         let user;
         let general;
+        let policies;
+        let questions;
         try {
             //call api to get current user
             let phone = req.session.user;
@@ -59,13 +61,36 @@ const dashboardController = {
             console.error(err);
         }
 
+        try{
+            //call api to get policies
+            policies = await fetch(process.env.API_URL+'/policy')
+            .then(data=>data.json())
+        }
+        catch(err){
+            console.error(err);
+
+        }
+
+        
+        try{
+            //call api to get question
+            questions = await fetch(process.env.API_URL+'/question')
+            .then(data=>data.json())
+        }
+        catch(err){
+            console.error(err);
+
+        }
+
         // give data to dashboard
         res.render('partials/index', {
             user: user,
             locations: locations,
             services: services,
             helpers: helpers,
-            general: general
+            general: general,
+            policies:policies,
+            questions:questions
         })
     }
 }

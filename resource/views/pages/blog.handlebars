@@ -1,58 +1,3 @@
-{{!-- <style>
-
-    .container{
-        margin-left: 33%;
-        margin-right: 33%;
-    }
-    .blogs{
-        display:block;
-    }
-    .blogs div.blog{
-        display: flex;
-        border: 5px;
-        border-style:solid;
-        border-color: darkgreen;
-        margin: 10px;
-    }
-    .blogs img{
-        width: 100%;
-        height: 100%;
-    }
-    .btn{
-        background-color: green;
-        color: white;
-    }
-</style> --}}
-{{!-- <a href="/">
-    <h1>HOMECARE</h1>
-</a>
-
-<div >
-    Bài viết
-</div>
-<div class="container">
-        <form class="d-flex" method="post" action="blog">
-        <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" name="key">
-        <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
-      </form>
-    {{#if key}}
-        <h1>Tìm kiếm theo từ khóa: {{key}}</h1>
-    {{/if}}
-    <div class="blogs">
-            {{#each blog}}
-            <div class="blog">
-                <a href="blog/{{this._id}}"><img src={{this.img}}></a>
-                <div>
-                    <h2>{{this.title}}</h2>
-                    <p>{{this.description}}</p>
-                    <p style="font-style: italic;">{{this.date}}</p>
-                </div>
-            </div>
-            {{/each}}
-        
-    
-    </div>
-</div> --}}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,13 +11,14 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/style.css">
+
 </head>
 <body>
     <header class="blog">
         <div class="blog__nav blog__container">
-            {{!-- <a href="/" class="blog__logo">
+            <a href="/" class="blog__logo">
             Home<span>Care</span>
-            </a> --}}
+            </a> 
             <a href="/" class="blog__logo">
                 <div class="logo">
                     <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo __img-header">
@@ -88,17 +34,21 @@
         </div>
     </section>
    <section class="blog__about blog__container" id="blog-about">
-    
+            {{#each blogs}}
+            {{#if @first}}
     <div class="blog__contentBx">
-        <h2 class="blog__titleText">Lorem ipsum dolor sit amet.</h2>
-        <p class="blog__title-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum, consectetur.
-            <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, repellendus?
+
+                <h2 class="blog__titleText">{{title}}</h2>
+                <p class="blog__title-text">{{description}}
         </p>
         <a href="#" class="blog__btn2">Đọc thêm</a>
+
     </div>
     <div class="blog__imgbx">
         <img src="/img/about.png" alt="" class="blog__imgbx-fitBg">
     </div>
+                {{/if}}
+        {{/each}}
    </section>
    <section>
     <form action="" class="blog__search-bar" style="margin-top:15px">
@@ -111,139 +61,25 @@
     <span class="blog__filter-item active-filter" data-filter="all">
         Tất Cả
     </span>
-    <span class="blog__filter-item" data-filter="tech">Công Nghệ</span>
-    <span class="blog__filter-item" data-filter="food">
-        Ẩm Thực
-    </span>
-    <span class="blog__filter-item" data-filter="news">Tin Tức</span>
+    {{#each tags}}
+        <span class="blog__filter-item" data-filter="{{this}}">{{this}}</span>   
+    {{/each}}
    </div>
 <div class="blog__post container" id="product-list">
     <!-- Post 1 -->
-    <div class="blog__post-box tech" data="1">
-        <img src="/img/img1.jpg" alt="" class="blog__post-img">
-        <h2 class="blog__category">Tech</h2>
-        <a href="#" class="blog__post-title">cách để tự lập tài chính khi còn ở độ tuổi trẻ</a>
-        <span class="blog__post-date">12 Feb 2022</span>
-        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur, similique,
-            rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde repudiandae
-            iste architecto. Corporis, voluptates.</p>
+    {{#each blogs}}
+    <div class="blog__post-box tech" data-type="{{type}}">
+        <img src="{{img}}" alt="" class="blog__post-img">
+        <h2 class="blog__category">{{type}}</h2>
+        <a href="/blog/{{_id}}" class="blog__post-title">{{title}}</a>
+        <span class="blog__post-date">{{date}}</span>
+        <p class="blog__post-description">{{description}}</p>
         <div class="blog__profile">
             <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
-            <span class="blog__profile-name">MKHB</span>
+            <span class="blog__profile-name">{{author}}</span>
         </div>
     </div>
-    <!-- Post 2 -->
-    <div class="blog__post-box food" data="2">
-        <img src="/img/img2.jpg" alt="" class="blog__post-img">
-        <h2 class="blog__category">Tech</h2>
-        <a href="#" class="blog__post-title">crypto 101</a>
-        <span class="blog__post-date">12 Feb 2022</span>
-        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
-            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
-            repudiandae iste architecto. Corporis, voluptates.</p>
-        <div class="blog__profile">
-            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
-            <span class="blog__profile-name">MKHB</span>
-        </div>
-    </div>
-    <!-- Post 3 -->
-    <div class="blog__post-box food" data="3">
-        <img src="img/img3.jpg" alt="" class="blog__post-img">
-        <h2 class="blog__category">Food</h2>
-        <a href="#" class="blog__post-title">cách tạo 1 best ui từ con số 0</a>
-        <span class="blog__post-date">12 Feb 2022</span>
-        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
-            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
-            repudiandae iste architecto. Corporis, voluptates.</p>
-        <div class="blog__profile">
-            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
-            <span class="blog__profile-name">MKHB</span>
-        </div>
-    </div>
-    <!-- Post 4 -->
-    <div class="blog__post-box news" data="4">
-        <img src="/img/img4.jpg" alt="" class="blog__post-img">
-        <h2 class="blog__category">Tech</h2>
-        <a href="#" class="blog__post-title">kinh doanh với herbarlife</a>
-        <span class="blog__post-date">12 Feb 2022</span>
-        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
-            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
-            repudiandae iste architecto. Corporis, voluptates.</p>
-        <div class="blog__profile">
-            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
-            <span class="blog__profile-name">MKHB</span>
-        </div>
-    </div>
-    <!-- Post 5 -->
-    <div class="blog__post-box tech" data="5">
-        <img src="img/img5.jpg" alt="" class="blog__post-img">
-        <h2 class="blog__category">Tech</h2>
-        <a href="#" class="blog__post-title">hiểu về tiếp thị mạng lưới</a>
-        <span class="blog__post-date">12 Feb 2022</span>
-        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
-            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
-            repudiandae iste architecto. Corporis, voluptates.</p>
-        <div class="blog__profile">
-            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
-            <span class="blog__profile-name">MKHB</span>
-        </div>
-    </div>
-    <!-- Post 6 -->
-    <div class="blog__post-box news" data="6">
-        <img src="/img/img4.jpg" alt="" class="blog__post-img">
-        <h2 class="blog__category">News</h2>
-        <a href="#" class="blog__post-title">học đầu tư</a>
-        <span class="blog__post-date">12 Feb 2022</span>
-        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
-            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
-            repudiandae iste architecto. Corporis, voluptates.</p>
-        <div class="blog__profile">
-            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
-            <span class="blog__profile-name">MKHB</span>
-        </div>
-    </div>
-    <!-- Post 7 -->
-    <div class="blog__post-box tech" data="7">
-        <img src="/img/img7.jpg" alt="" class="blog__post-img">
-        <h2 class="blog__category">Tech</h2>
-        <a href="#" class="blog__post-title">How to create the best UI with Figma</a>
-        <span class="blog__post-date">12 Feb 2022</span>
-        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
-            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
-            repudiandae iste architecto. Corporis, voluptates.</p>
-        <div class="blog__profile">
-            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
-            <span class="blog__profile-name">MKHB</span>
-        </div>
-    </div>
-    <!-- Post 1 -->
-    <div class="blog__post-box news" data="8">
-        <img src="/img/img8.jpg" alt="" class="blog__post-img">
-        <h2 class="blog__category">News</h2>
-        <a href="#" class="blog__post-title"> to create the best UI with Figma</a>
-        <span class="blog__post-date">12 Feb 2022</span>
-        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
-            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
-            repudiandae iste architecto. Corporis, voluptates.</p>
-        <div class="blog__profile">
-            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
-            <span class="blog__profile-name">MKHB</span>
-        </div>
-    </div>
-    <!-- Post 9 -->
-    <div class="blog__post-box food" data="9">
-        <img src="/img/img10.jpg" alt="" class="blog__post-img">
-        <h2 class="blog__category">Food</h2>
-        <a href="#" class="blog__post-title">cách nấu món cánh chua ngon như mẹ nấu</a>
-        <span class="blog__post-date">12 Feb 2022</span>
-        <p class="blog__post-description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur,
-            similique, rerum excepturi harum, vitae facilis corrupti vel modi debitis est perferendis aut quasi ea unde
-            repudiandae iste architecto. Corporis, voluptates.</p>
-        <div class="blog__profile">
-            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
-            <span class="blog__profile-name">MKHB</span>
-        </div>
-    </div>
+    {{/each}}
 </div>
 
 </body>
@@ -256,25 +92,30 @@
  window.addEventListener("scroll",()=>{
     header.classList.toggle("shadow",window.scrollY>0)
  })
+
  //Filter
-    $(document).ready(function () {
-        $(".blog__filter-item").click(function () {
-            const value = $(this).attr("data-filter");
-            if (value == "all") {
-                $(".blog__post-box").show("1000")
-            } else {
-                $(".blog__post-box")
-                    .not("." + value)
-                    .hide(1000);
-                $(".blog__post-box")
-                    .filter("." + value)
-                    .show("1000")
-            }
-        });
-        $(".blog__filter-item").click(function () {
-            $(this).addClass("active-filter").siblings().removeClass("active-filter")
-        });
+ $(document).ready(function () {
+    $(".blog__filter-item").click(function () {
+        const value = $(this).attr("data-filter");
+        console.log("value :",value)
+        if (value == "all") {
+            $(".blog__post-box").show("1000")
+        } else {
+            $(".blog__post-box").each(function() {
+                const postType = $(this).attr("data-type");
+                if (postType === value) {
+                    console.log(postType)
+                    $(this).show("1000");
+                } else {
+                    $(this).hide("1000");
+                }
+            });
+        }
     });
+    $(".blog__filter-item").click(function () {
+        $(this).addClass("active-filter").siblings().removeClass("active-filter")
+    });
+ });
     
   const search =()=>{
     const searchbox =document.getElementById("search-item").value.toUpperCase();
@@ -293,5 +134,7 @@
         }
     }
   }
+
 </script>
+</body>
 </html>
