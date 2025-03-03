@@ -1,0 +1,89 @@
+@use "../abstracts";
+html{
+    --text-color:#000;
+    --icon-color: brightness(0) saturate(100%) invert(8%) sepia(16%) saturate(2698%) hue-rotate(212deg) brightness(94%) contrast(95%);
+    --icon-color-footer: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(2%) hue-rotate(331deg) brightness(102%) contrast(101%);
+    --header-br-color: #ffffff;
+    --color-body:#FFFFFF;
+    --Secondary-Color-Secondary-1:#1A162E;
+    --Secondary-Color-Background:#fff;
+    --box-shadow-avatar:0px 4px 14px 2px rgba(0, 0, 0, 0.08);
+    --br-separate:#EDEDF6;
+    --box-shadow-group:0px 20px 60px 10px rgba(237, 237, 246, 0.20);
+    @include abstracts.screen(lg){
+        --header-br-color:#ffffff;
+        --color-body:#FFFFFF;
+        --Secondary-Color-Background:#EEEEEE;
+        --br-separate:black;
+    }
+    // dropdown
+    --background-dropdown: #FFF;
+    --color-box-shadow:rgba(200, 200, 200, 0.40);
+    --color-arrow-top:brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%);
+    --menu-top-main-color-border-right:#D2D1D6;
+    // menu-content
+    --Secondary-Color-Secondary-1:#1A162E;
+    --filter-case-2: brightness(0) saturate(100%) invert(4%) sepia(62%) saturate(4840%) hue-rotate(245deg) brightness(91%) contrast(88%);
+    --Blue-Blue-hover:#0071DC;
+    // navbar-dis
+    --color-navbar-dis: #efeded;
+    //  cate-item
+      --br-cate-item:#eeeeee;
+      --br-cate-item-picture:#fff;
+
+
+      // filter
+      --br-filter:#eeeeee;
+      --br-like:#fff;
+      // product card
+      --br-product-card:#FFF;
+      --color-box-shadow-pro-card:0px 20px 60px 10px rgba(237, 237, 246, 0.20);
+      // slider
+      --color-slider:#D2D1D6;
+      // tag
+      --color-tag:#171C28;
+      // input 
+      --color-border:#171C28;
+      // footer
+    //   sign-up
+      --footer-br-color:#eeeeee;
+      --Secondary-Color-Secondary-1:#1A162E;
+      --Secondary-Color-Secondary-2:#9E9DA8;
+      --Secondary-Color-Secondary-3: #D2D1D6;
+      --Blue-Blue: #0071DC;
+        //  #4caf50
+    // #83ca50
+    // sign up
+    --Secondary-Color-Secondary-1:#171C28;
+      --Secondary-Color-Secondary-2:#171C28;
+      --Secondary-Color-Secondary-3: #171C28;
+      --Blue-Blue: #0071DC;
+      // menu-top
+      --color-menu-top-heading:#fff;
+      --br-menu-top-heading:#02571C;
+      // column 1
+      --br-row-2: rgb(140 193 61);
+      --color-text-menu-top: rgb(37 110 59);
+      --color-text-detail:rgb(37 110 59);
+      // the detail page for the helper
+      --bg-black-900:#f2f2fc;
+      --bg-black-100:#fdf9ff;
+      --bg-black-50:#e8dfec;
+      --text-black-900:#302e4d;
+      --text-black-700:#504e70;
+      --skin-color: #4CAF50;
+// theme for the blog
+ --container-color:#1a1e21;
+    --second-color:#4CAF50;
+    --bg-color:#fdf9ff;
+    // theme for the details
+    --primary: #eeeeee;
+    --secondary:#227c70;
+    --green:#82cd47;
+    --secondary-light:rgb(34,124,112,0.2);
+    --secondary-light-2:rgb(127,183,126,0.1);
+    --white:#fff;
+    --black:#393e46;
+    --shadow:0px 2px 8px 0px var(var(--secondary-light));
+    --skin-button:#a9f300;
+}

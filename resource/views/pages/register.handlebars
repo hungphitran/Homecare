@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project 8</title>
+    <!-- link css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- script -->
+    <script src="/js/scripts.js"></script>
+</head>
+
+<body>
+    <main class="auth">
+        <div id="btn-content" class="auth__content hide">
+            <div class="auth__content-inner">
+                <!-- logo -->
+                <a href="./">
+                    <div class="logo">
+                        <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo__img--large">
+                        {{!-- <h1 class="logo__title">Homecare</h1> --}}
+                    </div>
+                </a>
+                <h2 class="auth__heading">Đăng kí</h2>
+                <p class="auth__desc">Hãy tạo tài khoản để đăng kí và trải nghiệm nhiều hơn</p>
+                <form id="form-1" method="post" action="/account/register" class="form auth__form">
+                    {{!-- input 1 --}}
+                    <div class="form__group">
+                        <div class="form__text-input form-control">
+                            <input id="full-name-input" placeholder="Full Name" type="text" class="form__input"
+                                value="{{account}}" name="name" required>
+                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error"></p>
+                    </div>
+                    {{!-- input 2 --}}
+                    <div class="form__group">
+                        <div class="form__text-input form-control">
+                            <input id="address-input" placeholder="Address" type="text" class="form__input"
+                                value="{{account}}" name="address" required>
+                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error"></p>
+                    </div>
+                    <!-- input 3 -->
+                    <div class="form__group">
+                        <div class="form__text-input form-control">
+                            <input id="tel-input" placeholder="Phone" type="tel" class="form__input" value="{{account}}"
+                                name="phone" minlength="10" required>
+                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error"></p>
+                    </div>
+                    <!-- input 4 -->
+                    <div class="form__group">
+                        <div class="form__text-input form-control">
+                            <input name="password" id="password" placeholder="password" type="password"
+                                class="form__input" minlength="6" value="{{account}}" required>
+                            <img src="/icon/key.svg" alt="key" class="form__input-icon">
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error"></p>
+                    </div>
+                    <!-- input 5 -->
+                    <div class="form__group">
+                        <div class="form__text-input form-control">
+                            <input id="password_confirmation" placeholder="confirm password" type="password"
+                                class="form__input" minlength="6" required value="{{account}}">
+                            <img src="/icon/key.svg" alt="key" class="form__input-icon">
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error"></p>
+                    </div>
+                    <!-- item 5  -->
+                    <div class="form__group form__group-btn form__submit-btn">
+                        <button class="submit-btn btn btn--primary">Đăng kí</button>
+                        {{!-- <button class="btn btn--outline btn-center">
+                            <img src="/icon/gg.svg" alt="google" class="btn__icon icon">
+                            Đăng nhập với Gmail
+                        </button> --}}
+                    </div>
+                </form>
+                <p class="auth__text">
+                    Bạn đã có tài khoản?
+                    <a href="/account" class="auth__link">Đăng nhập</a>
+                </p>
+            </div>
+        </div>
+    </main>
+    <script src="/js/app.js"></script>
+    <script>
+        // điều mình mong muốn
+        validator({
+            form: "#form-1",
+            errorElement: ".form__error",
+            formGroupElement: ".form__group",
+            rules: [
+                validator.isRequire("#full-name-input", "You haven't entered yet."),
+                validator.isRequire("#address-input", "You haven't entered yet."),
+                validator.isRequire("#tel-input", "You haven't entered yet."),
+                validator.isPhone("#tel-input", "Please enter the phone number in the correct format"),
+                validator.isRequire("#password", "You haven't entered yet."),
+                validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
+                validator.isRequire("#password_confirmation", "bạn vẫn chưa nhập!"),
+                validator.isConfirmationPassword("#password_confirmation", function getPassword() {
+                    var element = validator.form
+                    var password = document.querySelector("#password").value;
+                    console.log(password);
+                    return password;
+                }, "Your password is incorrect!")
+            ],
+            onsubmit: function (data) {
+                console.log(data);
+            }
+        })
+    </script>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
+    <script>
+        const formRegister = document.querySelector('form')
+        const submitBtn = formRegister.querySelector('.submit-btn');
+        const emailInput = document.querySelector('#email-input');
+        const passWordInput = document.querySelector('#password-input');
+        const confirmPasswordInput = document.querySelector('#confirm-password-input');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+ .faq {
+    &__item-question {
+        font-size: 1.3rem;
+       // font-weight: 700;
+        //background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); // Changed to a more suitable web color
+        font-weight: 600;
+        padding: 13px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        line-height: 1.2;
+       // color: #fff;
+        transition: all 0.3s ease-in-out;
+        // &:hover {
+        //     background-color: #666; // Changed to a more suitable web color
+        // }
+    }
+    &__item-answer {
+        max-height: 0px;
+        overflow: hidden;
+        transition: all 0.5s ease-in-out;
+          background-color: #f8f9fa;
+        color: #495057; // Changed to a darker color for better readability
+        line-height: 1.5;
+    }
+    .faq__item.active &__item-answer {
+        max-height: 300px;
+        transition: max-height 0.5s ease-in-out;
+    }
+    .faq__item.active &__item-question{
+       // background-color: #388E3C;
+        color:#388E3C ;
+    }
+    .faq__item.active i {
+        transform: rotate(45deg);
+        transition: transform 0.5s ease-in-out;
+    }
+    &__item-answer-text {
+        color: #333; // Changed to a darker color for better readability
+        background-color: #fff;
+        border: 1px solid #ccc; // Changed to a lighter border color
+    }
+    &__item {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+       // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d4d4d4;
+    }
+    
+    &__item-answer &__item-answer-text--desc {
+        padding: 2px 40px;
+        font-size: 1.2rem;
+        //background-color: #E8F5E9; // Changed to a softer background color
+    }
+    &__item-answer &__item-answer-text--desc li{
+        margin-left: 20px;
+    }
+    &__item-answer &__item-answer-text--desc:not(:first-child) {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        text-align: justify;
+        font-weight: 400;
+    }
+    &-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+    }   
+}

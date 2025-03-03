@@ -1,0 +1,1026 @@
+{{!-- <style>
+    .helper-list{
+        display: flex;
+    }
+    .selected{
+        background-color: greenyellow;
+    }
+    .hide{
+        display: none;
+    }
+
+</style> --}}
+<!--
+<form method="post" action="/request">
+    <ul>
+        <li><input type="hidden" name="requestType" value="Dài hạn">Hình thức: Dài hạn</li>
+        <li><input type="hidden" name="startDate" value="{{order.startDate}}"> {{order.startDate}}</li>
+        <li><input type="hidden" name="endDate" value="{{order.endDate}}">{{order.endDate}}</li>
+        <li><input type="hidden" name="province" value="{{order.province}}">{{order.province}}</li>
+        <li><input type="hidden" name="district" value="{{order.district}}">{{order.district}}</li>
+        <li><input type="hidden" name="service" value="{{order.service}}">Services: {{order.service}}</li>
+        <li>
+            <input type="hidden" name="startTime" value="{{order.startTime}}">
+            <input type="hidden" name="endTime" value="{{order.endTime}}">
+            Time:{{order.startTime}} to {{order.endTime}}
+        </li>
+    </ul>
+    <h2>Choose helper (skip to random)</h2>
+    <div class="helper-list" >
+        <input type="hidden" name="helper" value="">
+        {{#each helpers}}
+            <div class="basic-helper"  style="text-align:center;border:5px; border-style:solid;  border-color:green";>
+                <img src="{{this.avatar}}" alt="{{this._id}}">
+                <h3 >{{this.fullName}}</h3>
+                <p>{{this.yearOfExperience}} years of exprerience</p>
+            </div>
+        {{/each}}
+    </div>
+
+    
+
+    <button >Submit</button>
+</form> 
+
+-->
+
+
+{{!-- <script>
+    let helperElements=document.querySelectorAll('div.basic-helper')
+    let numHelperInput= document.querySelector('#num-helper-input')
+    let submitBtn= document.querySelector('form button')
+    let helperlist=document.querySelector('.helper-list')
+    var selectedHelper='';
+
+
+    helperElements.forEach(function(div){
+        div.onclick=function(){
+            if(div.classList.contains('selected')){
+                div.classList.remove('selected');
+                selectedHelper=''
+            }
+            else {
+                if(selectedHelper==''){
+                    div.classList.add('selected')
+                    let id= div.querySelector('img').alt;
+                    selectedHelper=id;
+                }
+            }
+        }
+    })
+
+    submitBtn.onclick=function(){
+        let input= helperlist.querySelector('input');
+        input.value=selectedHelper;
+    }
+</script> --}}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Homecare
+    </title>
+    {{!-- font --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Clicker+Script&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <script src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- link css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- script -->
+    <script src="/js/scripts.js"></script>
+    <link rel="shortcut icon" href="/icon/logo-removeBg.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/01acedffd5.js" crossorigin="anonymous"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core/locales/vi.global.min.js'></script>
+</head>
+<style>
+    /* Tùy chỉnh màu sắc calendar */
+    .fc {
+        --fc-button-bg-color: var(--skin-color);
+        --fc-button-border-color: var(--skin-color);
+        --fc-button-hover-bg-color: #45a049;
+        --fc-button-hover-border-color: #45a049;
+        --fc-button-active-bg-color: #45a049;
+        --fc-today-bg-color: rgba(74, 222, 128, 0.1);
+        --fc-border-color: #e5e7eb;
+    }
+
+    /* Màu khi hover ngày */
+    .fc-day:hover {
+        background-color: rgba(74, 222, 128, 0.05) !important;
+    }
+
+    /* Style cho nút Today */
+    .fc .fc-button-primary:not(:disabled).fc-button-active,
+    .fc .fc-button-primary:not(:disabled):active {
+        background-color: #45a049 !important;
+        border-color: #45a049 !important;
+    }
+
+    /* Style cho header */
+    .fc-toolbar-title {
+        color: var(--skin-color) !important;
+        font-weight: 600 !important;
+    }
+
+    /* Style cho các event nếu có */
+    .fc-event {
+        background-color: var(--skin-color) !important;
+        border-color: var(--skin-color) !important;
+    }
+     .fc .fc-toolbar-title {
+        font-size: 1em !important;
+    }
+    .fc .fc-button {
+        padding: 6px 10px;
+        font-size: 0.9em;
+    }
+
+    /* Responsive Calendar Styles */
+    .fc {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Desktop (>= 1024px) */
+    @media screen and (min-width: 1024px) {
+        .fc .fc-toolbar-title {
+            font-size: 1.5em !important;
+        }
+        .fc .fc-button {
+            padding: 8px 16px;
+            font-size: 1em;
+        }
+    }
+
+    /* Tablet (768px - 1023px) */
+    @media screen and (max-width: 1023px) {
+        .fc .fc-toolbar {
+            flex-direction: column;
+            gap: 10px;
+        }
+        .fc .fc-toolbar-title {
+            font-size: 1.2em !important;
+        }
+        .fc .fc-button {
+            padding: 6px 12px;
+            font-size: 0.9em;
+        }
+        .fc .fc-toolbar > * > :not(:first-child) {
+            margin-left: 5px;
+        }
+    }
+
+    /* Mobile (< 768px) */
+    @media screen and (max-width: 767px) {
+        .fc .fc-toolbar-title {
+            font-size: 1em !important;
+        }
+        .fc .fc-button {
+            padding: 4px 8px;
+            font-size: 0.8em;
+        }
+        .fc .fc-toolbar > * > * {
+            float: none !important;
+            margin: 5px 0;
+        }
+        .fc .fc-toolbar-chunk {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+        /* Ẩn một số nút trên mobile để tránh quá tải UI */
+        .fc .fc-dayGridMonth-button,
+        .fc .fc-timeGridWeek-button,
+        .fc .fc-timeGridDay-button {
+            display: none;
+        }
+        /* Điều chỉnh cỡ chữ trong ô ngày */
+        .fc-daygrid-day-number {
+            font-size: 0.9em;
+        }
+        /* Điều chỉnh padding cho ô ngày */
+        .fc td, .fc th {
+            padding: 1px !important;
+        }
+    }
+
+    /* Điều chỉnh cho màn hình siêu nhỏ */
+    @media screen and (max-width: 375px) {
+        .fc .fc-toolbar-title {
+            font-size: 0.9em !important;
+        }
+        .fc .fc-button {
+            padding: 3px 6px;
+            font-size: 0.7em;
+        }
+    }
+</style>
+<body>
+    {{!-- Main container start --}}
+    <div class="main-container" style="padding-top:70px;padding-bottom:1000px">
+        {{!-- aside start --}}
+        <div class="aside aside__extra">
+            {{!-- <div class="aside__logo">
+                <a href="/">
+                    <div class="logo">
+                        <img src="/icon/logo-removeBg.png" alt="grocerymart"
+                            class="logo__img-helper logo __img-header logo_medium">
+                    </div>
+                </a>
+            </div> --}}
+            <div class="aside__nav-toggle">
+                <span></span>
+            </div>
+            <form method="get" action="/request/longterm"  class="aside__content">
+                <div class="aside__search">
+                    <i class="fa-solid fa-magnifying-glass"></i>Tìm Kiếm
+                    <button type="submit">Đặt</button>
+                </div>
+                <ul class="aside__nav aside__nav--extra">
+                    <li class="aside__item">
+                        <a href="#!" class="aside__nav">
+                            <i class="fa fa-calendar" style="margin-right:5px;color:var(--skin-color)"></i>Ngày
+                            <ul class="aside__nav-child">
+                                <li style="flex-direction:column">
+                                    <div class="form__group" style="margin-top:10px;">
+                                        <div class="form__text-input form-control">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
+                                                value="{{order.dates}}" name="dates" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
+                                    <!--
+                                    <div class="form__group" style="margin-top:10px;">
+                                        <div class="form__text-input form-control">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
+                                                value="{{order.endDate}}" name="endDate" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
+                                    -->
+                                </li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                            <i class="fa fa-clock" style="margin-right:5px;color:var(--skin-color)"></i>Giờ
+                            <ul class="aside__nav-child">
+                                <li>
+                                    <div class="form__group" style="margin-top:5px;">
+                                        <div class="form__text-input form-control">
+                                            <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Bắt Đầu" type="text"
+                                                class="form__input" value="{{order.startTime}}" name="startTime" required>
+                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        </div>
+                                        <p class="form__error"></p>
+                                    </div>
+                                </li>
+                                <li>
+                                <div class="form__group" style="margin-top:5px;">
+                                    <div class="form__text-input form-control">
+                                        <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Kết Thúc" type="text"
+                                            class="form__input" value="{{order.endTime}}" name="endTime" required>
+                                        {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    </div>
+                                    <p class="form__error"></p>
+                                </div>
+                                </li>
+                            </ul>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                            <i class="fa fa-briefcase" style="margin-right:5px;color:var(--skin-color)"></i>Kinh nghiệm
+                            <ul class="aside__nav-child">
+
+
+                                <li>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="0"  {{#isEquals 0 order.exp}}checked{{/isEquals}}>
+                                        Tất cả
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="1"  {{#isEquals 1 order.exp}}checked{{/isEquals}}>
+                                        Từ 1 năm trở lên
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="2" {{#isEquals 2 order.exp}}checked{{/isEquals}}>
+                                        Từ 2 năm trở lên
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="3" {{#isEquals 3 order.exp}}checked{{/isEquals}}>
+                                        Từ 3 năm trở lên
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="4" {{#isEquals 4 order.exp}}checked{{/isEquals}}>
+                                        Từ 4 năm trở lên
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="exp-option">
+                                        <input type="radio"  name="exp"  value="5" {{#isEquals 5 order.exp}}checked{{/isEquals}}>
+                                        Từ 5 năm trở lên
+                                    </label>
+                                </li>
+
+                            </ul>
+                    </li>
+                    <li class="aside__item">
+                            <i class="fa fa-tags" style="margin-right:5px;color:var(--skin-color)"></i>Dịch vụ
+                            <ul class="aside__nav-child">
+                                {{#each services}}
+                                <li>
+                                    <div class="form__group" style="margin-top:10px;">
+                                        <input type="radio" id="{{_id}}" name="service_id"  value="{{_id}}" {{#compareProperties ../order 'service_id' '_id'}}checked="checked"{{/compareProperties}}>
+                                        <label for="#{{_id}}" class="book-item__flex-50-text">
+                                            {{title}}
+                                        </label>
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ul>
+                    </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                            <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Tỉnh/Thành phố
+                            {{!-- <ul class="aside__nav-child">
+                                {{#each locations}}
+                                <label class="province-option">
+                                    <input type="radio" name="province" value="{{this.province}}" checked>
+                                    {{this.province}}
+                                </label>
+                                {{/each}}
+                            </ul> --}}
+                        <div class="wrapper-province extra-wrapper">
+                        
+                            <div class="wrapper-province__select-btn">
+                                <span>{{order.province}}</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="wrapper-province__content">
+                                <div class="warapper-province__search">
+                                    <input class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm"
+                                        name="province" style="width:85%" value="{{this.province}}">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                                <ul class="wrapper-province__options"></ul>
+                            </div>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="aside__item">
+                        <a href="#!">
+                           <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Quận/ Huyện
+                            <ul class="aside__nav-child">
+                                {{!-- <label class="district-option">
+                                    <input type="radio" name="district" value="{{order.district}}" checked>
+                                    {{order.district}}
+                                </label> --}}
+                                <div class="wrapper-district extra-district extra-district-short" style="margin:0;">
+                                    <div class="wrapper-district__select-btn extra-short">
+                                        <span style="white-space:nowrap">Chọn Quận</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </div>
+                                    <div class="wrapper-district__content" style="position:relative;">
+                                        <div class="warapper-district__search" style="display:flex; gap:5px;">
+                                            <input name="district" class="wrapper-district__input" spellcheck="false" type="text" placeholder="Tìm kiếm"
+                                                style="width:100%"  value="{{order.district}}">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                        <ul class="wrapper-district__options"></ul>
+                                    </div>
+                                </div>
+                            </ul>
+                        </a>
+                    </li>
+                    <li><input type="hidden" name="helperId" value="{{helper._id}}"></li>
+                    <li><input type="hidden" name="requestType" value="Dài hạn"></li>
+                    <li><input type="hidden" name="date"></li>
+                </ul>
+            </form>
+        </div>
+        {{!-- aside end --}}
+        {{!-- main content start --}}
+        <div class="main-content">
+            {{!-- home section start --}}
+            <section class="home home-active section" id="home">
+                <div class="home__container-2" style="padding-top:15px;">
+                     <div id='calendar'class="show-longterm"></div>
+                    <div class="long-helper__item hide-longterm" >
+                       <div class="home-row-2">
+                        <div class="detail-longterm__tittle">
+                           <div class="detail-longterm__title--heading"> <i class="fa-solid fa-magnifying-glass" style="margin-right:10px;"></i>Thông tin chi tiết - ngày 26/11/2024</div>
+                        <div class="detail-longterm__tittle--back">
+                            <button id="btn-forward"class="btn" style="background-color:var(--skin-button);color:var(--white)">
+                                <i class="fa-solid fa-backward" style="margin-right:5px"></i>Quay lai
+                                    </button>
+                                    </div>
+                            
+                        </div>
+                        </div>
+                        <div class="home-row-2">
+                            <div class="detail-employee">
+                                <p>Chi tiết nhân viên</p>
+                                <button class="short-helper__btn js-toggle" toggle-target="#aside-longterm">
+                                    <i class="fa-solid fa-bars"></i>
+                                </button>
+                            <div class="aside-detail__longterm hide" id ="aside-longterm">
+                                <ul>
+                                   <li>
+                                    <a href="#!"><div class="form_  _group" style="margin-top:10px;display: flex
+;
+    align-items: center;
+    justify-content: space-around;">
+                                        <input type="checkbox" id="check" name="service_id" >
+                                        <label for="check" class="book-item__flex-50-text">
+                                            tran phi hung
+                                        </label>
+                                        <button class="short-helper__btn js-toggle-2" toggle-target-2="#aside-longterm__detail" style="width:30px; height:30px;">
+                                            <i class="fa-solid fa-info"></i>
+                                        </button>
+                                    </div></a>
+                                   </li>
+                                   <li>
+                                    <a href="#!">
+                                        <div class="form_  _group" style="margin-top:10px;display: flex
+                                    ;
+                                        align-items: center;
+                                        justify-content: space-around;">
+                                            <input type="checkbox" id="check" name="service_id">
+                                            <label for="check" class="book-item__flex-50-text">
+                                                tran phi hung
+                                            </label>
+                                            <button class="short-helper__btn js-toggle-2" toggle-target-2="#aside-longterm__detail" style="width:30px; height:30px;">
+                                                <i class="fa-solid fa-info"></i>
+                                            </button>
+                                        </div>
+                                    </a>
+                                   </li>
+                                   <li>
+                                    <a href="#!">
+                                        <div class="form_  _group" style="margin-top:10px;display: flex
+                                    ;
+                                        align-items: center;
+                                        justify-content: space-around;">
+                                            <input type="checkbox" id="check" name="service_id">
+                                            <label for="check" class="book-item__flex-50-text">
+                                                tran phi hung
+                                            </label>
+                                            <button class="short-helper__btn js-toggle-2" toggle-target-2="#aside-longterm__detail" style="width:30px; height:30px;">
+                                                <i class="fa-solid fa-info"></i>
+                                            </button>
+                                        </div>
+                                    </a>
+                                   </li>
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="home-row-2">
+                            <section class="about-detail section-longterm" id="service-detail" style="padding:0px;">
+                                <div class="home__container-2 aside-longterm__detail" id="aside-longterm__detail" style="padding-left:50px;padding-right:50px;">
+                                    <div class="home__row-2">
+                                        <div class="section-title padd-15">
+                                            <h2>Thông tin chi tiết</h2>
+                            
+                                        </div>
+                                    </div>
+                                    <div class="home__row-2">
+                                        <div class="about-detail__content padd-15">
+                                            <div class="about-detail__text">
+                                                <h3>Tôi tên là {{helper.fullName}} và <span>
+                                                        người giúp việc
+                                                    </span>
+                                                </h3>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum repudiandae doloremque
+                                                    ullam voluptate, omnis harum ratione ea incidunt magni placeat in! Eius nam illum
+                                                    molestiae voluptates cum magnam laboriosam corporis?</p>
+                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="home__row-2">
+                                        <div class="about-detail__personal-infor padd-15">
+                                            <div class="home__row-2 extra-flex-direction">
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Quận: <span>
+                                                            {{#each helper.workingArea.districts}}
+                                                            {{this}}
+                                                            {{/each}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Tuổi: <span>22</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Ngày sinh nhật: <span>{{helper.birthDate}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Giới tính:<span>{{helper.gender}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Số điện thoại:<span>{{helper.phone}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Quê quán:<span>{{helper.birthPlace}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Tỉnh:<span>{{helper.workingArea.province}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Địa chỉ:<span>{{helper.address}}</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Chiều cao:<span>{{helper.height}} cm</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Chiều cao:<span>{{helper.weight}} kg</span></p>
+                                                </div>
+                                                <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
+                                                    <p>Năm kim nghiệm:<span>{{helper.yearOfExperience}} năm</span></p>
+                                                </div>
+                                            </div>
+                                            <div class="home__row-2">
+                                                <div class="button padd-15">
+                                                    <a href="#hire-helper" class="home-btn book-helper" data-section-index="1">Thuê người này</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="about-detail__skills padd-15">
+                            
+                                        </div>
+                                    </div>
+                                    <div class="home__row-2">
+                                        <div class="about-detail__tab-ui padd-15" style="padding-bottom:50px;">
+                                            <div class="tabs">
+                                                <div class="tab-item active">
+                                                    <i class="tab-icon fas fa-code"></i>
+                                                    Đánh giá chung
+                                                </div>
+                                                <div class="tab-item">
+                                                    <i class="tab-icon fas fa-cog"></i>
+                                                    Mô tả kinh nghiệm
+                                                </div>
+                                                <div class="tab-item">
+                                                    <i class="tab-icon fas fa-plus-circle"></i>
+                                                    Thông tin chi tiết
+                                                </div>
+                                                <div class="tab-item">
+                                                    <i class="tab-icon fas fa-pen-nib"></i>
+                                                    Giấy khám sức khỏe
+                                                </div>
+                                                <div class="line"></div>
+                                            </div>
+                            
+                                            <!-- Tab content -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active">
+                                                    <h2>React</h2>
+                                                    <p>React makes it painless to create interactive UIs. Design simple views for each state
+                                                        in your application,
+                                                        and React will efficiently update and render just the right components when your
+                                                        data changes.
+                                                        temporibus! Quibusdam, ea ad. Laborum repellat distinctio, magni commodi enim eos
+                                                        provident quaerat quas. Ratione mollitia omnis autem. Iste quam corporis repellat
+                                                        eum. Cum ex autem omnis iusto hic sed, libero dolores laborum quasi quia consequatur
+                                                        aut animi veritatis nesciunt deserunt nam ipsa dolorem culpa doloremque. Voluptates
+                                                        officiis error eum velit necessitatibus ab quaerat, accusantium amet aut officia
+                                                        quos harum quo temporibus fuga at sunt ea?</p>
+                                                </div>
+                                                <div class="tab-pane">
+                                                    <h2>Angular</h2>
+                                                    <p>Angular is an application design framework and development platform for creating
+                                                        efficient and sophisticated
+                                                        single-page apps.</p>
+                                                </div>
+                                                <div class="tab-pane">
+                                                    <h2>Ember</h2>
+                                                    <p>Ember.js is a productive, battle-tested JavaScript framework for building modern web
+                                                        applications. It
+                                                        includes everything you need to build rich UIs that work on any device.</p>
+                                                </div>
+                                                <div class="tab-pane">
+                                                    <h2>Vue.js</h2>
+                                                    <p>Vue (pronounced /vjuː/, like view) is a progressive framework for building user
+                                                        interfaces. Unlike other
+                                                        monolithic frameworks, Vue is designed from the ground up to be incrementally
+                                                        adoptable. </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                       </div>
+                    </div>
+                </div>
+        {{!-- </div> --}}
+        </section>
+        {{!-- home section end --}}
+        </div>
+    {{!-- main content end --}}
+    </div>
+    {{!-- main contain end --}}
+   <script>
+    const locations = {{{ json locations }}};
+    let districts = [];
+    document.addEventListener('DOMContentLoaded', function () {
+        const wrapper = document.querySelector(".wrapper-province");
+        const selectBtn = wrapper.querySelector(".wrapper-province__select-btn");
+        const searchInp = wrapper.querySelector(".wrapper-province__input");
+        const options = wrapper.querySelector(".wrapper-province__options");
+        const extraWrapper = document.querySelector(".extra-wrapper");
+        const extraWrapperDistrict = document.querySelector(".extra-district-short")
+
+        // Kiểm tra xem các element có tồn tại không
+        if (!wrapper || !selectBtn || !searchInp || !options) {
+            console.error("Không tìm thấy các element cần thiết");
+            return;
+        }
+
+        let countries = {{{ json locations }}}.map(location => location.Name);
+
+
+    let orderTest = {{{ json order }}};
+    console.log(orderTest)
+    function addCountry(selectedCountry) {
+        options.innerHTML = "";
+        countries.forEach((country, index) => {
+            let isSelected = country == selectedCountry ? "selected" : "";
+            let li = `<li onclick="updateName(this, ${index})" class="${isSelected}">${country}</li>`;
+            options.insertAdjacentHTML("beforeend", li);
+        });
+    }
+
+    function updateName(selectedLi, selectedIndex) {
+        searchInp.value = selectedLi.innerText;
+        addCountry(selectedLi.innerText);
+        wrapper.classList.remove("active-menu-search");
+        selectBtn.firstElementChild.innerText = selectedLi.innerText;
+        districts = [];
+
+        for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+            let districtName;
+            console.log(districtName);
+            districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện|Quận) /g, ''));
+        }
+        console.log(districts);
+        makeWrapperDistrict(districts, selectedLi);
+    }
+
+    // Đưa updateName vào global scope để onclick có thể truy cập
+    window.updateName = updateName;
+
+    searchInp.addEventListener("keyup", () => {
+        let arr = [];
+        let searchWord = searchInp.value.toLowerCase();
+        arr = countries.filter(data => {
+            return data.toLowerCase().startsWith(searchWord);
+        }).map(data => {
+            let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
+            return `<li onclick="updateName(this)" class="${isSelected}">${data}</li>`;
+        }).join("");
+        options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+    });
+
+    selectBtn.addEventListener("click", () => extraWrapper.classList.toggle("active-menu-search"));
+
+    // Khởi tạo danh sách ban đầu
+    addCountry();
+    });
+    const wrapper_district = document.querySelector(".wrapper-district");
+    console.log(wrapper_district);
+    const selectBtn_district = wrapper_district.querySelector(".wrapper-district__select-btn");
+    console.log(selectBtn_district);
+    const searchInp_district = wrapper_district.querySelector(".wrapper-district__input");
+    console.log(searchInp_district);
+    const options_district = wrapper_district.querySelector(".wrapper-district__options");
+    function makeWrapperDistrict(districts, selectedLi) {
+        console.log(1);
+        selectBtn_district.firstElementChild.innerText = districts[0];
+        searchInp_district.value = districts[0];
+        // Kiểm tra xem các element có tồn tại không
+        if (!wrapper_district || !selectBtn_district || !searchInp_district || !options_district) {
+            console.error("Không tìm thấy các element cần thiết");
+            return;
+        }
+
+        console.log(districts);
+        function addCountry_district(selectedCountry) {
+            options_district.innerHTML = "";
+            districts.forEach((country, index) => {
+                let isSelected = country == selectedCountry ? "selected" : "";
+                let li = `<li onclick="updateName_district(this, ${index})" class="${isSelected}">${country}</li>`;
+                options_district.insertAdjacentHTML("beforeend", li);
+            });
+        }
+
+        function updateName_district(selectedLi, selectedIndex) {
+
+            searchInp_district.value = selectedLi.innerText;
+            addCountry_district(selectedLi.innerText);
+            wrapper_district.classList.remove("active-menu-search");
+            console.log(selectedLi);
+            selectBtn_district.firstElementChild.innerText = selectedLi.innerText;
+            console.log("Selected index:", selectedIndex); // Log ra index
+        }
+
+        // Đưa updateName vào global scope để onclick có thể truy cập
+        window.updateName_district = updateName_district;
+
+        searchInp_district.addEventListener("keyup", () => {
+            let arr = [];
+            let searchWord = searchInp_district.value.toLowerCase();
+            arr = districts.filter((data, index) => {
+                return data.toLowerCase().startsWith(searchWord);
+            }).map((data, index) => {
+                let isSelected = data == selectBtn_district.firstElementChild.innerText ? "selected" : "";
+                return `<li onclick="updateName_district(this, ${index})" class="${isSelected}">${data}</li>`;
+            }).join("");
+            options_district.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+        });
+
+
+        // Khởi tạo danh sách ban đầu
+        addCountry_district();
+    }
+    selectBtn_district.addEventListener("click", (e) => {
+        e.stopPropagation(); // Ngăn event bubbling
+        wrapper_district.classList.toggle("active-menu-search");
+        console.log("District button clicked"); // Debug log);
+    })
+</script>
+   
+    <script>
+      var btnForward=document.getElementById("btn-forward");
+      btnForward.addEventListener("click",function(){
+        document.getElementById("calendar").classList.remove("hide-longterm");
+        document.querySelector(".long-helper__item").classList.remove("show-longterm");
+          document.querySelector(".long-helper__item").classList.add("hide-longterm");
+      })
+    </script>
+    <script src="/js/app.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script>
+        // điều mình mong muốn
+        validator({
+            form: "#form-1",
+            errorElement: ".form__error",
+            formGroupElement: ".form__group",
+            rules: [
+                validator.isRequire("#tel-input", "Bạn chưa nhập gì hết"),
+                validator.isPhone("#tel-input", "vui lòng nhập đúng định dạng của số điện thoại"),
+                //validator.isRequire("#password", "You haven't entered yet."),
+                //validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
+            ],
+            onsubmit: function (data) {
+                console.log(data);
+            }
+        })
+        validator({
+            
+            form: "#form-2",
+            errorElement: ".form__error",
+            formGroupElement: ".form__group",
+            rules: [
+                validator.isRequire("#full-name-input", "Bạn chưa nhập gì hết"),
+                validator.isRequire("#address-input", "Bạn chưa nhập gì hết"),
+                validator.isRequire("#city-input", "Bạn chưa nhập gì hết"),
+                validator.isRequire("#district-input", "Bạn chưa nhập gì hết"),
+
+
+                //validator.isRequire("#password", "You haven't entered yet."),
+                //validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
+            ],
+            onsubmit: function (data) {
+                console.log(data);
+            }
+        })
+    </script>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script>
+            var datesInput = document.querySelector("input[name='date']");
+            var dates="";
+            var form = document.querySelector('form[action="/request/longterm"]');
+            var submitBtn = document.querySelector('button[type="submit"]');
+            console.log("form", form);
+            console.log("submitBtn", submitBtn);
+            form.onchange = function () {
+                form.submit();
+            }
+            submitBtn.onclick = function () {
+                form.action = "/request";
+                form.submit();
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar')
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'vi',
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                buttonText: {
+                    today: 'Hôm nay',
+                    month: 'Tháng',
+                    week: 'Tuần',
+                    day: 'Ngày'
+                },
+                events: [
+                    {
+                        title: 'Dọn dẹp nhà cửa', // Tiêu đề sự kiện
+                        start: '{{order.startDate}}', // Thời gian bắt đầu
+                        end: '{{order.endDate}}', // Thời gian kết thúc
+                        color: 'var(--skin-color)', // Màu sắc sự kiện
+                        // Thêm các thông tin tùy chỉnh
+                        extendedProps: {
+                            status: 'confirmed',
+                            location: 'Quận 1, TPHCM',
+                            helper: 'Nguyễn Văn A'
+                        }
+                    },
+                    // Thêm nhiều sự kiện khác...
+                ],
+                // Xử lý khi click vào sự kiện
+                eventClick: function(info) {
+                    alert('Sự kiện: ' + info.event.title + '\n' +
+                          'Địa điểm: ' + info.event.extendedProps.location + '\n' +
+                          'Người giúp việc: ' + info.event.extendedProps.helper+dates);
+                        //  document.getElementById('calendar').style.display = 'none';
+                        var test= document.querySelector(".show-longterm");
+                        console.log(test);
+                       document.querySelector(".show-longterm").classList.add("hide-longterm");
+                       document.querySelector(".long-helper__item").classList.remove("hide-longterm");
+                       document.querySelector(".long-helper__item").classList.add("show-longterm");
+                },
+                // Xử lý khi click vào ngày trống
+                dateClick: function(info) {
+                    if(dates.indexOf(info.dateStr)!=-1){
+                        dates=dates.replace(info.dateStr+",","");
+                        alert('Đã chọn ngày: ' +" "+dates)
+                        return;
+                    }
+                    dates+=info.dateStr+",";
+                    datesInput.value=dates;
+                    alert('Đã chọn ngày: '+" "+dates);
+                    // Có thể mở modal để tạo sự kiện mới
+                }
+            })
+            calendar.render()
+        })
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#myID1", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            conjunction: " :: ",
+            minTime: "06:00",
+            maxTime: "20:00",
+        });
+        flatpickr("#myID", {
+            minDate: "today",
+            mode: "multiple",
+            dateFormat: "Y-m-d",
+            conjunction: " :: "
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"
+        integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+       
+    <script>
+        // Aside navigation handling
+        document.addEventListener('DOMContentLoaded', function () {
+            const nav = document.querySelector(".aside__nav"),
+                navList = nav.querySelectorAll(".aside__item"),
+                navToggleBtn = document.querySelector('.aside__nav-toggle'),
+                aside = document.querySelector(".aside");
+
+            // Add click handlers to nav items
+            navList.forEach(item => {
+                const link = item.querySelector("a");
+                if (!link) return;
+
+                link.addEventListener("click", function (e) {
+                    // Prevent default only if href is #!
+                    if (this.getAttribute("href") === "#!") {
+                        e.preventDefault();
+                    }
+
+                    // Remove active class from all nav items
+                    navList.forEach(navItem => {
+                        const navLink = navItem.querySelector("a");
+                        if (navLink) {
+                            navLink.classList.remove("aside__nav-active");
+                        }
+                    });
+
+                    // Add active class to clicked item
+                    this.classList.add("aside__nav-active");
+
+                    // Không tự động đóng aside khi click vào nav items nữa
+                });
+            });
+
+            // Toggle button handler (nút X)
+            if (navToggleBtn) {
+                navToggleBtn.addEventListener("click", toggleAside);
+            }
+
+            // Aside toggle function
+            function toggleAside() {
+                aside.classList.toggle("open");
+                if (navToggleBtn) {
+                    navToggleBtn.classList.toggle("open");
+                }
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper--slideshow", {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+            centeredSlides: true,
+            grabCursor: true,
+            loop: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                clickable: true,
+            },
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: "3",
+            spaceBetween: 150,
+            centeredSlides: true,
+            grabCursor: true,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
+
+    <script>
+
+    </script>
+</body>
+
+</html>

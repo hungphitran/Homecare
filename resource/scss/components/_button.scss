@@ -1,0 +1,138 @@
+@use "../abstracts";
+// filter
+.filter{
+    &-btn{
+        display: flex;
+        gap:14px;
+        padding:10px 12px;
+        background-color: var(--br-filter);
+        border-radius: 6px;
+        /* Medium 16 */
+        font-size: 1.6rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 24px; /* 150% */
+    }
+}
+// like
+ .like-btn{
+        width:50px;
+        height:50px;
+        border-radius:50%;
+        background-color:var(--br-like);
+        box-shadow: 0px 20px 60px rgba(124, 124, 124, 0.20);
+        // .liked-btn &__icon{
+        //     filter: brightness(0) saturate(100%) invert(65%) sepia(67%) saturate(6554%) hue-rotate(335deg) brightness(100%) contrast(96%);
+        // }
+        // &:has(.liked-btn) .like-btn__icon{
+        //     display:none;
+        // }
+        &.liked-btn .like-btn__icon{
+            display:none;
+        }
+        &:not(.liked-btn) .like-btn__icon--liked{
+            display:none;
+        }
+}
+ .btn{
+    height:44px;
+    padding:0 20px;
+    border-radius: 6px;
+    background:#292E39;
+    font-size:1.4rem;
+    font-weight:500;
+    user-select: none;
+    white-space: nowrap;
+    // box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
+    border: 1px solid #4CAF50;
+    // + .btn{
+    //     margin-left:30px;
+    // }
+    &-find{
+        background-color:#478e3a ;
+        border-radius: 0px;
+        height:45px;
+        color:#fff;
+        font-weight:600;
+    }
+    &__short-term,&__long-term{
+        width:50%;
+        color:#fff;
+        font-weight: 700;
+        font-size:2rem;
+        border-radius: 0px;
+        background-color: rgba(2, 87, 28, .5);
+    }
+    &__short-term:hover,&__long-term:hover{
+         background-color: #02571C;
+        border:solid 1px #fff;
+        border-radius:3px;
+    }
+    &__short-term:active,&__long-term:active{
+        background-color: red;
+    }
+
+    &--text{
+        color:black;
+        background-color: transparent;
+        font-weight:400;
+    }
+    &--primary{
+        background-color: #4CAF50;
+        color:#1A162E;
+        white-space: nowrap;
+    }
+    &--outline{
+        background: transparent;
+        border: solid 1px #9E9DA8;
+    }
+    &[disabled],
+    &--disabled{
+        opacity: 0.5;
+        pointer-events: none;
+    }
+    &--rounded{
+        border-radius: 99px;
+        border: solid 1px #fff;
+    }
+    &:hover{
+        opacity:0.9;
+    }
+    &-center{
+        margin-top:30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:10px;
+        width:100%;
+    }
+    
+ }
+ .active-term{
+        background-color: #02571C;
+        border:solid 1px #fff;
+        border-radius:3px;
+         pointer-events: none;
+    }
+    .btn-google-play__img{
+        @include abstracts.screen(xl){
+            display:inline-block;
+            height:40px;
+        }
+    }
+    .btn-apple-store__img{
+        @include abstracts.screen(xl){
+            display:inline-block;
+            height:40px;
+        }
+    }
+   .btn.btn-find::hover{
+        opacity: 0.7;
+    }
+    .btn-long{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 10px;
+    }

@@ -1,0 +1,45 @@
+@use "../abstracts";
+.logo{
+    display:flex;
+    align-items: center;
+    gap:14px;
+    white-space: nowrap;
+    // @include abstracts.screen(md){
+    //     translate: 60%;
+    // }
+    &__img-helper{
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        position: absolute;
+        left: -95px;
+        top: -53px;
+    }
+    &__img{
+        width:100px;
+        height: 100px;
+        object-fit: contain;
+        &--large{
+            width: 200px;
+            height:200px;
+        }
+    }
+    &__img-header{
+        transform: translateY(-10px);
+    }
+    &__title{
+        color: var(--Secondary-Color-Secondary-1, #1A162E);
+        font-size: 2.2rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 1.45; /* 145.455% */
+    }
+    &__user{
+        display: block;
+    }
+}
+.logo_medium{
+    width:100px;
+    height: 100px;
+    left:-55px;
+}

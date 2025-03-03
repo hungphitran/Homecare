@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<style>
+  /* public/css/style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+
+main {
+    padding: 2rem 6rem 6rem 6rem;
+}
+
+.blog{
+  width: 100%;
+  height: 150px;
+  background-color: #ffffff;
+}
+
+.blog .btn__blog{ padding: 8px 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 4px;
+    background: greenyellow;
+}
+
+.blog .blog__nav{
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        padding:10px;
+}
+
+.blog .blog__logo{
+  width: 50px;
+  height: 50px;
+}
+
+.blog-article {
+    background-color: #fff;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.blog-header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.blog-date{
+    font-style: italic;
+}
+
+.blog-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.blog-type{
+  color: chartreuse;
+}
+.blog-author{
+    line-height: 100%;
+}
+
+.blog-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+    width: 50%;
+    margin-left: 25%;
+}
+
+.blog-content {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.blog__list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+  justify-content: center;
+  gap: 10px;
+}
+
+.blog__list .blog-card{
+    background: var(--bg-color);
+    box-shadow: 0 4px 14px hsl(35deg 25% 15% / 10%);
+    border-radius: 0.5rem;
+}
+.blog__list .blog-card *{
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+}
+
+.blog__list .blog-card img{
+  width: 80%;
+  height: auto;
+  margin-left: 10%;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+</style>
+<body>
+      <header class="blog">
+        <div class="blog__nav blog__container">
+            <a href="/" class="blog__logo">
+                <div class="logo">
+                    <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo __img-header" width="100px" height="100px">
+                </div>
+            </a> 
+            <form action="/blog" method="get">
+              <button type="submit" class="btn__blog">Quay lại trang blog</button>
+            </form>
+        </div>
+    </header>
+    <main>
+        <article class="blog-article">
+          <div class="blog-header">
+            <p class="blog-type">{{blog.type}}</p>
+            <p class="blog-date">{{blog.date}}</p>
+          </div>
+            <h2 class="blog-title">{{blog.title}}</h2>
+            <div class="blog-author"><img src="https://i.pinimg.com/474x/30/6f/d0/306fd0fb64f67ff40f81d8e37f8bf674.jpg" width="30px" height="30px" alt="">{{blog.author}}</div>
+            <h3 class="blog-description">{{blog.description}}</h3>
+            <img src="{{blog.img}}" alt="blog Image" class="blog-image">
+            <p class="blog-content">{{{blog.content}}}</p>
+        </article>
+
+        <article class="blog-article">
+          <h2>Bài viết cùng loại</h2>
+          <div class="blog__list">
+            {{#each blogs}}
+                <div class="blog-card">
+                  <a href="/blog/{{_id}}">
+                  <img src="{{img}}" alt="">
+                  <div class="blog-content">
+                    <p >{{title}}</p>
+                  </div>
+                  </a>
+                </div>
+            {{/each}}
+          </div>
+        </article>
+    </main>
+        <footer>
+        <p>&copy; 2025 News Page</p>
+    </footer>
+</body>
+</html>

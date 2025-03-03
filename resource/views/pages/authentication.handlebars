@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>project 8</title>
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="./assets/favicon/site.webmanifest">
+    <link rel="mask-icon" href="./assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <!-- fonts -->
+    <link rel="stylesheet" href="./assets/fonts/stylesheet.css">
+    <!-- link css -->
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <!-- script -->
+    <script src="./assets/js/scripts.js"></script>
+    <style>
+        body {
+            font-family: Gordita, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="auth">
+        <div id="btn-content" class="auth__content show">
+            <div class="auth__content-inner">
+                <!-- logo -->
+                <a href="./">
+                    <div class="logo">
+                        <img src="./assets/icons/main-logo.svg" alt="grocerymart" class="logo__img">
+                        <h1 class="logo__title">grocerymart</h1>
+                    </div>
+                </a>
+                <h2 class="auth__heading">Forgot your password?</h2>
+                <p class="auth__desc"> Welcome back to sign in. As a returning customer, you have access to your
+                    previously saved all information.</p>
+                <!-- <p class="auth__message message message__error">We have e-mailed your password reset link</p> -->
+                <form action="./forgot-password-emailed.html" class="form auth__form">
+                    <!-- input 1 -->
+                    <div class="form__group">
+                        <div class="form__text-input">
+                            <input placeholder="Email" type="email" class="form__input" required>
+                            <img src="./assets/icons/evelope.svg" alt="evelope" class="form__input-icon">
+                            <img src="./assets/icons/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error">email này nhập chưa chính xác</p>
+                    </div>
+
+                    <!-- item 5  -->
+                    <div class="form__group form__group-btn form__submit-btn">
+                        <button class="btn btn--primary">Reset Password</button>
+
+                    </div>
+                </form>
+                <p class="auth__text">
+                    <a href="./sign-in.html" class="auth__link">Back to sign in?</a>
+                </p>
+            </div>
+        </div>
+    </main>
+    <script>
+        window.dispatchEvent(new Event("template-loaded"));
+    </script>
+</body>
+</html>

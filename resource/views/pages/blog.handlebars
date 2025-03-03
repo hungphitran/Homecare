@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {{!-- box icon --}}
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+    <header class="blog">
+        <div class="blog__nav blog__container">
+            <a href="/" class="blog__logo">
+            Home<span>Care</span>
+            </a> 
+            <a href="/" class="blog__logo">
+                <div class="logo">
+                    <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo __img-header">
+                </div>
+            </a>
+            <a href="/account/register" class="blog__login">Đăng Kí</a>
+        </div>
+    </header>
+    <section class="blog__home" id="blog-home">
+        <div class="blog__home-text blog__container">
+            <h2 class="blog__home-title">HomeCare Blogger</h2>
+            {{!-- <span class="blog__home-subtitle">Lorem ipsum dolor sit amet consectetur.</span> --}}
+        </div>
+    </section>
+   <section class="blog__about blog__container" id="blog-about">
+            {{#each blogs}}
+            {{#if @first}}
+    <div class="blog__contentBx">
+
+                <h2 class="blog__titleText">{{title}}</h2>
+                <p class="blog__title-text">{{description}}
+        </p>
+        <a href="#" class="blog__btn2">Đọc thêm</a>
+
+    </div>
+    <div class="blog__imgbx">
+        <img src="/img/about.png" alt="" class="blog__imgbx-fitBg">
+    </div>
+                {{/if}}
+        {{/each}}
+   </section>
+   <section>
+    <form action="" class="blog__search-bar" style="margin-top:15px">
+        <input type="text" placeholder="tìm kiếm bất cứ điều gì trong HomeCare" name="q" onkeyup="search()"
+            id="search-item">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass" style="font-size:3rem;"></i></button>
+    </form>
+   </section>
+   <div class="blog__post-filter blog__container">
+    <span class="blog__filter-item active-filter" data-filter="all">
+        Tất Cả
+    </span>
+    {{#each tags}}
+        <span class="blog__filter-item" data-filter="{{this}}">{{this}}</span>   
+    {{/each}}
+   </div>
+<div class="blog__post container" id="product-list">
+    <!-- Post 1 -->
+    {{#each blogs}}
+    <div class="blog__post-box tech" data-type="{{type}}">
+        <img src="{{img}}" alt="" class="blog__post-img">
+        <h2 class="blog__category">{{type}}</h2>
+        <a href="/blog/{{_id}}" class="blog__post-title">{{title}}</a>
+        <span class="blog__post-date">{{date}}</span>
+        <p class="blog__post-description">{{description}}</p>
+        <div class="blog__profile">
+            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
+            <span class="blog__profile-name">{{author}}</span>
+        </div>
+    </div>
+    {{/each}}
+</div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+ //nav background
+ let header= document.querySelector(".blog")
+ window.addEventListener("scroll",()=>{
+    header.classList.toggle("shadow",window.scrollY>0)
+ })
+
+ //Filter
+ $(document).ready(function () {
+    $(".blog__filter-item").click(function () {
+        const value = $(this).attr("data-filter");
+        console.log("value :",value)
+        if (value == "all") {
+            $(".blog__post-box").show("1000")
+        } else {
+            $(".blog__post-box").each(function() {
+                const postType = $(this).attr("data-type");
+                if (postType === value) {
+                    console.log(postType)
+                    $(this).show("1000");
+                } else {
+                    $(this).hide("1000");
+                }
+            });
+        }
+    });
+    $(".blog__filter-item").click(function () {
+        $(this).addClass("active-filter").siblings().removeClass("active-filter")
+    });
+ });
+    
+  const search =()=>{
+    const searchbox =document.getElementById("search-item").value.toUpperCase();
+    const storeitems= document.getElementById("product-list");
+    const product = document.querySelectorAll(".blog__post-box");
+    const ptitle= document.querySelectorAll(".blog__post-title");
+    for( var i=0; i < ptitle.length;i++){
+        let match =product[i].getElementsByClassName("blog__post-title")[0];
+        if(match){
+            let textvalue= match.textContent || match.innerHTML;
+            if(textvalue.toUpperCase().indexOf(searchbox)>-1){
+                product[i].style.display="";
+            }else{
+                product[i].style.display="none";
+            }
+        }
+    }
+  }
+
+</script>
+</body>
+</html>

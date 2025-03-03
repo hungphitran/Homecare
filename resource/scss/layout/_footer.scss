@@ -1,0 +1,105 @@
+@use "../abstracts";
+.footer{
+    position:relative;
+   background-image: url(/img/background__footer.png);
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   padding: 50px 0;
+   background-color: rgba(2, 87, 28, 0.8);
+   &__heading{
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+   }    
+   &__more{
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+   }
+   &__input{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #fff;
+    padding: 0 10px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+   }
+   &__bottom{
+    position:absolute;
+    padding: 50px 0;
+    bottom: -70px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #02571c;
+   }
+   &__icon-tiktok, &__icon-facebook, &__icon-youtube, &__icon-twitter, &__icon-linkin{
+        width:20px;
+        height:20px;
+    }
+    &__list-icon{
+        display:flex;
+        gap:30px;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    &__item-icon{
+        width: 30px;
+        height: 30px;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        
+
+        &:hover{
+            opacity: 0.5;
+        }
+    &-facebook{
+        background-color: #556386;
+    }
+    &-youtube{
+        background-color: #9b1b1b;
+    }
+    &-tiktok{
+        background-color: #000000;
+    }
+    &-twitter{
+        background-color: #6b93ba;
+    }
+    &-linkin{
+        background-color: #4b6c89;
+    }
+    }
+    &__author{
+        color: #556386;
+    }
+    .icon1{
+        filter:var(--icon-color-footer);
+    }
+}
+.row-footer{
+    @include abstracts.screen(lg){
+        display: flex!important;
+        flex-direction: column!important;
+        align-items: center!important;
+        justify-content: center!important;
+        gap:22px;
+    }
+}
+.btn-footer{
+    width:70%;
+}
+.flex-footer{
+    @include abstracts.screen(md){
+        gap:10px
+    }
+    
+}
