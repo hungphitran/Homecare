@@ -263,23 +263,23 @@
                                     <div class="form__group" style="margin-top:10px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
-                                                value="{{order.dates}}" name="dates" required>
+                                                value="{{order.startDate}}" name="startDate" required>
                                             {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
                                         <p class="form__error"></p>
                                     </div>
-                                    <!--
+                            
                                     <div class="form__group" style="margin-top:10px;">
                                         <div class="form__text-input form-control">
                                             <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
                                                 value="{{order.endDate}}" name="endDate" required>
-                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                        <!--    <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> -->
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                         </div>
                                         <p class="form__error"></p>
                                     </div>
-                                    -->
+                                    
                                 </li>
                             </ul>
                         </a>
@@ -363,7 +363,7 @@
                                 {{#each services}}
                                 <li>
                                     <div class="form__group" style="margin-top:10px;">
-                                        <input type="radio" id="{{_id}}" name="service_id"  value="{{_id}}" {{#compareProperties ../order 'service_id' '_id'}}checked="checked"{{/compareProperties}}>
+                                        <input type="radio" id="{{_id}}" name="service"  value="{{_id}}" {{#compareProperties ../order 'service' 'title'}}checked="checked"{{/compareProperties}}>
                                         <label for="#{{_id}}" class="book-item__flex-50-text">
                                             {{title}}
                                         </label>
@@ -375,14 +375,14 @@
                     <li class="aside__item">
                         <a href="#!">
                             <i class="fa fa-map-marker-alt" style="margin-right:5px;color:var(--skin-color)"></i>Tỉnh/Thành phố
-                            {{!-- <ul class="aside__nav-child">
+                            <!-- <ul class="aside__nav-child">
                                 {{#each locations}}
                                 <label class="province-option">
                                     <input type="radio" name="province" value="{{this.province}}" checked>
                                     {{this.province}}
                                 </label>
                                 {{/each}}
-                            </ul> --}}
+                            </ul> -->
                         <div class="wrapper-province extra-wrapper">
                         
                             <div class="wrapper-province__select-btn">
@@ -392,7 +392,7 @@
                             <div class="wrapper-province__content">
                                 <div class="warapper-province__search">
                                     <input class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm"
-                                        name="province" style="width:85%" value="{{this.province}}">
+                                        name="province" style="width:85%" value="{{order.province}}">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </div>
                                 <ul class="wrapper-province__options"></ul>
@@ -427,7 +427,6 @@
                     </li>
                     <li><input type="hidden" name="helperId" value="{{helper._id}}"></li>
                     <li><input type="hidden" name="requestType" value="Dài hạn"></li>
-                    <li><input type="hidden" name="date"></li>
                 </ul>
             </form>
         </div>
@@ -458,52 +457,20 @@
                                 </button>
                             <div class="aside-detail__longterm hide" id ="aside-longterm">
                                 <ul>
+                                    {{#each helpers}}
                                    <li>
-                                    <a href="#!"><div class="form_  _group" style="margin-top:10px;display: flex
-;
-    align-items: center;
-    justify-content: space-around;">
-                                        <input type="checkbox" id="check" name="service_id" >
+                                    
+                                    <a href="#!"><div class="form_  _group" style="margin-top:10px;display: flex;align-items: center;justify-content: space-around;">
+                                        <input type="radio" id="helper_id" value="{{this._id}}" name="service_id" >
                                         <label for="check" class="book-item__flex-50-text">
-                                            tran phi hung
+                                            {{this.fullName}}
                                         </label>
                                         <button class="short-helper__btn js-toggle-2" toggle-target-2="#aside-longterm__detail" style="width:30px; height:30px;">
                                             <i class="fa-solid fa-info"></i>
                                         </button>
                                     </div></a>
                                    </li>
-                                   <li>
-                                    <a href="#!">
-                                        <div class="form_  _group" style="margin-top:10px;display: flex
-                                    ;
-                                        align-items: center;
-                                        justify-content: space-around;">
-                                            <input type="checkbox" id="check" name="service_id">
-                                            <label for="check" class="book-item__flex-50-text">
-                                                tran phi hung
-                                            </label>
-                                            <button class="short-helper__btn js-toggle-2" toggle-target-2="#aside-longterm__detail" style="width:30px; height:30px;">
-                                                <i class="fa-solid fa-info"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                   </li>
-                                   <li>
-                                    <a href="#!">
-                                        <div class="form_  _group" style="margin-top:10px;display: flex
-                                    ;
-                                        align-items: center;
-                                        justify-content: space-around;">
-                                            <input type="checkbox" id="check" name="service_id">
-                                            <label for="check" class="book-item__flex-50-text">
-                                                tran phi hung
-                                            </label>
-                                            <button class="short-helper__btn js-toggle-2" toggle-target-2="#aside-longterm__detail" style="width:30px; height:30px;">
-                                                <i class="fa-solid fa-info"></i>
-                                            </button>
-                                        </div>
-                                    </a>
-                                   </li>
+                                   {{/each}}
                                 </ul>
                             </div>
                             </div>
