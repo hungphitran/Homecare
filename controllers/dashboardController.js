@@ -44,7 +44,7 @@ const dashboardController = {
             helpers = await fetch(process.env.API_URL + '/helper')
                 .then(data => data.json())
                 .then(data => data)
-
+            helpers=helpers.slice(0,5) 
         }
         catch (err) {
             console.error(err);
@@ -65,10 +65,14 @@ const dashboardController = {
             //call api to get policies
             policies = await fetch(process.env.API_URL+'/policy')
             .then(data=>data.json())
+
+            for(let policy of policies){
+                let contents = policy.content.split('\n');
+                policy.contents = contents;
+            }
         }
         catch(err){
             console.error(err);
-
         }
 
         
@@ -76,12 +80,16 @@ const dashboardController = {
             //call api to get question
             questions = await fetch(process.env.API_URL+'/question')
             .then(data=>data.json())
+            
+            for(let question of questions){
+                let answers = question.answer.split('\n');
+                question.answers = answers;
+            }
         }
         catch(err){
             console.error(err);
 
         }
-
         // give data to dashboard
         res.render('partials/index', {
             user: user,

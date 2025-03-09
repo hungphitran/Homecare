@@ -50,10 +50,11 @@
     
                 <div class="form-group__request">
                     <label>Ngày thực hiện</label>
-                    <input type="hidden" name="startDate" value="{{request.dates}}">
-                    <span class="value">{{request.dates}}</span>
+                    {{#each request.dates}}
+                    <input type="hidden" name="dates[]" value="{{this}}">
+                    <span class="value">{{this}}</span>
+                    {{/each}}
                 </div>
-    
                 <div class="form-group__request">
                     <label>Dịch vụ</label>
                     <input type="hidden" name="service_id" value="{{service._id}}">
@@ -200,15 +201,17 @@
                         </div>
                         <div class="home__row-2 padd-15">
                             <div class="book-item__form-date">
+                                {{#each request.dates}}
                                 <div class="form__group">
                                     <div class="form__text-input form-control">
                                         <input style="font-size: 1.5rem;height:30px" id="myID" 
-                                            type="text" class="form__input" value="{{request.dates}}" name="startDate" required>
+                                            type="text" class="form__input" value="{{this}}" name="dates[]" required>
                                         {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
                                         <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                     </div>
                                     <p class="form__error"></p>
                                 </div>
+                                {{/each}}
                             </div>
                             <div class="book-item__form-time">
                                 <div class="home__row-2">
