@@ -123,12 +123,12 @@
                            
                                 <div class="form-group slideshow__form-group slideshow__form-group--adjust">
                                     
-                                        {{!-- <select name="province" class="province form-select form-select__province status">
+                                        <!-- <select name="province" class="province form-select form-select__province status">
                                             <option value="0">Chọn Tỉnh</option>
                                             {{#each locations}}
                                             <option value="{{this.Name}}">{{this.Name}}</option>
                                             {{/each}}
-                                        </select> --}}
+                                        </select> -->
                                         <div class="wrapper-province__long extra-province" style="margin:0;">
                                             <div class="wrapper-province__select-btn extra-short extra-border-left">
                                                 <span style="white-space:nowrap">Chọn Tỉnh</span>
@@ -136,7 +136,7 @@
                                             </div>
                                             <div class="wrapper-province__content" style="position:relative;">
                                                 <div class="warapper-province__search" style="display:flex; gap:5px;">
-                                                    <input class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm" style="width:100%">
+                                                    <input name="province" class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm" style="width:100%">
                                                     <i class="fa-solid fa-magnifying-glass"></i>
                                                 </div>
                                                 <ul class="wrapper-province__options"></ul>
@@ -162,12 +162,12 @@
                                         </div>
                                     </div>
                                    
-                                        {{!-- <select name="service_id" class="service form-select form-select__service status">
+                                        <!-- <select name="service_id" class="service form-select form-select__service status">
                                             <option value="0">Chọn dịch vụ</option>
                                             {{#each services}}
                                             <option value="{{this._id}}">{{this.title}}</option>
                                             {{/each}}
-                                        </select> --}}
+                                        </select> -->
                                         <div class="wrapper-service extra-service wrapper-service__long" style="margin:0;">
                                             <div class="wrapper-service__select-btn extra-short">
                                                 <span style="white-space:nowrap">Chọn Dịch Vụ</span>
@@ -183,28 +183,28 @@
                                             </div>
                                         </div>
                                     
-                                {{!-- <label for="start-date" class="form-label__start-date">
+                                <!-- <label for="start-date" class="form-label__start-date">
                                     <input type="date" id="start-date" name="startDate" min="{{formatDate}}" style="height:44px"
                                         onfocus="this.showPicker()" value="{{formatDate}}" class="input-date status">
-                                </label> --}}
+                                </label> -->
                                 <div class="form__group form-label__start-date" style="margin-top:0px;">
                                     <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
                                         <input style="font-size: 1.5rem;height:20px" id="myID7" placeholder="Ngày Bắt Đầu" type="text" class="form__input"
-                                            value="{{order.dates}}" name="startDate" required class="input-date status">
-                                        {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                           name="startDate" required class="input-date status">
+                                        <!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> -->
                                         <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                     </div>
                                     <p class="form__error"></p>
                                 </div>
-                                {{!-- <label for="end-date" class="form-label__start-date">
+                                <!-- <label for="end-date" class="form-label__start-date">
                                     <input type="date" id="end-date" name="endDate" style="height:44px"
                                         onfocus="this.showPicker()" min="{{formatDate}}" value="{{formatDate}}" class="input-date status">
-                                </label>                             --}}
+                                </label>                             -->
                                 <div class="form__group form-label__start-date" style="margin-top:0px;">
                                     <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
                                         <input style="font-size: 1.5rem;height:20px" id="myID8" placeholder="Ngày Kết Thúc" type="text" class="form__input"
-                                            value="{{order.dates}}" name="endDate" required class="input-date status">
-                                        {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
+                                             name="endDate" required class="input-date status">
+                                        <!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> -->
                                         <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                     </div>
                                     <p class="form__error"></p>
@@ -391,14 +391,16 @@
 
                 <div class="faq__item">
                     <div class="faq__item-question">
-                        <p class="faq__item-question-text">{{@index}}.{{question}}</p>
+                        <p class="faq__item-question-text">{{@index}}. {{question}}</p>
                         <i class="fa-solid fa-plus"></i>
                     </div>
                     <div class="faq__item-answer">
                         <div class="faq__item-answer-text">
                             <p class="faq__item-answer-text--desc faq-title"></p>
                             <ul class="faq__item-answer-text--desc">
-                                {{answer}}
+                                {{#each answers}}
+                                    <li>{{this}}</li>
+                                {{/each}}
                             </ul>
                         </div>
                     </div>

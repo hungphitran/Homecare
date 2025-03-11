@@ -4,18 +4,24 @@ require('dotenv').config()
 const accountController = {
     //show login page
     showLogin: async (req, res, next) => { 
+        if(req.session.phone){
+            res.redirect('/account/detailed');
+        }
         //render login page
         res.render('pages/login', { layout: false });
 
     },
     //show login page
     showRegister: async (req, res, next) => {
+        if(req.session.phone){
+            res.redirect('/account/detailed');
+        }
         //render register page
         res.render('pages/register', { layout: false })
     },
     //login and show account
     login: async (req, res, next) => {
-        if(req.session.phone){
+        if(req.session.phone){//already logged in
             res.redirect('/account/detailed');
         }
 
@@ -53,12 +59,17 @@ const accountController = {
 
     //handle register
     register: async (req, res, next) => {
+
         //format address
-        req.body.addresses = [{ detailedAddress: req.body.address }]
+        req.body.addresses = [{ province:"",district:"",detailAddress: req.body.address}]
+        req.body.points = [{ point: 0 }]
+        req.body.fullName = req.body.name
+        req.body.signedUp = true;
         let existed = await fetch(process.env.API_URL + '/customer/' + req.body.phone)
             .then(data => data.json())
+            .catch(err=>console.error(err))
         if (existed) {//phone is existed
-            res.status(500).json('existed phone')
+            res.render('pages/register', { layout: false, err: "Số điện thoại đã tồn tại" });
         }
         //POST call api to create new user
         let option = {
@@ -69,8 +80,8 @@ const accountController = {
             body: JSON.stringify(req.body)
         }
         await fetch(process.env.API_URL + '/customer', option)
-            .then(() => res.redirect('/account'))
-            .catch(err => res.send(err))
+            .then(() => res.status(200).redirect('/account'))
+            .catch(err => res.status(500).send(err))
 
     },
     //show account page
@@ -82,11 +93,15 @@ const accountController = {
         let user = await fetch(process.env.API_URL + '/customer/' + req.session.phone)
         .then(data => data.json())
         .then(data=>{
-            if(data.points){
+
+            if(data.points ==null || data.points.length==0){
+                data.points=[{point:0},]//if there's no point, set it to 0;
+            }
+            else if(data.points.length>0){
                 data.point=data.points[data.points.length-1].point;//format to display only latest point
-            } 
+            }
+
             let address = data.addresses[0] //get first address
-            data.points=[0];
             data.address =address.detailAddress+" "+address.ward+" "+address.district+' ' //format address
             return data
         })        
@@ -94,9 +109,6 @@ const accountController = {
             console.error(err);
             res.redirect('/')
         })
-
-
-
 
         //GET call api getting all requests which were created by current user
         let requests=await fetch(process.env.API_URL+'/request').then(data=>data.json())
@@ -207,7 +219,7 @@ const accountController = {
     //handle logout
     logout: async (req, res, next) => {
         req.session.destroy();
-        res.redirect('/login');
+        res.redirect('/');
     }
 
 }

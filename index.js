@@ -71,7 +71,7 @@ app.use(session({//setting for session
         maxAge: 1000 * 60 * 30 // Session expired after 30 minutes
     }
 }));
-db.connect();
+//db.connect();
 
 
 // config routes for app
