@@ -64,6 +64,9 @@
 
 
 &__btn{
+    position: fixed;
+        top: 20px;
+        right: 10px;
     display:flex;
     align-items:center;
     justify-content: space-between;
@@ -153,5 +156,197 @@
 
 .table-container::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+.body-homecare {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    background-color: #f0f2f5;
+}
+
+.profile-container-homecare {
+        position: fixed;
+            z-index: 99999;
+            top: 10px;
+            left: 82%;
+            right: 2%;
+    display: flex;
+        justify-content: flex-end;
+        
+        
+}
+
+.profile-dropdown-homecare {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-btn-homecare {
+    background-color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.dropdown-btn-homecare:hover {
+    background-color: #f8f9fa;
+}
+
+.profile-img-homecare {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-name-homecare {
+    font-size: 14px;
+    color: #333;
+}
+
+.dropdown-content-homecare {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    min-width: 200px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 10px;
+    z-index: 1;
+}
+
+.dropdown-content-homecare.active-detail-homecare {
+    display: block;
+    animation: fadeIn-homecare 0.3s ease;
+}
+
+.dropdown-item-homecare {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.dropdown-item-homecare:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item-homecare .fas {
+    width: 20px;
+    text-align: center;
+    color: #666;
+}
+
+/* Modal Styles */
+.modal-homecare {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    animation: fadeIn-homecare 0.3s ease;
+}
+
+.modal-homecare.active-detail-homecare {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content-homecare {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: slideIn-homecare 0.3s ease;
+}
+
+.close-btn-homecare {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.close-btn-homecare:hover {
+    color: #333;
+}
+
+.modal-title-homecare {
+    margin-bottom: 15px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal-text-homecare {
+    color: #666;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.logout-btn-homecare {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+.logout-btn-homecare:hover {
+    background-color: #c82333;
+}
+
+@keyframes fadeIn-homecare {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn-homecare {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 

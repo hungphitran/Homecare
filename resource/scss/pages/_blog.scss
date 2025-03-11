@@ -24,7 +24,7 @@ section{
         display:flex;
         align-items: center;
         justify-content: space-between;
-        padding:18px 0
+       // padding:18px 0
     }
     &__logo{
         font-size: 1.5rem;
@@ -47,6 +47,7 @@ section{
         }
     }
     &__home{
+        display: none;
         width:100%;
         min-height:440px;
         background: url(/img/banner2.png);
@@ -109,6 +110,7 @@ section{
     
 }
 .blog__about{
+    padding-top:80px;
     position:relative;
     width:100%;
     display:flex !important;
@@ -232,7 +234,7 @@ section{
             flex:1;
             border:0;
             outline:none;
-            padding:24px 20px;
+            padding:12px 20px;
             font-size:20px;
             color:#cac7ff;
         }

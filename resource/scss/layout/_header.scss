@@ -8,6 +8,11 @@
     top: 0;
     z-index: 999;
 }
+#helper{
+    padding:7%;
+position: relative;
+    top: 20px;
+}
 .header{
     background-color:#fdf9ff;
     // padding:30px 0;
@@ -290,7 +295,7 @@
 .modal.show .modal-dialog{
     max-width: 1000px;
     position: relative;
-     top: 20%;
+     top: 10%;
 }
 .modal.hide .modal-dialog{
     max-width: 1000px;

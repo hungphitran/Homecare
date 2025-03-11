@@ -32,56 +32,96 @@
 
 
     <div class="main-container" style="padding-top:70px;padding-bottom:1000px">
-        <div class="profile-dropdown">
-            <div class="profile-dropdown__btn" onclick="toggle()">
-                <div class="profile-dropdown__img">
-                    <i class="fa-solid fa-circle"></i>
+    <div class="profile-container-homecare" style="z-index:99999;">
+        <div class="profile-dropdown-homecare">
+            <button class="dropdown-btn-homecare">
+                <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img-homecare">
+                <span class="profile-name-homecare">Tommy</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content-homecare">
+                <div class="dropdown-item-homecare" data-modal="profile">
+                    <i class="fas fa-user"></i>
+                    Thông tin khách hàng
                 </div>
-                <span>
-                    Victoria
-                    <i class="fa-solid fa-angle-down"></i>
-                </span>
+                <div class="dropdown-item-homecare" data-modal="settings">
+                    <i class="fas fa-cog"></i>
+                   Cài đặt
+                </div>
+                <div class="dropdown-item-homecare" data-modal="messages">
+                    <i class="fas fa-envelope"></i>
+                    Tin nhắn
+                </div>
+                <div class="dropdown-item-homecare" data-modal="help">
+                    <i class="fas fa-question-circle"></i>
+                    Trợ giúp
+                </div>
+                <div class="dropdown-item-homecare" data-modal="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Thoát
+                </div>
             </div>
-            <ul class="profile-dropdown__list">
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-regular fa-user"></i>
-                        Edit Profile
-                    </a>
-                </li>
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-regular fa-envelope"></i>
-                        Inbox
-                    </a>
-                </li>
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-solid fa-chart-line"></i>
-                        Analytics
-                    </a>
-                </li>
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-solid fa-sliders"></i>
-                        Settings
-                    </a>
-                </li>
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-regular fa-circle-question"></i>
-                        Help & Support
-                    </a>
-                </li>
-                <hr>
-                <li class="profile-dropdown__item">
-                    <a href="#">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        Log out
-                    </a>
-                </li>
-            </ul>
         </div>
+    </div>
+    
+    <!-- Modals -->
+    <div class="modal-homecare" id="profile-modal-homecare"  style="z-index:99999;">
+        <div class="container-input-form">
+            <form id="userForm-input-form">
+                <h2 class="title-input-form">Thông tin khách hàng</h2>
+                <div class="form-group-input-form">
+                    <label class="label-input-form" for="phone">Số điện thoại</label>
+                    <input class="input-form-accountdetail" type="tel" id="phone" name="phone" pattern="[0-9]+" disabled
+                        required>
+                </div>
+                <div class="form-group-input-form">
+                    <label class="label-input-form" for="name">Họ và tên</label>
+                    <input class="input-form-accountdetail" type="text" id="name" name="name" disabled required>
+                </div>
+                <div class="form-group-input-form">
+                    <label class="label-input-form" for="address">Địa chỉ</label>
+                    <input class="input-form-accountdetail" type="text" id="address" name="address" disabled required>
+                </div>
+                <div class="button-group-input-form">
+                    <button type="button" id="editBtn" class="btn-homedetail edit">chỉnh sửa thông tin</button>
+                    <button type="button" id="saveBtn" class="btn-homedetail save" disabled>Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div class="modal-homecare" id="settings-modal-homecare"  style="z-index:99999;">
+        <div class="modal-content-homecare">
+            <span class="close-btn-homecare">&times;</span>
+            <h2 class="modal-title-homecare"><i class="fas fa-cog"></i> Cài đặt</h2>
+            <p class="modal-text-homecare">Cài đặt đang hoạt động</p>
+        </div>
+    </div>
+    
+    <div class="modal-homecare" id="messages-modal-homecare"  style="z-index:99999;">
+        <div class="modal-content-homecare">
+            <span class="close-btn-homecare">&times;</span>
+            <h2 class="modal-title-homecare"><i class="fas fa-envelope"></i> Tin nhắn</h2>
+            <p class="modal-text-homecare">Tin nhắn của bạn sẽ xuất hiện ở đây.</p>
+        </div>
+    </div>
+    
+    <div class="modal-homecare" id="help-modal-homecare"  style="z-index:99999;">
+        <div class="modal-content-homecare">
+            <span class="close-btn-homecare">&times;</span>
+            <h2 class="modal-title-homecare"><i class="fas fa-question-circle"></i> Trở giúp</h2>
+            <p class="modal-text-homecare">Trợ giúp và hỗ trợ khách Hàng ở đây.</p>
+        </div>
+    </div>
+    
+    <div class="modal-homecare" id="logout-modal-homecare"  style="z-index:99999;">
+        <div class="modal-content-homecare">
+            <span class="close-btn-homecare">&times;</span>
+            <h2 class="modal-title-homecare"><i class="fas fa-sign-out-alt"></i> Thoát</h2>
+            <p class="modal-text-homecare">bạn có chắc chắn muốn thoát ra ngoài?</p>
+            <button class="logout-btn-homecare">Xác nhận</button>
+        </div>
+    </div>
         {{!-- aside start --}}
         <div class="aside">
             <div class="aside__nav-toggle">
@@ -96,266 +136,122 @@
                 </div>
                 <ul class="aside__nav">
                     <li class="aside__item">
-                        <a href="#home" class="aside__nav-active">
-                            <i class="fa fa-home"></i>
-                            Thông tin tài khoản
+                        <a href="#hire-helper">
+                            <i class="fa-brands fa-hire-a-helper"></i>Đặt đơn
                         </a>
                     </li>
                     <li class="aside__item">
-                        <a >
+                        <a  href="#service-detail" class="aside__nav-active">
                             <i class="fa fa-user"></i>Lịnh sử yêu cầu
                         </a>
                     </li>
-                    <li class="aside__item">
-                        <a href="#">
-                            <i class="fa-brands fa-hire-a-helper"></i>Chưa thanh toán
-                        </a>
-                    </li>
-                    <li class="aside__item">
-                        <a href="/logout">
-                            <i class="fa-solid fa-right-to-bracket"></i>Đăng xuất
-                        </a>
-                    </li>
+                    
                 </ul>
         </div>
         {{!-- aside end --}}
         {{!-- main content start --}}
         <div class="main-content">
             {{!-- home section start --}}
-            <section class="home home-active section" id="home">
-                <div class="home__container-2">
-                   <div class="home__row-2">
-                        <div class="home__infor padd-15">
-                            <div class="home__row-2" style="margin-left:0px">
-                                <div class="section-title padd-15">
-                                    <h2>THÔNG TIN TÀI KHOẢN</h2>
-                                </div>
+            {{!-- <section class="home home-active section" id="home">
+                <div class="home__container-2" style="display:flex;align
+                content:center;justify-content:center;">
+                 
+                    <div class="container-input-form">
+                        <form id="userForm-input-form">
+                            <h2 class="title-input-form">Thông tin khách hàng</h2>
+                            <div class="form-group-input-form">
+                                <label class="label-input-form" for="phone">Số điện thoại</label>
+                                <input class="input-form-accountdetail" type="tel" id="phone" name="phone" pattern="[0-9]+" disabled
+                                    required>
                             </div>
-                            <div class="home__row-2 padd-15" style"margin-left:15px">
-                                <form id="form-2" action="" class="book-item__form-main padd-15">
-                                    <div class="home__row-2">
-                                        <div class="book-item__form" style="flex:0 0 100%; max-width:100%">
-                                                <div class="form__group form__group-tel padd-15" style="margin-top:0px">
-                                                    <div class="form__text-input form-control">
-                                                        <input id="tel-input" placeholder="Số điện thoại" type="tel" class="form__input"
-                                                            value="{{user.phone}}" name="phone" minlength="10" disabled required>
-                                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                                        <p class="form__error form__error-tel"></p>
-                                                    </div>
-                                                    {{!-- <p class="form__error"></p> --}}
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <div class="home__row-2 padd-15">
-                                        <div class="book-item__form-name" style="flex:0 0 100%; max-width:100% ">
-                                            <div class="form__group">
-                                                <div class="form__text-input form-control">
-                                                    <input id="full-name-input" placeholder="Full Name" type="text" class="form__input"
-                                                        value="{{user.fullName}}" name="fullName" disabled required>
-                                                    <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                                    <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                                </div>
-                                                <p class="form__error"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="home__row-2 padd-15">
-                                        <div class="book-item__form-district" style="flex:0 0 100%; max-width:100%">
-                                            <div class="form__group">
-                                                <div class="form__text-input form-control">
-                                                    <input id="district-input" placeholder="Quận" type="text" class="form__input"
-                                                        value="{{user.address}}" name="address" disabled required>
-                                                    <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                                    <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                                </div>
-                                                <p class="form__error"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="home__row-2 padd-15" style="padding-bottom:100px">
-                                        <div class="button padd-15" style="flex: 0 0 100%;
-                                                            max-width: 100%;
-                                                            display:inline-flex;
-                                                            align-items: start;
-                                                            justify-content: end;
-                                                            gap: 10px;
-                                                            margin-top:60px;flex-direction: column;
-    align-items: center;">
-                                            <a  class="home-btn book-helper book-helper__cancel"
-                                                onclick="lockDisable()">LƯU THAY ĐỔI</a>
-                                            <a href="#book-item" class="home-btn book-helper" data-section-index="1" onclick="unlockDisable()">SỬA THÔNG TIN</a>
-                                        </div>
-                                    </div>
-                                </form>
+                            <div class="form-group-input-form">
+                                <label class="label-input-form" for="name">Họ và tên</label>
+                                <input class="input-form-accountdetail" type="text" id="name" name="name" disabled required>
                             </div>
-                        </div>
-                       
-                   </div>
-                       {{!-- <div class="home__row-2 popup" id="popup" style="align-items:center; justify-content:center">
-                            <div class="home__infor padd-15" style="flex:0 0 100%; max-height:100%">
-                                <div class="home__row-2" style="margin-left:0px; padding-top:10px">
-                                    <div class="section-title padd-15">
-                                        <h2>THÔNG TIN TÀI KHOẢN</h2>
-                                    </div>
-                                </div>
-                                <div class="home__row-2 padd-15" style"margin-left:15px">
-                                    <form id="form-2" action="" class="book-item__form-main padd-15">
-                                        <div class="home__row-2">
-                                            <div class="book-item__form" style="flex:0 0 100%; max-width:100%">
-                                                <div class="form__group form__group-tel padd-15" style="margin-top:0px">
-                                                    <div class="form__text-input form-control">
-                                                        <input id="tel-input" placeholder="Số điện thoại" type="tel" class="form__input"
-                                                            value="{{account}}" name="phone" minlength="10" required>
-                                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                                        <p class="form__error form__error-tel"></p>
-                                                    </div>
-                                                    {{!-- <p class="form__error"></p> --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="home__row-2 padd-15">
-                                            <div class="book-item__form-name" style="flex:0 0 100%; max-width:100% ">
-                                                <div class="form__group">
-                                                    <div class="form__text-input form-control">
-                                                        <input id="full-name-input" placeholder="Full Name" type="text" class="form__input"
-                                                            value="{{account}}" name="name" required>
-                                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                                    </div>
-                                                    <p class="form__error"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="home__row-2 padd-15">
-                                            <div class="book-item__form-district" style="flex:0 0 100%; max-width:100%">
-                                                <div class="form__group">
-                                                    <div class="form__text-input form-control">
-                                                        <input id="district-input" placeholder="Quận" type="text" class="form__input"
-                                                            value="{{account}}" name="district" required>
-                                                        <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                                        <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                                    </div>
-                                                    <p class="form__error"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="home__row-2 padd-15" style="padding-bottom:100px">
-                                            <div class="button padd-15" style="flex: 0 0 100%;
-                                                                                        max-width: 100%;
-                                                                                        display:inline-flex;
-                                                                                        align-items: start;
-                                                                                        justify-content: end;
-                                                                                        gap: 10px;
-                                                                                        margin-top:60px">
-                                                <a class="home-btn book-helper book-helper__cancel" onclick="openPopup()">HỦY</a>
-                                                <a href="#book-item" class="home-btn book-helper" data-section-index="1">ĐỒNG Ý</a>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                            <div class="form-group-input-form">
+                                <label class="label-input-form" for="address">Địa chỉ</label>
+                                <input class="input-form-accountdetail" type="text" id="address" name="address" disabled required>
                             </div>
-                       </div> --}}
+                            <div class="button-group-input-form">
+                                <button type="button" id="editBtn" class="btn-homedetail edit">chỉnh sửa thông tin</button>
+                                <button type="button" id="saveBtn" class="btn-homedetail save" disabled>Lưu thay đổi</button>
+                            </div>
+                        </form>
+                    </div>
+                    
                 </div>
-            </section>
+            </section> --}}
             {{!-- home section end --}}
             {{!-- about section start --}}
             <section class="about-detail section" id="service-detail">
                 <div class="home__container-2">
-                    <div class="home__row-2">
-                        <div class="section-title padd-15">
-                            <h2>LỊCH SỬ YÊU CẦU</h2>
-                        </div>
-                    </div>
-                    <div class="home__row-2" style="padding-left:15px">
-                        <div class="about-detail__tab-ui about__tab-ui-detail padd-15" style="padding-bottom:50px;">
-                            <div class="home__row-2" style ="margin:auto">
-                                <div class="tabs tabs-details" style="display:flex;flex-direction:row;">
-                                    <div class="tab-item active" style="flex:0 0 50%; max-width:50%">
-                                        {{!-- <i class="tab-icon fas fa-code"></i> --}}
-                                        NGẮN HẠN
-                                    </div>
-                                    <div class="tab-item" style="flex:0 0 50%; max-width:50%">
-                                        {{!-- <i class="tab-icon fas fa-cog"></i> --}}
-                                        DÀI HẠN
-                                    </div>
-                                    <div class="line"></div>
-                                </div>
+                    <div class="container-homedetail">
+                        <div class="table-section-homedetail">
+                            <h2 class="title-homedetail">Dài hạn</h2>
+                            <div class="table-container-homedetail">
+                                <table class="modern-table-homedetail">
+                                    <thead>
+                                        <tr>
+                                            <th>Ngày Yêu cầu</th>
+                                            <th>Loại Đơn</th>
+                                            <th>Giá Chuẩn</th>
+                                            <th>Giờ bắt đầu</th>
+                                            <th>Giờ kết thúc</th>
+                                            <th>Trạng Thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="longTermTable-homedetail">
+                                        {{#each longTermRequests}}
+                                        <tr>
+                                            <td>{{orderDate}}</td>
+                                            <td>{{requestType}}</td>
+                                            <td>{{totalCost}}</td>
+                                            <td>{{startTime}}</td>
+                                            <td>{{endTime}}</td>
+                                            <td>
+                                                <p class="status-detail cancel">{{status}}</p>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
                             </div>
-            
-                            <!-- Tab content -->
-                           <div class="home__row-2" style="overscroll-behavior-x: auto;
-    width: 100%;">
-                                <div class="tab-content" style="overscroll-behavior-x: auto;
-    width: 100%;">
-                                    <div class="tab-pane active">
-                                       <section class="table__body">
-                                        <div class="table-container">
-                                            <table class="table__main">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Ngày Yêu cầu</th>
-                                                        <th>Loại Đơn</th>
-                                                        <th>Giá Chuẩn</th>
-                                                        <th>Giờ bắt đầu</th>
-                                                        <th>Giờ kết thúc</th>
-                                                        <th>Trạng Thái</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {{#each shortTermRequests}}
-                                                        <tr>
-                                                            <td>{{orderDate}}</td>
-                                                            <td>{{requestType}}</td>
-                                                            <td>{{totalCost}}</td>
-                                                            <td>{{startTime}}</td>
-                                                            <td>{{endTime}}</td>
-                                                            <td>
-                                                                <p class="status-detail cancel">{{status}}</p>
-                                                            </td>
-                                                        </tr>
-                                                {{/each}}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                       </section>
-                                    </div>
-                                    <div class="tab-pane">
-                                        <section class="table__body">
-                                            <table class="table__main">
-                                                <thead>
-                                                    
-                                                    <tr>
-                                                        <th>Ngày Yêu cầu</th>
-                                                        <th>Loại Đơn</th>
-                                                        <th>Giá Chuẩn</th>
-                                                        <th>Giờ bắt đầu</th>
-                                                        <th>Giờ kết thúc</th>
-                                                        <th>Trạng Thái</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {{#each longTermRequests}}
-                                                    <tr>
-                                                            <td>{{orderDate}}</td>
-                                                            <td>{{requestType}}</td>
-                                                            <td>{{totalCost}}</td>
-                                                            <td>{{startTime}}</td>
-                                                            <td>{{endTime}}</td>
-                                                        <td>
-                                                            <p class="status-detail cancel">{{status}}</p>
-                                                        </td>
-                                                    </tr>
-                                                    {{/each}}
-                                                </tbody>
-                                            </table>
-                                        </section>
-                                    </div>
-                                </div>
-                           </div>
+                        </div>
+                    
+                        <div class="table-section-homedetail">
+                            <h2 class="title-homedetail">Ngắn hạn</h2>
+                            <div class="table-container-homedetail">
+                                <table class="modern-table-homedetail">
+                                    <thead>
+                                        <tr>
+                                            <th>Ngày Yêu cầu</th>
+                                            <th>Loại Đơn</th>
+                                            <th>Giá Chuẩn</th>
+                                            <th>Giờ bắt đầu</th>
+                                            <th>Giờ kết thúc</th>
+                                            <th>Trạng Thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="shortTermTable-homedetail">
+                                        
+                                        {{#each shortTermRequests}}
+                                        <tr>
+                                            <td>{{orderDate}}</td>
+                                            <td>{{requestType}}</td>
+                                            <td>{{totalCost}}</td>
+                                            <td>{{startTime}}</td>
+                                            <td>{{endTime}}</td>
+                                            <td>
+                                                <p class="status-detail cancel">{{status}}</p>
+                                            </td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                   
                 </div>
             </section>
             {{!-- about section end --}}
@@ -368,34 +264,6 @@
 </body>
 <script src="/js/app.js"></script>
 <script>
-    let inputTel=document.getElementById("tel-input");
-    let inputFullName=document.getElementById("full-name-input");
-    let inputDistrict =document.getElementById("district-input");
-    function unlockDisable(){
-        inputTel.disabled= false;
-        inputFullName.disabled=false;
-        inputDistrict.disabled=false;
-    }
-    function lockDisable(){
-        inputTel.disabled= true;
-        inputFullName.disabled=true;
-        inputDistrict.disabled= true;
-    }
-    let popup = document.getElementById("popup");
-    function openPopup() {
-        popup.classList.add("open-popup");
-    }
-    function closePopup() {
-        popup.classList.remove("open-popup");
-    }
-let profileDropdownList= document.querySelector(".profile-dropdown__list");
-let btn = document.querySelector(".profile-dropdown__btn");
-//this function display or hide profile dropdown list
-const toggle=()=> profileDropdownList.classList.toggle("active");
-window.addEventListener("click",function(e){
-     //hide dropdown list if user click outside dropdown button
-     if(!btn.contains(e.target)) profileDropdownList.classList.remove("active");
-})
     const nav = document.querySelector(".aside__nav"),
         navList = nav.querySelectorAll(".aside__item"),
         totalNavList = navList.length,
@@ -462,23 +330,265 @@ window.addEventListener("click",function(e){
         }
     }
 
-    validator({
-        form: "#form-2",
-        errorElement: ".form__error",
-        formGroupElement: ".form__group",
-        rules: [
-            validator.isRequire("#tel-input","Bạn chưa nhập gì hết"),
-            validator.isRequire("#full-name-input", "Bạn chưa nhập gì hết"),
-            validator.isRequire("#district-input", "Bạn chưa nhập gì hết"),
+    
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            // Get form elements
+            const form = document.getElementById('userForm-input-form');
+            const inputs = form.querySelectorAll('.input-form-accountdetail');
+            const editBtn = document.getElementById('editBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const phoneInput = document.getElementById('phone');
 
+            // Phone number validation
+            phoneInput.addEventListener('input', function (e) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
 
-            //validator.isRequire("#password", "You haven't entered yet."),
-            //validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
-        ],
-        onsubmit: function (data) {
-            console.log(data);
-        }
-    })
+            // Edit button click handler
+            editBtn.addEventListener('click', function () {
+                // Enable all inputs
+                inputs.forEach(input => {
+                    input.disabled = false;
+                });
+
+                // Switch button states
+                editBtn.disabled = true;
+                saveBtn.disabled = false;
+
+                // Focus on first input
+                inputs[0].focus();
+            });
+
+            // Save button click handler
+            saveBtn.addEventListener('click', function () {
+                // Basic validation
+                let isValid = true;
+                inputs.forEach(input => {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.style.borderColor = '#ff4444';
+                        showError(input, 'không được để trống');
+                    } else {
+                        input.style.borderColor = '#e1e1e1';
+                        clearError(input);
+                    }
+                });
+
+                // Phone number specific validation
+                if (phoneInput.value.length < 10) {
+                    isValid = false;
+                    phoneInput.style.borderColor = '#ff4444';
+                    showError(phoneInput, 'Số điện thoại phải ít nhất 10 chữ số');
+                }
+
+                if (!isValid) {
+                    return;
+                }
+
+                // Disable inputs and update button states
+                inputs.forEach(input => {
+                    input.disabled = true;
+                });
+
+                editBtn.disabled = false;
+                saveBtn.disabled = true;
+
+                // Show success message
+                alert('thay đổi thông tin thành công!');
+            });
+
+            // Helper function to show error message
+            function showError(input, message) {
+                let errorDiv = input.parentElement.querySelector('.error-message');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-message';
+                    errorDiv.style.color = '#ff4444';
+                    errorDiv.style.fontSize = '0.8rem';
+                    errorDiv.style.marginTop = '5px';
+                    input.parentElement.appendChild(errorDiv);
+                }
+                errorDiv.textContent = message;
+            }
+
+            // Helper function to clear error message
+            function clearError(input) {
+                const errorDiv = input.parentElement.querySelector('.error-message');
+                if (errorDiv) {
+                    errorDiv.remove();
+                }
+            }
+
+            // Add input event listeners for real-time validation
+            inputs.forEach(input => {
+                input.addEventListener('input', function () {
+                    if (this.value.trim()) {
+                        this.style.borderColor = '#e1e1e1';
+                        clearError(this);
+                    }
+                });
+            });
+        });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            // Get all status selects
+            const statusSelects = document.querySelectorAll('.status-select-homedetail');
+
+            // Function to update select styling based on selected value
+            function updateSelectStyle(select) {
+                // Remove all possible status classes
+                select.classList.remove('completed-homedetail', 'in-progress-homedetail', 'cancelled-homedetail');
+
+                // Add the appropriate class based on the selected value
+                select.classList.add(select.value);
+
+                // Update row styling
+                const row = select.closest('tr');
+                row.style.backgroundColor = getBackgroundColor(select.value);
+            }
+
+            // Function to get background color based on status
+            function getBackgroundColor(status) {
+                switch (status) {
+                    case 'completed-homedetail':
+                        return '#f8fff8';
+                    case 'in-progress-homedetail':
+                        return '#fff8f0';
+                    case 'cancelled-homedetail':
+                        return '#fff5f5';
+                    default:
+                        return 'transparent';
+                }
+            }
+
+            // Add change event listeners to all status selects
+            statusSelects.forEach(select => {
+                // Set initial styling
+                updateSelectStyle(select);
+
+                // Add change event listener
+                select.addEventListener('change', function () {
+                    updateSelectStyle(this);
+                });
+            });
+
+            // Function to add new row to a table
+            function addNewRow(tableId, taskId) {
+                const tbody = document.getElementById(tableId);
+                const newRow = document.createElement('tr');
+
+                newRow.innerHTML = `
+            <td>${taskId}</td>
+            <td>New Task</td>
+            <td>Unassigned</td>
+            <td>${new Date().toISOString().split('T')[0]}</td>
+            <td>Medium</td>
+            <td>
+                <select class="status-select-homedetail">
+                    <option value="in-progress">Đang thực hiện</option>
+                    <option value="completed">Hoàn thành</option>
+                    <option value="cancelled">Hủy</option>
+                </select>
+            </td>
+        `;
+
+                tbody.appendChild(newRow);
+
+                // Initialize the new status select
+                const newSelect = newRow.querySelector('.status-select-homedetail');
+                updateSelectStyle(newSelect);
+                newSelect.addEventListener('change', function () {
+                    updateSelectStyle(this);
+                });
+            }
+
+            // Example function to generate task IDs
+            function generateTaskId(tableId) {
+                const prefix = tableId === 'longTermTable-homedetail' ? 'LT' : 'ST';
+                const rows = document.getElementById(tableId).getElementsByTagName('tr');
+                const number = (rows.length + 1).toString().padStart(3, '0');
+                return `${prefix}${number}`;
+            }
+
+            // Optional: Add functionality to add new rows
+            window.addLongTermTask = function () {
+                addNewRow('longTermTable-homedetail', generateTaskId('longTermTable-homedetail'));
+            };
+
+            window.addShortTermTask = function () {
+                addNewRow('shortTermTable-homedetail', generateTaskId('shortTermTable-homedetail'));
+            };
+
+            // Initialize all existing rows with background colors
+            document.querySelectorAll('.modern-table-homedetail tbody tr').forEach(row => {
+                const select = row.querySelector('.status-select-homedetail');
+                if (select) {
+                    row.style.backgroundColor = getBackgroundColor(select.value);
+                }
+            });
+        });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            const dropdownBtn = document.querySelector('.dropdown-btn-homecare');
+            const dropdownContent = document.querySelector('.dropdown-content-homecare');
+            const dropdownItems = document.querySelectorAll('.dropdown-item-homecare');
+            const modals = document.querySelectorAll('.modal-homecare');
+            const closeButtons = document.querySelectorAll('.close-btn-homecare');
+
+            // Toggle dropdown
+            dropdownBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdownContent.classList.toggle('active-detail-homecare');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!dropdownBtn.contains(e.target)) {
+                    dropdownContent.classList.remove('active-detail-homecare');
+                }
+            });
+
+            // Handle dropdown items click and show corresponding modal
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const modalId = `${item.dataset.modal}-modal-homecare`;
+                    const modal = document.getElementById(modalId);
+                    modal.classList.add('active-detail-homecare');
+                    dropdownContent.classList.remove('active-detail-homecare');
+                });
+            });
+
+            // Close modal when clicking close button
+            closeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const modal = btn.closest('.modal-homecare');
+                    modal.classList.remove('active-detail-homecare');
+                });
+            });
+
+            // Close modal when clicking outside
+            modals.forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active-detail-homecare');
+                    }
+                });
+            });
+
+            // Handle logout button
+            const logoutBtn = document.querySelector('.logout-btn-homecare');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    alert('Logging out...');
+                    document.getElementById('logout-modal-homecare').classList.remove('active-detail-homecare');
+                });
+            }
+        });
 </script>
 <script>
     window.dispatchEvent(new Event("template-loaded"));

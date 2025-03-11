@@ -78,3 +78,181 @@
     overflow-x: hidden;
     transition: all 0.3s ease;
 }
+:root {
+    --primary-blue: #2196F3;
+    --primary-blue-dark: #1976D2;
+    --white: #ffffff;
+    --gray-light: #f5f5f5;
+    --gray-medium: #e0e0e0;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --error-red: #f44336;
+    --success-green: #4CAF50;
+}
+
+.html-form-homecare {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.body-form-homecare {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--gray-light);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmation-container-form-homecare {
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 90%;
+    max-width: 900px;
+    margin: 2rem auto;
+    animation: fadeIn-form-homecare 0.5s ease-out;
+}
+
+.title-form-homecare {
+    color: black;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.form-form-homecare {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.grid-form-homecare {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.group-form-homecare {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.full-width-form-homecare {
+    grid-column: 1 / -1;
+}
+
+.label-form-homecare {
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.input-form-homecare,
+.select-form-homecare {
+    padding: 0.75rem;
+    border: 1px solid var(--gray-medium);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.input-form-homecare:focus,
+.select-form-homecare:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+}
+
+.readonly-form-homecare {
+    background-color: var(--gray-light);
+    color: var(--text-light);
+}
+
+.total-form-homecare {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #4CAF50;
+}
+
+.button-group-form-homecare {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.button-form-homecare {
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancel-form-homecare {
+    background-color: var(--white);
+    color: var(--text-dark);
+    border: 1px solid var(--gray-medium) !important;
+}
+
+.confirm-form-homecare {
+    background-color: #4CAF50;
+    color: var(--white);
+}
+
+.cancel-form-homecare:hover {
+    background-color: var(--gray-light);
+}
+
+.confirm-form-homecare:hover {
+    background-color: #4CAF50;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .grid-form-homecare {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .confirmation-container-form-homecare {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .grid-form-homecare {
+        grid-template-columns: 1fr;
+    }
+
+    .button-group-form-homecare {
+        flex-direction: column;
+    }
+
+    .button-form-homecare {
+        width: 100%;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn-form-homecare {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

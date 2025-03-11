@@ -46,62 +46,23 @@
                 <span></span>
             </div>
             <ul class="aside__nav">
+              
                 <li class="aside__item">
-                    <a href="#home" class="aside__nav-active">
-                        <i class="fa fa-home"></i>Trang chủ
-                    </a>
-                </li>
-                <li class="aside__item">
-                    <a href="#service-detail">
+                    <a href="#service-detail" class="aside__nav-active">
                         <i class="fa fa-user"></i>Thông tin
                     </a>
                 </li>
-                <li class="aside__item">
-                    <a href="#hire-helper">
-                        <i class="fa-brands fa-hire-a-helper"></i>Đặt đơn
-                    </a>
-                </li>
-                <li class="aside__item">
-                    <a href="/account">
-                        <i class="fa-solid fa-right-to-bracket"></i>Đăng nhập
-                    </a>
-                </li>
+    
                 <li class="aside__item">
                     <a href="/account/register">
-                        <i class="fa-sharp fa-solid fa-user-plus"></i>Đăng kí
+                        <i class="fa-sharp fa-solid fa-user-plus"></i>Thoát
                     </a>
                 </li>
             </ul>
         </div>
-        {{!-- aside end --}}
-        {{!-- main content start --}}
+  
         <div class="main-content">
-            {{!-- home section start --}}
-            <section class="home home-active section" id="home">
-                <div class="home__container-2">
-                    <div class="home__row-2">
-                        <div class="home__infor padd-15">
-                            <h3 class="home__hello">
-                                Xin chào, tôi tên là <span class="home__hello-name">
-                                    {{helper.fullName}}
-                                </span>
-                            </h3>
-                            <h3 class="home__my-profession">
-                                Tôi là <span class="home__my-profession-typing">người giúp việc</span>
-                            </h3>
-                            <p class="home__infor-desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro
-                                eveniet pariatur repellendus illo excepturi doloremque unde cupiditate consequatur ipsam
-                                tenetur, similique, qui odit nisi ducimus? Deleniti eum animi quaerat reiciendis.</p>
-                            <a href="#service-detail" class="home-btn hire-me" data-section-index="0">Xem thông tin chi tiết</a>
-                        </div>
-                        <div class="home__img padd-15">
-                            <img src="{{helper.avatar}}" alt="">
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {{!-- home section end --}}
-            {{!-- about section start --}}
+           
             <section class="about-detail section" id="service-detail">
                 <div class="home__container-2">
                     <div class="home__row-2">
@@ -246,261 +207,23 @@
                                         includes everything you need to build rich UIs that work on any device.</p>
                                 </div>
                                 <div class="tab-pane">
-                                    <h2>Vue.js</h2>
+                                    {{!-- <h2>Vue.js</h2>
                                     <p>Vue (pronounced /vjuː/, like view) is a progressive framework for building user
                                         interfaces. Unlike other
                                         monolithic frameworks, Vue is designed from the ground up to be incrementally
-                                        adoptable. </p>
+                                        adoptable. </p> --}}
+                                        {{#each helper.healthCertificates}}
+                                        <img src="{{this}}" alt="">
+                                        {{/each}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            {{!-- about section end --}}
-            {{!-- book section start --}}
-            <section class="book-item section" id="hire-helper">
-                <div class="home__container-2">
-                    <div class="home__row-2" style="margin-left:0px">
-                        <div class="section-title padd-15">
-                            <h2>Thông tin yêu cầu</h2>
-                        </div>
-                    </div>
-                    <div class="home__row-2" style="margin-left:0px">
-                        <div class="book-item__form">
-                            <div class="home__row-2" style="margin-left:0px">
-                                <form id="form-1" action="/account/sendotp" method="post" class="book-item__form-tel"
-                                    style="inline-block">
-                                    <div class="form__group form__group-tel padd-15" style="margin-top:0px">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:30px" id="tel-input" placeholder="Số điện thoại" type="tel" class="form__input"
-                                                value="{{account}}" name="phone" minlength="10" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                            <p class="form__error form__error-tel"></p>
-                                        </div>
-                                        <button class="submit-btn btn btn--primary otp-btn">Nhận mã OTP </button>
-                                        {{!-- <p class="form__error"></p> --}}
-                                    </div>
-                                </form>
-                                <div class="book-item__form-otp">
-                                    <div class="form__group" style="padding-left:76px; margin-top:0px">
-                                        <div class="input-field">
-                                            <input class="otp-input" type="number" />
-                                            <input class="otp-input" type="number" disabled />
-                                            <input class="otp-input" type="number" disabled />
-                                            <input class="otp-input" type="number" disabled />
-                                            <input class="otp-input" type="number" disabled />
-                                            <input class="otp-input" type="number" disabled />
-    
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="home__row-2 padd-15" style"margin-left:15px">
-                        <form id="form-2" action="" class="book-item__form-main padd-15">
-                            <div class="home__row-2 padd-15">
-                                <div class="book-item__form-name">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:30px" id="full-name-input" placeholder="Full Name" type="text"
-                                                class="form__input" value="{{account}}" name="name" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                                <div class="book-item__form-address">
-                                    <div class="form__group" style="padding-left:10px">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:30px" id="address-input" placeholder="Address" type="text" class="form__input"
-                                                value="{{account}}" name="address" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__row-2 padd-15">
-                                <div class="book-item__form-city">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:30px" id="city-input" placeholder="Thành phố" type="text" class="form__input"
-                                                value="{{account}}" name="city" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                                <div class="book-item__form-district">
-                                    <div class="form__group" style="padding-left:10px">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:30px" id="district-input" placeholder="Quận" type="text" class="form__input"
-                                                value="{{account}}" name="district" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__row-2 padd-15">
-                                <div class="book-item__form-date">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:30px" id="myID" placeholder="Chọn ngày" type="text" class="form__input"
-                                                value="{{account}}" name="name" required>
-                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                                <div class="book-item__form-time">
-                                    <div class="home__row-2">
-                                        <div class="book-item__form-time-start">
-                                            <div class="form__group">
-                                                <div class="form__text-input form-control">
-                                                    <input style="font-size: 1.5rem;height:30px" id="myID1" placeholder="Giờ Bắt Đầu" type="text"
-                                                        class="form__input" value="{{account}}" name="name" required>
-                                                    {{!-- <img src="/icon/evelope.svg" alt="evelope"
-                                                        class="form__input-icon"> --}}
-                                                    <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                                </div>
-                                                <p class="form__error"></p>
-                                            </div>
-                                        </div>
-                                        <div class="book-item__form-time-end">
-                                            <div class="form__group">
-                                                <div class="form__text-input form-control">
-                                                    <input style="font-size: 1.5rem;height:30px" id="myID1" placeholder="Giờ Kết Thúc" type="text"
-                                                        class="form__input" value="{{account}}" name="name" required>
-                                                    {{!-- <img src="/icon/evelope.svg" alt="evelope"
-                                                        class="form__input-icon"> --}}
-                                                    <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                                </div>
-                                                <p class="form__error"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__row-2 padd-15" style="margin-top:20px;font-size:2.4rem;font-weight:500;">
-                                <h3 style="color:var(--text-black-700)">Dịch vụ</h3>
-                            </div>
-                            <div class="home__row-2 padd-15">
-                                <div class="book-item__form-service">
-                                    <div class="home__row-2 padd-15">
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check1">
-                                            <label for="#check1" class="book-item__flex-50-text">Osin part time</label>
-                                        </div>
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check2">
-                                            <label for="#check2" class="book-item__flex-50-text">Dọn dẹp</label>
-                                        </div>
-                                    </div>
-                                    <div class="home__row-2 padd-15">
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check3">
-                                            <label for="#check3" class="book-item__flex-50-text">Osin part time</label>
-                                        </div>
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check4">
-                                            <label for="#check4" class="book-item__flex-50-text">Dọn dẹp</label>
-                                        </div>
-                                    </div>
-                                    <div class="home__row-2 padd-15">
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check5">
-                                            <label for="#check5" class="book-item__flex-50-text">Osin part time</label>
-                                        </div>
-                                        <div class="form__group book-item__flex-50">
-                                            <input type="checkbox" id="check6">
-                                            <label for="#check6" class="book-item__flex-50-text">Dọn dẹp</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__row-2 padd-15" style="display: flex;
-        justify-content: space-between;">
-                                <div class="book-item__form-basic">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:30px" id="full-name-input" placeholder="Phí Cơ bản" type="text"
-                                                class="form__input" value="{{account}}" name="city" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                                <div class="book-item__form-out">
-                                    <div class="form__group" style="padding-left:10px">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:30px" id="full-name-input" placeholder="Phí Ngoài Giờ" type="text"
-                                                class="form__input" value="{{account}}" name="district" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-    
-                            </div>
-                            <div class="home__row-2 padd-15" style="display: flex;
-        justify-content: space-between;">
-                                <div class="book-item__form-extra">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:30px" id="full-name-input" placeholder="Phụ Phí" type="text"
-                                                class="form__input" value="{{account}}" name="district" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                                <div class="book-item__form-total">
-                                    <div class="form__group">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:30px" id="full-name-input" placeholder="Tổng Chí Phí" type="text"
-                                                class="form__input" value="{{account}}" name="city" required>
-                                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="home__row-2 padd-15" style="padding-bottom:100px">
-                                <div class="home__img padd-15" style="margin-top:60px">
-                                    <img src="{{helper.avatar}}" alt="">
-                                </div>
-                                <div class="button padd-15" style="flex: 0 0 60%;
-        max-width: 60%;
-        display:inline-flex;
-        align-items: start;
-        justify-content: end;
-        gap: 10px;
-        margin-top:60px">
-                                    <a href="#service-detail" class="home-btn book-helper book-helper__cancel"
-                                        data-section-index="2" style="width:40%; display:flex;align-items:center;justify-content:center;">Hủy</a>
-                                    <a href="#book-item" class="home-btn book-helper" data-section-index="1" style="width:40%; display:flex;align-items:center;justify-content:center;">Đồng ý</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </section>
-            {{!-- book section end --}}
+           
         </div>
-        {{!-- main content end --}}
+      
     </div>
     {{!-- main contain end --}}
     
@@ -706,9 +429,111 @@
             },
         });
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
+        <script>
+            // Sample data for unpaid bills
+                const unpaidBills = [
+                    {
+                        id: 1,
+                        customerName: "Alice Johnson",
+                        orderDate: "2025-03-10",
+                        orderTime: "09:00",
+                        startTime: "10:00",
+                        endTime: "12:00",
+                        helperName: "Sarah Smith",
+                        status: "Unpaid"
+                    },
+                    {
+                        id: 2,
+                        customerName: "Bob Wilson",
+                        orderDate: "2025-03-10",
+                        orderTime: "14:00",
+                        startTime: "15:00",
+                        endTime: "17:00",
+                        helperName: "Mary Davis",
+                        status: "Unpaid"
+                    },
+                    {
+                        id: 3,
+                        customerName: "Carol Brown",
+                        orderDate: "2025-03-11",
+                        orderTime: "10:00",
+                        startTime: "11:00",
+                        endTime: "13:00",
+                        helperName: "Jane Wilson",
+                        status: "Unpaid"
+                    }
+                ];
+
+                // Function to format date
+                function formatDate(dateString) {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    return new Date(dateString).toLocaleDateString(undefined, options);
+                }
+
+                // Function to create bill items
+                function createBillItems() {
+                    const billsList = document.getElementById('billsList');
+                    billsList.innerHTML = '';
+
+                    unpaidBills.forEach(bill => {
+                        const billItem = document.createElement('div');
+                        billItem.className = 'bill-item-history-homecare';
+                        billItem.innerHTML = `
+            <div class="bill-info-history-homecare">
+                <div class="customer-name-history-homecare">${bill.customerName}</div>
+                <div class="bill-date-history-homecare">${formatDate(bill.orderDate)}</div>
+            </div>
+        `;
+
+                        billItem.addEventListener('click', () => showBillDetails(bill));
+                        billsList.appendChild(billItem);
+                    });
+                }
+
+                // Function to show bill details in modal
+                function showBillDetails(bill) {
+                    const modal = document.getElementById('bill-details-modal');
+
+                    // Update modal content with bill details
+                    document.getElementById('customerName').textContent = bill.customerName;
+                    document.getElementById('orderDate').textContent = formatDate(bill.orderDate);
+                    document.getElementById('orderTime').textContent = bill.orderTime;
+                    document.getElementById('startTime').textContent = bill.startTime;
+                    document.getElementById('endTime').textContent = bill.endTime;
+                    document.getElementById('helperName').textContent = bill.helperName;
+                    document.getElementById('status').textContent = bill.status;
+
+                    // Show modal
+                    modal.classList.add('show-history-homecare');
+                }
+
+                // Close modal functionality
+                document.querySelectorAll('.close-btn-history-homecare').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const modal = btn.closest('.modal-history-homecare');
+                        modal.classList.remove('show-history-homecare');
+                    });
+                });
+
+                // Close modal when clicking outside
+                window.addEventListener('click', (event) => {
+                    const modals = document.querySelectorAll('.modal-history-homecare');
+                    modals.forEach(modal => {
+                        if (event.target === modal) {
+                            modal.classList.remove('show-history-homecare');
+                        }
+                    });
+                });
+
+                // Initialize the bills list
+                document.addEventListener('DOMContentLoaded', () => {
+                    createBillItems();
+                });
+        </script>
     <script>
         window.dispatchEvent(new Event("template-loaded"));
     </script>

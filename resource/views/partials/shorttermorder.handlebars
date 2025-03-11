@@ -60,7 +60,7 @@
                             <ul class="aside__nav-child">
                                 <li>
                                     <div class="form__group" style="margin-top:10px;">
-                                        <div class="form__text-input form-control">
+                                        <div class="form__text-input form-control" style="height:40px;">
                                             <input style="font-size: 1.5rem;height:20px" id="myID" placeholder="Chọn ngày" type="date" class="form__input"
                                                 value="{{order.dates}}" name="dates" required>
                                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
@@ -76,26 +76,30 @@
                         <i class="fa fa-clock" style="margin-right:5px;color:var(--skin-color)"></i>Giờ
                             <ul class="aside__nav-child">
                                 <li>
-                                    <div class="form__group" style="margin-top:5px;">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Bắt Đầu" type="text"
-                                                class="form__input" value="{{order.startTime}}" name="startTime" required>
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                    <div class="container-homecare">
+                                        <div class="time-picker-wrapper-homecare">
+                                            <div class="time-picker-homecare">
+                                                <div class="time-input-homecare" id="start-time-input">
+                                                    <span class="selected-time-homecare">Giờ bắt đầu</span>
+                                                    <div class="dropdown-homecare">
+                                                        <div class="time-list-homecare" id="start-time-list"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    
+                                            <div class="time-picker-homecare">
+                                                <div class="time-input-homecare" id="end-time-input">
+                                                    <span class="selected-time-homecare">Giờ kết thúc</span>
+                                                    <div class="dropdown-homecare">
+                                                        <div class="time-list-homecare" id="end-time-list"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="form__error"></p>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="form__group" style="margin-top:5px;">
-                                        <div class="form__text-input form-control">
-                                            <input style="font-size: 1.5rem;height:20px" id="myID1" placeholder="Giờ Kết Thúc" type="text"
-                                                class="form__input" value="{{order.endTime}}" name="endTime" required>
-                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                        </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                                </li>
+
+                               
                             </ul>
                        </a>
                     </li>
@@ -144,7 +148,7 @@
                         
                         </ul>
                     </li>
-                    <li class="aside__item">
+                    {{!-- <li class="aside__item">
                           <i class="fa fa-tags" style="margin-right:5px;color:var(--skin-color)"></i>Dịch vụ
                           <ul class="aside__nav-child">
                             {{#each services}}
@@ -158,6 +162,37 @@
                             </li>
                             {{/each}}
                           </ul>
+                    </li> --}}
+                    {{! Replace the existing service selection with this new dropdown }}
+                    <li class="aside__item">
+                        <i class="fa fa-tags" style="margin-right:5px;color:var(--skin-color)"></i>Dịch vụ
+                        <a href="#!">
+                            <ul class="aside__nav-child">
+                                <div class="wrapper-service extra-wrapper__service">
+                                    <div class="wrapper-service__select-btn">
+                                        <span>Chọn dịch vụ</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </div>
+                                    <div class="wrapper-service__content">
+                                        <div class="wrapper-service__search">
+                                            <input type="text" placeholder="Tìm kiếm dịch vụ" class="wrapper-service__input">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                        <ul class="wrapper-service__options">
+                                            {{#each services}}
+                                            <li>
+                                                <label class="service-option">
+                                                    <input type="radio" name="service" value="{{_id}}" {{#compareProperties
+                                                        ../order 'service' '_id' }}checked="checked" {{/compareProperties}}>
+                                                    <span>{{title}}</span>
+                                                </label>
+                                            </li>
+                                            {{/each}}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </ul>
+                        </a>
                     </li>
                     <li class="aside__item">
                         <a href="#!">
@@ -283,13 +318,13 @@
                                             <div class="info-item" style="flex: 1;display:flex; align-items:center;">
                                                 <i class="fa fa-tags" style="color:var(--skin-color); width: 20px;"></i>
                                                 {{!-- <span style="font-size: clamp(1.5rem, 1.5vw, 1.1rem);">Osin part time</span> --}}
-                                                <div class="helper-box__list" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                                <div class="helper-box__list" style="display: flex;  gap: 2px;">
                                                     {{#each ../services}}
                                                     {{#each ../this.jobs}}
                                                     {{#isEquals ../this._id this}}
                                                     <div class="helper-box"
-                                                        style="background: var(--skin-color); color: white; padding: 5px 10px; border-radius: 5px; font-size: clamp(0.8rem, 1.2vw, 1rem);margin:0">
-                                                        <span>Osin part Time</span>
+                                                        style=" padding: 5px 10px; border-radius: 5px; font-size: clamp(0.8rem, 1.2vw, 1rem);margin:0">
+                                                        <span style="font-size:1.3rem;">Osin part Time</span>
                                                     </div>
                                                     {{/isEquals}}
                                                     {{/each}}
@@ -345,11 +380,13 @@
                                 </div> --}}
 
                                 {{!-- Nút chi tiết --}}
-                                <div class="short-helper__item--helper-detail" style="display: flex; justify-content: flex-end;">
-                                    <button class="btn" style="background-color:var(--skin-color); color:var(--white); padding: 8px 15px; border-radius: 5px; font-size: clamp(0.9rem, 1.5vw, 1.1rem);">
-                                        <i class="fa fa-arrow-right" style="margin-right:5px"></i>Thông tin chi tiết
-                                    </button>
-                                </div>
+                               <a href="/helper/{{this._id}}">
+                                    <div class="short-helper__item--helper-detail" style="display: flex; justify-content: flex-end;">
+                                        <button  class="btn" style="background-color:var(--skin-color); color:var(--white); padding: 8px 15px; border-radius: 5px; font-size: clamp(0.9rem, 1.5vw, 1.1rem);">
+                                            <i class="fa fa-arrow-right" style="margin-right:5px"></i>Thông tin chi tiết
+                                        </button>
+                                    </div>
+                               </a>
                             </div>
                         </div>
                        </div>
@@ -844,6 +881,230 @@
                 console.log(data);
             }
         })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Time picker elements
+            const startTimeInput = document.getElementById('start-time-input');
+            const endTimeInput = document.getElementById('end-time-input');
+            const startTimeList = document.getElementById('start-time-list');
+            const endTimeList = document.getElementById('end-time-list');
+            
+            // Initially disable end time picker
+            endTimeInput.style.opacity = '0.5';
+            endTimeInput.style.pointerEvents = 'none';
+
+            // Generate time options
+            function generateTimeOptions(startHour, endHour) {
+                const times = [];
+                for (let hour = startHour; hour <= endHour; hour++) {
+                    const period = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour > 12 ? hour - 12 : hour;
+
+                    // Add :00 option
+                    times.push({
+                        display: `${displayHour}:00 ${period}`,
+                        value: `${hour.toString().padStart(2, '0')}:00`,
+                        hour: hour
+                    });
+
+                    // Add :30 option if not the last hour
+                    if (hour < endHour) {
+                        times.push({
+                            display: `${displayHour}:30 ${period}`,
+                            value: `${hour.toString().padStart(2, '0')}:30`,
+                            hour: hour + 0.5
+                        });
+                    }
+                }
+                return times;
+            }
+
+            // Generate time options for both pickers
+            const startTimes = generateTimeOptions(6, 18); // 6 AM to 6 PM
+            const endTimes = generateTimeOptions(8, 20);   // 8 AM to 8 PM
+
+            // Populate time lists
+            function populateTimeList(timeList, times) {
+                timeList.innerHTML = '';
+                times.forEach(time => {
+                    const option = document.createElement('div');
+                    option.className = 'time-option-homecare';
+                    option.textContent = time.display;
+                    option.dataset.value = time.value;
+                    option.dataset.hour = time.hour;
+                    timeList.appendChild(option);
+                });
+            }
+
+            populateTimeList(startTimeList, startTimes);
+            populateTimeList(endTimeList, endTimes);
+
+            // Calculate end time options based on start time
+            function updateEndTimeOptions(selectedStartHour) {
+                const twoHoursLater = selectedStartHour + 2;
+                const validEndTimes = endTimes.filter(time => time.hour >= twoHoursLater);
+                populateTimeList(endTimeList, validEndTimes);
+
+                // Auto-select the time that's 2 hours after start time
+                const autoSelectTime = validEndTimes.find(time => time.hour === twoHoursLater);
+                if (autoSelectTime) {
+                    const endTimeOption = endTimeList.querySelector(`[data-value="${autoSelectTime.value}"]`);
+                    if (endTimeOption) {
+                        handleTimeSelection(endTimeInput, endTimeOption);
+                    }
+                }
+            }
+
+            // Handle time selection
+            function handleTimeSelection(input, selectedOption) {
+                const selectedTime = input.querySelector('.selected-time-homecare');
+                selectedTime.textContent = selectedOption.textContent;
+                input.classList.remove('active-extra');
+
+                // Remove previous selection
+                input.querySelectorAll('.time-option-homecare').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                selectedOption.classList.add('selected');
+
+                // If this is the start time, update end time options
+                if (input === startTimeInput) {
+                    const selectedHour = parseFloat(selectedOption.dataset.hour);
+                    endTimeInput.style.opacity = '1';
+                    endTimeInput.style.pointerEvents = 'auto';
+                    updateEndTimeOptions(selectedHour);
+                }
+            }
+
+            // Toggle dropdown
+            function toggleDropdown(input) {
+                // If this is the end time input and start time hasn't been selected, do nothing
+                if (input === endTimeInput && !startTimeInput.querySelector('.time-option-homecare.selected')) {
+                    return;
+                }
+
+                const wasActive = input.classList.contains('active-extra');
+
+                // Close all dropdowns
+                document.querySelectorAll('.time-input-homecare').forEach(element => {
+                    element.classList.remove('active-extra');
+                });
+
+                // Toggle current dropdown
+                if (!wasActive) {
+                    input.classList.add('active-extra');
+
+                    // Scroll to selected option if exists
+                    const selectedOption = input.querySelector('.time-option-homecare.selected');
+                    if (selectedOption) {
+                        selectedOption.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
+                }
+            }
+
+            // Event listeners
+            startTimeInput.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('time-option-homecare')) {
+                    toggleDropdown(startTimeInput);
+                }
+            });
+
+            endTimeInput.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('time-option-homecare')) {
+                    toggleDropdown(endTimeInput);
+                }
+            });
+
+            // Handle time option selection
+            startTimeList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('time-option-homecare')) {
+                    handleTimeSelection(startTimeInput, e.target);
+                }
+            });
+
+            endTimeList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('time-option-homecare')) {
+                    handleTimeSelection(endTimeInput, e.target);
+                }
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.time-input-homecare')) {
+                    document.querySelectorAll('.time-input-homecare').forEach(input => {
+                        input.classList.remove('active-extra');
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+                const serviceWrapper = document.querySelector(".wrapper-service");
+                const serviceSelectBtn = serviceWrapper.querySelector(".wrapper-service__select-btn");
+                const serviceSearch = serviceWrapper.querySelector(".wrapper-service__input");
+                const serviceOptions = serviceWrapper.querySelector(".wrapper-service__options");
+                const serviceItems = serviceOptions.querySelectorAll("li");
+
+                // Toggle dropdown
+                serviceSelectBtn.addEventListener("click", () => {
+                    serviceWrapper.classList.toggle("active-menu-search");
+                });
+
+                // Search functionality
+                serviceSearch.addEventListener("keyup", () => {
+                    let searchTerm = serviceSearch.value.toLowerCase();
+
+                    serviceItems.forEach(item => {
+                        let label = item.querySelector("span").textContent.toLowerCase();
+                        if (label.includes(searchTerm)) {
+                            item.style.display = "block";
+                        } else {
+                            item.style.display = "none";
+                        }
+                    });
+                });
+
+                // Update selected service
+                serviceItems.forEach(item => {
+                    item.addEventListener("click", () => {
+                        let radio = item.querySelector("input[type='radio']");
+                        let label = item.querySelector("span").textContent;
+
+                        // Update display text
+                        serviceSelectBtn.querySelector("span").textContent = label;
+
+                        // Select radio button
+                        radio.checked = true;
+
+                        // Close dropdown
+                        serviceWrapper.classList.remove("active-menu-search");
+
+                        // Trigger form submit if needed
+                        if (typeof submitForm !== 'undefined') {
+                            submitForm.submit();
+                        }
+                    });
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener("click", (e) => {
+                    if (!serviceWrapper.contains(e.target)) {
+                        serviceWrapper.classList.remove("active-menu-search");
+                    }
+                });
+
+                // Set initial selected value if any
+                const checkedService = serviceOptions.querySelector("input[type='radio']:checked");
+                if (checkedService) {
+                    const label = checkedService.closest("li").querySelector("span").textContent;
+                    serviceSelectBtn.querySelector("span").textContent = label;
+                }
+            });
     </script>
     <script>
         window.dispatchEvent(new Event("template-loaded"));

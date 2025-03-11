@@ -215,10 +215,10 @@ const requestController={
         .catch(err=>console.error(err))
 
         //filter helpers by experience, location
-        helpers = helpers.filter(helper=>{
-            return helper.yearOfExperience >= Number.parseInt(req.query.exp) && helper.jobs.includes(req.query.service)//filter by experience and service
+        // helpers = helpers.filter(helper=>{
+        //     return helper.yearOfExperience >= Number.parseInt(req.query.exp) && helper.jobs.includes(req.query.service)//filter by experience and service
             //return helper.workingArea.province === order.province &&helper.workingArea.districts.contains(req.query.district) &&helper.yearOfExperience >= Number.parseInt(req.query.exp);
-        })
+        // })
         //filter helpers by time off
         // helpers = helpers.filter( async (helper)=>{
         //    let timeOffs = await fetch(process.env.API_URL + `/timeoff/${helper.id}`)//get all time off of each helper

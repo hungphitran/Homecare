@@ -35,6 +35,7 @@ const detailedhelperController = {
         catch (err) {
             console.error(err);
         }
+        console.log(helper)
         res.render('partials/detailedhelper', {
             user: user,
             helper: helper,

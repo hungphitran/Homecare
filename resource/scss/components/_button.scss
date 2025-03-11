@@ -1,5 +1,23 @@
 @use "../abstracts";
 // filter
+#short-term-btn{
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    @include abstracts.screen(xl){
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 0px;
+    }
+}
+#long-term-btn{
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    @include abstracts.screen(xl) {
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-top-right-radius: 0px;
+        }
+}
 .filter{
     &-btn{
         display: flex;
@@ -136,3 +154,4 @@
     margin: auto;
     margin-top: 10px;
     }
+      

@@ -106,7 +106,7 @@
         }
     }
     &__form-group--remain {
-        width:25%;
+        width:30%;
         height:44px;
         @include abstracts.screen(xl){
             width:100%;
@@ -283,8 +283,9 @@
     margin-left: auto;
     margin-right: auto;
     //box-shadow: 0 10px 15px lightyellow;
-    border: 1px solid #4CAF50;
+    border: 1px solid #d4d4d4;
     background-color: var(--white);
+    border-radius: 15px;
     @include abstracts.screen(xl){
         display: flex;
         flex-direction: column;
@@ -299,8 +300,9 @@
     margin-left: auto;
     margin-right: auto;
     //box-shadow: 0 10px 15px lightyellow;
-    border: 1px solid #4CAF50;
+    border: 1px solid #d4d4d4;
     background-color: var(--white);
+    border-radius: 15px;
      @include abstracts.screen(xl){
         display: flex;
         flex-direction: column;
@@ -344,6 +346,8 @@
     }
     .heading.extra-color-white{
         color:#fff;
+        position: relative;
+            top: 25px;
     }
     .heading::after{
         content: "";
@@ -366,7 +370,7 @@
     height:100vh ;
     text-align: center;
     padding-bottom: 120px;
-    overflow-y: scroll;
+    //overflow-y: scroll;
 
     &__content{
         margin-top: -12px;
@@ -386,6 +390,8 @@
     }
     &__process-inner{
         height: 100%;
+        position: relative;
+            top: -60px;
        
         @include abstracts.screen(lg){
             display: flex;
@@ -565,7 +571,7 @@
 } 
 .helper{
     &__mySwiper{
-        height:500px;
+        height:80%;
     }
     &__wrapper{
          align-items: center;

@@ -27,7 +27,7 @@
                                
                                     
                                     <div class="wrapper-province extra-province" style="margin:0;">
-                                        <div class="wrapper-province__select-btn extra-short">
+                                        <div class="wrapper-province__select-btn extra-short extra-border-left">
                                             <span style="white-space:nowrap">Chọn Tỉnh</span>
                                             <i class="fa-solid fa-chevron-down"></i>
                                         </div>
@@ -67,7 +67,7 @@
                                             <i class="fa-solid fa-chevron-down"></i>
                                         </div>
                                         <div class="wrapper-service__content" style="position:relative;">
-                                            <div class="warapper-service__search" style="display:flex; gap:5px;">
+                                            <div class="warapper-service__search" style="display:flex; gap:5px;align-items:center">
                                                 <input name="service" class="wrapper-service__input" spellcheck="false" type="text"
                                                     placeholder="Tìm kiếm" style="width:100%">
                                                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -78,7 +78,7 @@
                                 
                                 
                                 <div class="form__group form-label__start-date" style="margin-top:0px;">
-                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
+                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
                                         <input style="font-size: 1.5rem;height:20px" id="myID2" placeholder="Chọn ngày" type="text" class="form__input"
                                             value="{{order.dates}}" name="dates" required class="input-date status">
                                        
@@ -88,33 +88,35 @@
                                 </div>
                             </div>
                             <div class="form-group slideshow__form-group slideshow__form-group--remain">
-                                
-                                   
-                                    <div class="form__group hour_short" style="margin-top:0px;">
-                                        <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
-                                            <input style="font-size: 1.5rem;height:20px" id="myID3" placeholder="Giờ Bắt Đầu" type="text"
-                                                class="form__input" value="{{order.startTime}}" name="startTime" required>
-                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+            
+                                <div class="container-homecare">
+                                    <div class="time-picker-wrapper-homecare">
+                                        <div class="time-picker-homecare">
+                                            <div class="time-input-homecare" id="start-time-input">
+                                                <span class="selected-time-homecare">Giờ bắt đầu</span>
+                                                <div class="dropdown-homecare">
+                                                    <div class="time-list-homecare" id="start-time-list"></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="form__error"></p>
-                                    </div>
-                               
                                 
-                                    
-                                    <div class="form__group hour_short" style="margin-top:0px;">
-                                        <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
-                                            <input style="font-size: 1.5rem;height:20px" id="myID4" placeholder="Giờ Kết Thúc" type="text"
-                                                class="form__input" value="{{order.startTime}}" name="endTime" required>
-                                            {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
-                                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                        <div class="time-picker-homecare">
+                                            <div class="time-input-homecare" id="end-time-input">
+                                                <span class="selected-time-homecare">Giờ kết thúc</span>
+                                                <div class="dropdown-homecare">
+                                                    <div class="time-list-homecare" id="end-time-list"></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="form__error"></p>
                                     </div>
-                               
                             </div>
-                            <button id="submitForm1" class="btn btn-find">Tìm kiếm</button>
+                            </div>
+                           
                         </form>
+                        <button id="submitForm1" class="btn btn-find btn-find-short-term"
+                            style="border: 1px solid #d4d4d4;    position: relative;
+    top: 10px;
+    left: 43%;border-radius:10px"form="short-term-form">Tìm kiếm</button>
                     </div>
                     <div id="long-term">
                         <form id="long-term-form"  method="get" action="/request/longterm" class="form__long-term hide-form">
@@ -128,7 +130,7 @@
                                             {{/each}}
                                         </select> --}}
                                         <div class="wrapper-province__long extra-province" style="margin:0;">
-                                            <div class="wrapper-province__select-btn extra-short">
+                                            <div class="wrapper-province__select-btn extra-short extra-border-left">
                                                 <span style="white-space:nowrap">Chọn Tỉnh</span>
                                                 <i class="fa-solid fa-chevron-down"></i>
                                             </div>
@@ -186,7 +188,7 @@
                                         onfocus="this.showPicker()" value="{{formatDate}}" class="input-date status">
                                 </label> --}}
                                 <div class="form__group form-label__start-date" style="margin-top:0px;">
-                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
+                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
                                         <input style="font-size: 1.5rem;height:20px" id="myID7" placeholder="Ngày Bắt Đầu" type="text" class="form__input"
                                             value="{{order.dates}}" name="startDate" required class="input-date status">
                                         {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
@@ -199,7 +201,7 @@
                                         onfocus="this.showPicker()" min="{{formatDate}}" value="{{formatDate}}" class="input-date status">
                                 </label>                             --}}
                                 <div class="form__group form-label__start-date" style="margin-top:0px;">
-                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
+                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
                                         <input style="font-size: 1.5rem;height:20px" id="myID8" placeholder="Ngày Kết Thúc" type="text" class="form__input"
                                             value="{{order.dates}}" name="endDate" required class="input-date status">
                                         {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
@@ -210,96 +212,34 @@
                                 </div>
                                 <div class="form-group slideshow__form-group slideshow__form-group--remain">
                                    
-                                        {{!-- <select id="start-time" name="startTime" class="form-select form-select__start-time status">
-                                            <option value="0">Từ giờ</option>
-                                            <option value="1">6:00 giờ</option>
-                                            <option value="2">6:30 giờ</option>
-                                            <option value="3">7:00 Giờ</option>
-                                            <option value="3">7:30 giờ</option>
-                                            <option value="4">8:00 giờ</option>
-                                            <option value="5">8:30 giờ</option>
-                                            <option value="6">9:00 giờ</option>
-                                            <option value="7">9:30 giờ</option>
-                                            <option value="8">10:00 giờ</option>
-                                            <option value="9">10:30 giờ</option>
-                                            <option value="10">11:00 giờ</option>
-                                            <option value="11">11:30 giờ</option>
-                                            <option value="12">12:00 giờ</option>
-                                            <option value="13">12:30 giờ</option>
-                                            <option value="14">13:00 giờ</option>
-                                            <option value="15">13:30 giờ</option>
-                                            <option value="16">14:00 giờ</option>
-                                            <option value="17">14:30 giờ</option>
-                                            <option value="18">15:00 giờ</option>
-                                            <option value="19">15:30 giờ</option>
-                                            <option value="20">16:00 giờ</option>
-                                            <option value="21">16:30 giờ</option>
-                                            <option value="22">17:00 giờ</option>
-                                            <option value="23">17:30 giờ</option>
-                                            <option value="24">18:00 giờ</option>
-                                            <option value="25">18:30 giờ</option>
-                                            <option value="26">19:00 giờ</option>
-                                            <option value="27">19:30 giờ</option>
-                                            <option value="28">20:00 giờ</option>
-                                        </select> --}}
-                                        <div  class="form__group hour_short" style="margin-top:0px;">
-                                            <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
-                                                <input style="font-size: 1.5rem;height:20px" id="myID5" placeholder="Giờ Bắt Đầu" type="text"
-                                                    class="form__input" value="{{order.startTime}}" name="startTime" required>
-                                                {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
-                                                <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                                            <div class="container-homecare-long">
+                                                <div class="time-picker-wrapper-homecare-long">
+                                                    <div class="time-picker-homecare-long">
+                                                        <div class="time-input-homecare-long" id="start-time-input-long">
+                                                            <span class="selected-time-homecare-long">Giờ bắt đầu</span>
+                                                            <div class="dropdown-homecare-long">
+                                                                <div class="time-list-homecare-long" id="start-time-list-long"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            
+                                                    <div class="time-picker-homecare-long">
+                                                        <div class="time-input-homecare-long" id="end-time-input-long">
+                                                            <span class="selected-time-homecare-long">Giờ kết thúc</span>
+                                                            <div class="dropdown-homecare-long">
+                                                                <div class="time-list-homecare-long" id="end-time-list-long"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <p class="form__error"></p>
-                                        </div>
-                                   
-                                   
-                                        {{!-- <select id="end-time" name="endTime" class="form-select form-select__end-time status">
-                                            <option value="0">Đến giờ</option>
-                                            <option value="1">6:00 giờ</option>
-                                            <option value="2">6:30 giờ</option>
-                                            <option value="3">7:00 Giờ</option>
-                                            <option value="3">7:30 giờ</option>
-                                            <option value="4">8:00 giờ</option>
-                                            <option value="5">8:30 giờ</option>
-                                            <option value="6">9:00 giờ</option>
-                                            <option value="7">9:30 giờ</option>
-                                            <option value="8">10:00 giờ</option>
-                                            <option value="9">10:30 giờ</option>
-                                            <option value="10">11:00 giờ</option>
-                                            <option value="11">11:30 giờ</option>
-                                            <option value="12">12:00 giờ</option>
-                                            <option value="13">12:30 giờ</option>
-                                            <option value="14">13:00 giờ</option>
-                                            <option value="15">13:30 giờ</option>
-                                            <option value="16">14:00 giờ</option>
-                                            <option value="17">14:30 giờ</option>
-                                            <option value="18">15:00 giờ</option>
-                                            <option value="19">15:30 giờ</option>
-                                            <option value="20">16:00 giờ</option>
-                                            <option value="21">16:30 giờ</option>
-                                            <option value="22">17:00 giờ</option>
-                                            <option value="23">17:30 giờ</option>
-                                            <option value="24">18:00 giờ</option>
-                                            <option value="25">18:30 giờ</option>
-                                            <option value="26">19:00 giờ</option>
-                                            <option value="27">19:30 giờ</option>
-                                            <option value="28">20:00 giờ</option>
-                                        </select> --}}
-                                        <div   class="form__group hour_short" style="margin-top:0px;">
-                                            <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #02571C;">
-                                                <input  name="endTime" style="font-size: 1.5rem;height:20px" id="myID6" placeholder="Giờ Kết Thúc" type="text"
-                                                    class="form__input" value="{{order.startTime}}" required>
-                                                {{!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> --}}
-                                                <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                                            </div>
-                                            <p class="form__error"></p>
-                                        </div>
+                                        
                                    
                                 </div>
                           
 
                         </form>
-                            <button class="btn btn-find btn-long hide-form" id="submitForm2" form="long-term-form">TÌM KIẾM</button>
+                            <button class="btn btn-find btn-long hide-form" id="submitForm2" style="border: 1px solid #d4d4d4;" form="long-term-form">TÌM KIẾM</button>
                     </div>
                 </div>
             </section>
@@ -469,7 +409,7 @@
     </div>
 </section>
 
-<section class="partnership">
+<section id="helper" class="partnership">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -479,7 +419,7 @@
     </div>
 </section>
 
-<div id="helper" class="helper">
+<div  class="helper">
     <div class="container">
         <div class="swiper mySwiper helper__mySwiper">
             <div class="swiper-wrapper helper__wrapper">
@@ -1009,6 +949,7 @@ console.log(districts);
         const shortTermBtn = document.getElementById('short-term-btn')
         const longTermBtn = document.getElementById('long-term-btn')
         const btnLong =document.getElementById('submitForm2');
+        const btnShort =document.getElementById('submitForm1');
       let provinceSelect = shortTerm.querySelector('.province')
       let  districtSelect = shortTerm.querySelector('.district');
 
@@ -1047,6 +988,7 @@ console.log(districts);
            shortTermForm.classList.toggle("hide-form");
            longTermForm.classList.toggle("hide-form");
            btnLong.classList.add("hide-form");
+              btnShort.classList.remove("hide-form");
             $(".btn__form-term.active-term").classList.remove('active-term');
             this.classList.add('active-term');
             districtSelect = shortTerm.querySelector('.district');
@@ -1055,6 +997,7 @@ console.log(districts);
         longTermBtn.onclick = function (e) {
             longTermForm.classList.toggle("hide-form");
             shortTermForm.classList.toggle("hide-form");
+            btnShort.classList.add("hide-form");
             btnLong.classList.remove("hide-form");
             $(".btn__form-term.active-term").classList.remove('active-term');
             this.classList.add('active-term');
@@ -1119,4 +1062,402 @@ console.log(districts);
                
 
             });
+           
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+            const timeDisplay = document.getElementById('timeDisplay');
+            const timePicker = document.getElementById('timePicker');
+            const timeList = document.getElementById('timeList');
+
+            // Generate time slots with 30-minute intervals
+            function generateTimeSlots() {
+                const slots = [];
+                for (let hour = 0; hour < 24; hour++) {
+                    for (let minute of [0, 30]) {
+                        const formattedHour = hour.toString().padStart(2, '0');
+                        const formattedMinute = minute.toString().padStart(2, '0');
+                        slots.push(`${formattedHour}:${formattedMinute}`);
+                    }
+                }
+                return slots;
+            }
+
+            // Populate time list
+            function populateTimeList() {
+                const timeSlots = generateTimeSlots();
+                timeList.innerHTML = '';
+
+                timeSlots.forEach(time => {
+                    const timeOption = document.createElement('div');
+                    timeOption.classList.add('time-option');
+                    timeOption.textContent = time;
+                    timeOption.addEventListener('click', () => selectTime(time));
+                    timeList.appendChild(timeOption);
+                });
+            }
+
+            // Handle time selection
+            function selectTime(time) {
+                timeDisplay.value = time;
+                hideTimePicker();
+
+                // Remove previous selection
+                const selected = timeList.querySelector('.selected');
+                if (selected) {
+                    selected.classList.remove('selected');
+                }
+
+                // Add selection to current choice
+                const options = timeList.querySelectorAll('.time-option');
+                options.forEach(option => {
+                    if (option.textContent === time) {
+                        option.classList.add('selected');
+                    }
+                });
+            }
+
+            // Show time picker
+            function showTimePicker() {
+                timePicker.classList.add('active');
+                const selectedTime = timeDisplay.value;
+                if (selectedTime) {
+                    const options = timeList.querySelectorAll('.time-option');
+                    options.forEach(option => {
+                        if (option.textContent === selectedTime) {
+                            option.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    });
+                }
+            }
+
+            // Hide time picker
+            function hideTimePicker() {
+                timePicker.classList.remove('active');
+            }
+
+            // Event listeners
+            timeDisplay.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showTimePicker();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!timePicker.contains(e.target) && e.target !== timeDisplay) {
+                    hideTimePicker();
+                }
+            });
+
+            // Initialize time list
+            populateTimeList();
+        });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+            // Time picker elements
+            const startTimeInput = document.getElementById('start-time-input');
+            const endTimeInput = document.getElementById('end-time-input');
+            const startTimeList = document.getElementById('start-time-list');
+            const endTimeList = document.getElementById('end-time-list');
+
+            // Initially disable end time picker
+            endTimeInput.style.opacity = '0.5';
+            endTimeInput.style.pointerEvents = 'none';
+
+            // Generate time options
+            function generateTimeOptions(startHour, endHour) {
+                const times = [];
+                for (let hour = startHour; hour <= endHour; hour++) {
+                    const period = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour > 12 ? hour - 12 : hour;
+
+                    // Add :00 option
+                    times.push({
+                        display: `${displayHour}:00 ${period}`,
+                        value: `${hour.toString().padStart(2, '0')}:00`,
+                        hour: hour
+                    });
+
+                    // Add :30 option if not the last hour
+                    if (hour < endHour) {
+                        times.push({
+                            display: `${displayHour}:30 ${period}`,
+                            value: `${hour.toString().padStart(2, '0')}:30`,
+                            hour: hour + 0.5
+                        });
+                    }
+                }
+                return times;
+            }
+
+            // Generate time options for both pickers
+            const startTimes = generateTimeOptions(6, 18); // 6 AM to 6 PM
+            const endTimes = generateTimeOptions(8, 20);   // 8 AM to 8 PM
+
+            // Populate time lists
+            function populateTimeList(timeList, times) {
+                timeList.innerHTML = '';
+                times.forEach(time => {
+                    const option = document.createElement('div');
+                    option.className = 'time-option-homecare';
+                    option.textContent = time.display;
+                    option.dataset.value = time.value;
+                    option.dataset.hour = time.hour;
+                    timeList.appendChild(option);
+                });
+            }
+
+            populateTimeList(startTimeList, startTimes);
+            populateTimeList(endTimeList, endTimes);
+
+            // Calculate end time options based on start time
+            function updateEndTimeOptions(selectedStartHour) {
+                const twoHoursLater = selectedStartHour + 2;
+                const validEndTimes = endTimes.filter(time => time.hour >= twoHoursLater);
+                populateTimeList(endTimeList, validEndTimes);
+
+                // Auto-select the time that's 2 hours after start time
+                const autoSelectTime = validEndTimes.find(time => time.hour === twoHoursLater);
+                if (autoSelectTime) {
+                    const endTimeOption = endTimeList.querySelector(`[data-value="${autoSelectTime.value}"]`);
+                    if (endTimeOption) {
+                        handleTimeSelection(endTimeInput, endTimeOption);
+                    }
+                }
+            }
+
+            // Handle time selection
+            function handleTimeSelection(input, selectedOption) {
+                const selectedTime = input.querySelector('.selected-time-homecare');
+                selectedTime.textContent = selectedOption.textContent;
+                input.classList.remove('active-extra');
+
+                // Remove previous selection
+                input.querySelectorAll('.time-option-homecare').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                selectedOption.classList.add('selected');
+
+                // If this is the start time, update end time options
+                if (input === startTimeInput) {
+                    const selectedHour = parseFloat(selectedOption.dataset.hour);
+                    endTimeInput.style.opacity = '1';
+                    endTimeInput.style.pointerEvents = 'auto';
+                    updateEndTimeOptions(selectedHour);
+                }
+            }
+
+            // Toggle dropdown
+            function toggleDropdown(input) {
+                // If this is the end time input and start time hasn't been selected, do nothing
+                if (input === endTimeInput && !startTimeInput.querySelector('.time-option-homecare.selected')) {
+                    return;
+                }
+
+                const wasActive = input.classList.contains('active-extra');
+
+                // Close all dropdowns
+                document.querySelectorAll('.time-input-homecare').forEach(element => {
+                    element.classList.remove('active-extra');
+                });
+
+                // Toggle current dropdown
+                if (!wasActive) {
+                    input.classList.add('active-extra');
+
+                    // Scroll to selected option if exists
+                    const selectedOption = input.querySelector('.time-option-homecare.selected');
+                    if (selectedOption) {
+                        selectedOption.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
+                }
+            }
+
+            // Event listeners
+            startTimeInput.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('time-option-homecare')) {
+                    toggleDropdown(startTimeInput);
+                }
+            });
+
+            endTimeInput.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('time-option-homecare')) {
+                    toggleDropdown(endTimeInput);
+                }
+            });
+
+            // Handle time option selection
+            startTimeList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('time-option-homecare')) {
+                    handleTimeSelection(startTimeInput, e.target);
+                }
+            });
+
+            endTimeList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('time-option-homecare')) {
+                    handleTimeSelection(endTimeInput, e.target);
+                }
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.time-input-homecare')) {
+                    document.querySelectorAll('.time-input-homecare').forEach(input => {
+                        input.classList.remove('active-extra');
+                    });
+                }
+            });
+        });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+            // Time picker elements with long suffix
+            const startTimeInput = document.getElementById('start-time-input-long');
+            const endTimeInput = document.getElementById('end-time-input-long');
+            const startTimeList = document.getElementById('start-time-list-long');
+            const endTimeList = document.getElementById('end-time-list-long');
+
+            // Initially disable end time picker
+            endTimeInput.style.opacity = '0.5';
+            endTimeInput.style.pointerEvents = 'none';
+
+            // Generate time options remains the same
+            function generateTimeOptions(startHour, endHour) {
+                const times = [];
+                for (let hour = startHour; hour <= endHour; hour++) {
+                    const period = hour >= 12 ? 'PM' : 'AM';
+                    const displayHour = hour > 12 ? hour - 12 : hour;
+
+                    times.push({
+                        display: `${displayHour}:00 ${period}`,
+                        value: `${hour.toString().padStart(2, '0')}:00`,
+                        hour: hour
+                    });
+
+                    if (hour < endHour) {
+                        times.push({
+                            display: `${displayHour}:30 ${period}`,
+                            value: `${hour.toString().padStart(2, '0')}:30`,
+                            hour: hour + 0.5
+                        });
+                    }
+                }
+                return times;
+            }
+
+            const startTimes = generateTimeOptions(6, 18);
+            const endTimes = generateTimeOptions(8, 20);
+
+            // Update class names with long suffix
+            function populateTimeList(timeList, times) {
+                timeList.innerHTML = '';
+                times.forEach(time => {
+                    const option = document.createElement('div');
+                    option.className = 'time-option-homecare-long';
+                    option.textContent = time.display;
+                    option.dataset.value = time.value;
+                    option.dataset.hour = time.hour;
+                    timeList.appendChild(option);
+                });
+            }
+
+            populateTimeList(startTimeList, startTimes);
+            populateTimeList(endTimeList, endTimes);
+
+            function updateEndTimeOptions(selectedStartHour) {
+                const twoHoursLater = selectedStartHour + 2;
+                const validEndTimes = endTimes.filter(time => time.hour >= twoHoursLater);
+                populateTimeList(endTimeList, validEndTimes);
+
+                const autoSelectTime = validEndTimes.find(time => time.hour === twoHoursLater);
+                if (autoSelectTime) {
+                    const endTimeOption = endTimeList.querySelector(`[data-value="${autoSelectTime.value}"]`);
+                    if (endTimeOption) {
+                        handleTimeSelection(endTimeInput, endTimeOption);
+                    }
+                }
+            }
+
+            // Update class names in handleTimeSelection
+            function handleTimeSelection(input, selectedOption) {
+                const selectedTime = input.querySelector('.selected-time-homecare-long');
+                selectedTime.textContent = selectedOption.textContent;
+                input.classList.remove('active-extra-long');
+
+                input.querySelectorAll('.time-option-homecare-long').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                selectedOption.classList.add('selected');
+
+                if (input === startTimeInput) {
+                    const selectedHour = parseFloat(selectedOption.dataset.hour);
+                    endTimeInput.style.opacity = '1';
+                    endTimeInput.style.pointerEvents = 'auto';
+                    updateEndTimeOptions(selectedHour);
+                }
+            }
+
+            // Update class names in toggleDropdown
+            function toggleDropdown(input) {
+                if (input === endTimeInput && !startTimeInput.querySelector('.time-option-homecare-long.selected')) {
+                    return;
+                }
+
+                const wasActive = input.classList.contains('active-extra-long');
+
+                document.querySelectorAll('.time-input-homecare-long').forEach(element => {
+                    element.classList.remove('active-extra-long');
+                });
+
+                if (!wasActive) {
+                    input.classList.add('active-extra-long');
+
+                    const selectedOption = input.querySelector('.time-option-homecare-long.selected');
+                    if (selectedOption) {
+                        selectedOption.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
+                }
+            }
+
+            // Update event listeners
+            startTimeInput.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('time-option-homecare-long')) {
+                    toggleDropdown(startTimeInput);
+                }
+            });
+
+            endTimeInput.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('time-option-homecare-long')) {
+                    toggleDropdown(endTimeInput);
+                }
+            });
+
+            startTimeList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('time-option-homecare-long')) {
+                    handleTimeSelection(startTimeInput, e.target);
+                }
+            });
+
+            endTimeList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('time-option-homecare-long')) {
+                    handleTimeSelection(endTimeInput, e.target);
+                }
+            });
+
+            // Update document click handler
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.time-input-homecare-long')) {
+                    document.querySelectorAll('.time-input-homecare-long').forEach(input => {
+                        input.classList.remove('active-extra-long');
+                    });
+                }
+            });
+        });
 </script>

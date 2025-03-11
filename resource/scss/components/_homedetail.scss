@@ -135,7 +135,7 @@
         margin:auto;
     }
     .section &__container-2{
-        padding-top:60px;
+        padding-top:84px;
         padding-bottom:70px;
     }
 
@@ -521,4 +521,611 @@
         display: flex;
         flex-direction: column;
     }
+}
+.container-input-form {
+    width: 100%;
+    max-width: 480px;
+    padding: 20px;
+}
+
+#userForm-input-form {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.title-input-form {
+    color: #333;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.form-group-input-form {
+    margin-bottom: 20px;
+}
+
+.label-input-form {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.input-form-accountdetail {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e1e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.input-form-accountdetail:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+.input-form-accountdetail:disabled {
+    background-color: #f9f9f9;
+    cursor: not-allowed;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.btn-homedetail {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-homedetail:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.edit {
+    background-color: #fb2b36;
+    color: white;
+}
+
+.edit:hover {
+    background-color: #1976D2;
+}
+
+.save {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.save:hover {
+    background-color: #388E3C;
+}
+
+@media (max-width: 480px) {
+    .container-input-form {
+        padding: 15px;
+    }
+
+    #userForm-input-form {
+        padding: 20px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+}
+.container-homedetail {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.table-section-homedetail {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.title-homedetail {
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.table-container-homedetail {
+    overflow-x: auto;
+}
+
+.modern-table-homedetail {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.modern-table-homedetail th,
+.modern-table-homedetail td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.modern-table-homedetail th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+}
+
+.modern-table-homedetail tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.status-select-homedetail {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #e1e1e1;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.status-select-homedetail option[value="completed"] {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-select-homedetail option[value="in-progress"] {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.status-select-homedetail option[value="cancelled"] {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* Status colors */
+.status-select-homedetail.completed-homedetail {
+    border-color: #4CAF50;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-select-homedetail.in-progress-homedetail {
+    border-color: #FF9800;
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.status-select-homedetail.cancelled-homedetail {
+    border-color: #f44336;
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .table-section-homedetail {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .modern-table-homedetail th,
+    .modern-table-homedetail td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .status-select-homedetail {
+        padding: 6px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modern-table-homedetail {
+        font-size: 0.8rem;
+    }
+
+    .modern-table-homedetail th,
+    .modern-table-homedetail td {
+        padding: 8px;
+    }
+
+    .title-homedetail {
+        font-size: 1.2rem;
+    }
+}
+
+
+.container-homecare {
+    min-width: 100%;
+}
+
+.time-picker-wrapper-homecare {
+    display: flex;
+}
+
+.time-picker-homecare {
+    flex: 1;
+    @include abstracts.screen(lg){
+        padding-top: 10px;
+         padding-bottom: 10px;
+        
+    }
+ 
+}
+
+.time-label-homecare {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.time-input-homecare {
+    position: relative;
+    width: 100%;
+    border:0.1px solid #d4d4d4
+}
+
+.selected-time-homecare {
+    display: block;
+    width: 100%;
+    padding: 13px 4px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.selected-time-homecare:hover {
+    border-color: var(--primary-color);
+}
+
+.dropdown-homecare {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-top: 4px;
+    box-shadow: var(--shadow);
+    display: none;
+    z-index: 1000;
+}
+
+.time-input-homecare.active-extra .dropdown-homecare {
+    display: block;
+}
+
+.time-list-homecare {
+    max-height: 250px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--background-color);
+    scroll-behavior: smooth;
+    background: white;
+}
+
+.time-list-homecare::-webkit-scrollbar {
+    width: 6px;
+}
+
+.time-list-homecare::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+.time-list-homecare::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 3px;
+}
+
+.time-option-homecare {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.time-option-homecare:hover {
+    background-color: var(--hover-color);
+}
+
+.time-option-homecare.selected {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Animation for dropdown */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.time-input-homecare.active-extra .dropdown-homecare {
+    animation: fadeIn 0.2s ease-out;
+}
+//long
+.container-homecare-long {
+    min-width: 100%;
+}
+
+.time-picker-wrapper-homecare-long {
+    display: flex;
+}
+
+.time-picker-homecare-long {
+    flex: 1;
+
+    @include abstracts.screen(lg) {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+.time-label-homecare-long {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.time-input-homecare-long {
+    position: relative;
+    width: 100%;
+    border:1px solid #d4d4d4
+}
+
+.selected-time-homecare-long {
+    display: block;
+    width: 100%;
+    padding: 13px 4px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.selected-time-homecare-long:hover {
+    border-color: var(--primary-color);
+}
+
+.dropdown-homecare-long {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-top: 4px;
+    box-shadow: var(--shadow);
+    display: none;
+    z-index: 1000;
+}
+
+.time-input-homecare-long.active-extra-long .dropdown-homecare-long {
+    display: block;
+}
+
+.time-list-homecare-long {
+    max-height: 250px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--background-color);
+    scroll-behavior: smooth;
+    background-color: white;
+}
+
+.time-list-homecare-long::-webkit-scrollbar {
+    width: 6px;
+}
+
+.time-list-homecare-long::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+.time-list-homecare-long::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 3px;
+}
+
+.time-option-homecare-long {
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.time-option-homecare-long:hover {
+    background-color: var(--hover-color);
+}
+
+.time-option-homecare-long.selected {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Animation for dropdown */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.time-input-homecare-long.active-extra-long .dropdown-homecare-long {
+    animation: fadeIn 0.2s ease-out;
+}
+/* General Styles */
+.body-homecare {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+/* Unpaid Bills List Styles */
+.unpaid-bills-container-history-homecare {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.unpaid-bills-title-history-homecare {
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.bills-list-history-homecare {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bill-item-history-homecare {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bill-item-history-homecare:hover {
+    background-color: #e9ecef;
+}
+
+.bill-info-history-homecare {
+    flex: 1;
+}
+
+.customer-name-history-homecare {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.bill-date-history-homecare {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+/* Modal Styles */
+.modal-history-homecare {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content-history-homecare {
+    position: relative;
+    background-color: #fff;
+    margin: 50px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn-history-homecare {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.close-btn-history-homecare:hover {
+    color: #333;
+}
+
+.modal-title-history-homecare {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.bill-details-history-homecare {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.detail-row-history-homecare {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-label-history-homecare {
+    font-weight: bold;
+    color: #495057;
+}
+
+.detail-value-history-homecare {
+    color: #6c757d;
+}
+
+.status-unpaid {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-history-homecare.show-history-homecare {
+    display: block;
+    animation: fadeIn 0.3s ease;
 }
