@@ -302,7 +302,7 @@ const requestController={
 
         let today= new Date()
         req.query.orderDate = today.getFullYear() + "-"+(today.getMonth()+1) +"-"+today.getDate()
-        req.query.totalCost= calculateTotalCost(service,costFactors,req)
+        // req.query.totalCost= calculateTotalCost(service,costFactors,req)
 
         //get helper information
         let helper = await fetch(process.env.API_URL + '/helper/'+req.query.helperId)
