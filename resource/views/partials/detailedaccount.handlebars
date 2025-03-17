@@ -206,8 +206,8 @@
                                             <td>{{orderDate}}</td>
                                             <td>{{requestType}}</td>
                                             <td>{{totalCost}}</td>
-                                            <td>{{startTime}}</td>
-                                            <td>{{endTime}}</td>
+                                            <td>{{#formatTime startTime }}{{/formatTime}}</td>
+                                            <td>{{#formatTime endTime }}{{/formatTime}}</td>
                                             <td>
                                                 <p class="status-detail cancel">{{status}}</p>
                                             </td>
@@ -239,8 +239,8 @@
                                             <td>{{orderDate}}</td>
                                             <td>{{requestType}}</td>
                                             <td>{{totalCost}}</td>
-                                            <td>{{startTime}}</td>
-                                            <td>{{endTime}}</td>
+                                            <td>{{#formatTime startTime }}{{/formatTime}}</td>
+                                            <td>{{#formatTime endTime }}{{/formatTime}}</td>
                                             <td>
                                                 <p class="status-detail cancel">{{status}}</p>
                                             </td>

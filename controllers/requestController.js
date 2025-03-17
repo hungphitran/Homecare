@@ -148,7 +148,7 @@ const requestController={
         .catch(err=>console.error(err))
 
         let today= new Date()
-        req.query.orderDate = today.getFullYear() + "-"+(today.getMonth()+1) +"-"+today.getDate()
+        req.query.orderDate = today.getFullYear() + "-"+(today.getMonth()+1>9 ? today.getMonth()+1 : "0"+(today.getMonth()+1)  ) +"-"+today.getDate()
 
         req.query.totalCost=0;
         
