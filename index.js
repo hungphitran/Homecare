@@ -21,6 +21,9 @@ const hbs = handlebars.create({
         formatDate: function () {
             return new Date().toISOString().split('T')[0];
         },
+        formatTime: function (date) {
+            return date.split('T')[1].split('.')[0];
+        },
         formatContent: function () {
             return "chọn ngày"
         },

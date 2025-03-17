@@ -32,7 +32,7 @@ const mailController={
           });
         
         let mailOptions = {
-            from: `PROCLEANER ${process.env.MAIL}`,
+            from: `HOMEKARE ${process.env.MAIL}`,
             to: 'nckhe222024@gmail.com',
             subject: 'Liên hệ',
             text: message,

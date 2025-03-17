@@ -17,27 +17,25 @@
             <div class="grid-form-homecare">
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="phone">Số điện thoại</label>
-                    <input class="input-form-homecare" type="tel" id="phone" name="phone" required>
+                    <input class="input-form-homecare" type="tel" id="phone" name="phone" value=""{{customer.phone}}"" required>
                 </div>
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="fullname">Họ và tên</label>
-                    <input class="input-form-homecare" type="text" id="fullname" name="fullname" required>
+                    <input class="input-form-homecare" type="text" id="fullname" name="fullname" value="{{customer.fullName}}"  required>
                 </div>
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="city">Thành phố</label>
-                    <select class="select-form-homecare" id="city" name="city" required>
-                        <option value="">Chọn thành phố</option>
-                        <option value="hanoi">Hà Nội</option>
-                        <option value="hcm">TP. Hồ Chí Minh</option>
+                    <select class="select-form-homecare" id="city" name="province" required>
+                        <option value="{{request.province}}">{{request.province}}</option>
                     </select>
                 </div>
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="district">Quận</label>
                     <select class="select-form-homecare" id="district" name="district" required>
-                        <option value="">Chọn quận</option>
+                        <option value="{{request.district}}">{{request.district}}</option>
                     </select>
                 </div>
     
@@ -50,12 +48,12 @@
     
                 <div class="group-form-homecare full-width-form-homecare">
                     <label class="label-form-homecare" for="address">Địa chỉ chi tiết</label>
-                    <input class="input-form-homecare" type="text" id="address" name="address" required>
+                    <input class="input-form-homecare" type="text" id="address" name="address" value="{{customer.address}}" required>
                 </div>
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="date">Ngày đặt</label>
-                    <input class="input-form-homecare" type="date" id="date" name="date" required>
+                    <input class="input-form-homecare" type="date" id="date" name="date" value="{{request.orderDate}}" required>
                 </div>
     
                 <div class="group-form-homecare">
@@ -70,13 +68,13 @@
     
                 <div class="group-form-homecare full-width-form-homecare">
                     <label class="label-form-homecare" for="service-confirm">Dịch vụ đã chọn</label>
-                    <input class="input-form-homecare readonly-form-homecare" type="text" id="service-confirm" name="service-confirm"
+                    <input class="input-form-homecare readonly-form-homecare" type="text" id="service-confirm" name="service" value="{{service.title}}"
                         readonly>
                 </div>
     
                 <div class="group-form-homecare full-width-form-homecare">
                     <label class="label-form-homecare" for="totalAmount">Tổng số tiền</label>
-                    <input class="input-form-homecare total-form-homecare" type="text" id="totalAmount" name="totalAmount"
+                    <input class="input-form-homecare total-form-homecare" type="text" id="totalAmount" name="totalAmount" value="{{request.totalCost}}"
                         readonly>
                 </div>
             </div>
@@ -147,8 +145,8 @@
             document.getElementById('date').min = today;
 
             // Set sample service and amount
-            document.getElementById('service-confirm').value = 'Dịch vụ giúp việc theo giờ';
-            document.getElementById('totalAmount').value = '300,000 VND';
+            //document.getElementById('service-confirm').value = 'Dịch vụ giúp việc theo giờ';
+            //document.getElementById('totalAmount').value = '300,000 VND';
 
             // Add event listeners
             document.getElementById('city').addEventListener('change', updateDistricts);
