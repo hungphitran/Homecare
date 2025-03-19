@@ -35,14 +35,14 @@
     <div class="profile-container-homecare" style="z-index:99999;">
         <div class="profile-dropdown-homecare">
             <button class="dropdown-btn-homecare">
-                <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img-homecare">
+                {{!-- <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img-homecare"> --}}
                 <span class="profile-name-homecare">Tommy</span>
                 <i class="fas fa-chevron-down"></i>
             </button>
             <div class="dropdown-content-homecare">
                 <div class="dropdown-item-homecare" data-modal="profile">
                     <i class="fas fa-user"></i>
-                    Thông tin khách hàng
+                    Thông tin
                 </div>
                 <div class="dropdown-item-homecare" data-modal="settings">
                     <i class="fas fa-cog"></i>
@@ -136,7 +136,7 @@
                 </div>
                 <ul class="aside__nav">
                     <li class="aside__item">
-                        <a href="#hire-helper">
+                        <a href="/">
                             <i class="fa-brands fa-hire-a-helper"></i>Đặt đơn
                         </a>
                     </li>
@@ -209,7 +209,74 @@
                                             <td>{{#formatTime startTime }}{{/formatTime}}</td>
                                             <td>{{#formatTime endTime }}{{/formatTime}}</td>
                                             <td>
-                                                <p class="status-detail cancel">{{status}}</p>
+                                                {{!-- <p class="status-detail cancel">{{status}}</p> --}}
+                                                <button class="btnHistoryDetailHomeKare" onclick="showBillType('long')" aria-label="View Long Term Bill Details">Chi tiết</button>
+                                                    <!-- Long Term Modal -->
+                                                    <div class="modalHistoryDetailHomeKare" id="longTermModalHistoryDetailHomeKare">
+                                                        <div class="modalContentHistoryDetailHomeKare">
+                                                            <span class="closeModalHistoryDetailHomeKare"
+                                                                onclick="closeModal('longTermModalHistoryDetailHomeKare')">&times;</span>
+                                                            <div class="modalHeaderHistoryDetailHomeKare">
+                                                                <h2 class="modalTitleHistoryDetailHomeKare">Chi tiết hóa đơn dài hạn</h2>
+                                                            </div>
+                                                            <div class="longTermContainerHistoryDetailHomeKare">
+                                                                <div class="dayBillHistoryDetailHomeKare">
+                                                                    <h3 class="dayTitleHistoryDetailHomeKare">11/2-12/3</h3>
+                                                                    <div class="billDetailsHistoryDetailHomeKare">
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Giờ bắt đầu</span>
+                                                                            <span class="valueHistoryDetailHomeKare">09:00 AM</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Giờ kết thức</span>
+                                                                            <span class="valueHistoryDetailHomeKare">11:00 AM</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
+                                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare">Đã hoàn thành</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Chi phí:</span>
+                                                                            <span class="valueHistoryDetailHomeKare">50.00VNĐ</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
+                                                                            <p class="commentHistoryDetailHomeKare">Hoàn thành công việc đúng giờ và sạch sẽ</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="dayBillHistoryDetailHomeKare">
+                                                                    <h3 class="dayTitleHistoryDetailHomeKare">11/2-11/3</h3>
+                                                                    <div class="billDetailsHistoryDetailHomeKare">
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">giờ bắt đầu</span>
+                                                                            <span class="valueHistoryDetailHomeKare">09:00 AM</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Giờ kết thúc</span>
+                                                                            <span class="valueHistoryDetailHomeKare">11:00 AM</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
+                                                                            <span class="valueHistoryDetailHomeKare status-pendingHistoryDetailHomeKare">Chờ xác nhận</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Chi phí:</span>
+                                                                            <span class="valueHistoryDetailHomeKare">50.00VNĐ</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
+                                                                            <p class="commentHistoryDetailHomeKare">Đúng giờ</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="totalCostHistoryDetailHomeKare">
+                                                                    <span class="labelHistoryDetailHomeKare">Tổng số tiến:</span>
+                                                                    <span class="valueHistoryDetailHomeKare">100.00VNĐ</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                             </td>
                                         </tr>
                                         {{/each}}
@@ -588,6 +655,63 @@
                     document.getElementById('logout-modal-homecare').classList.remove('active-detail-homecare');
                 });
             }
+        });
+</script>
+<script>
+    function showBillType(type) {
+            // Get both bill containers
+            const shortTermBill = document.getElementById('shortTermBillHistoryDetailHomeKare');
+            const longTermBill = document.getElementById('longTermBillHistoryDetailHomeKare');
+
+            // Get all buttons
+            const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+
+            // Reset all buttons
+            buttons.forEach(button => {
+                button.style.background = '#3498db';
+            });
+
+            // Show selected bill type and highlight active button
+            if (type === 'short') {
+                openModal('shortTermModalHistoryDetailHomeKare');
+                buttons[0].style.background = '#2980b9';
+            } else {
+                openModal('longTermModalHistoryDetailHomeKare');
+                buttons[1].style.background = '#2980b9';
+            }
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('showModalHistoryDetailHomeKare');
+            document.body.style.overflow = 'hidden';
+
+            // Add click outside to close functionality
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeModal(modalId);
+                }
+            });
+
+            // Add escape key to close functionality
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    closeModal(modalId);
+                }
+            });
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('showModalHistoryDetailHomeKare');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Show short term bill modal by default when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Don't show any modal by default, wait for user click
+            const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+            buttons[0].style.background = '#2980b9';
         });
 </script>
 <script>

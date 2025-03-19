@@ -98,6 +98,7 @@
                                                     <div class="time-list-homecare" id="start-time-list"></div>
                                                 </div>
                                             </div>
+                                            <input type="hidden" name="startTime" class="start-time-input-short">
                                         </div>
                                 
                                         <div class="time-picker-homecare">
@@ -107,6 +108,7 @@
                                                     <div class="time-list-homecare" id="end-time-list"></div>
                                                 </div>
                                             </div>
+                                            <input type="hidden" name="endTime" class="end-time-input-short">
                                         </div>
                                     </div>
                             </div>
@@ -116,7 +118,7 @@
                         <button id="submitForm1" class="btn btn-find btn-find-short-term"
                             style="border: 1px solid #d4d4d4;    position: relative;
     top: 10px;
-    left: 43%;border-radius:10px"form="short-term-form">Tìm kiếm</button>
+    left: 45%;border-radius:10px"form="short-term-form">Tìm kiếm</button>
                     </div>
                     <div id="long-term">
                         <form id="long-term-form"  method="get" action="/request/longterm" class="form__long-term hide-form">
@@ -221,6 +223,7 @@
                                                                 <div class="time-list-homecare-long" id="start-time-list-long"></div>
                                                             </div>
                                                         </div>
+                                                        <input type="hidden" name="startTime" id="start-time-value-long">
                                                     </div>
                                             
                                                     <div class="time-picker-homecare-long">
@@ -230,6 +233,7 @@
                                                                 <div class="time-list-homecare-long" id="end-time-list-long"></div>
                                                             </div>
                                                         </div>
+                                                        <input type="hidden" name="startTime" id="end-time-value-long">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1162,8 +1166,20 @@ console.log(districts);
             const endTimeInput = document.getElementById('end-time-input');
             const startTimeList = document.getElementById('start-time-list');
             const endTimeList = document.getElementById('end-time-list');
-
-            // Initially disable end time picker
+            const divStartTimeShort = document.querySelector("div[id='start-time-input']");
+           const inputStartTimeShort = document.querySelector("input[class='start-time-input-short']");
+           const divEndTimeShort = document.querySelector("div[id='end-time-input']");
+            const inputEndTimeShort = document.querySelector("input[class='end-time-input-short']");
+            divStartTimeShort.addEventListener('change', function () {
+            console.log('Time changed:', this.querySelector('.selected-time-homecare').textContent);
+            console.log('Hidden input value:', inputStartTimeShort.value);
+        });
+         // Add event listeners to verify changes
+        divEndTimeShort.addEventListener('change', function () {
+            console.log('End time changed:', this.querySelector('.selected-time-homecare').textContent);
+            console.log('Hidden end time value:', inputEndTimeShort.value);
+        });
+                        // Initially disable end time picker
             endTimeInput.style.opacity = '0.5';
             endTimeInput.style.pointerEvents = 'none';
 
@@ -1243,11 +1259,31 @@ console.log(districts);
 
                 // If this is the start time, update end time options
                 if (input === startTimeInput) {
+                     // Lưu giá trị vào input ẩn
+                    inputStartTimeShort.value = selectedOption.dataset.value;
                     const selectedHour = parseFloat(selectedOption.dataset.hour);
                     endTimeInput.style.opacity = '1';
                     endTimeInput.style.pointerEvents = 'auto';
                     updateEndTimeOptions(selectedHour);
+                     // Trigger custom change event
+                    const event = new Event('change', { bubbles: true });
+                    divStartTimeShort.dispatchEvent(event); 
                 }
+                 // If this is the end time 
+                else if (input === endTimeInput) {
+                    // Set value for end time input
+                    inputEndTimeShort.value = selectedOption.dataset.value;
+
+                    // Trigger change event for end time
+                    const endEvent = new Event('change', { bubbles: true });
+                    divEndTimeShort.dispatchEvent(endEvent);
+
+                    // Add debug logs
+                    console.log('End time selected:', selectedOption.dataset.value);
+                    console.log('End time input value:', inputEndTimeShort.value);
+                }
+                
+                
             }
 
             // Toggle dropdown

@@ -58,12 +58,12 @@
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="startTime">Giờ bắt đầu</label>
-                    <input class="input-form-homecare" type="time" id="startTime" name="startTime" required>
+                    <input class="input-form-homecare" type="time" id="startTime" name="startTime" value="{{request.startTime}}" required>
                 </div>
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="endTime">Giờ kết thúc</label>
-                    <input class="input-form-homecare" type="time" id="endTime" name="endTime" required>
+                    <input class="input-form-homecare" type="time" id="endTime" name="endTime" value={{request.endTime}}required>
                 </div>
     
                 <div class="group-form-homecare full-width-form-homecare">
