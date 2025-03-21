@@ -13,12 +13,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    {{!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> --}}
+    <!-- Xóa các import trùng lặp và chỉ giữ lại bộ import này -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- link css -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- script -->
@@ -258,7 +261,7 @@
                                                                         </div>
                                                                         <div class="detailItemHistoryDetailHomeKare">
                                                                             <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
-                                                                            <span class="valueHistoryDetailHomeKare status-pendingHistoryDetailHomeKare">Chờ xác nhận</span>
+                                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare">Đã hoàn thành</span>
                                                                         </div>
                                                                         <div class="detailItemHistoryDetailHomeKare">
                                                                             <span class="labelHistoryDetailHomeKare">Chi phí:</span>
@@ -273,8 +276,11 @@
                                                                 <div class="totalCostHistoryDetailHomeKare">
                                                                     <span class="labelHistoryDetailHomeKare">Tổng số tiến:</span>
                                                                     <span class="valueHistoryDetailHomeKare">100.00VNĐ</span>
+                                                                    <!-- Add Thanh toán button -->
+                                                                    <button id="payButton" class="btn btn-primary" style="display: none;">Thanh toán</button>
                                                                 </div>
                                                             </div>
+                                                        
                                                         </div>
                                                     </div>
                                             </td>
@@ -309,7 +315,46 @@
                                             <td>{{#formatTime startTime }}{{/formatTime}}</td>
                                             <td>{{#formatTime endTime }}{{/formatTime}}</td>
                                             <td>
-                                                <p class="status-detail cancel">{{status}}</p>
+                                                {{!-- <p class="status-detail cancel">{{status}}</p> --}}
+                                                <button class="btnHistoryDetailHomeKare" onclick="showBillType('short')" aria-label="View Short Term Bill Details">Chi tiết</button>
+                                            <!-- Thay thế phần modal chi tiết ngắn hạn hiện tại -->
+                                            <div class="modalHistoryDetailHomeKare" id="shortTermModalHistoryDetailHomeKare">
+                                                <div class="modalContentHistoryDetailHomeKare">
+                                                    <span class="closeModalHistoryDetailHomeKare"
+                                                        onclick="closeModal('shortTermModalHistoryDetailHomeKare')">&times;</span>
+                                                    <div class="modalHeaderHistoryDetailHomeKare">
+                                                        <h2 class="modalTitleHistoryDetailHomeKare">Chi tiết hóa đơn ngắn hạn</h2>
+                                                    </div>
+                                                    <div class="billDetailsHistoryDetailHomeKare">
+                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                            <span class="labelHistoryDetailHomeKare">Ngày:</span>
+                                                            <span class="valueHistoryDetailHomeKare">{{orderDate}}</span>
+                                                        </div>
+                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                            <span class="labelHistoryDetailHomeKare">Giờ bắt đầu:</span>
+                                                            <span class="valueHistoryDetailHomeKare">{{startTime}}</span>
+                                                        </div>
+                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                            <span class="labelHistoryDetailHomeKare">Giờ kết thúc:</span>
+                                                            <span class="valueHistoryDetailHomeKare">{{endTime}}</span>
+                                                        </div>
+                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                            <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
+                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare">Đã hoàn thành</span>
+                                                        </div>
+                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                            <span class="labelHistoryDetailHomeKare">Chi phí:</span>
+                                                            <span class="valueHistoryDetailHomeKare">{{totalCost}}</span>
+                                                        </div>
+                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                            <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
+                                                            <p class="commentHistoryDetailHomeKare">{{comment}}</p>
+                                                        </div>
+                                                        <!-- Thêm nút thanh toán -->
+                                                        <button id="payButtonShort" class="btn btn-primary" style="display: none;margin-left:auto;">Thanh toán</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             </td>
                                         </tr>
                                         {{/each}}
@@ -317,19 +362,203 @@
                                 </table>
                             </div>
                         </div>
+                        {{!-- <!-- Add Thanh toán button -->
+                        <button id="payButton" class="btn btn-primary" style="display: none;">Thanh toán</button> --}}
                     </div>
-                   
                 </div>
             </section>
+            <!-- Payment Form Modal -->
+            {{!-- <div class="modal" id="paymentModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Thanh toán</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="paymentForm">
+                                <div class="form-group">
+                                    <label for="cardNumber">Số thẻ</label>
+                                    <input type="text" class="form-control" id="cardNumber" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="expiryDate">Ngày hết hạn</label>
+                                    <input type="text" class="form-control" id="expiryDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" class="form-control" id="cvv" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Thanh toán</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
             {{!-- about section end --}}
             {{!-- book section start --}}
             {{!-- book section end --}}
         </div>
         {{!-- main content end --}}
     </div>
+{{!-- modal xác nhận thanh toán --}}
+<!-- Modal Xác nhận thanh toán -->
+<div class="modal" id="confirmPaymentModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận thanh toán</h5>
+                <!-- Thay thế nút close hiện tại -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="display: flex
+;
+    justify-content: center;
+    align-items: center;">
+                    <span class="btn-close-modal">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn xác nhận đã thanh toán cho người giúp việc?</p>
+            </div>
+            <div class="modal-footer">
+             
+                <button type="button" class="btn btn-primary" id="confirmPayBtn">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- Modal Đánh giá -->
+<div class="modal" id="ratingModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Đánh giá người giúp việc</h5>
+               
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="display: flex
+                ;
+                    justify-content: center;
+                    align-items: center;">
+                    <span class="btn-close-modal">x</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="rating-stars">
+                    <i class="fas fa-star" data-rating="1"></i>
+                    <i class="fas fa-star" data-rating="2"></i>
+                    <i class="fas fa-star" data-rating="3"></i>
+                    <i class="fas fa-star" data-rating="4"></i>
+                    <i class="fas fa-star" data-rating="5"></i>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="ratingComment">Nhận xét của bạn:</label>
+                    <textarea class="form-control" id="ratingComment" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+               
+                <button type="button" class="btn btn-primary" id="submitRatingBtn">Gửi đánh giá</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script src="/js/app.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            // Kiểm tra trạng thái hoàn thành và hiển thị nút thanh toán
+            function checkAllBillsCompleted() {
+                const statusElements = document.querySelectorAll('.valueHistoryDetailHomeKare.status-completeHistoryDetailHomeKare');
+                return Array.from(statusElements).every(el => el.textContent.trim() === 'Đã hoàn thành');
+            }
+
+            function updatePayButtonVisibility() {
+                const payButton = document.getElementById('payButton');
+                if (checkAllBillsCompleted()) {
+                    payButton.style.display = 'block';
+                } else {
+                    payButton.style.display = 'none';
+                }
+            }
+
+            // Xử lý nút thanh toán
+            document.getElementById('payButton').addEventListener('click', function () {
+                const confirmModal = new bootstrap.Modal(document.getElementById('confirmPaymentModal'));
+                confirmModal.show();
+            });
+
+            // Xử lý xác nhận thanh toán
+            document.getElementById('confirmPayBtn').addEventListener('click', function () {
+                // Đóng modal xác nhận
+                const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmPaymentModal'));
+                confirmModal.hide();
+
+                // Hiển thị thông báo thành công
+                alert('Xác nhận thanh toán thành công!');
+
+                // Hiển thị modal đánh giá
+                const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
+                ratingModal.show();
+            });
+
+            // Xử lý đánh giá sao
+            const stars = document.querySelectorAll('.rating-stars .fa-star');
+            let selectedRating = 0;
+
+            stars.forEach(star => {
+                star.addEventListener('mouseover', function () {
+                    const rating = this.dataset.rating;
+                    highlightStars(rating);
+                });
+
+                star.addEventListener('mouseout', function () {
+                    highlightStars(selectedRating);
+                });
+
+                star.addEventListener('click', function () {
+                    selectedRating = this.dataset.rating;
+                    highlightStars(selectedRating);
+                });
+            });
+
+            function highlightStars(rating) {
+                stars.forEach(star => {
+                    const starRating = star.dataset.rating;
+                    if (starRating <= rating) {
+                        star.classList.add('active');
+                    } else {
+                        star.classList.remove('active');
+                    }
+                });
+            }
+
+            // Xử lý gửi đánh giá
+            document.getElementById('submitRatingBtn').addEventListener('click', function () {
+                const comment = document.getElementById('ratingComment').value;
+
+                if (selectedRating === 0) {
+                    alert('Vui lòng chọn số sao đánh giá!');
+                    return;
+                }
+
+                // Gửi đánh giá
+                console.log('Đánh giá:', selectedRating, 'sao');
+                console.log('Nhận xét:', comment);
+                //Đóng modal chi tiết
+                const closeModal=document.querySelector('.modalHistoryDetailHomeKare').classList.remove('showModalHistoryDetailHomeKare')
+                // Đóng modal đánh giá
+                const ratingModal = bootstrap.Modal.getInstance(document.getElementById('ratingModal'));
+                ratingModal.hide();
+
+                // Hiển thị thông báo thành công
+                alert('Cảm ơn bạn đã đánh giá!');
+            });
+
+            // Kiểm tra ban đầu
+            updatePayButtonVisibility();
+        });
+</script>
 <script>
     const nav = document.querySelector(".aside__nav"),
         navList = nav.querySelectorAll(".aside__item"),
@@ -713,6 +942,155 @@
             const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
             buttons[0].style.background = '#2980b9';
         });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            // Check if all bills are completed
+            function checkAllBillsCompleted() {
+                const statusElements = document.querySelectorAll('.status-detail');
+                return Array.from(statusElements).every(el => el.textContent.trim() === 'Đã hoàn thành');
+            }
+
+            // Show or hide the pay button based on bill status
+            function updatePayButtonVisibility() {
+                const payButton = document.getElementById('payButton');
+                if (checkAllBillsCompleted()) {
+                    payButton.style.display = 'block';
+                } else {
+                    payButton.style.display = 'none';
+                }
+            }
+
+            // Show payment form modal
+            function showPaymentForm() {
+                const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                paymentModal.show();
+            }
+
+            // Handle payment form submission
+            function handlePaymentFormSubmission(event) {
+                event.preventDefault();
+                alert('Thanh toán thành công!');
+                const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+                paymentModal.hide();
+            }
+
+            // Add event listeners
+            document.getElementById('payButton').addEventListener('click', showPaymentForm);
+            document.getElementById('paymentForm').addEventListener('submit', handlePaymentFormSubmission);
+
+            // Initial check
+            updatePayButtonVisibility();
+        });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+            // Khởi tạo tất cả modals
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                new bootstrap.Modal(modal);
+            });
+
+            // Xử lý nút close
+            const closeButtons = document.querySelectorAll('.btn-close');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const modal = this.closest('.modal');
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    if (modalInstance) {
+                        modalInstance.hide();
+                    }
+                });
+            });
+        });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Xử lý cho cả dài hạn và ngắn hạn
+        function checkBillCompleted(modalId) {
+            const statusElement = document.querySelector(`#${modalId} .status-completeHistoryDetailHomeKare`);
+            return statusElement && statusElement.textContent.trim() === 'Đã hoàn thành';
+        }
+
+        function updatePayButtonVisibility(modalId, buttonId) {
+            const payButton = document.getElementById(buttonId);
+            if (checkBillCompleted(modalId)) {
+                payButton.style.display = 'block';
+            } else {
+                payButton.style.display = 'none';
+            }
+        }
+
+        // Xử lý nút thanh toán ngắn hạn
+        document.getElementById('payButtonShort').addEventListener('click', function () {
+            const confirmModal = new bootstrap.Modal(document.getElementById('confirmPaymentModal'));
+            confirmModal.show();
+        });
+
+        // Xử lý xác nhận thanh toán
+        document.getElementById('confirmPayBtn').addEventListener('click', function () {
+            // Đóng modal xác nhận
+            const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmPaymentModal'));
+            confirmModal.hide();
+
+            // Hiển thị thông báo thành công
+            alert('Xác nhận thanh toán thành công!');
+
+            // Hiển thị modal đánh giá
+            const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
+            ratingModal.show();
+
+            // Đóng modal chi tiết
+            const detailModal = document.querySelector('.modalHistoryDetailHomeKare');
+            if (detailModal) {
+                detailModal.classList.remove('showModalHistoryDetailHomeKare');
+            }
+        });
+
+        // Xử lý đánh giá
+        const stars = document.querySelectorAll('.rating-stars .fa-star');
+        let selectedRating = 0;
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                selectedRating = this.dataset.rating;
+                highlightStars(selectedRating);
+            });
+        });
+
+        // Submit đánh giá
+        document.getElementById('submitRatingBtn').addEventListener('click', function () {
+            if (selectedRating === 0) {
+                alert('Vui lòng chọn số sao đánh giá!');
+                return;
+            }
+
+            const comment = document.getElementById('ratingComment').value;
+             //Đóng modal chi tiết
+           const closeModal = document.getElementById('shortTermModalHistoryDetailHomeKare').classList.remove('showModalHistoryDetailHomeKare');
+            // Đóng modal đánh giá
+            const ratingModal = bootstrap.Modal.getInstance(document.getElementById('ratingModal'));
+            ratingModal.hide();
+
+            // Hiển thị thông báo thành công
+            alert('Cảm ơn bạn đã đánh giá!');
+        });
+
+        // Kiểm tra và hiển thị nút thanh toán khi mở modal
+        function onModalOpen(modalId, buttonId) {
+            updatePayButtonVisibility(modalId, buttonId);
+        }
+
+        // Event listeners cho việc mở modal
+        document.querySelectorAll('.btnHistoryDetailHomeKare').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const type = this.getAttribute('onclick').includes('short') ? 'short' : 'long';
+                const modalId = `${type}TermModalHistoryDetailHomeKare`;
+                const buttonId = `payButton${type.charAt(0).toUpperCase() + type.slice(1)}`;
+                onModalOpen(modalId, buttonId);
+            });
+        });
+    });
 </script>
 <script>
     window.dispatchEvent(new Event("template-loaded"));

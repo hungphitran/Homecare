@@ -1117,6 +1117,74 @@
     <script>
         window.dispatchEvent(new Event("template-loaded"));
     </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const orders = document.querySelectorAll('.order-status');
+        const payButton = document.createElement('button');
+        payButton.textContent = 'Thanh toán';
+        payButton.classList.add('btn', 'btn-primary');
+        payButton.style.display = 'none'; // Ẩn nút thanh toán ban đầu
+
+        // Kiểm tra trạng thái của tất cả các hóa đơn
+        let allCompleted = true;
+        orders.forEach(order => {
+            if (order.textContent.trim() !== 'Đã hoàn thành') {
+                allCompleted = false;
+            }
+        });
+
+        // Nếu tất cả các hóa đơn đều đã hoàn thành, hiển thị nút thanh toán
+        if (allCompleted) {
+            payButton.style.display = 'block';
+        }
+
+        // Thêm nút thanh toán vào DOM
+        const container = document.querySelector('.main-content');
+        container.appendChild(payButton);
+
+        // Xử lý sự kiện khi bấm nút thanh toán
+        payButton.addEventListener('click', function() {
+            const paymentForm = document.createElement('form');
+            paymentForm.innerHTML = `
+                <h2>Thanh toán</h2>
+                <label for="card-number">Số thẻ:</label>
+                <input type="text" id="card-number" name="card-number" required>
+                <label for="expiry-date">Ngày hết hạn:</label>
+                <input type="text" id="expiry-date" name="expiry-date" required>
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" required>
+                <button type="submit" class="btn btn-success">Thanh toán</button>
+            `;
+            paymentForm.classList.add('payment-form');
+            document.body.appendChild(paymentForm);
+
+            // Hiển thị form thanh toán
+            paymentForm.style.display = 'block';
+
+            // Xử lý sự kiện submit form thanh toán
+            paymentForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                // Thực hiện thanh toán ở đây
+                alert('Thanh toán thành công!');
+                paymentForm.style.display = 'none';
+            });
+        });
+    });
+</script>
+
+<style>
+    .payment-form {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+</style>
 </body>
 
 </html>

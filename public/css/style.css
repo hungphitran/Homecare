@@ -5719,6 +5719,7 @@ html.dark {
 }
 
 .modal-backdrop.show {
+  display: none;
   z-index: 6;
 }
 
@@ -7189,6 +7190,42 @@ section {
     transform: translateY(0);
   }
 }
+.rating-stars {
+  font-size: 24px;
+  text-align: center;
+}
+
+.rating-stars .fa-star {
+  color: #ddd;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.rating-stars .fa-star.active {
+  color: #ffd700;
+}
+
+.btn-close {
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.25em;
+  color: #000;
+  background: transparent url("data:image/svg+xml,...") center/1em auto no-repeat;
+  border: 0;
+  border-radius: 0.25rem;
+  opacity: 0.5;
+}
+
+.btn-close:hover {
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.btn-close-modal {
+  font-size: 3rem;
+}
+
 .short-helper {
   flex: 0 0 100%;
   max-width: 100%;
@@ -7352,7 +7389,7 @@ section {
 
 .wrapper-service__select-btn {
   display: flex;
-  height: 84%;
+  height: 100%;
   padding: 0 15px;
   background: #fff;
   border: 1px solid #d4d4d4;
