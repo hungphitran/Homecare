@@ -1,17 +1,20 @@
+const { Value } = require('sass');
+
 require('dotenv').config()
 const dashboardController = {
     //GET of dashboard
     show: async (req, res, next) => {
-        let locations;
-        let services;
-        let helpers;
+        let locations=[];
+        let services=[];
+        let helpers=[];
         let user;
         let general;
-        let policies;
-        let questions;
+        let policies=[];
+        let questions=[];
+        let costFactors=[];
         try {
             //call api to get current user
-            let phone = req.session.user;
+            let phone = req.session.phone;
             user = await fetch(process.env.API_URL + '/customer/' + phone)
                 .then(data => data.json())
                 .then(data => data)
@@ -29,12 +32,26 @@ const dashboardController = {
         catch (err) {
             console.error(err);
         }
-
+        try {
+            //call api to get costFactors
+            costFactors = await fetch(process.env.API_URL + '/costfactor/service')
+                .then(data => data.json())
+                .then(data => data[0].coefficientList)
+        }
+        catch (err) {
+            console.error(err)
+        }
         try {
             //call api to get services
             services = await fetch(process.env.API_URL + '/service')
                 .then(data => data.json())
                 .then(data => data)
+            for(let i=0;i<services.length ;i++){
+                let coefficient=costFactors.filter((factor=>{
+                    return factor._id ==services[i].coefficient_id;
+                }))
+                services[i].coefficient = coefficient[0].value;
+            }
         }
         catch (err) {
             console.error(err)

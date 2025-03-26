@@ -56,7 +56,7 @@
                         <li class="header-menu__item"><a href="#contact">Liên hệ</a></li>
                         <li class="header-menu__item"><a href="/blog" target="_blank">Blog</a></li>
                         {{#if user}}
-                        <li class="header-menu__item"><a href="/account/detailed">{{user.fullName}}</a></li>
+                        <li class="header-menu__item"><a href="/account/detailed">{{username}}aaaaaaaa</a></li>
                         {{else}}
                         <li class="header-menu__item"><a href="/account">Đăng nhập</a></li>
                         <li class="header-menu__item"><a href="/account/register">Đăng kí</a></li>
@@ -105,26 +105,16 @@
                         <th>Dịch vụ</th>
                         <th>Phí cơ bản(VNĐ/Giờ)</th>
                         <th>Phụ phí</th>
-                        <th>Phí ngoài giờ</th>
+                        <th>Hệ số dịch vụ</th>
                     </tr>
+                    {{#each services}}
                     <tr>
-                        <td>Osin part time</td>
-                        <td>25.000 VND</td>
+                        <td>{{title}}</td>
+                        <td>{{basicPrice}} VND</td>
                         <td>Không</td>
-                        <td>5%</td>
+                        <td>{{coefficient}}</td>
                     </tr>
-                    <tr>
-                        <td>Dọn dẹp</td>
-                        <td>10.000 VND</td>
-                        <td>Không</td>
-                        <td>5%</td>
-                    </tr>
-                    <tr>
-                        <td>Nấu ăn</td>
-                        <td>10.000 VND</td>
-                        <td>Có</td>
-                        <td>5%</td>
-                    </tr>
+                    {{/each}}
                 </table>
                 
                 <div class="notes">

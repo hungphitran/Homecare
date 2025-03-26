@@ -55,6 +55,37 @@ const hbs = handlebars.create({
                 age--;
             }
             return age;
+        },
+        getStatus: function(status){
+            switch(status)
+            {
+                case "notDone": return "Chờ xác nhận"
+                case "assigned": return "Đã xác nhận"
+                case "done": return "Đã hoàn thành"
+                case "cancelled" : return "Đã hủy"
+                case "wayPayment": return "Chờ thanh toán" 
+                default: return status;
+            }
+        },
+        sum: function(n1,n2){
+            let num1 = Number.parseInt(n1)
+            let num2 = Number.parseInt(n2)
+            console.log(n1,n2,num1,num2)
+
+            return num1+num2
+        },
+        getButtonText: function(status){
+            console.log(status)
+            switch(status)
+            {
+                case "notDone": return "Hủy"
+                case "assigned": return ""
+                case "done": return ""
+                case "cancelled" : return ""
+                case "wayPayment": return "Xác nhận thanh toán"
+                case "processing": return "Xác nhận hoàn thành"
+                default: return status;
+            }
         }
     }
 });

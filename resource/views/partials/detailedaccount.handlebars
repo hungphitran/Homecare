@@ -39,7 +39,7 @@
         <div class="profile-dropdown-homecare">
             <button class="dropdown-btn-homecare">
                 {{!-- <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img-homecare"> --}}
-                <span class="profile-name-homecare">Tommy</span>
+                <span class="profile-name-homecare">{{user.fullName}}</span>
                 <i class="fas fa-chevron-down"></i>
             </button>
             <div class="dropdown-content-homecare">
@@ -60,8 +60,10 @@
                     Trợ giúp
                 </div>
                 <div class="dropdown-item-homecare" data-modal="logout">
+                    <a href="/account/logout">
                     <i class="fas fa-sign-out-alt"></i>
                     Thoát
+                    </a>
                 </div>
             </div>
         </div>
@@ -70,20 +72,20 @@
     <!-- Modals -->
     <div class="modal-homecare" id="profile-modal-homecare"  style="z-index:99999;">
         <div class="container-input-form">
-            <form id="userForm-input-form">
+            <form id="userForm-input-form" action="/account/update" method="post">
                 <h2 class="title-input-form">Thông tin khách hàng</h2>
                 <div class="form-group-input-form">
                     <label class="label-input-form" for="phone">Số điện thoại</label>
-                    <input class="input-form-accountdetail" type="tel" id="phone" name="phone" pattern="[0-9]+" disabled
+                    <input class="input-form-accountdetail" type="tel" id="phone" name="phone" value="{{user.phone}}" pattern="[0-9]+" disabled
                         required>
                 </div>
                 <div class="form-group-input-form">
                     <label class="label-input-form" for="name">Họ và tên</label>
-                    <input class="input-form-accountdetail" type="text" id="name" name="name" disabled required>
+                    <input class="input-form-accountdetail" type="text" id="name"  name="name" value="{{user.fullName}}" disabled required>
                 </div>
                 <div class="form-group-input-form">
                     <label class="label-input-form" for="address">Địa chỉ</label>
-                    <input class="input-form-accountdetail" type="text" id="address" name="address" disabled required>
+                    <input class="input-form-accountdetail" type="text" id="address" name="address" value="{{user.address}}" disabled required>
                 </div>
                 <div class="button-group-input-form">
                     <button type="button" id="editBtn" class="btn-homedetail edit">chỉnh sửa thông tin</button>
@@ -210,10 +212,10 @@
                                             <td>{{requestType}}</td>
                                             <td>{{totalCost}}</td>
                                             <td>{{#formatTime startTime }}{{/formatTime}}</td>
-                                            <td>{{#formatTime endTime }}{{/formatTime}}</td>
+                                            <td>{{#formatTime endTime }}{{/formatTime}}</td>        
                                             <td>
                                                 {{!-- <p class="status-detail cancel">{{status}}</p> --}}
-                                                <button class="btnHistoryDetailHomeKare" onclick="showBillType('long')" aria-label="View Long Term Bill Details">Chi tiết</button>
+                                                <button class="btnHistoryDetailHomeKare" data-id="{{@index}}"  onclick="showBillType(this,'long')" aria-label="View Long Term Bill Details">Chi tiết</button>
                                                     <!-- Long Term Modal -->
                                                     <div class="modalHistoryDetailHomeKare" id="longTermModalHistoryDetailHomeKare">
                                                         <div class="modalContentHistoryDetailHomeKare">
@@ -222,66 +224,40 @@
                                                             <div class="modalHeaderHistoryDetailHomeKare">
                                                                 <h2 class="modalTitleHistoryDetailHomeKare">Chi tiết hóa đơn dài hạn</h2>
                                                             </div>
-                                                            <div class="longTermContainerHistoryDetailHomeKare">
+                                                            <div class="longTermContainerHistoryDetailHomeKare" id ="{{this.schedules.length}}">
+                                                                {{#each this.schedules}}
                                                                 <div class="dayBillHistoryDetailHomeKare">
-                                                                    <h3 class="dayTitleHistoryDetailHomeKare">11/2-12/3</h3>
+                                                                    <h3 class="dayTitleHistoryDetailHomeKare">{{#formatDate workingDate}}{{/formatDate}}</h3>
                                                                     <div class="billDetailsHistoryDetailHomeKare">
                                                                         <div class="detailItemHistoryDetailHomeKare">
                                                                             <span class="labelHistoryDetailHomeKare">Giờ bắt đầu</span>
-                                                                            <span class="valueHistoryDetailHomeKare">09:00 AM</span>
-                                                                        </div>
-                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                            <span class="labelHistoryDetailHomeKare">Giờ kết thức</span>
-                                                                            <span class="valueHistoryDetailHomeKare">11:00 AM</span>
-                                                                        </div>
-                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                            <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
-                                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare">Đã hoàn thành</span>
-                                                                        </div>
-                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                            <span class="labelHistoryDetailHomeKare">Chi phí:</span>
-                                                                            <span class="valueHistoryDetailHomeKare">50.00VNĐ</span>
-                                                                        </div>
-                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                            <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
-                                                                            <p class="commentHistoryDetailHomeKare">Hoàn thành công việc đúng giờ và sạch sẽ</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="dayBillHistoryDetailHomeKare">
-                                                                    <h3 class="dayTitleHistoryDetailHomeKare">11/2-11/3</h3>
-                                                                    <div class="billDetailsHistoryDetailHomeKare">
-                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                            <span class="labelHistoryDetailHomeKare">giờ bắt đầu</span>
-                                                                            <span class="valueHistoryDetailHomeKare">09:00 AM</span>
+                                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime startTime}}{{/formatTime}}</span>
                                                                         </div>
                                                                         <div class="detailItemHistoryDetailHomeKare">
                                                                             <span class="labelHistoryDetailHomeKare">Giờ kết thúc</span>
-                                                                            <span class="valueHistoryDetailHomeKare">11:00 AM</span>
+                                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime endTime}}{{/formatTime}}</span>
                                                                         </div>
                                                                         <div class="detailItemHistoryDetailHomeKare">
                                                                             <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
-                                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare">Đã hoàn thành</span>
-                                                                        </div>
-                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                            <span class="labelHistoryDetailHomeKare">Chi phí:</span>
-                                                                            <span class="valueHistoryDetailHomeKare">50.00VNĐ</span>
+                                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare">{{#getStatus status}}{{/getStatus}}</span>
                                                                         </div>
                                                                         <div class="detailItemHistoryDetailHomeKare">
                                                                             <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
-                                                                            <p class="commentHistoryDetailHomeKare">Đúng giờ</p>
+                                                                            <p class="commentHistoryDetailHomeKare">{{comment.review}}</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                {{/each}}
                                                                 <div class="totalCostHistoryDetailHomeKare">
-                                                                    <span class="labelHistoryDetailHomeKare">Tổng số tiến:</span>
-                                                                    <span class="valueHistoryDetailHomeKare">100.00VNĐ</span>
+                                                                    <span class="labelHistoryDetailHomeKare">Tổng số tiền:</span>
+                                                                    <span class="valueHistoryDetailHomeKare">{{totalCost}}VNĐ</span>
                                                                     <!-- Add Thanh toán button -->
-                                                                    <button id="payButton" class="btn btn-primary" style="display: none;">Thanh toán</button>
+                                                                    <button id="payButton" class="btn btn-primary" data-id="{{_id}}">Thanh toán</button>
                                                                 </div>
                                                             </div>
                                                         
                                                         </div>
+
                                                     </div>
                                             </td>
                                         </tr>
@@ -316,7 +292,7 @@
                                             <td>{{#formatTime endTime }}{{/formatTime}}</td>
                                             <td>
                                                 {{!-- <p class="status-detail cancel">{{status}}</p> --}}
-                                                <button class="btnHistoryDetailHomeKare" onclick="showBillType('short')" aria-label="View Short Term Bill Details">Chi tiết</button>
+                                                <button class="btnHistoryDetailHomeKare" data-id="{{#sum @index ../longTermRequests.length}}{{/sum}}" onclick="showBillType(this,'short')" aria-label="View Short Term Bill Details">Chi tiết</button>
                                             <!-- Thay thế phần modal chi tiết ngắn hạn hiện tại -->
                                             <div class="modalHistoryDetailHomeKare" id="shortTermModalHistoryDetailHomeKare">
                                                 <div class="modalContentHistoryDetailHomeKare">
@@ -332,16 +308,21 @@
                                                         </div>
                                                         <div class="detailItemHistoryDetailHomeKare">
                                                             <span class="labelHistoryDetailHomeKare">Giờ bắt đầu:</span>
-                                                            <span class="valueHistoryDetailHomeKare">{{startTime}}</span>
+                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime startTime}}{{/formatTime}}</span>
                                                         </div>
                                                         <div class="detailItemHistoryDetailHomeKare">
                                                             <span class="labelHistoryDetailHomeKare">Giờ kết thúc:</span>
-                                                            <span class="valueHistoryDetailHomeKare">{{endTime}}</span>
+                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime startTime}}{{/formatTime}}</span>
                                                         </div>
+                                                        {{#each schedules}}
+                                                        {{#if @first}}
                                                         <div class="detailItemHistoryDetailHomeKare">
                                                             <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
-                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare">Đã hoàn thành</span>
+                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare">{{#getStatus status}}{{/getStatus}}</span>
                                                         </div>
+                                                        {{/if}}
+
+                                                        {{/each}}
                                                         <div class="detailItemHistoryDetailHomeKare">
                                                             <span class="labelHistoryDetailHomeKare">Chi phí:</span>
                                                             <span class="valueHistoryDetailHomeKare">{{totalCost}}</span>
@@ -351,7 +332,7 @@
                                                             <p class="commentHistoryDetailHomeKare">{{comment}}</p>
                                                         </div>
                                                         <!-- Thêm nút thanh toán -->
-                                                        <button id="payButtonShort" class="btn btn-primary" style="display: none;margin-left:auto;">Thanh toán</button>
+                                                        <button id="payButtonShort" class="btn btn-primary" style="margin-left:auto;">Thanh toán</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -692,7 +673,9 @@
                 saveBtn.disabled = true;
 
                 // Show success message
-                alert('thay đổi thông tin thành công!');
+                //alert('thay đổi thông tin thành công!');
+
+                form.submit()
             });
 
             // Helper function to show error message
@@ -887,14 +870,16 @@
         });
 </script>
 <script>
-    function showBillType(type) {
+    function showBillType(btn,type) {
             // Get both bill containers
             const shortTermBill = document.getElementById('shortTermBillHistoryDetailHomeKare');
             const longTermBill = document.getElementById('longTermBillHistoryDetailHomeKare');
 
+
             // Get all buttons
             const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
-
+            index = btn.getAttribute('data-id')
+            
             // Reset all buttons
             buttons.forEach(button => {
                 button.style.background = '#3498db';
@@ -902,23 +887,29 @@
 
             // Show selected bill type and highlight active button
             if (type === 'short') {
-                openModal('shortTermModalHistoryDetailHomeKare');
+                openModal('shortTermModalHistoryDetailHomeKare',index);
+
                 buttons[0].style.background = '#2980b9';
             } else {
-                openModal('longTermModalHistoryDetailHomeKare');
+                openModal('longTermModalHistoryDetailHomeKare',index);
                 buttons[1].style.background = '#2980b9';
             }
         }
 
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
+        function openModal(modalId,index) {
+            const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+            const row= buttons[index].parentNode;
+            console.log("open modal " ,row)
+            const modal=row.querySelector('#'+modalId)
+            //const modal = row.getElementById(modalId);
+            console.log("open modal ", modal)
             modal.classList.add('showModalHistoryDetailHomeKare');
             document.body.style.overflow = 'hidden';
 
             // Add click outside to close functionality
             modal.addEventListener('click', function (e) {
                 if (e.target === modal) {
-                    closeModal(modalId);
+                    closeModal(modalId,index);
                 }
             });
 
@@ -931,7 +922,11 @@
         }
 
         function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
+            const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+            const row= buttons[index].parentNode;
+            console.log("open modal " ,row)
+            const modal=row.querySelector('#'+modalId)
+            //const modal = document.getElementById(modalId);
             modal.classList.remove('showModalHistoryDetailHomeKare');
             document.body.style.overflow = 'auto';
         }
@@ -1013,6 +1008,7 @@
         }
 
         function updatePayButtonVisibility(modalId, buttonId) {
+            console.log("update paybutton " , modalId , buttonId)
             const payButton = document.getElementById(buttonId);
             if (checkBillCompleted(modalId)) {
                 payButton.style.display = 'block';

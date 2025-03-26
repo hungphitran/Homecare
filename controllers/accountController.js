@@ -29,7 +29,6 @@ const accountController = {
         let user = await fetch(process.env.API_URL + '/customer/' + req.body.phone)
             .then(data => data.json())
             .catch(err=>console.error(err))
-            console.log("loaded user:",user)
         if (!user) {
             //user is not existed
             console.log("user not found")
@@ -41,7 +40,7 @@ const accountController = {
         }
         else {//correct password
             req.session.phone = user.phone;//save user's phone in session
-            console.log("login success")
+            req.session.username= user.fullName
             res.redirect('/account/detailed');
         }
     },
@@ -49,7 +48,6 @@ const accountController = {
     showChangePassword: async( req,res,next)=>{
         res.render('pages/changePassword',
             {
-                
                 phone:req.session.user,
                 err:req.query.err,
                 layout:false
@@ -86,29 +84,31 @@ const accountController = {
     },
     //show account page
     showDetailed: async (req,res,next)=>{
-        if(!req.session.phone){
-            res.redirect('/account');
-        }
         //GET call api to get user's information
         let user = await fetch(process.env.API_URL + '/customer/' + req.session.phone)
         .then(data => data.json())
         .then(data=>{
-
-            if(data.points ==null || data.points.length==0){
-                data.points=[{point:0},]//if there's no point, set it to 0;
-            }
-            else if(data.points.length>0){
-                data.point=data.points[data.points.length-1].point;//format to display only latest point
-            }
-
-            let address = data.addresses[0] //get first address
-            data.address =address.detailAddress+" "+address.ward+" "+address.district+' ' //format address
             return data
         })        
         .catch(err=>{
             console.error(err);
             res.redirect('/')
         })
+        if(user==null){
+            res.redirect('/account');
+        }
+        else if(user.points ==null || user.points.length==0){
+            user.points=[{point:0},]//if there's no point, set it to 0;
+            
+            let address = user.addresses[0] //get first address
+            user.address =address.detailAddress+" "+address.ward+" "+address.district+' ' //format address
+        }
+        else if(user.points.length>0){
+            
+            let address = user.addresses[0] //get first address
+            user.address =address.detailAddress+" "+address.ward+" "+address.district+' ' //format address
+            user.point=user.points[user.points.length-1].point;//format to display only latest point
+        }
 
         //GET call api getting all requests which were created by current user
         let requests=await fetch(process.env.API_URL+'/request').then(data=>data.json())
@@ -140,17 +140,15 @@ const accountController = {
             requests[i].schedules=[];
             //get all details of each request
             for(let j=startIndex;j<startIndex+requests[i].scheduleIds.length;j++){
-                let str=""
                 try{
                     //format date and status of each detail
-                    str += requestDetails[j].workingDate.slice(0, 10) + " - " + requestDetails[j].status;
+                    requests[i].schedules.push(requestDetails[j]);
                 }
                 catch(err){
                     console.error(err);
                 }
-                //push to schedules
-                requests[i].schedules.push(str)
             }
+
             //update start index
             startIndex+=requests[i].scheduleIds.length;
         }
@@ -161,9 +159,8 @@ const accountController = {
             requests[i].endTime = requests[i].endTime
         }
 
-        let longTermRequests = requests.filter(request=>request.requestType.toLowerCase()==="dài hạn")
+        let longTermRequests = requests.filter(request=>request.requestType.toLowerCase()=="dài hạn")
         let shortTermRequests = requests.filter(request=>request.requestType.toLowerCase()=="ngắn hạn")
-
         res.render('partials/detailedaccount',{
             user:user,
             longTermRequests:longTermRequests,
@@ -215,6 +212,23 @@ const accountController = {
             .catch(err=>console.error(err))
 
         }
+    },
+    updateAccount: async (req,res,next) =>{
+        console.log("update");
+        let account = req.body;
+        console.log(account)
+        let option = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(account)
+        }
+        //PATCH call api for update password
+        await fetch(process.env.API_URL+'/customer/update'+req.body.phone,option)
+        .then(()=>res.redirect('/account'))
+        .catch(err=>console.error(err))
+
     },
     //handle logout
     logout: async (req, res, next) => {
