@@ -99,7 +99,7 @@ const requestController={
         else{
             req.query.dates = [req.query.dates]
         }
-
+        req.body.orderDate = Date.now();
         console.log("req.query in submit: ",req.query)
 
         //get user information if user is logged in
@@ -195,30 +195,32 @@ const requestController={
         });
     },
     create: async (req,res,next)=>{
-        console.log(req.body)
         let st =req.body.startTime;
         st= st.length <2 ?'0'+ st :st
         let et =req.body.endTime;
         et= et.length <2 ?'0'+ et :et
 
         let dates="";
-        for(let i=0;i<req.body.dates.length;i++){
+        for (let i = 0; i < req.body.dates.length; i++){
+            console.log(dates)
             dates+=req.body.dates[i]+",";
         }
         req.body.startDate=dates.substring(0,dates.length-1);//remove the last comma
 
         req.body.startTime=`${req.body.dates[0]}T${st}:00`;
         req.body.endTime=`${req.body.dates[0]}T${et}:00`;
-      
         let service = await fetch(process.env.API_URL + '/service/' + req.body.service_id)
         .then(data => data.json())
-
+        .catch(err=>console.error(err))
+        console.log("service: ",service)
         req.body.service = {
             title: service.title,
             coefficient_service: Number.parseFloat(service.factor)||1,
             coefficient_other: 0,
             cost: service.basicPrice
         }
+      console.log(req.body)
+
         let option={
             method: 'POST',
             headers: {
@@ -227,6 +229,7 @@ const requestController={
             body: JSON.stringify(req.body)
         }
 
+        console.log(req.body)
 
         //create a success notification
         await fetch(process.env.API_URL + '/request', option)
@@ -235,7 +238,8 @@ const requestController={
                     return data.json()
                     .then(data=>Promise.resolve(data.message))
                 }
-                else{
+                else {
+                    console.log(data)
                     return data.json()
                     .then(data=>Promise.reject(data.message))
                 }
@@ -244,7 +248,7 @@ const requestController={
             .then(data => {
                 res.render("pages/notificationpage",{
                     layout:false,
-                    noti: "Đặt lịch thành công"+data
+                    noti: "Đặt lịch thành công"+ data
                 })
             })
             .catch(err => {
