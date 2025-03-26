@@ -13,7 +13,10 @@
     <div class="confirmation-container-form-homecare">
         <h1 class="title-form-homecare">Xác Nhận Thông Tin Đặt Dịch Vụ</h1>
     
-        <form id="confirmationForm" class="form-form-homecare">
+        <form id="confirmationForm" class="form-form-homecare" action="/request/save" method="POST">
+            <input type="hidden" id="customerInfo" name="customerInfo" value="">
+            <input type="hidden" name="requestType" value="{{request.requestType}}">
+            <input type="hidden" name="orderDate" value="{{request.orderDate}}">
             <div class="grid-form-homecare">
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="phone">Số điện thoại</label>
@@ -39,12 +42,12 @@
                     </select>
                 </div>
     
-                <div class="group-form-homecare">
+                {{!-- <div class="group-form-homecare">
                     <label class="label-form-homecare" for="ward">Phường</label>
                     <select class="select-form-homecare" id="ward" name="ward" required>
                         <option value="">Chọn phường</option>
                     </select>
-                </div>
+                </div> --}}
     
                 <div class="group-form-homecare full-width-form-homecare">
                     <label class="label-form-homecare" for="address">Địa chỉ chi tiết</label>
@@ -52,8 +55,12 @@
                 </div>
     
                 <div class="group-form-homecare">
-                    <label class="label-form-homecare" for="date">Ngày đặt</label>
-                    <input class="input-form-homecare" type="date" id="date" name="date" value="{{request.orderDate}}" required>
+                    <label class="label-form-homecare" for="date">Ngày thực hiện</label>
+                    {{#each request.dates}}
+                    <input class="input-form-homecare" type="date" id="date" name="dates[]" value="{{this}}" required>
+
+                    {{/each}}
+
                 </div>
     
                 <div class="group-form-homecare">
@@ -63,25 +70,27 @@
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="endTime">Giờ kết thúc</label>
-                    <input class="input-form-homecare" type="time" id="endTime" name="endTime" value={{request.endTime}}required>
+                    <input class="input-form-homecare" type="time" id="endTime" name="endTime" value="{{request.endTime}}" required>
                 </div>
     
                 <div class="group-form-homecare full-width-form-homecare">
                     <label class="label-form-homecare" for="service-confirm">Dịch vụ đã chọn</label>
                     <input class="input-form-homecare readonly-form-homecare" type="text" id="service-confirm" name="service" value="{{service.title}}"
                         readonly>
+                        <input class="input-form-homecare readonly-form-homecare" type="hidden" id="service-confirm" name="service_id"
+                            value="{{service._id}}" readonly>
                 </div>
     
                 <div class="group-form-homecare full-width-form-homecare">
                     <label class="label-form-homecare" for="totalAmount">Tổng số tiền</label>
-                    <input class="input-form-homecare total-form-homecare" type="text" id="totalAmount" name="totalAmount" value="{{request.totalCost}}"
+                    <input class="input-form-homecare total-form-homecare" type="text" id="totalAmount" name="totalCost" value="{{request.totalCost}}"
                         readonly>
                 </div>
             </div>
     
             <div class="button-group-form-homecare">
                 <button type="button" class="button-form-homecare cancel-form-homecare" onclick="cancelForm()">Hủy</button>
-                <button type="submit" class="button-form-homecare confirm-form-homecare">Xác nhận</button>
+                <button type="submit" class="button-form-homecare confirm-form-homecare" id="submitBtn">Xác nhận</button>
             </div>
         </form>
     </div>
@@ -91,9 +100,9 @@
 
     const submitBtn = document.getElementById('submitBtn');
     const customerInfo = document.querySelector('#customerInfo')
-    const nameInput = document.querySelector('#name-input');
-    const phoneInput = document.querySelector('#phone-input');
-    const addressInput = document.querySelector('#address-input');
+    const nameInput = document.querySelector('#fullname');
+    const phoneInput = document.querySelector('#phone');
+    const addressInput = document.querySelector('#address');
     console.log(submitBtn);
     console.log(customerInfo);
     console.log(nameInput);
@@ -151,7 +160,7 @@
             // Add event listeners
             document.getElementById('city').addEventListener('change', updateDistricts);
             document.getElementById('district').addEventListener('change', updateWards);
-            document.getElementById('confirmationForm').addEventListener('submit', handleSubmit);
+           // document.getElementById('confirmationForm').addEventListener('submit', handleSubmit);
         });
 
         // Update districts based on selected city

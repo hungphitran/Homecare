@@ -95,6 +95,7 @@
                                                         <div class="time-list-homecare" id="start-time-list"></div>
                                                     </div>
                                                 </div>
+                                                <input type="hidden" name="startTime" class="start-time-input-short" value="{{order.startTime}}" required>
                                             </div>
                                     
                                             <div class="time-picker-homecare">
@@ -104,6 +105,7 @@
                                                         <div class="time-list-homecare" id="end-time-list"></div>
                                                     </div>
                                                 </div>
+                                                <input type="hidden" name="endTime" class="end-time-input-short" value="{{order.endTime}}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -237,7 +239,7 @@
                                
                                 <div class="wrapper-district extra-district extra-district-short" style="margin:0;">
                                     <div class="wrapper-district__select-btn extra-short">
-                                        <span style="white-space:nowrap">Chọn Quận</span>
+                                        <span style="white-space:nowrap">{{order.district}}</span>
                                         <i class="fa-solid fa-chevron-down"></i>
                                     </div>
                                     <div class="wrapper-district__content" style="position:relative;">
@@ -419,6 +421,59 @@
         {{!-- main content end --}}
     </div>
     {{!-- main contain end --}}
+   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+            // Get references to time inputs
+            const startTimeHidden = document.querySelector('.start-time-input-short');
+            const endTimeHidden = document.querySelector('.end-time-input-short');
+            const startTimeList = document.getElementById('start-time-list');
+            const endTimeList = document.getElementById('end-time-list');
+
+            // Handle time selection for start time
+            startTimeList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('time-option-homecare')) {
+                    const selectedTime = e.target.dataset.value;
+                    startTimeHidden.value = selectedTime;
+                    console.log('Start time selected:', selectedTime); // Debug log
+
+                    // Enable end time selection after start time is picked
+                    document.getElementById('end-time-input').style.pointerEvents = 'auto';
+                    document.getElementById('end-time-input').style.opacity = '1';
+                }
+            });
+
+            // Handle time selection for end time 
+            endTimeList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('time-option-homecare')) {
+                    const selectedTime = e.target.dataset.value;
+                    endTimeHidden.value = selectedTime;
+                    console.log('End time selected:', selectedTime); // Debug log
+                }
+            });
+
+            // Form validation before submit
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function (e) {
+                if (!startTimeHidden.value || !endTimeHidden.value) {
+                    e.preventDefault();
+                    alert('Vui lòng chọn cả thời gian bắt đầu và kết thúc');
+                    return;
+                }
+
+                // Validate end time is after start time
+                if (endTimeHidden.value <= startTimeHidden.value) {
+                    e.preventDefault();
+                    alert('Thời gian kết thúc phải sau thời gian bắt đầu');
+                    return;
+                }
+
+                console.log('Form submitting with times:', {
+                    startTime: startTimeHidden.value,
+                    endTime: endTimeHidden.value
+                });
+            });
+        });
+   </script>
 <script>
     const locations = {{{ json locations }}};
     let districts =[];
@@ -768,7 +823,7 @@
     </script>
     <script src="/js/app.js"></script>
     
-    <script>
+    {{!-- <script>
         // điều mình mong muốn
         validator({
             form: "#form-1",
@@ -802,7 +857,7 @@
                 console.log(data);
             }
         })
-    </script>
+    </script> --}}
     <script>
         window.dispatchEvent(new Event("template-loaded"));
     </script>
@@ -1115,10 +1170,13 @@
                 }
             });
     </script>
+    
     <script>
         window.dispatchEvent(new Event("template-loaded"));
     </script>
+    
 <script>
+    
     document.addEventListener('DOMContentLoaded', function() {
         const orders = document.querySelectorAll('.order-status');
         const payButton = document.createElement('button');

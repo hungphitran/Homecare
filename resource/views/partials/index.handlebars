@@ -233,7 +233,7 @@
                                                                 <div class="time-list-homecare-long" id="end-time-list-long"></div>
                                                             </div>
                                                         </div>
-                                                        <input type="hidden" name="startTime" id="end-time-value-long">
+                                                        <input type="hidden" name="endTime" id="end-time-value-long" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -729,16 +729,7 @@
         }
 
         let countries = locations.map(location =>   {return location.Name.replace(/(Tỉnh|Thành phố) /g, '')});
-/*
-        function addCountry_long(selectedCountry) {
-            options_long.innerHTML = "";
-            countries.forEach((country, index) => {
-                let isSelected = country == selectedCountry ? "selected" : "";
-                // Thay đổi từ onclick sang data attribute
-                let li = `<li data-index="${index}" class="${isSelected}">${country}</li>`;
-                options_long.insertAdjacentHTML("beforeend", li);
-            });
-            */
+
               function addCountry_long(selectedCountry) {
                 options_long.innerHTML = "";
                 countries.forEach((country, index) => {
@@ -748,29 +739,7 @@
                 });
             }
 
-            // Thêm event listener cho tất cả các li elements
-           /* options_long.querySelectorAll('li').forEach(li => {
-                li.addEventListener('click', function() {
-                    const selectedIndex = this.dataset.index;
-                    console.log(selectedIndex);
-                    searchInp_long.value = "";
-                    addCountry_long(this.innerText);
-                    wrapper_long.classList.remove("active-menu-search");
-                    selectBtn_long.firstElementChild.innerText = this.innerText;
-                    
-                   // give the district selections with index
-                    districts = [];
-
-                    for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
-                        let districtName;
-                        console.log(districtName);
-                        districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
-                    }
-                    console.log(districts);
-                    makeWrapperDistrictLong(districts, selectedIndex);
-                });
-            });
-        }*/
+        
          function updateNameLong(selectedLi, selectedIndex) {
 
                 searchInp_long.value = selectedLi.innerText;
@@ -960,35 +929,7 @@ console.log(districts);
       let  districtSelect = shortTerm.querySelector('.district');
 
  
-       /* shortTerm.onchange = function () {
-            let date = shortTerm.querySelector('#start-date')
-            let starttime = shortTerm.querySelector('#start-time')
-            let endtime = shortTerm.querySelector('#end-time')
-           let submitBtn = shortTerm.querySelector('#submitForm1')
-
-          // changeProvince();
-            if (date.value != '' && starttime.value != '' && endtime.value != '') {
-                submitBtn.disabled = false;
-            }
-            else {
-                submitBtn.disabled = true;
-            }
-        }
-        longTerm.onchange = function () {
-            let startdate = longTerm.querySelector('#myID7')
-            let enddate = longTerm.querySelector('#myID8')
-            let starttime = longTerm.querySelector('#myID5')
-            let endtime = longTerm.querySelector('#myID6')
-            let submitBtn = longTerm.querySelector('#submitForm2')
-         //  changeProvince();
-            if (enddate.value != '' && startdate.value != '' && starttime.value != '' && endtime.value != '') {
-                submitBtn.disabled = false;
-            }
-            else {
-                submitBtn.disabled = true;
-            }
-        }*/
-   
+     
 
         shortTermBtn.onclick = function () {
            shortTermForm.classList.toggle("hide-form");
@@ -1161,6 +1102,7 @@ console.log(districts);
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+       
             // Time picker elements
             const startTimeInput = document.getElementById('start-time-input');
             const endTimeInput = document.getElementById('end-time-input');
@@ -1358,6 +1300,25 @@ console.log(districts);
             const endTimeInput = document.getElementById('end-time-input-long');
             const startTimeList = document.getElementById('start-time-list-long');
             const endTimeList = document.getElementById('end-time-list-long');
+             // Thêm các biến mới
+        const divStartTimeLong = document.querySelector("div[id='start-time-input-long']");
+        const inputStartTimeLong = document.querySelector("input[class='start-time-input-long']");
+        const divEndTimeLong = document.querySelector("div[id='end-time-input-long']");
+        const inputEndTimeLong = document.querySelector("input[class='end-time-input-long']");
+        const inputStartTimeLongExtra =document.getElementById('start-time-value-long');
+        const inputEndTimeLongExtra =document.getElementById('end-time-value-long');
+        // Thêm event listeners để verify changes
+        divStartTimeLong.addEventListener('change', function () {
+            console.log('Long term start time changed:', this.querySelector('.selected-time-homecare-long').textContent);
+            console.log('Hidden start time value:', inputStartTimeLong.value);
+            inputStartTimeLongExtra.value = inputStartTimeLong.value;
+        });
+
+        divEndTimeLong.addEventListener('change', function () {
+            console.log('Long term end time changed:', this.querySelector('.selected-time-homecare-long').textContent);
+            console.log('Hidden end time value:', inputEndTimeLong.value);
+            inputEndTimeLongExtra.value = inputEndTimeLong.value;
+        });
 
             // Initially disable end time picker
             endTimeInput.style.opacity = '0.5';
@@ -1421,23 +1382,34 @@ console.log(districts);
             }
 
             // Update class names in handleTimeSelection
-            function handleTimeSelection(input, selectedOption) {
-                const selectedTime = input.querySelector('.selected-time-homecare-long');
-                selectedTime.textContent = selectedOption.textContent;
-                input.classList.remove('active-extra-long');
+             function handleTimeSelection(input, selectedOption) {
+            const selectedTime = input.querySelector('.selected-time-homecare-long');
+            selectedTime.textContent = selectedOption.textContent;
+            input.classList.remove('active-extra-long');
 
-                input.querySelectorAll('.time-option-homecare-long').forEach(option => {
-                    option.classList.remove('selected');
-                });
-                selectedOption.classList.add('selected');
+            input.querySelectorAll('.time-option-homecare-long').forEach(option => {
+                option.classList.remove('selected');
+            });
+            selectedOption.classList.add('selected');
 
-                if (input === startTimeInput) {
-                    const selectedHour = parseFloat(selectedOption.dataset.hour);
-                    endTimeInput.style.opacity = '1';
-                    endTimeInput.style.pointerEvents = 'auto';
-                    updateEndTimeOptions(selectedHour);
-                }
+            if (input === startTimeInput) {
+                // Cập nhật giá trị cho input ẩn start time
+                inputStartTimeLongExtra.value = selectedOption.dataset.value;
+                const selectedHour = parseFloat(selectedOption.dataset.hour);
+                endTimeInput.style.opacity = '1';
+                endTimeInput.style.pointerEvents = 'auto';
+                updateEndTimeOptions(selectedHour);
+                // Trigger custom change event
+                const event = new Event('change', { bubbles: true });
+                divStartTimeLong.dispatchEvent(event);
+            } else if (input === endTimeInput) {
+                // Cập nhật giá trị cho input ẩn end time
+                inputEndTimeLongExtra.value = selectedOption.dataset.value;
+                // Trigger change event
+                const event = new Event('change', { bubbles: true });
+                divEndTimeLong.dispatchEvent(event);
             }
+        }
 
             // Update class names in toggleDropdown
             function toggleDropdown(input) {
