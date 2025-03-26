@@ -18,6 +18,9 @@ const hbs = handlebars.create({
         json: function (context) {
             return JSON.stringify(context);
         },
+        showdate: function(date){
+            return date.split('T')[0]
+        },
         formatDate: function () {
             return new Date().toISOString().split('T')[0];
         },
@@ -59,11 +62,12 @@ const hbs = handlebars.create({
         getStatus: function(status){
             switch(status)
             {
-                case "notDone": return "Chờ xác nhận"
+                case "notDone": return "Chờ xác nhận"// được hủy
                 case "assigned": return "Đã xác nhận"
                 case "done": return "Đã hoàn thành"
                 case "cancelled" : return "Đã hủy"
-                case "wayPayment": return "Chờ thanh toán" 
+                case "wayPayment": return "Chờ thanh toán" // được thanh toán
+                case "processing" : return "Đang thực hiện"// cho nút xác nhận hoàn thành trong từng đơn nhỏ
                 default: return status;
             }
         },

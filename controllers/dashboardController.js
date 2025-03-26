@@ -71,7 +71,7 @@ const dashboardController = {
             //call api to get general information
             general = await fetch(process.env.API_URL + '/general')
                 .then(data => data.json())
-                .then(data => data[0])
+                .then(data => data)
 
         }
         catch (err) {
@@ -107,6 +107,8 @@ const dashboardController = {
             console.error(err);
 
         }
+        console.log("general : ",general)
+
         // give data to dashboard
         res.render('partials/index', {
             user: user,
