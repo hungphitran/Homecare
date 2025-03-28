@@ -67,7 +67,7 @@
     //     margin-left:30px;
     // }
     &-find{
-        background-color:#478e3a ;
+        background-color:#2ecc71 ;
         border-radius: 0px;
         height:45px;
         color:#fff;
@@ -79,7 +79,7 @@
         font-weight: 700;
         font-size:2rem;
         border-radius: 0px;
-        background-color: rgba(2, 87, 28, .5);
+        background-color: #2ecc71;
     }
     &__short-term:hover,&__long-term:hover{
          background-color: #02571C;
@@ -127,8 +127,8 @@
     
  }
  .active-term{
-        background-color: #02571C;
-        border:solid 1px #fff;
+        background-color: #4CAF50;
+       
         border-radius:3px;
          pointer-events: none;
     }

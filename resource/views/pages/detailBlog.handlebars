@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -169,4 +169,957 @@ footer {
         <p>&copy; 2025 News Page</p>
     </footer>
 </body>
+</html> --}}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{blog.title}} - HomeCare Blog</title>
+  <meta name="description" content="{{blog.description}}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap">
+  <style>
+    :root {
+      --primary: #4caf50;
+      --secondary: #2ecc71;
+      --dark: #2c3e50;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --text-body: #4a4a4a;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f9f9f9;
+      color: var(--text-body);
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header Styles */
+    .blog-header {
+      background-color: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+
+    .blog-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 80px;
+      width: auto;
+    }
+
+    .btn-back {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px -1px;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
+    }
+
+    .btn-back:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    /* Main Content Area */
+    .main-content {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* Breadcrumb Navigation */
+    .breadcrumb {
+      display: flex;
+      padding: 0;
+      margin-bottom: 30px;
+      list-style: none;
+      background: none;
+      font-size: 14px;
+    }
+
+    .breadcrumb-item {
+      color: var(--gray);
+    }
+
+    .breadcrumb-item a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .breadcrumb-item+.breadcrumb-item::before {
+      content: "›";
+      padding: 0 8px;
+      color: var(--gray);
+    }
+
+    /* Article Styles */
+    .blog-article {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .article-container {
+      padding: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .article-container {
+        padding: 20px;
+      }
+    }
+
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .blog-category {
+      background-color: #e8f7f0;
+      color: var(--secondary);
+      font-weight: 600;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .blog-date {
+      color: var(--gray);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+
+    .blog-date i {
+      margin-right: 5px;
+    }
+
+    .blog-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .blog-subtitle {
+      font-size: 1.25rem;
+      color: var(--gray);
+      margin-bottom: 30px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .blog-image-container {
+      margin: 0 -40px 30px;
+      overflow: hidden;
+    }
+
+    .blog-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    @media (max-width: 768px) {
+      .blog-image-container {
+        margin: 0 -20px 20px;
+      }
+    }
+
+    .blog-author {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .author-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+      border: 2px solid white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .author-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .author-name {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .author-title {
+      color: var(--gray);
+      font-size: 13px;
+    }
+
+    /* Article Content Styles */
+    .blog-content {
+      font-family: 'Merriweather', serif;
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--text-body);
+    }
+
+    .blog-content h2,
+    .blog-content h3 {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .blog-content h2 {
+      font-size: 1.75rem;
+    }
+
+    .blog-content h3 {
+      font-size: 1.4rem;
+    }
+
+    .blog-content p {
+      margin-bottom: 25px;
+    }
+
+    .blog-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .blog-content a {
+      color: var(--primary);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--primary);
+    }
+
+    .blog-content a:hover {
+      opacity: 0.8;
+    }
+
+    .blog-content ul,
+    .blog-content ol {
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+
+    .blog-content li {
+      margin-bottom: 10px;
+    }
+
+    .blog-content blockquote {
+      border-left: 4px solid var(--primary);
+      padding-left: 20px;
+      margin: 30px 0;
+      font-style: italic;
+      color: #555;
+    }
+
+    /* Social Sharing */
+    .social-share {
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .share-label {
+      margin-right: 15px;
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 14px;
+    }
+
+    .share-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .share-button {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s;
+    }
+
+    .share-button:hover {
+      transform: translateY(-3px);
+    }
+
+    .share-facebook {
+      background-color: #3b5998;
+    }
+
+    .share-twitter {
+      background-color: #1da1f2;
+    }
+
+    .share-linkedin {
+      background-color: #0077b5;
+    }
+
+    .share-pinterest {
+      background-color: #bd081c;
+    }
+
+    /* Related Articles Section */
+    .related-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .related-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .blog-card {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .blog-card a {
+      text-decoration: none;
+      display: block;
+    }
+
+    .card-image-wrap {
+      height: 180px;
+      overflow: hidden;
+    }
+
+    .blog-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .blog-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 12px;
+      background-color: #e8f7f0;
+      color: var(--secondary);
+      padding: 4px 10px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 17px;
+      color: var(--dark);
+      font-weight: 600;
+      margin-top: 5px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      color: var(--gray);
+      font-size: 12px;
+      margin-top: 15px;
+    }
+
+    .card-date {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+    }
+
+    .card-date i,
+    .card-views i {
+      font-size: 10px;
+      margin-right: 5px;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+      background-color: var(--dark);
+      border-radius: 10px;
+      padding: 40px;
+      margin-top: 40px;
+      color: white;
+      background-image: linear-gradient(120deg, #2c3e50, #3498db);
+    }
+
+    .newsletter h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .newsletter p {
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .newsletter-form {
+      display: flex;
+      max-width: 500px;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 30px 0 0 30px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .newsletter-button {
+      background-color: var(--secondary);
+      color: white;
+      border: none;
+      padding: 0 25px;
+      border-radius: 0 30px 30px 0;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .newsletter-button:hover {
+      background-color: #27ae60;
+    }
+
+    /* Footer Styles */
+    .blog-footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 60px 0 30px;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-column h4 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary);
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: #ddd;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+      padding-left: 5px;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    .footer-bottom p {
+      margin: 0;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 992px) {
+      .blog-title {
+        font-size: 2rem;
+      }
+
+      .blog-subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        margin: 20px auto;
+      }
+
+      .blog-title {
+        font-size: 1.75rem;
+      }
+
+      .blog-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .newsletter {
+        padding: 25px;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .newsletter-input {
+        border-radius: 30px;
+      }
+
+      .newsletter-button {
+        border-radius: 30px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  /* Hidden posts and Show More button */
+.hidden-post {
+  display: none;
+}
+
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.show-more-btn {
+  background-color: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 30px;
+  padding: 12px 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: var(--dark);
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.show-more-btn:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.show-more-btn i {
+  font-size: 14px;
+  transition: transform 0.3s;
+}
+
+.show-more-btn:hover i {
+  transform: translateY(2px);
+}
+
+.show-more-btn.loading span {
+  visibility: hidden;
+  position: relative;
+}
+
+.show-more-btn.loading span:after {
+  visibility: visible;
+  position: absolute;
+  content: "Đang tải...";
+  left: 0;
+}
+
+.show-more-btn.loading i {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.show-more-btn.all-loaded {
+  background-color: #e8f7f0;
+  border-color: #d1f2e8;
+  color: var(--secondary);
+  pointer-events: none;
+}
+  </style>
+</head>
+
+<body>
+  <header class="blog-header">
+    <div class="blog-nav">
+      <a href="/" class="logo">
+        <img src="/icon/logo-removeBg.png" alt="HomeCare" class="logo-img">
+      </a>
+      <form action="/blog" method="get">
+        <button type="submit" class="btn-back">
+          <i class="fas fa-arrow-left me-2"></i> Quay lại Blog
+        </button>
+      </form>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item"><a href="/blog">Blog</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{blog.title}}</li>
+      </ol>
+    </nav>
+
+    <!-- Main Article -->
+    <article class="blog-article">
+      <div class="article-container">
+        <div class="blog-meta">
+          <span class="blog-category">{{blog.type}}</span>
+          <div class="blog-date">
+            <i class="far fa-calendar-alt"></i>
+            {{formatDate blog.date}}
+            <span class="ms-3">
+              <i class="far fa-eye ms-3 me-1"></i>
+              {{blog.views}} lượt xem
+            </span>
+            <span class="ms-3">
+              <i class="far fa-clock ms-3 me-1"></i>
+              5 phút đọc
+            </span>
+          </div>
+        </div>
+
+        <h1 class="blog-title">{{blog.title}}</h1>
+        <h2 class="blog-subtitle">{{blog.description}}</h2>
+
+        <div class="blog-author">
+          <img src="https://i.pinimg.com/474x/30/6f/d0/306fd0fb64f67ff40f81d8e37f8bf674.jpg" class="author-image"
+            alt="Author">
+          <div class="author-info">
+            <span class="author-name">{{blog.author}}</span>
+            <span class="author-title">Chuyên gia dịch vụ nhà cửa</span>
+          </div>
+        </div>
+
+        <div class="blog-image-container">
+          <img src="{{blog.img}}" alt="{{blog.title}}" class="blog-image">
+        </div>
+
+        <div class="blog-content">
+          {{{blog.content}}}
+        </div>
+
+        <div class="social-share">
+          <div class="share-label">Chia sẻ bài viết:</div>
+          <div class="share-buttons">
+            <a href="#" class="share-button share-facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-button share-twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-button share-linkedin"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="share-button share-pinterest"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+<!-- Related Articles Section -->
+<section class="blog-article">
+  <div class="article-container">
+    <h3 class="related-title">Bài viết cùng loại</h3>
+    <div class="blog-grid" id="related-posts-grid">
+      {{#each blogs}}
+      {{#ifCond @index "<" 3}} <div class="blog-card related-post">
+        {{else}}
+        <div class="blog-card related-post hidden-post">
+          {{/ifCond}}
+          <a href="/blog/{{_id}}">
+            <div class="card-image-wrap">
+              <img src="{{img}}" alt="{{title}}" {{#ifCond @index ">=" 3}}loading="lazy" {{/ifCond}}>
+            </div>
+            <div class="card-content">
+              <span class="card-tag">{{type}}</span>
+              <h3 class="card-title">{{title}}</h3>
+              <div class="card-meta">
+                <div class="card-date">
+                  <i class="far fa-calendar-alt"></i>
+                  {{formatDate date}}
+                </div>
+                <div class="card-views">
+                  <i class="far fa-eye"></i>
+                  {{views}} lượt xem
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        {{/each}}
+    </div>
+
+    {{#ifCond blogs.length ">" 3}}
+    <div class="show-more-container">
+      <button id="show-more-btn" class="show-more-btn">
+        <span>Xem thêm</span>
+        <i class="fas fa-chevron-down"></i>
+      </button>
+    </div>
+    {{/ifCond}}
+  </div>
+</section>
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+      <h3>Đăng ký nhận tin mới nhất</h3>
+      <p>Nhận thông báo khi có bài viết mới về các mẹo dọn dẹp và chăm sóc nhà cửa</p>
+      <form action="#" class="newsletter-form">
+        <input type="email" placeholder="Email của bạn" class="newsletter-input" required>
+        <button type="submit" class="newsletter-button">Đăng ký</button>
+      </form>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="blog-footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Về HomeCare</h4>
+        <p>Cung cấp dịch vụ giúp việc chất lượng cao, đáng tin cậy với đội ngũ nhân viên chuyên nghiệp.</p>
+        <div class="social-share" style="border-top: none; padding-top: 10px;">
+          <div class="share-buttons">
+            <a href="#" class="share-button share-facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="share-button share-twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="share-button share-linkedin"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h4>Liên kết</h4>
+        <ul class="footer-links">
+          <li><a href="/">Trang chủ</a></li>
+          <li><a href="/services">Dịch vụ</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">Về chúng tôi</a></li>
+          <li><a href="/contact">Liên hệ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Dịch vụ</h4>
+        <ul class="footer-links">
+          <li><a href="/services/cleaning">Dọn dẹp nhà cửa</a></li>
+          <li><a href="/services/laundry">Giặt ủi</a></li>
+          <li><a href="/services/cooking">Nấu ăn</a></li>
+          <li><a href="/services/childcare">Chăm sóc trẻ em</a></li>
+          <li><a href="/services/eldercare">Chăm sóc người già</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Liên hệ</h4>
+        <ul class="footer-links">
+          <li><i class="fas fa-map-marker-alt me-2"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+          <li><i class="fas fa-phone me-2"></i> +84 123 456 789</li>
+          <li><i class="fas fa-envelope me-2"></i> info@homecare.com</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 HomeCare. Tất cả các quyền được bảo lưu.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Thêm chức năng chia sẻ bài viết
+    document.querySelectorAll('.share-button').forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+        const url = window.location.href;
+        const title = document.querySelector('.blog-title').textContent;
+
+        if (this.classList.contains('share-facebook')) {
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, 'facebook-share', 'width=580,height=296');
+        } else if (this.classList.contains('share-twitter')) {
+          window.open(`http://twitter.com/share?text=${title}&url=${url}`, 'twitter-share', 'width=550,height=235');
+        } else if (this.classList.contains('share-linkedin')) {
+          window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`, 'linkedin-share', 'width=490,height=530');
+        } else if (this.classList.contains('share-pinterest')) {
+          const image = document.querySelector('.blog-image').src;
+          window.open(`https://pinterest.com/pin/create/button/?url=${url}&media=${image}&description=${title}`, 'pinterest-share', 'width=750,height=330');
+        }
+      });
+    });
+
+    // Các chức năng khác có thể thêm vào đây
+  </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const showMoreBtn = document.getElementById('show-more-btn');
+    if (showMoreBtn) {
+      const hiddenPosts = document.querySelectorAll('.hidden-post');
+      const postsPerLoad = 3;
+      let postsShown = 3;
+
+      // Ẩn nút nếu không có bài viết ẩn
+      if (hiddenPosts.length === 0) {
+        showMoreBtn.style.display = 'none';
+      }
+
+      showMoreBtn.addEventListener('click', function () {
+        // Thêm hiệu ứng loading
+        this.classList.add('loading');
+        this.querySelector('i').className = 'fas fa-spinner';
+
+        // Giả lập loading (tạo hiệu ứng tải)
+        setTimeout(() => {
+          // Hiển thị thêm bài viết
+          let shown = 0;
+          hiddenPosts.forEach((post, index) => {
+            if (index < postsShown - 3 + postsPerLoad && index >= postsShown - 3) {
+              post.classList.remove('hidden-post');
+
+              // Hiệu ứng fade in
+              post.style.opacity = 0;
+              setTimeout(() => {
+                post.style.opacity = 1;
+                post.style.transition = 'opacity 0.5s ease';
+              }, shown * 100);
+              shown++;
+            }
+          });
+
+          postsShown += postsPerLoad;
+
+          // Bỏ hiệu ứng loading
+          this.classList.remove('loading');
+          this.querySelector('i').className = 'fas fa-chevron-down';
+
+          // Nếu đã hiển thị tất cả
+          if (postsShown >= 3 + hiddenPosts.length) {
+            this.classList.add('all-loaded');
+            this.querySelector('span').textContent = 'Đã hiển thị tất cả';
+            this.querySelector('i').className = 'fas fa-check';
+
+            // Ẩn nút sau 2 giây
+            setTimeout(() => {
+              this.style.display = 'none';
+            }, 2000);
+          }
+        }, 800); // Đợi 800ms để tạo hiệu ứng loading
+      });
+    }
+  });
+</script>
+</body>
+
 </html>

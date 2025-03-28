@@ -1394,10 +1394,9 @@ h1, h2, h3, h4, h5, h6 {
   width: 90%;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
-  border: 1px solid #4CAF50;
   border-radius: 10px;
   background-color: var(--white);
+  background-image: linear-gradient(120deg, #2c3e50, #3498db);
 }
 @media (max-width: 1200px) {
   .slideshow__search {
@@ -1415,7 +1414,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 10px;
   font-weight: 600;
   font-size: 3rem;
-  color: var(--text-black-900);
+  color: white;
 }
 .slideshow__list {
   width: 100%;
@@ -2246,7 +2245,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #4CAF50;
 }
 .btn-find {
-  background-color: #478e3a;
+  background-color: #2ecc71;
   border-radius: 0px;
   height: 45px;
   color: #fff;
@@ -2258,7 +2257,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   font-size: 2rem;
   border-radius: 0px;
-  background-color: rgba(2, 87, 28, 0.5);
+  background-color: #2ecc71;
 }
 .btn__short-term:hover, .btn__long-term:hover {
   background-color: #02571C;
@@ -2303,8 +2302,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .active-term {
-  background-color: #02571C;
-  border: solid 1px #fff;
+  background-color: #4CAF50;
   border-radius: 3px;
   pointer-events: none;
 }

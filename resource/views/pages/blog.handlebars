@@ -1,4 +1,4 @@
-
+{{!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,4 +130,1175 @@
 
 </script>
 </body>
+</html> --}}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeCare Blog - Những Mẹo Hữu Ích Trong Cuộc Sống</title>
+    <meta name="description"
+        content="Khám phá những bài viết hữu ích về dọn dẹp, chăm sóc nhà cửa và dịch vụ giúp việc">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        :root {
+            --primary: #4CAF50;;
+            --primary-light: #4FC5BD;
+            --primary-dark: #006C65;
+            --primary-very-light: #E6F7F6;
+            --accent: #FFA500;
+            --dark: #333333;
+            --light: #FFFFFF;
+            --gray: #6c757d;
+            --gray-light: #f8f9fa;
+            --gray-dark: #343a40;
+            --border: #e0e0e0;
+            --shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.7;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .blog-header {
+            background: var(--light);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .blog-header.shadow {
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 80px;
+            width: 120px;
+        }
+
+        .blog-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin-right: 30px;
+        }
+
+        .nav-item {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .nav-link:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link:hover:before {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active:before {
+            width: 100%;
+        }
+
+        .blog-login {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 166, 156, 0.2);
+        }
+
+        .blog-login:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--dark);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Featured Blog */
+        .blog-featured {
+            padding: 140px 0 60px;
+            background: var(--primary-very-light);
+        }
+
+        .featured-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .featured-content {
+            flex: 1;
+        }
+
+        .featured-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .featured-text {
+            color: var(--gray-dark);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .featured-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 166, 156, 0.25);
+        }
+
+        .featured-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .featured-image {
+            flex: 1;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .featured-image:hover img {
+            transform: scale(1.03);
+        }
+
+        /* Search Bar */
+        .search-section {
+            background: white;
+            padding: 40px 0;
+        }
+
+        .search-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .blog-search-bar {
+            display: flex;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+        }
+
+        .blog-search-bar input {
+            flex: 1;
+            border: none;
+            padding: 16px 25px;
+            font-size: 16px;
+            outline: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .blog-search-bar button {
+            background: var(--primary);
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .blog-search-bar button:hover {
+            background: var(--primary-dark);
+        }
+
+        .blog-search-bar button i {
+            color: white;
+            font-size: 18px !important;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 0 0 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .blog-filter-item {
+            padding: 8px 20px;
+            border-radius: 50px;
+            background: var(--gray-light);
+            color: var(--gray-dark);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .blog-filter-item:hover {
+            background: #eeeeee;
+        }
+
+        .blog-filter-item.active-filter {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Blog Posts */
+        .blog-posts-section {
+            padding: 60px 0;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .blog-post-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s;
+        }
+
+        .blog-post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-image {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .blog-post-card:hover .post-image img {
+            transform: scale(1.05);
+        }
+
+        .post-content {
+            padding: 25px;
+        }
+
+        .post-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--primary-very-light);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .post-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            color: var(--dark);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .post-title:hover {
+            color: var(--primary);
+        }
+
+        .post-date {
+            display: block;
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .post-description {
+            color: var(--gray-dark);
+            font-size: 14px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .author-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Footer */
+        .blog-footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 70px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .footer-description {
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .contact-info i {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            outline: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+        }
+
+        .newsletter-form button {
+            background: var(--primary);
+            border: none;
+            color: white;
+            padding: 0 20px;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            margin: 40px auto;
+            max-width: 500px;
+        }
+
+        .no-results i {
+            font-size: 50px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            margin-bottom: 15px;
+            font-size: 24px;
+            color: var(--gray-dark);
+        }
+
+        .no-results p {
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 992px) {
+            .featured-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 0 20px;
+            }
+
+            .featured-title {
+                font-size: 2rem;
+            }
+
+            .featured-image img {
+                height: 350px;
+            }
+
+            .blog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .header-container {
+                padding: 15px;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 40px 0;
+                transition: all 0.4s;
+                z-index: 999;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .blog-login {
+                display: none;
+            }
+
+            .featured-title {
+                font-size: 1.75rem;
+            }
+
+            .featured-image img {
+                height: 300px;
+            }
+
+            .blog-search-bar input {
+                padding: 14px 20px;
+                font-size: 14px;
+            }
+
+            .blog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .featured-title {
+                font-size: 1.5rem;
+            }
+
+            .featured-text {
+                font-size: 14px;
+            }
+
+            .featured-image img {
+                height: 250px;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Thêm vào phần style */
+.hidden-post {
+    display: none;
+}
+
+.show-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.show-more-btn {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 35px;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+}
+
+.show-more-btn:hover {
+    background-color: #3d8b40;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+}
+
+.show-more-btn i {
+    transition: transform 0.3s;
+}
+
+.show-more-btn:hover i {
+    transform: translateY(3px);
+}
+
+.show-more-btn.loading {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.show-more-btn.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.show-more-btn.all-loaded {
+    background-color: #e8f5e9;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    pointer-events: none;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="blog-header" id="blog-header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/icon/logo-removeBg.png" alt="HomeCare">
+            </a>
+
+            <div class="blog-nav">
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item"><a href="/" class="nav-link">Trang chủ</a></li>
+                    
+                    <li class="nav-item"><a href="/blog" class="nav-link active">Blog</a></li>
+                    
+                </ul>
+
+                <a href="/account/register" class="blog-login">Đăng ký</a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Featured Blog -->
+    <section class="blog-featured">
+        <div class="featured-container">
+            {{#each blogs}}
+            {{#if @first}}
+            <div class="featured-content">
+                <h1 class="featured-title">{{title}}</h1>
+                <p class="featured-text">{{description}}</p>
+                <a href="/blog/{{_id}}" class="featured-button">Đọc ngay</a>
+            </div>
+            <div class="featured-image">
+                <img src="{{img}}" alt="{{title}}">
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <form class="blog-search-bar">
+                <input type="text" placeholder="Tìm kiếm bài viết, mẹo dọn dẹp, chăm sóc nhà cửa..." id="search-item">
+                <button type="button"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-container">
+            <div class="blog-filter-item active-filter" data-filter="all">
+                Tất cả
+            </div>
+            {{#each tags}}
+            <div class="blog-filter-item" data-filter="{{this}}">{{this}}</div>
+            {{/each}}
+        </div>
+    </section>
+
+    <!-- Blog Posts -->
+<!-- Blog Posts -->
+<section class="blog-posts-section">
+    <div class="blog-grid" id="product-list">
+        {{#each blogs}}
+        {{#ifCond @index "<" 9}} <div class="blog-post-card" data-type="{{type}}">
+            <div class="post-image">
+                <a href="/blog/{{_id}}">
+                    <img src="{{img}}" alt="{{title}}">
+                </a>
+            </div>
+            <div class="post-content">
+                <span class="post-category">{{type}}</span>
+                <a href="/blog/{{_id}}">
+                    <h3 class="post-title">{{title}}</h3>
+                </a>
+                <span class="post-date">
+                    <i class="far fa-calendar-alt"></i> {{formatDate date}}
+                </span>
+                <p class="post-description">{{description}}</p>
+                <div class="post-author">
+                    <img src="/img/testi1.jpg" alt="{{author}}" class="author-img">
+                    <span class="author-name">{{author}}</span>
+                </div>
+            </div>
+    </div>
+    {{else}}
+    <div class="blog-post-card hidden-post" data-type="{{type}}">
+        <div class="post-image">
+            <a href="/blog/{{_id}}">
+                <img src="{{img}}" alt="{{title}}" loading="lazy">
+            </a>
+        </div>
+        <div class="post-content">
+            <span class="post-category">{{type}}</span>
+            <a href="/blog/{{_id}}">
+                <h3 class="post-title">{{title}}</h3>
+            </a>
+            <span class="post-date">
+                <i class="far fa-calendar-alt"></i> {{formatDate date}}
+            </span>
+            <p class="post-description">{{description}}</p>
+            <div class="post-author">
+                <img src="/img/testi1.jpg" alt="{{author}}" class="author-img">
+                <span class="author-name">{{author}}</span>
+            </div>
+        </div>
+    </div>
+    {{/ifCond}}
+    {{/each}}
+    </div>
+
+    {{#ifCond blogs.length ">" 9}}
+    <div class="show-more-container">
+        <button id="show-more-btn" class="show-more-btn">
+            <span>Xem thêm bài viết</span>
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+    {{/ifCond}}
+
+    <div class="no-results" id="no-results" style="display: none;">
+        <i class="fas fa-search"></i>
+        <h3>Không tìm thấy kết quả</h3>
+        <p>Vui lòng thử lại với từ khóa khác</p>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="blog-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>HomeCare</h3>
+                <p class="footer-description">
+                    Cung cấp dịch vụ giúp việc chất lượng cao, đáng tin cậy với đội ngũ nhân viên được đào tạo chuyên
+                    nghiệp.
+                </p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Liên kết</h3>
+                <ul class="footer-links">
+                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="/services">Dịch vụ</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/about">Về chúng tôi</a></li>
+                    <li><a href="/contact">Liên hệ</a></li>
+                    <li><a href="/account/login">Đăng nhập</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Liên hệ</h3>
+                <ul class="contact-info">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>123 Đường ABC, Quận 1, TP.HCM</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <span>+84 123 456 789</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>info@homecare.com</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>Thứ 2 - Thứ 6: 8:00 - 17:00</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Đăng ký nhận tin</h3>
+                <p class="footer-description">
+                    Nhận thông báo về các dịch vụ mới và bài viết hữu ích từ chúng tôi.
+                </p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email của bạn" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 HomeCare. Tất cả các quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <!-- Thay thế hai script block trùng lặp bằng một script block duy nhất ở cuối file -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        // Header Scroll Effect
+        const headers = document.querySelector("#blog-header");
+        window.addEventListener("scroll", () => {
+            headers.classList.toggle("shadow", window.scrollY > 0);
+        });
+
+        // Mobile Menu Toggle
+        const navMenu = document.getElementById('nav-menu');
+        const navToggle = document.getElementById('mobile-menu-toggle');
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+
+                // Change icon based on menu state
+                const icon = navToggle.querySelector('i');
+                if (navMenu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navToggle && !navToggle.contains(e.target) && !navMenu.contains(e.target) && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                const icon = navToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Filter Functionality
+        $(document).ready(function () {
+            $(".blog-filter-item").click(function () {
+                const value = $(this).attr("data-filter");
+
+                if (value == "all") {
+                    $(".blog-post-card").show("500");
+                } else {
+                    $(".blog-post-card").each(function () {
+                        const postType = $(this).attr("data-type");
+                        if (postType === value) {
+                            $(this).show("500");
+                        } else {
+                            $(this).hide("500");
+                        }
+                    });
+                }
+
+                // Active class handling
+                $(this).addClass("active-filter").siblings().removeClass("active-filter");
+
+                // Hide no results message
+                document.getElementById("no-results").style.display = "none";
+
+                // Check if any posts are visible
+                setTimeout(() => {
+                    const visiblePosts = $(".blog-post-card:visible").length;
+                    if (visiblePosts === 0) {
+                        document.getElementById("no-results").style.display = "block";
+                    }
+                }, 510);
+            });
+        });
+
+        // Get search item element
+        const searchItem = document.getElementById("search-item");
+
+        // Search Functionality
+        if (searchItem) {
+            searchItem.addEventListener("keyup", function () {
+                const searchValue = this.value.toUpperCase();
+                const blogPosts = document.querySelectorAll(".blog-post-card");
+                const noResults = document.getElementById("no-results");
+
+                // Hiển thị tất cả bài viết khi tìm kiếm
+                const hiddenPosts = document.querySelectorAll('.hidden-post');
+                hiddenPosts.forEach(post => {
+                    post.classList.remove('hidden-post');
+                });
+
+                // Ẩn nút "Xem thêm" khi đang tìm kiếm
+                const showMoreBtn = document.getElementById('show-more-btn');
+                if (showMoreBtn) showMoreBtn.style.display = 'none';
+
+                let hasResults = false;
+
+                blogPosts.forEach(post => {
+                    const title = post.querySelector(".post-title").textContent.toUpperCase();
+                    const description = post.querySelector(".post-description").textContent.toUpperCase();
+
+                    if (title.includes(searchValue) || description.includes(searchValue)) {
+                        post.style.display = "";
+                        hasResults = true;
+                    } else {
+                        post.style.display = "none";
+                    }
+                });
+
+                // Show "No Results" message if needed
+                if (!hasResults && searchValue !== "") {
+                    if (noResults) noResults.style.display = "block";
+                } else {
+                    if (noResults) noResults.style.display = "none";
+                }
+
+                // Reset active filter
+                if (searchValue !== "") {
+                    document.querySelectorAll(".blog-filter-item").forEach(item => {
+                        item.classList.remove("active-filter");
+                    });
+                } else {
+                    document.querySelector('[data-filter="all"]').classList.add("active-filter");
+                    resetPostDisplay();
+                }
+            });
+        }
+
+        // Form Submit Prevention
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                if (!form.classList.contains('needs-validation')) {
+                    e.preventDefault();
+                }
+            });
+        });
+
+        // Hàm khôi phục trạng thái hiển thị ban đầu
+        function resetPostDisplay() {
+            // Hiển thị lại nút "Xem thêm"
+            const showMoreBtn = document.getElementById('show-more-btn');
+            if (showMoreBtn) showMoreBtn.style.display = 'flex';
+
+            // Ẩn lại các bài viết sau 9 bài đầu tiên
+            const allPosts = document.querySelectorAll(".blog-post-card");
+            allPosts.forEach((post, index) => {
+                if (index >= 9) {
+                    post.classList.add('hidden-post');
+                } else {
+                    post.classList.remove('hidden-post');
+                }
+            });
+        }
+
+        // Show More Functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const showMoreBtn = document.getElementById('show-more-btn');
+            if (showMoreBtn) {
+                const hiddenPosts = Array.from(document.querySelectorAll('.hidden-post'));
+                const postsPerLoad = 6; // Hiển thị thêm 6 bài mỗi lần nhấn
+
+                showMoreBtn.addEventListener('click', function () {
+                    // Hiệu ứng loading
+                    this.classList.add('loading');
+                    this.querySelector('span').textContent = 'Đang tải...';
+                    this.querySelector('i').className = 'fas fa-spinner';
+
+                    // Giả lập thời gian tải
+                    setTimeout(() => {
+                        // Lấy các bài viết ẩn cần hiển thị
+                        const postsToShow = hiddenPosts.splice(0, postsPerLoad);
+
+                        // Hiển thị từng bài với hiệu ứng fade
+                        postsToShow.forEach((post, index) => {
+                            setTimeout(() => {
+                                post.classList.remove('hidden-post');
+                                post.style.opacity = '0';
+                                post.style.transform = 'translateY(20px)';
+                                post.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+
+                                setTimeout(() => {
+                                    post.style.opacity = '1';
+                                    post.style.transform = 'translateY(0)';
+                                }, 50);
+                            }, index * 150);
+                        });
+
+                        // Quay lại trạng thái ban đầu của nút
+                        this.classList.remove('loading');
+                        this.querySelector('span').textContent = 'Xem thêm bài viết';
+                        this.querySelector('i').className = 'fas fa-chevron-down';
+
+                        // Nếu không còn bài viết ẩn
+                        if (hiddenPosts.length === 0) {
+                            this.classList.add('all-loaded');
+                            this.querySelector('span').textContent = 'Đã hiển thị tất cả';
+                            this.querySelector('i').className = 'fas fa-check';
+
+                            // Ẩn nút sau 2 giây
+                            setTimeout(() => {
+                                this.style.opacity = '0';
+                                setTimeout(() => {
+                                    this.style.display = 'none';
+                                }, 500);
+                            }, 2000);
+                        }
+                    }, 800);
+                });
+            }
+        });
+    </script>
+</body>
+
 </html>

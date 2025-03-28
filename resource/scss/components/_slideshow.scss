@@ -15,10 +15,11 @@
         width:90%;
         background-color: white;
         border-radius: 10px;
-        box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
-    border: 1px solid #4CAF50;
+       // box-shadow: 0 10px 15px rgba(22, 22, 22, 0.9);
+    //border: 1px solid #4CAF50;
     border-radius: 10px;
     background-color: var(--white);
+    background-image: linear-gradient(120deg, #2c3e50, #3498db);
     @include abstracts.screen(xl){
         width:55%;
     }
@@ -35,7 +36,8 @@
         margin-bottom: 10px;
         font-weight: 600;
         font-size: 3rem;
-        color: var(--text-black-900);
+       // color: var(--text-black-900);
+       color: white;
     }
     &__list{
         width:100%;

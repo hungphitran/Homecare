@@ -12,6 +12,8 @@ const app = express()
 
 //config static file
 app.use(express.static(path.join(__dirname, 'public')))
+// Thêm helper này vào object helpers trong hbs.create
+
 //template engine helpers
 const hbs = handlebars.create({
     helpers: {
@@ -49,6 +51,28 @@ const hbs = handlebars.create({
                 return options.inverse(this); 
               }
         },
+        ifCond: function(v1, operator, v2, options) {
+  switch (operator) {
+    case '==':
+      return (v1 == v2) ? options.fn(this) : options.inverse(this);
+    case '===':
+      return (v1 === v2) ? options.fn(this) : options.inverse(this);
+    case '!=':
+      return (v1 != v2) ? options.fn(this) : options.inverse(this);
+    case '!==':
+      return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+    case '<':
+      return (v1 < v2) ? options.fn(this) : options.inverse(this);
+    case '<=':
+      return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+    case '>':
+      return (v1 > v2) ? options.fn(this) : options.inverse(this);
+    case '>=':
+      return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+    default:
+      return options.inverse(this);
+  }
+},
         compareProperties:function (obj, prop, thisProp, options) {
             if (obj[prop] === this[thisProp]) {
                 return options.fn(this);  // Khi hai giá trị bằng nhau

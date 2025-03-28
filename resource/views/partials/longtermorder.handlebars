@@ -388,7 +388,7 @@
                                 </button>
                             <div class="aside-detail__longterm hide" id ="aside-longterm">
                                 <ul>
-                                    {{#each helpers}}
+                                    {{!-- {{#each helpers}}
                                    <li>
                                     
                                     <a href="#!"><div class="form_  _group" style="margin-top:10px;display: flex;align-items: center;justify-content: space-around;">
@@ -401,7 +401,30 @@
                                         </button>
                                     </div></a>
                                    </li>
-                                   {{/each}}
+                                   {{/each}} --}}
+                                {{#each helpers}}
+                                <li>
+                                    <a href="#!">
+                                        <div class="form__group"
+                                            style="margin-top:10px;display: flex;align-items: center;justify-content: space-around;">
+                                            <input type="radio" id="helper_{{this._id}}" value="{{this._id}}" name="service_id">
+                                            <label for="helper_{{this._id}}" class="book-item__flex-50-text">
+                                                {{this.fullName}}
+                                            </label>
+                                            <button class="short-helper__btn js-toggle-2" toggle-target-2="#aside-longterm__detail"
+                                                style="width:30px; height:30px;" data-helper-id="{{this._id}}" data-helper-name="{{this.fullName}}"
+                                                data-helper-districts="{{this.workingArea.districts}}"
+                                                data-helper-province="{{this.workingArea.province}}" data-helper-birthdate="{{this.birthDate}}"
+                                                data-helper-gender="{{this.gender}}" data-helper-phone="{{this.phone}}"
+                                                data-helper-birthplace="{{this.birthPlace}}" data-helper-address="{{this.address}}"
+                                                data-helper-height="{{this.height}}" data-helper-weight="{{this.weight}}"
+                                                data-helper-experience="{{this.yearOfExperience}}">
+                                                <i class="fa-solid fa-info"></i>
+                                            </button>
+                                        </div>
+                                    </a>
+                                </li>
+                                {{/each}}
                                 </ul>
                             </div>
                             </div>
@@ -1076,9 +1099,106 @@
         window.dispatchEvent(new Event("template-loaded"));
     </script>
 
-    <script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+            // Lấy tất cả các nút thông tin
+            const infoButtons = document.querySelectorAll('.short-helper__btn.js-toggle-2');
 
-    </script>
+            // Thêm sự kiện click cho mỗi nút
+            infoButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Lấy thông tin chi tiết từ data attributes
+                    const helperId = this.getAttribute('data-helper-id');
+                    const helperName = this.getAttribute('data-helper-name');
+                    const helperDistricts = this.getAttribute('data-helper-districts');
+                    const helperProvince = this.getAttribute('data-helper-province');
+                    const helperBirthdate = this.getAttribute('data-helper-birthdate');
+                    const helperGender = this.getAttribute('data-helper-gender');
+                    const helperPhone = this.getAttribute('data-helper-phone');
+                    const helperBirthplace = this.getAttribute('data-helper-birthplace');
+                    const helperAddress = this.getAttribute('data-helper-address');
+                    const helperHeight = this.getAttribute('data-helper-height');
+                    const helperWeight = this.getAttribute('data-helper-weight');
+                    const helperExperience = this.getAttribute('data-helper-experience');
+
+                    // Tính tuổi
+                    const birthDate = new Date(helperBirthdate);
+                    const today = new Date();
+                    let age = today.getFullYear() - birthDate.getFullYear();
+                    const monthDiff = today.getMonth() - birthDate.getMonth();
+                    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+
+                    // Cập nhật thông tin trong phần chi tiết
+                    const detailSection = document.getElementById('aside-longterm__detail');
+
+                    // Cập nhật tên
+                    const nameElement = detailSection.querySelector('.about-detail__text h3');
+                    if (nameElement) {
+                        nameElement.innerHTML = `Tôi tên là ${helperName} và <span>người giúp việc</span>`;
+                    }
+
+                    // Cập nhật các thông tin cá nhân
+                    updateDetailInfo(detailSection, 'Quận', helperDistricts);
+                    updateDetailInfo(detailSection, 'Tuổi', age);
+                    updateDetailInfo(detailSection, 'Ngày sinh nhật', helperBirthdate);
+                    updateDetailInfo(detailSection, 'Giới tính', helperGender);
+                    updateDetailInfo(detailSection, 'Số điện thoại', helperPhone);
+                    updateDetailInfo(detailSection, 'Quê quán', helperBirthplace);
+                    updateDetailInfo(detailSection, 'Tỉnh', helperProvince);
+                    updateDetailInfo(detailSection, 'Địa chỉ', helperAddress);
+                    updateDetailInfo(detailSection, 'Chiều cao', helperHeight + ' cm');
+                    updateDetailInfo(detailSection, 'Cân nặng', helperWeight + ' kg');
+                    updateDetailInfo(detailSection, 'Năm kinh nghiệm', helperExperience + ' năm');
+
+                    // Cập nhật thuộc tính data-helper-id cho nút "Thuê người này"
+                    const hireButton = detailSection.querySelector('.book-helper');
+                    if (hireButton) {
+                        hireButton.setAttribute('data-helper-id', helperId);
+                    }
+
+                    // Hiển thị phần chi tiết
+                    detailSection.style.display = 'block';
+
+                    // Chọn radio button tương ứng
+                    const radioButton = document.getElementById('helper_' + helperId);
+                    if (radioButton) {
+                        radioButton.checked = true;
+                    }
+                });
+            });
+
+            // Hàm hỗ trợ cập nhật thông tin chi tiết
+            function updateDetailInfo(container, label, value) {
+                const items = container.querySelectorAll('.about-detail__infor-item');
+                items.forEach(item => {
+                    const itemLabel = item.querySelector('p');
+                    if (itemLabel && itemLabel.textContent.includes(label + ':')) {
+                        const span = itemLabel.querySelector('span');
+                        if (span) {
+                            span.textContent = value;
+                        }
+                    }
+                });
+            }
+
+            // Xử lý nút "Thuê người này"
+            const hireButtons = document.querySelectorAll('.book-helper');
+            hireButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    const helperId = this.getAttribute('data-helper-id');
+                    if (helperId) {
+                        document.querySelector('input[name="helperId"]').value = helperId;
+                        // Có thể submit form hoặc chuyển hướng tới trang thanh toán
+                        document.querySelector('form').submit();
+                    }
+                });
+            });
+        });
+  </script>
 </body>
 
 </html>
