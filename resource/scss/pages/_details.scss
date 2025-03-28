@@ -455,8 +455,24 @@
     font-weight: 500;
 }
 
-.status-pendingHistoryDetailHomeKare {
+.status-assignedHistoryDetailHomeKare {
     color: #f39c12;
+    font-weight: 500;
+}
+.status-cancelHistoryDetailHomeKare {
+    color: #c0392b;
+    font-weight: 500;
+}
+.status-wayPaymentHistoryDetailHomeKare {
+    color: #2980b9;
+    font-weight: 500;
+}
+.status-notDoneHistoryDetailHomeKare {
+    color: #7f8c8d;
+    font-weight: 500;
+}
+.status-processingHistoryDetailHomeKare {
+    color: #8e44ad;
     font-weight: 500;
 }
 
@@ -663,4 +679,27 @@
 }
 .btn-close-modal{
     font-size:3rem;
+}
+/* Thêm style cho nút xác nhận hoàn thành */
+#completeButton, #completeButtonShort {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+#completeButton:hover, #completeButtonShort:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* Animation cho icon spinner */
+.fa-spinner {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

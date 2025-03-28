@@ -27,6 +27,15 @@ const hbs = handlebars.create({
         formatTime: function (date) {
             return date.split('T')[1].split('.')[0];
         },
+        // showdate: function(date){
+        //     return date
+        // },
+        // formatDate: function () {
+        //     return new Date().toISOString().split('T')[0]
+        // },
+        // formatTime: function (date) {
+        //     return date
+        // },
         formatContent: function () {
             return "chọn ngày"
         },
@@ -67,7 +76,7 @@ const hbs = handlebars.create({
                 case "done": return "Đã hoàn thành"
                 case "cancelled" : return "Đã hủy"
                 case "wayPayment": return "Chờ thanh toán" // được thanh toán
-                case "processing" : return "Đang thực hiện"// cho nút xác nhận hoàn thành trong từng đơn nhỏ
+                 
                 default: return status;
             }
         },
