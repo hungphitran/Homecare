@@ -254,7 +254,7 @@
                                                                     <span class="labelHistoryDetailHomeKare">Tổng số tiền:</span>
                                                                     <span class="valueHistoryDetailHomeKare">{{totalCost}}VNĐ</span>
                                                                     <!-- Add Thanh toán button -->
-                                                                    <button id="payButton" class="btn btn-primary" data-id="{{_id}}">Thanh toán</button>
+                                                                    <button id="payButton" class="btn btn-primary" data-id="{{_id}}" data-request-id="{{_id}}">Thanh toán</button>
                                                                 </div>
                                                             </div>
                                                         
@@ -307,7 +307,12 @@
                                                     <div class="billDetailsHistoryDetailHomeKare">
                                                         <div class="detailItemHistoryDetailHomeKare">
                                                             <span class="labelHistoryDetailHomeKare">Ngày:</span>
-                                                            <span class="valueHistoryDetailHomeKare">{{orderDate}}</span>
+                                                            {{#each schedules}}
+                                                            {{#if @first}}
+                                                            <span class="valueHistoryDetailHomeKare">{{this.workingDate}}</span>
+                                                            {{/if}}
+                                                                
+                                                            {{/each}}
                                                         </div>
                                                         <div class="detailItemHistoryDetailHomeKare">
                                                             <span class="labelHistoryDetailHomeKare">Giờ bắt đầu:</span>
@@ -315,7 +320,7 @@
                                                         </div>
                                                         <div class="detailItemHistoryDetailHomeKare">
                                                             <span class="labelHistoryDetailHomeKare">Giờ kết thúc:</span>
-                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime startTime}}{{/formatTime}}</span>
+                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime endTime}}{{/formatTime}}</span>
                                                         </div>
                                                         {{#each schedules}}
                                                         {{#if @first}}
@@ -335,7 +340,7 @@
                                                             <p class="commentHistoryDetailHomeKare">{{comment}}</p>
                                                         </div>
                                                         <!-- Thêm nút thanh toán -->
-                                                        <button id="payButtonShort" class="btn btn-primary" style="margin-left:auto;">Thanh toán</button>
+                                                        <button id="payButtonShort" class="btn btn-primary" style="margin-left:auto;" data-request-id="{{_id}}">Thanh toán</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -936,6 +941,10 @@
     document.addEventListener('click', function (e) {
         if (e.target.id === 'cancelButton' || e.target.id === 'cancelButtonShort') {
             const requestId = e.target.getAttribute('data-request-id');
+            console.log("requestId",requestId)
+
+            
+
             const tabletype = e.target.id === 'cancelButton' ? 'long' : 'short';
 
             // Lưu tham chiếu đến modal hiện tại
@@ -944,54 +953,73 @@
             // Hiển thị modal xác nhận hủy
             const confirmModal = new bootstrap.Modal(document.getElementById('confirmCancelModal'));
 
-            // Thêm sự kiện cho nút xác nhận hủy
+                // Thêm sự kiện cho nút xác nhận hủy
             document.getElementById('confirmCancelBtn').onclick = function () {
                 // Đóng modal xác nhận
                 confirmModal.hide();
 
-                // Đóng modal chi tiết
-                if (currentModal) {
-                    currentModal.classList.remove('showModalHistoryDetailHomeKare');
-                }
+                // Gửi yêu cầu hủy đến server
+                fetch('/request/cancel', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ orderId: requestId })
+                })
+                .then(response => {
+                    location.reload()
+ /*                   if (response.ok) {
+                         ; // Tải lại trang để cập nhật trạng thái đơn hàng
+                       // Đóng modal chi tiết
+                        if (currentModal) {
+                            currentModal.classList.remove('showModalHistoryDetailHomeKare');
+                        }
 
-                // Tìm hàng từ bảng đúng loại
-                const targetTable = tabletype === 'long'
-                    ? document.getElementById('longTermTable-homedetail')
-                    : document.getElementById('shortTermTable-homedetail');
+                        // Tìm hàng từ bảng đúng loại
+                        const targetTable = tabletype === 'long'
+                            ? document.getElementById('longTermTable-homedetail')
+                            : document.getElementById('shortTermTable-homedetail');
 
-                if (targetTable) {
-                    // Tìm hàng theo request ID trong bảng cụ thể
-                    const rows = targetTable.querySelectorAll('tr[data-request-id="' + requestId + '"]');
+                        if (targetTable) {
+                            // Tìm hàng theo request ID trong bảng cụ thể
+                            const rows = targetTable.querySelectorAll('tr[data-request-id="' + requestId + '"]');
 
-                    if (rows.length > 0) {
-                        rows.forEach(row => {
-                            // Cập nhật trạng thái trong modal
-                            const modal = row.querySelector('.modalHistoryDetailHomeKare');
-                            if (modal) {
-                                const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
-                                statusElements.forEach(statusEl => {
-                                    // Cập nhật data-status để hiển thị trạng thái đã hủy
-                                    statusEl.setAttribute('data-status', 'cancelled');
+                            if (rows.length > 0) {
+                                rows.forEach(row => {
+                                    // Cập nhật trạng thái trong modal
+                                    const modal = row.querySelector('.modalHistoryDetailHomeKare');
+                                    if (modal) {
+                                        const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
+                                        statusElements.forEach(statusEl => {
+                                            // Cập nhật data-status để hiển thị trạng thái đã hủy
+                                            statusEl.setAttribute('data-status', 'cancelled');
+                                        });
+                                    }
+
+                                    // Cập nhật trạng thái hiển thị trong bảng (nếu có)
+                                    const statusCell = row.cells[5]; // Cell thứ 6 (index 5) thường là trạng thái
+                                    if (statusCell) {
+                                        const statusElement = statusCell.querySelector('.status-completeHistoryDetailHomeKare');
+                                        if (statusElement) {
+                                            statusElement.setAttribute('data-status', 'cancelled');
+                                        }
+                                    }
                                 });
+
+                                // Hiển thị thông báo thành công
+                                //alert('Đã hủy đơn hàng thành công!');
+                            } else {
+                                console.warn(`Không tìm thấy hàng với requestId ${requestId} trong bảng ${tabletype}`);
                             }
-
-                            // Cập nhật trạng thái hiển thị trong bảng (nếu có)
-                            const statusCell = row.cells[5]; // Cell thứ 6 (index 5) thường là trạng thái
-                            if (statusCell) {
-                                const statusElement = statusCell.querySelector('.status-completeHistoryDetailHomeKare');
-                                if (statusElement) {
-                                    statusElement.setAttribute('data-status', 'cancelled');
-                                }
-                            }
-                        });
-
-                        // Hiển thị thông báo thành công
-                        alert('Đã hủy đơn hàng thành công!');
-
+                        }
                     } else {
-                        console.warn(`Không tìm thấy hàng với requestId ${requestId} trong bảng ${tabletype}`);
-                    }
-                }
+                        alert('Có lỗi xảy ra khi hủy đơn hàng. Vui lòng thử lại sau.');
+                    }*/
+                })
+                .catch(error => {
+                    console.error('Lỗi khi gửi yêu cầu hủy:', error);
+                    alert('Có lỗi xảy ra khi hủy đơn hàng. Vui lòng thử lại sau.');
+                });
             };
 
             // Hiển thị modal xác nhận
@@ -1334,6 +1362,37 @@
     handleStatusDisplay();
 });
 
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Handle "Thanh toán" button click
+        document.querySelectorAll('#payButton, #payButtonShort').forEach(button => {
+            button.addEventListener('click', function () {
+                const requestId = this.getAttribute('data-request-id');
+                console.log('Thanh toán cho request ID:', requestId);
+                fetch('/request/finishpayment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ orderId: requestId })
+                })
+                .then(response => {
+                                            location.reload(); // Reload the page to reflect changes
+
+ /*                   if (response.ok) {
+                    } else {
+                        alert('Có lỗi xảy ra khi thanh toán. Vui lòng thử lại.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi thanh toán. Vui lòng thử lại.');
+                */
+                });
+            });
+        });
+    });
 </script>
 <script>
     window.dispatchEvent(new Event("template-loaded"));

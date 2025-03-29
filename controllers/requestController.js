@@ -257,6 +257,70 @@ const requestController={
                     noti: err
                 })
             })
+    },
+    cancelOrder: async (req,res,next)=>{
+        let orderId = req.body.orderId;
+        console.log("order id: ",orderId)
+        let option={
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id:orderId})
+        }
+        await fetch(process.env.API_URL + '/request/cancel', option)
+        .then(data => {
+            console.log(data)
+            if(data.status === 200){
+                return data.json()
+                .then(data=>Promise.resolve(data.message))
+            }
+            else {
+                console.log(data)
+                return data.json()
+                .then(data=>Promise.reject(data.message))
+            }
+        })
+        .then(data=>{
+            res.redirect('/account/detail')
+        })
+        .catch(err=>{
+            res.render("pages/notificationpage",{
+                layout:false,
+                noti: err
+            })
+        })
+    },
+    finishPayment: async (req, res, next) => {
+        let orderId = req.body.orderId;
+        console.log(orderId)
+        let option = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: orderId })
+        };
+        await fetch(process.env.API_URL + '/request/finishpayment', option)
+            .then(data => {
+                console.log(data)
+                if (data.status === 200) {
+                    return data.json()
+                        .then(data => Promise.resolve(data.message));
+                } else {
+                    return data.json()
+                        .then(data => Promise.reject(data.message));
+                }
+            })
+            .then(data => {
+                res.redirect('/account/detail');
+            })
+            .catch(err => {
+                res.render("pages/notificationpage", {
+                    layout: false,
+                    noti: err
+                });
+            });
     }
 }
 module.exports = requestController;
