@@ -99,7 +99,7 @@ const hbs = handlebars.create({
                 case "assigned": return "Đã xác nhận"
                 case "done": return "Đã hoàn thành"
                 case "cancelled" : return "Đã hủy"
-                case "wayPayment": return "Chờ thanh toán" // được thanh toán
+                case "waitPayment": return "Chờ thanh toán" // được thanh toán
                  
                 default: return status;
             }
