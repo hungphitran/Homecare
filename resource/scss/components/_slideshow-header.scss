@@ -209,7 +209,7 @@ ul{
 }
 .header-menu__item:nth-child(10) a{
      color:var(--color,#fff);
-    background-color:#02571c;
+    background: linear-gradient(135deg, #2ecc71, #2980b9);
     padding:10px 20px;
     border-radius: 5px;
     display: flex;

@@ -1,9 +1,456 @@
+<!DOCTYPE html>
+<html lang="vi">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Cleaner - Thông báo</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2ecc71;
+            --success-color: #2ecc71;
+            --error-color: #e74c3c;
+            --warning-color: #f39c12;
+            --info-color: #2ecc71;
+            --dark-text: #2c3e50;
+            --light-text: #ffffff;
+            --card-bg: #ffffff;
+            --bg-color: #f8f9fa;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
 
-<h1>{{noti}}</h1>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<script>
-    setTimeout(()=>{
-        window.location.href="/";
-    },3000)
-</script>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--dark-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .notification-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notification-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), #2980b9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-name {
+            color: var(--light-text);
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .notification-body {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .notification-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background-color: rgba(52, 152, 219, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--primary-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(52, 152, 219, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+            }
+        }
+
+        /* Success Icon */
+        .notification-icon.success {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success-color);
+        }
+
+        /* Error Icon */
+        .notification-icon.error {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--error-color);
+        }
+
+        /* Warning Icon */
+        .notification-icon.warning {
+            background-color: rgba(243, 156, 18, 0.1);
+            color: var(--warning-color);
+        }
+
+        .notification-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+        }
+
+        .notification-message {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .notification-progress {
+            height: 4px;
+            background-color: #e0e0e0;
+            margin-top: 20px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, var(--primary-color), #2980b9);
+            animation: progressShrink 3s linear forwards;
+        }
+
+        @keyframes progressShrink {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        .countdown {
+            font-size: 14px;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        .countdown-number {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .notification-footer {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            gap: 8px;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Success Theme */
+        .notification-container.success .notification-header {
+            background: linear-gradient(135deg, var(--success-color), #27ae60);
+        }
+
+        .notification-container.success .logo {
+            color: var(--success-color);
+        }
+
+        .notification-container.success .progress-bar {
+            background: linear-gradient(90deg, var(--success-color), #27ae60);
+        }
+
+        .notification-container.success .btn-primary {
+            background-color: var(--success-color);
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+        }
+
+        .notification-container.success .btn-primary:hover {
+            background-color: #27ae60;
+            box-shadow: 0 8px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        /* Error Theme */
+        .notification-container.error .notification-header {
+            background: linear-gradient(135deg, var(--error-color), #c0392b);
+        }
+
+        .notification-container.error .logo {
+            color: var(--error-color);
+        }
+
+        .notification-container.error .progress-bar {
+            background: linear-gradient(90deg, var(--error-color), #c0392b);
+        }
+
+        .notification-container.error .btn-primary {
+            background-color: var(--error-color);
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+        }
+
+        .notification-container.error .btn-primary:hover {
+            background-color: #c0392b;
+            box-shadow: 0 8px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Warning Theme */
+        .notification-container.warning .notification-header {
+            background: linear-gradient(135deg, var(--warning-color), #d35400);
+        }
+
+        .notification-container.warning .logo {
+            color: var(--warning-color);
+        }
+
+        .notification-container.warning .progress-bar {
+            background: linear-gradient(90deg, var(--warning-color), #d35400);
+        }
+
+        .notification-container.warning .btn-primary {
+            background-color: var(--warning-color);
+            box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3);
+        }
+
+        .notification-container.warning .btn-primary:hover {
+            background-color: #d35400;
+            box-shadow: 0 8px 15px rgba(243, 156, 18, 0.4);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 576px) {
+            .notification-container {
+                width: 90%;
+            }
+
+            .notification-title {
+                font-size: 20px;
+            }
+
+            .notification-message {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+
+            .notification-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Check if the notification type is provided, default to 'info' -->
+    {{#if type}}
+    <div class="notification-container {{type}}">
+        {{else}}
+        <div class="notification-container info">
+            {{/if}}
+            <div class="notification-header">
+                <div class="brand">
+                    <div class="logo">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <div class="brand-name">Pro Cleaner</div>
+                </div>
+            </div>
+            <div class="notification-body">
+                <!-- Icon based on notification type -->
+                {{#if type}}
+                {{#if (eq type "success")}}
+                <div class="notification-icon success">
+                    <i class="fas fa-check"></i>
+                </div>
+                {{else if (eq type "error")}}
+                <div class="notification-icon error">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                {{else if (eq type "warning")}}
+                <div class="notification-icon warning">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                {{else}}
+                <div class="notification-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                {{/if}}
+                {{else}}
+                <div class="notification-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                {{/if}}
+
+                <!-- Title based on notification type -->
+                {{#if type}}
+                {{#if (eq type "success")}}
+                <h2 class="notification-title">Thành công!</h2>
+                {{else if (eq type "error")}}
+                <h2 class="notification-title">Đã xảy ra lỗi!</h2>
+                {{else if (eq type "warning")}}
+                <h2 class="notification-title">Cảnh báo!</h2>
+                {{else}}
+                <h2 class="notification-title">Thông báo</h2>
+                {{/if}}
+                {{else}}
+                <h2 class="notification-title">Thông báo</h2>
+                {{/if}}
+
+                <p class="notification-message">{{noti}}</p>
+
+                <div class="notification-progress">
+                    <div class="progress-bar"></div>
+                </div>
+
+                <div class="countdown">
+                    Tự động chuyển hướng sau <span id="countdown" class="countdown-number">3</span> giây
+                </div>
+            </div>
+            <div class="notification-footer">
+                <a href="/" class="btn btn-primary">
+                    <i class="fas fa-home"></i>
+                    <span>Về trang chủ ngay</span>
+                </a>
+            </div>
+        </div>
+
+        <script>
+            // Countdown timer
+            let seconds = 3;
+            const countdownElement = document.getElementById('countdown');
+
+            const countdownInterval = setInterval(() => {
+                seconds--;
+                countdownElement.textContent = seconds;
+
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    window.location.href = "/";
+                }
+            }, 1000);
+
+            // Handle redirect when clicking "Go Home" button
+            document.querySelector('.btn-primary').addEventListener('click', function (e) {
+                e.preventDefault();
+                clearInterval(countdownInterval);
+                window.location.href = "/";
+            });
+
+            // Determine the notification type based on message content
+            // This is optional if you're passing the type from the server
+            function determineNotificationType() {
+                const message = "{{noti}}".toLowerCase();
+                const container = document.querySelector('.notification-container');
+
+                if (message.includes("thành công") || message.includes("success") || message.includes("hoàn tất")) {
+                    container.className = "notification-container success";
+                    document.querySelector('.notification-icon').innerHTML = '<i class="fas fa-check"></i>';
+                    document.querySelector('.notification-icon').className = "notification-icon success";
+                    document.querySelector('.notification-title').textContent = "Thành công!";
+                } else if (message.includes("lỗi") || message.includes("error") || message.includes("thất bại")) {
+                    container.className = "notification-container error";
+                    document.querySelector('.notification-icon').innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                    document.querySelector('.notification-icon').className = "notification-icon error";
+                    document.querySelector('.notification-title').textContent = "Đã xảy ra lỗi!";
+                } else if (message.includes("cảnh báo") || message.includes("warning") || message.includes("chú ý")) {
+                    container.className = "notification-container warning";
+                    document.querySelector('.notification-icon').innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+                    document.querySelector('.notification-icon').className = "notification-icon warning";
+                    document.querySelector('.notification-title').textContent = "Cảnh báo!";
+                }
+            }
+
+            // Call this function if you're not passing the type from the server
+            { { #unless type } }
+            determineNotificationType();
+            { {/unless } }
+        </script>
+</body>
+
+</html>

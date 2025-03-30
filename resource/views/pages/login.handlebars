@@ -1,103 +1,623 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>project 8</title>
-    <!-- link css -->
+    <meta name="description" content="Đăng nhập vào Pro Cleaner - Dịch vụ giúp việc chuyên nghiệp hàng đầu">
+    <title>Pro Cleaner - Đăng nhập</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Link CSS -->
     <link rel="stylesheet" href="/css/style.css">
-    <!-- script -->
-    <script src="/js/scripts.js"></script>
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #2ecc71;
+            --secondary: #2ecc71;
+            --dark: #333;
+            --gray: #777;
+            --light-gray: #e0e0e0;
+            --background: #f8f9fa;
+            --white: #ffffff;
+            --error: #e74c3c;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #3498db, #2980b9);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--background);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background design with decorative elements */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            z-index: -1;
+        }
+
+        body::before {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(46, 204, 113, 0.1));
+        }
+
+        body::after {
+            top: 15%;
+            right: -150px;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.1), rgba(46, 204, 113, 0.05));
+        }
+
+        .decorative-circle {
+            position: fixed;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .decorative-circle:nth-child(1) {
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.08), rgba(52, 152, 219, 0.03));
+        }
+
+        .decorative-circle:nth-child(2) {
+            bottom: -100px;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(46, 204, 113, 0.08), rgba(46, 204, 113, 0.03));
+        }
+
+        .auth {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth__content {
+            flex: 1;
+            max-width: 480px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin: 0 auto;
+            transform: translateY(0);
+            opacity: 1;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .auth__content-inner {
+            padding: 40px;
+        }
+
+        .logo {
+            display: block;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo__img {
+            height: 100px;
+            transition: var(--transition);
+        }
+
+        .logo__img:hover {
+            transform: scale(1.05);
+        }
+
+        .auth__heading {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .auth__desc {
+            color: var(--gray);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .form__group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .form__text-input {
+            position: relative;
+        }
+
+        .form__input-login {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 1px solid var(--light-gray);
+           
+            font-size: 15px;
+            transition: var(--transition);
+            color: var(--dark);
+            font-family: inherit;
+        }
+
+        .form__input-login:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+            outline: none;
+        }
+
+        .form__input-login::placeholder {
+            color: #aaa;
+            text-transform: capitalize;
+        }
+
+        .form__input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.6;
+            width: 18px;
+            height: auto;
+            pointer-events: none;
+        }
+
+        .form-control {
+            position: relative;
+        }
+
+        .form__input-icon-error {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+            width: 16px;
+            height: auto;
+        }
+
+        .form__error {
+            font-size: 13px;
+            color: var(--error);
+            margin-top: 5px;
+            padding-left: 2px;
+            min-height: 20px;
+        }
+
+        .form__group-inline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .form__check-box {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .form__checkbox-input {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            accent-color: var(--primary);
+        }
+
+        .form__checkbox-label {
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        .auth__link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 14px;
+        }
+
+        .auth__link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .form__group-btn {
+            margin-top: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            color: var(--white);
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn--primary {
+            background: var(--gradient);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.25);
+            background: linear-gradient(135deg, #2ecc71, #2980b9);
+        }
+
+        .btn--primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.6s;
+        }
+
+        .btn--primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.35);
+        }
+
+        .btn--primary:hover::before {
+            left: 100%;
+        }
+
+        .btn--primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn--outline {
+            background-color: var(--white);
+            color: var(--dark);
+            border: 1px solid var(--light-gray);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn--outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .auth__text {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+
+        /* Social login section */
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            border: 1px solid var(--light-gray);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-btn--fb {
+            color: #3b5998;
+        }
+
+        .social-btn--gg {
+            color: #db4437;
+        }
+
+        .social-btn--apple {
+            color: #333;
+        }
+
+        .separator {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 30px 0 20px;
+        }
+
+        .separator::before,
+        .separator::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .separator__text {
+            padding: 0 15px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Side image section */
+        .auth__image {
+            flex: 1;
+            display: none;
+            background: var(--gradient);
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-left: 30px;
+        }
+
+        .auth__image-inner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            background: url('/img/z6456445192354_e0733262e91190e41e872e332a568684.jpg') center/cover no-repeat;
+            opacity: 0.8;
+        }
+
+        .auth__image-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: var(--white);
+        }
+
+        .auth__image-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color:white;
+        }
+
+        .auth__image-text {
+            font-size: 15px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Password visibility toggle */
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--gray);
+            font-size: 16px;
+            z-index: 5;
+        }
+
+        /* Responsive styles */
+        @media (min-width: 992px) {
+            .auth__image {
+                display: block;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .auth__content-inner {
+                padding: 30px 20px;
+            }
+
+            .auth__content {
+                width: 100%;
+            }
+
+            .form__group-inline {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Decorative background elements -->
+    <div class="decorative-circle"></div>
+    <div class="decorative-circle"></div>
+
     <main class="auth">
+        <!-- Login Form Card -->
         <div id="btn-content" class="auth__content">
             <div class="auth__content-inner">
                 <!-- logo -->
-                <a href="./">
-                    <div class="logo">
-                        <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo__img--large">
-                        {{!-- <h1 class="logo__title">Homecare</h1> --}}
-                    </div>
+                <a href="/" class="logo">
+                    <img src="/icon/logo-removeBg.png" alt="Pro Cleaner" class="logo__img logo__img--large">
                 </a>
-                <h2 class="auth__heading">Xin chào</h2>
-                {{!-- <p class="auth__desc">Chào mừng bạn trở lại để đăng nhập. Là một khách hàng quay lại, bạn có quyền truy cập vào tất cả thông tin đã lưu trước đó của bạn.</p> --}}
+
+                <h2 class="auth__heading">Chào mừng trở lại</h2>
+                
+
                 <form id="form-1" method="post" action="/account" class="form auth__form">
-                    <!-- input 1 -->
+                    <!-- Phone input -->
                     <div class="form__group">
                         <div class="form__text-input form-control">
-                            <input id="tel-input" placeholder="phone" type="tel" class="form__input" name="phone"
-                                value="{{account}}" required min-length="10" >
-                            <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon">
-                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
-                        </div>
-                        <p class="form__error"></p>
-                        {{!-- please enter at least about 10 number --}}
-                    </div>
-                    <!-- input 2 -->
-                    <div class="form__group">
-                        <div class="form__text-input form-control">
-                            <input name="password" id="password" placeholder="password" type="password" class="form__input"
-                                minlength="6" value="{{account}}"  required>
-                            <img src="/icon/key.svg" alt="key" class="form__input-icon">
+                            <input id="tel-input" placeholder="Số điện thoại" type="tel" class="form__input-login"
+                                name="phone" value="{{account}}" required min-length="10">
+                            <i class="fas fa-phone form__input-icon"
+                                style="font-size: 18px; color: #777; left: 18px;"></i>
                             <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                         </div>
                         <p class="form__error"></p>
                     </div>
-                    <!-- input 3 -->
-                    <!-- input 4 -->
+
+                    <!-- Password input -->
+                    <div class="form__group">
+                        <div class="form__text-input form-control">
+                            <input name="password" id="password" placeholder="Mật khẩu" type="password"
+                                class="form__input-login" minlength="6" value="{{account}}" required>
+                            <i class="fas fa-lock form__input-icon"
+                                style="font-size: 18px; color: #777; left: 18px;"></i>
+                            <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                            <img src="/icon/error.svg" alt="" class="form__input-icon-error">
+                        </div>
+                        <p class="form__error"></p>
+                    </div>
+
+                    <!-- Remember me & Forgot password -->
                     <div class="form__group form__group-inline">
-                        {{!-- <label class="form__check-box">
+                        <label class="form__check-box">
                             <input type="checkbox" class="form__checkbox-input">
-                            <span class="form__checkbox-label">Cài đặt như mặc định</span>
-                        </label> --}}
-                        <a href="/account/changepassword" class="auth__link">Quên mật khẩu</a>
+                            <span class="form__checkbox-label">Ghi nhớ đăng nhập</span>
+                        </label>
+                        <a href="/account/changepassword" class="auth__link">Quên mật khẩu?</a>
                     </div>
-                    <!-- item 5  -->
+
+                    <!-- Login button -->
                     <div class="form__group form__group-btn form__submit-btn">
                         <button type="submit" class="btn btn--primary">Đăng nhập</button>
-                        {{!-- <button class="btn btn--outline btn-center">
-                            <img src="/icon/gg.svg" alt="google" class="btn__icon icon">
-                            Đăng nhập với Google
-                        </button> --}}
                     </div>
                 </form>
+
+               
+
+                <!-- Register link -->
                 <p class="auth__text">
                     Bạn chưa có tài khoản?
-                    <a href="/account/register" class="auth__link">Đăng kí</a>
+                    <a href="/account/register" class="auth__link">Đăng ký ngay</a>
                 </p>
             </div>
         </div>
+
+        <!-- Side image section (displays only on desktop) -->
+        <div class="auth__image">
+            <div class="auth__image-inner"></div>
+            <div class="auth__image-content">
+                <h3 class="auth__image-title">Pro Cleaner - Dịch vụ giúp việc hàng đầu</h3>
+                <p class="auth__image-text">Chúng tôi cung cấp dịch vụ giúp việc nhà chuyên nghiệp, uy tín với đội ngũ
+                    nhân viên được đào tạo bài bản, tận tâm.</p>
+            </div>
+        </div>
     </main>
+
+    <!-- Scripts -->
     <script src="/js/app.js"></script>
     <script>
-        // điều mình mong muốn
+        // Form validation
         validator({
             form: "#form-1",
             errorElement: ".form__error",
             formGroupElement: ".form__group",
             rules: [
-            validator.isRequire("#tel-input","You haven't entered yet."),
-            validator.isPhone("#tel-input","Please enter the phone number in the correct format"),
-                validator.isRequire("#password", "You haven't entered yet."),
-                validator.isMInPassword("#password", 6, "the password enter at least 6 characters"),
+                validator.isRequire("#tel-input", "Vui lòng nhập số điện thoại"),
+                validator.isPhone("#tel-input", "Vui lòng nhập đúng định dạng số điện thoại"),
+                validator.isRequire("#password", "Vui lòng nhập mật khẩu"),
+                validator.isMInPassword("#password", 6, "Mật khẩu phải có ít nhất 6 ký tự"),
             ],
             onsubmit: function (data) {
                 console.log(data);
             }
-        })
-    </script>
-    <script>
+        });
+
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+
+            // Toggle eye icon
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Add ripple effect to buttons
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                const x = e.clientX - e.target.offsetLeft;
+                const y = e.clientY - e.target.offsetTop;
+
+                const ripple = document.createElement('span');
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+
+                this.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Notify template loaded
         window.dispatchEvent(new Event("template-loaded"));
-    </script>
-    <script>
-        const formRegister = document.querySelector('form')
-        const submitBtn = formRegister.querySelector('.submit-btn');
-        const emailInput = document.querySelector('#email-input');
-        const passWordInput = document.querySelector('#password-input');
-        const confirmPasswordInput = document.querySelector('#confirm-password-input');
     </script>
 </body>
 
