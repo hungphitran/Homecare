@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {{!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    {{!--
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -35,123 +36,125 @@
 
 
     <div class="main-container" style="padding-top:70px;padding-bottom:1000px">
-    <div class="profile-container-homecare" style="z-index:99999;">
-        <div class="profile-dropdown-homecare">
-            <button class="dropdown-btn-homecare">
-                {{!-- <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img-homecare"> --}}
-                <span class="profile-name-homecare">{{user.fullName}}</span>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="dropdown-content-homecare">
-                <div class="dropdown-item-homecare" data-modal="profile">
-                    <i class="fas fa-user"></i>
-                    Thông tin
-                </div>
-                <div class="dropdown-item-homecare" data-modal="settings">
-                    <i class="fas fa-cog"></i>
-                   Cài đặt
-                </div>
-                <div class="dropdown-item-homecare" data-modal="messages">
-                    <i class="fas fa-envelope"></i>
-                    Tin nhắn
-                </div>
-                <div class="dropdown-item-homecare" data-modal="help">
-                    <i class="fas fa-question-circle"></i>
-                    Trợ giúp
-                </div>
-                <div class="dropdown-item-homecare" data-modal="logout">
-                    <a href="/account/logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Thoát
-                    </a>
+        <div class="profile-container-homecare" style="z-index:99999;">
+            <div class="profile-dropdown-homecare">
+                <button class="dropdown-btn-homecare">
+                    {{!-- <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img-homecare"> --}}
+                    <span class="profile-name-homecare">{{user.fullName}}</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-content-homecare">
+                    <div class="dropdown-item-homecare" data-modal="profile">
+                        <i class="fas fa-user"></i>
+                        Thông tin
+                    </div>
+                    <div class="dropdown-item-homecare" data-modal="settings">
+                        <i class="fas fa-cog"></i>
+                        Cài đặt
+                    </div>
+                    <div class="dropdown-item-homecare" data-modal="messages">
+                        <i class="fas fa-envelope"></i>
+                        Tin nhắn
+                    </div>
+                    <div class="dropdown-item-homecare" data-modal="help">
+                        <i class="fas fa-question-circle"></i>
+                        Trợ giúp
+                    </div>
+                    <div class="dropdown-item-homecare" data-modal="logout">
+                        <a href="/account/logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Thoát
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Modals -->
-    <div class="modal-homecare" id="profile-modal-homecare"  style="z-index:99999;">
-        <div class="container-input-form">
-            <form id="userForm-input-form" action="/account/update" method="post">
-                <h2 class="title-input-form">Thông tin khách hàng</h2>
-                <div class="form-group-input-form">
-                    <label class="label-input-form" for="phone">Số điện thoại</label>
-                    <input class="input-form-accountdetail" type="tel" id="phone" name="phone" value="{{user.phone}}" pattern="[0-9]+" disabled
-                        required>
-                </div>
-                <div class="form-group-input-form">
-                    <label class="label-input-form" for="name">Họ và tên</label>
-                    <input class="input-form-accountdetail" type="text" id="name"  name="name" value="{{user.fullName}}" disabled required>
-                </div>
-                <div class="form-group-input-form">
-                    <label class="label-input-form" for="address">Địa chỉ</label>
-                    <input class="input-form-accountdetail" type="text" id="address" name="address" value="{{user.address}}" disabled required>
-                </div>
-                <div class="button-group-input-form">
-                    <button type="button" id="editBtn" class="btn-homedetail edit">chỉnh sửa thông tin</button>
-                    <button type="button" id="saveBtn" class="btn-homedetail save" disabled>Lưu thay đổi</button>
-                </div>
-            </form>
+
+        <!-- Modals -->
+        <div class="modal-homecare" id="profile-modal-homecare" style="z-index:99999;">
+            <div class="container-input-form">
+                <form id="userForm-input-form" action="/account/update" method="post">
+                    <h2 class="title-input-form">Thông tin khách hàng</h2>
+                    <div class="form-group-input-form">
+                        <label class="label-input-form" for="phone">Số điện thoại</label>
+                        <input class="input-form-accountdetail" type="tel" id="phone" name="phone"
+                            value="{{user.phone}}" pattern="[0-9]+" disabled required>
+                    </div>
+                    <div class="form-group-input-form">
+                        <label class="label-input-form" for="name">Họ và tên</label>
+                        <input class="input-form-accountdetail" type="text" id="name" name="name"
+                            value="{{user.fullName}}" disabled required>
+                    </div>
+                    <div class="form-group-input-form">
+                        <label class="label-input-form" for="address">Địa chỉ</label>
+                        <input class="input-form-accountdetail" type="text" id="address" name="address"
+                            value="{{user.address}}" disabled required>
+                    </div>
+                    <div class="button-group-input-form">
+                        <button type="button" id="editBtn" class="btn-homedetail edit">chỉnh sửa thông tin</button>
+                        <button type="button" id="saveBtn" class="btn-homedetail save" disabled>Lưu thay đổi</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-    
-    <div class="modal-homecare" id="settings-modal-homecare"  style="z-index:99999;">
-        <div class="modal-content-homecare">
-            <span class="close-btn-homecare">&times;</span>
-            <h2 class="modal-title-homecare"><i class="fas fa-cog"></i> Cài đặt</h2>
-            <p class="modal-text-homecare">Cài đặt đang hoạt động</p>
+
+        <div class="modal-homecare" id="settings-modal-homecare" style="z-index:99999;">
+            <div class="modal-content-homecare">
+                <span class="close-btn-homecare">&times;</span>
+                <h2 class="modal-title-homecare"><i class="fas fa-cog"></i> Cài đặt</h2>
+                <p class="modal-text-homecare">Cài đặt đang hoạt động</p>
+            </div>
         </div>
-    </div>
-    
-    <div class="modal-homecare" id="messages-modal-homecare"  style="z-index:99999;">
-        <div class="modal-content-homecare">
-            <span class="close-btn-homecare">&times;</span>
-            <h2 class="modal-title-homecare"><i class="fas fa-envelope"></i> Tin nhắn</h2>
-            <p class="modal-text-homecare">Tin nhắn của bạn sẽ xuất hiện ở đây.</p>
+
+        <div class="modal-homecare" id="messages-modal-homecare" style="z-index:99999;">
+            <div class="modal-content-homecare">
+                <span class="close-btn-homecare">&times;</span>
+                <h2 class="modal-title-homecare"><i class="fas fa-envelope"></i> Tin nhắn</h2>
+                <p class="modal-text-homecare">Tin nhắn của bạn sẽ xuất hiện ở đây.</p>
+            </div>
         </div>
-    </div>
-    
-    <div class="modal-homecare" id="help-modal-homecare"  style="z-index:99999;">
-        <div class="modal-content-homecare">
-            <span class="close-btn-homecare">&times;</span>
-            <h2 class="modal-title-homecare"><i class="fas fa-question-circle"></i> Trở giúp</h2>
-            <p class="modal-text-homecare">Trợ giúp và hỗ trợ khách Hàng ở đây.</p>
+
+        <div class="modal-homecare" id="help-modal-homecare" style="z-index:99999;">
+            <div class="modal-content-homecare">
+                <span class="close-btn-homecare">&times;</span>
+                <h2 class="modal-title-homecare"><i class="fas fa-question-circle"></i> Trở giúp</h2>
+                <p class="modal-text-homecare">Trợ giúp và hỗ trợ khách Hàng ở đây.</p>
+            </div>
         </div>
-    </div>
-    
-    <div class="modal-homecare" id="logout-modal-homecare"  style="z-index:99999;">
-        <div class="modal-content-homecare">
-            <span class="close-btn-homecare">&times;</span>
-            <h2 class="modal-title-homecare"><i class="fas fa-sign-out-alt"></i> Thoát</h2>
-            <p class="modal-text-homecare">bạn có chắc chắn muốn thoát ra ngoài?</p>
-            <button class="logout-btn-homecare">Xác nhận</button>
+
+        <div class="modal-homecare" id="logout-modal-homecare" style="z-index:99999;">
+            <div class="modal-content-homecare">
+                <span class="close-btn-homecare">&times;</span>
+                <h2 class="modal-title-homecare"><i class="fas fa-sign-out-alt"></i> Thoát</h2>
+                <p class="modal-text-homecare">bạn có chắc chắn muốn thoát ra ngoài?</p>
+                <button class="logout-btn-homecare">Xác nhận</button>
+            </div>
         </div>
-    </div>
         {{!-- aside start --}}
         <div class="aside">
             <div class="aside__nav-toggle">
                 <span></span>
             </div>
-                <div class="aside__logo">
+            <div class="aside__logo">
+                <a href="/">
+                    <div class="logo">
+                        <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img-helper logo __img-header">
+                    </div>
+                </a>
+            </div>
+            <ul class="aside__nav">
+                <li class="aside__item">
                     <a href="/">
-                        <div class="logo">
-                            <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img-helper logo __img-header">
-                        </div>
+                        <i class="fa-brands fa-hire-a-helper"></i>Đặt đơn
                     </a>
-                </div>
-                <ul class="aside__nav">
-                    <li class="aside__item">
-                        <a href="/">
-                            <i class="fa-brands fa-hire-a-helper"></i>Đặt đơn
-                        </a>
-                    </li>
-                    <li class="aside__item">
-                        <a  href="#service-detail" class="aside__nav-active">
-                            <i class="fa fa-user"></i>Lịnh sử yêu cầu
-                        </a>
-                    </li>
-                    
-                </ul>
+                </li>
+                <li class="aside__item">
+                    <a href="#service-detail" class="aside__nav-active">
+                        <i class="fa fa-user"></i>Lịnh sử yêu cầu
+                    </a>
+                </li>
+
+            </ul>
         </div>
         {{!-- aside end --}}
         {{!-- main content start --}}
@@ -160,30 +163,34 @@
             {{!-- <section class="home home-active section" id="home">
                 <div class="home__container-2" style="display:flex;align
                 content:center;justify-content:center;">
-                 
+
                     <div class="container-input-form">
                         <form id="userForm-input-form">
                             <h2 class="title-input-form">Thông tin khách hàng</h2>
                             <div class="form-group-input-form">
                                 <label class="label-input-form" for="phone">Số điện thoại</label>
-                                <input class="input-form-accountdetail" type="tel" id="phone" name="phone" pattern="[0-9]+" disabled
-                                    required>
+                                <input class="input-form-accountdetail" type="tel" id="phone" name="phone"
+                                    pattern="[0-9]+" disabled required>
                             </div>
                             <div class="form-group-input-form">
                                 <label class="label-input-form" for="name">Họ và tên</label>
-                                <input class="input-form-accountdetail" type="text" id="name" name="name" disabled required>
+                                <input class="input-form-accountdetail" type="text" id="name" name="name" disabled
+                                    required>
                             </div>
                             <div class="form-group-input-form">
                                 <label class="label-input-form" for="address">Địa chỉ</label>
-                                <input class="input-form-accountdetail" type="text" id="address" name="address" disabled required>
+                                <input class="input-form-accountdetail" type="text" id="address" name="address" disabled
+                                    required>
                             </div>
                             <div class="button-group-input-form">
-                                <button type="button" id="editBtn" class="btn-homedetail edit">chỉnh sửa thông tin</button>
-                                <button type="button" id="saveBtn" class="btn-homedetail save" disabled>Lưu thay đổi</button>
+                                <button type="button" id="editBtn" class="btn-homedetail edit">chỉnh sửa thông
+                                    tin</button>
+                                <button type="button" id="saveBtn" class="btn-homedetail save" disabled>Lưu thay
+                                    đổi</button>
                             </div>
                         </form>
                     </div>
-                    
+
                 </div>
             </section> --}}
             {{!-- home section end --}}
@@ -208,58 +215,81 @@
                                     </thead>
                                     <tbody id="longTermTable-homedetail">
                                         {{#each longTermRequests}}
-                                        <tr id="long-row-{{@index}}" data-request-id="{{_id}}" class="long-term-row">
+                                        <tr id="long-row-{{@index}}" data-request-id="{{_id}}" data-status="{{status}}" class="long-term-row">
                                             <td>{{orderDate}}</td>
                                             <td>{{requestType}}</td>
                                             <td>{{service.title}}</td>
                                             <td>{{totalCost}}</td>
                                             <td>{{#formatTime startTime }}{{/formatTime}}</td>
-                                            <td>{{#formatTime endTime }}{{/formatTime}}</td>        
+                                            <td>{{#formatTime endTime }}{{/formatTime}}</td>
                                             <td>
                                                 {{!-- <p class="status-detail cancel">{{status}}</p> --}}
-                                                <button class="btnHistoryDetailHomeKare" data-id="{{@index}}"  onclick="showBillType(this,'long')" aria-label="View Long Term Bill Details">Chi tiết</button>
-                                                    <!-- Long Term Modal -->
-                                                    <div class="modalHistoryDetailHomeKare" id="longTermModalHistoryDetailHomeKare" data-request-id="{{_id}}">
-                                                        <div class="modalContentHistoryDetailHomeKare">
-                                                            <span class="closeModalHistoryDetailHomeKare"
-                                                                onclick="closeModal('longTermModalHistoryDetailHomeKare')">&times;</span>
-                                                            <div class="modalHeaderHistoryDetailHomeKare">
-                                                                <h2 class="modalTitleHistoryDetailHomeKare">Chi tiết hóa đơn dài hạn</h2>
-                                                            </div>
-                                                            <div class="longTermContainerHistoryDetailHomeKare" id ="{{this.schedules.length}}">
-                                                                {{#each this.schedules}}
-                                                                <div class="dayBillHistoryDetailHomeKare">
-                                                                    <h3 class="dayTitleHistoryDetailHomeKare">{{#showdate workingDate}}{{/showdate}}</h3>
-                                                                    <div class="billDetailsHistoryDetailHomeKare">
-                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                            <span class="labelHistoryDetailHomeKare">Giờ bắt đầu</span>
-                                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime startTime}}{{/formatTime}}</span>
-                                                                        </div>
-                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                            <span class="labelHistoryDetailHomeKare">Giờ kết thúc</span>
-                                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime endTime}}{{/formatTime}}</span>
-                                                                        </div>
-                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                            <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
-                                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare" data-status="{{status}}">{{#getStatus status}}{{/getStatus}}</span>
-                                                                        </div>
-                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                            <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
-                                                                            <p class="commentHistoryDetailHomeKare">{{comment.review}}</p>
-                                                                        </div>
+                                                <button class="btnHistoryDetailHomeKare" data-id="{{@index}}"  data-status="{{status}}"  
+                                                    onclick="showBillType(this,'long')"
+                                                    aria-label="View Long Term Bill Details">Chi tiết</button>
+                                                    {{!-- {{request.status}} --}}
+                                                
+                                                <!-- Long Term Modal -->
+                                                <div class="modalHistoryDetailHomeKare"
+                                                    id="longTermModalHistoryDetailHomeKare" data-request-id="{{_id}}">
+                                                    <div class="modalContentHistoryDetailHomeKare">
+                                                        <span class="closeModalHistoryDetailHomeKare"
+                                                            onclick="closeModal('longTermModalHistoryDetailHomeKare')">&times;</span>
+                                                        <div class="modalHeaderHistoryDetailHomeKare">
+                                                            <h2 class="modalTitleHistoryDetailHomeKare">Chi tiết hóa đơn
+                                                                dài hạn</h2>
+                                                        </div>
+                                                        <div class="longTermContainerHistoryDetailHomeKare"
+                                                            id="{{this.schedules.length}}">
+                                                            {{#each this.schedules}}
+                                                            <div class="dayBillHistoryDetailHomeKare">
+                                                                <h3 class="dayTitleHistoryDetailHomeKare">{{#showdate
+                                                                    workingDate}}{{/showdate}}</h3>
+                                                                <div class="billDetailsHistoryDetailHomeKare">
+                                                                    <div class="detailItemHistoryDetailHomeKare">
+                                                                        <span class="labelHistoryDetailHomeKare">Giờ bắt
+                                                                            đầu</span>
+                                                                        <span
+                                                                            class="valueHistoryDetailHomeKare">{{#formatTime
+                                                                            startTime}}{{/formatTime}}</span>
+                                                                    </div>
+                                                                    <div class="detailItemHistoryDetailHomeKare">
+                                                                        <span class="labelHistoryDetailHomeKare">Giờ kết
+                                                                            thúc</span>
+                                                                        <span
+                                                                            class="valueHistoryDetailHomeKare">{{#formatTime
+                                                                            endTime}}{{/formatTime}}</span>
+                                                                    </div>
+                                                                    <div class="detailItemHistoryDetailHomeKare">
+                                                                        <span class="labelHistoryDetailHomeKare">Trạng
+                                                                            thái:</span>
+                                                                        <span
+                                                                            class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
+                                                                            data-status="{{status}}">{{#getStatus
+                                                                            status}}{{/getStatus}}</span>
+                                                                    </div>
+                                                                    <div class="detailItemHistoryDetailHomeKare">
+                                                                        <span class="labelHistoryDetailHomeKare">Nhận
+                                                                            xét:</span>
+                                                                        <p class="commentHistoryDetailHomeKare">
+                                                                            {{comment.review}}</p>
                                                                     </div>
                                                                 </div>
-                                                                {{/each}}
-                                                                <div class="totalCostHistoryDetailHomeKare">
-                                                                    <span class="labelHistoryDetailHomeKare">Tổng số tiền:</span>
-                                                                    <span class="valueHistoryDetailHomeKare">{{totalCost}}VNĐ</span>
-                                                                    <!-- Add Thanh toán button -->
-                                                                    <button id="payButton" class="btn btn-primary" data-id="{{_id}}" data-request-id="{{_id}}">Thanh toán</button>
-                                                                </div>
                                                             </div>
-                                                        
+                                                            {{/each}}
+                                                            <div class="totalCostHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Tổng số
+                                                                    tiền:</span>
+                                                                <span
+                                                                    class="valueHistoryDetailHomeKare">{{totalCost}}VNĐ</span>
+                                                                <!-- Add Thanh toán button -->
+                                                                <button id="payButton" class="btn btn-primary"
+                                                                    data-id="{{_id}}">Thanh toán</button>
+                                                            </div>
                                                         </div>
+
                                                     </div>
+                                                </div>
                                             </td>
                                         </tr>
                                         {{/each}}
@@ -267,7 +297,7 @@
                                 </table>
                             </div>
                         </div>
-                    
+
                         <div class="table-section-homedetail">
                             <h2 class="title-homedetail">Ngắn hạn</h2>
                             <div class="table-container-homedetail">
@@ -284,9 +314,9 @@
                                         </tr>
                                     </thead>
                                     <tbody id="shortTermTable-homedetail">
-                                        
+
                                         {{#each shortTermRequests}}
-                                        <tr id="short-row-{{@index}}" data-request-id="{{_id}}" class="short-term-row">
+                                        <tr id="short-row-{{@index}}" data-status="{{status}}"data-request-id="{{_id}}" class="short-term-row">
                                             <td>{{orderDate}}</td>
                                             <td>{{requestType}}</td>
                                             <td>{{service.title}}</td>
@@ -295,55 +325,68 @@
                                             <td>{{#formatTime endTime }}{{/formatTime}}</td>
                                             <td>
                                                 {{!-- <p class="status-detail cancel">{{status}}</p> --}}
-                                                <button class="btnHistoryDetailHomeKare" data-id="{{#sum @index ../longTermRequests.length}}{{/sum}}" onclick="showBillType(this,'short')" aria-label="View Short Term Bill Details">Chi tiết</button>
-                                            <!-- Thay thế phần modal chi tiết ngắn hạn hiện tại -->
-                                            <div class="modalHistoryDetailHomeKare" id="shortTermModalHistoryDetailHomeKare" data-request-id="{{_id}}">
-                                                <div class="modalContentHistoryDetailHomeKare">
-                                                    <span class="closeModalHistoryDetailHomeKare"
-                                                        onclick="closeModal('shortTermModalHistoryDetailHomeKare')">&times;</span>
-                                                    <div class="modalHeaderHistoryDetailHomeKare">
-                                                        <h2 class="modalTitleHistoryDetailHomeKare">Chi tiết hóa đơn ngắn hạn</h2>
-                                                    </div>
-                                                    <div class="billDetailsHistoryDetailHomeKare">
-                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                            <span class="labelHistoryDetailHomeKare">Ngày:</span>
+                                                <button class="btnHistoryDetailHomeKare"
+                                                    data-id="{{#sum @index ../longTermRequests.length}}{{/sum}}"
+                                                    data-status="{{status}}"
+                                                    onclick="showBillType(this,'short')"
+                                                    aria-label="View Short Term Bill Details">Chi tiết</button>
+                                                <!-- Thay thế phần modal chi tiết ngắn hạn hiện tại -->
+                                                <div class="modalHistoryDetailHomeKare"
+                                                    id="shortTermModalHistoryDetailHomeKare" data-request-id="{{_id}}">
+                                                    <div class="modalContentHistoryDetailHomeKare">
+                                                        <span class="closeModalHistoryDetailHomeKare"
+                                                            onclick="closeModal('shortTermModalHistoryDetailHomeKare')">&times;</span>
+                                                        <div class="modalHeaderHistoryDetailHomeKare">
+                                                            <h2 class="modalTitleHistoryDetailHomeKare">Chi tiết hóa đơn
+                                                                ngắn hạn</h2>
+                                                        </div>
+                                                        <div class="billDetailsHistoryDetailHomeKare">
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Ngày:</span>
+                                                                <span
+                                                                    class="valueHistoryDetailHomeKare">{{orderDate}}</span>
+                                                            </div>
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Giờ bắt
+                                                                    đầu:</span>
+                                                                <span class="valueHistoryDetailHomeKare">{{#formatTime
+                                                                    startTime}}{{/formatTime}}</span>
+                                                            </div>
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Giờ kết
+                                                                    thúc:</span>
+                                                                <span class="valueHistoryDetailHomeKare">{{#formatTime
+                                                                    startTime}}{{/formatTime}}</span>
+                                                            </div>
                                                             {{#each schedules}}
                                                             {{#if @first}}
-                                                            <span class="valueHistoryDetailHomeKare">{{this.workingDate}}</span>
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Trạng
+                                                                    thái:</span>
+                                                                <span
+                                                                    class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
+                                                                    data-status="{{status}}">{{#getStatus
+                                                                    status}}{{/getStatus}}</span>
+                                                            </div>
                                                             {{/if}}
-                                                                
-                                                            {{/each}}
-                                                        </div>
-                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                            <span class="labelHistoryDetailHomeKare">Giờ bắt đầu:</span>
-                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime startTime}}{{/formatTime}}</span>
-                                                        </div>
-                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                            <span class="labelHistoryDetailHomeKare">Giờ kết thúc:</span>
-                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime endTime}}{{/formatTime}}</span>
-                                                        </div>
-                                                        {{#each schedules}}
-                                                        {{#if @first}}
-                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                            <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
-                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare" data-status="{{status}}">{{#getStatus status}}{{/getStatus}}</span>
-                                                        </div>
-                                                        {{/if}}
 
-                                                        {{/each}}
-                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                            <span class="labelHistoryDetailHomeKare">Chi phí:</span>
-                                                            <span class="valueHistoryDetailHomeKare">{{totalCost}}</span>
+                                                            {{/each}}
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Chi phí:</span>
+                                                                <span
+                                                                    class="valueHistoryDetailHomeKare">{{totalCost}}</span>
+                                                            </div>
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Nhận
+                                                                    xét:</span>
+                                                                <p class="commentHistoryDetailHomeKare">{{comment}}</p>
+                                                            </div>
+                                                            <!-- Thêm nút thanh toán -->
+                                                            <button id="payButtonShort" class="btn btn-primary"
+                                                                style="margin-left:auto;">Thanh toán</button>
                                                         </div>
-                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                            <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
-                                                            <p class="commentHistoryDetailHomeKare">{{comment}}</p>
-                                                        </div>
-                                                        <!-- Thêm nút thanh toán -->
-                                                        <button id="payButtonShort" class="btn btn-primary" style="margin-left:auto;" data-request-id="{{_id}}">Thanh toán</button>
                                                     </div>
                                                 </div>
-                                            </div>
                                             </td>
                                         </tr>
                                         {{/each}}
@@ -351,191 +394,191 @@
                                 </table>
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
             </section>
-            
+
         </div>
         {{!-- main content end --}}
     </div>
-{{!-- modal xác nhận thanh toán --}}
-<!-- Modal Xác nhận thanh toán -->
-<div class="modal" id="confirmPaymentModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Xác nhận thanh toán</h5>
-                <!-- Thay thế nút close hiện tại -->
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="display: flex
+    {{!-- modal xác nhận thanh toán --}}
+    <!-- Modal Xác nhận thanh toán -->
+    <div class="modal" id="confirmPaymentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận thanh toán</h5>
+                    <!-- Thay thế nút close hiện tại -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="display: flex
 ;
     justify-content: center;
     align-items: center;">
-                    <span class="btn-close-modal">x</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Bạn xác nhận đã thanh toán cho người giúp việc?</p>
-            </div>
-            <div class="modal-footer">
-             
-                <button type="button" class="btn btn-primary" id="confirmPayBtn">Xác nhận</button>
+                        <span class="btn-close-modal">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn xác nhận đã thanh toán cho người giúp việc?</p>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" id="confirmPayBtn">Xác nhận</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal Đánh giá -->
-<div class="modal" id="ratingModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Đánh giá người giúp việc</h5>
-               
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="display: flex
+    <!-- Modal Đánh giá -->
+    <div class="modal" id="ratingModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đánh giá người giúp việc</h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="display: flex
                 ;
                     justify-content: center;
                     align-items: center;">
-                    <span class="btn-close-modal">x</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="rating-stars">
-                    <i class="fas fa-star" data-rating="1"></i>
-                    <i class="fas fa-star" data-rating="2"></i>
-                    <i class="fas fa-star" data-rating="3"></i>
-                    <i class="fas fa-star" data-rating="4"></i>
-                    <i class="fas fa-star" data-rating="5"></i>
+                        <span class="btn-close-modal">x</span>
+                    </button>
                 </div>
-                <div class="form-group mt-3">
-                    <label for="ratingComment">Nhận xét của bạn:</label>
-                    <textarea class="form-control" id="ratingComment" rows="3"></textarea>
+                <div class="modal-body">
+                    <div class="rating-stars">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="ratingComment">Nhận xét của bạn:</label>
+                        <textarea class="form-control" id="ratingComment" rows="3"></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-               
-                <button type="button" class="btn btn-primary" id="submitRatingBtn">Gửi đánh giá</button>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" id="submitRatingBtn">Gửi đánh giá</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Modal Xác nhận hủy đơn -->
-<div class="modal" id="confirmCancelModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Xác nhận hủy đơn</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    style="display: flex; justify-content: center; align-items: center;">
-                    <span class="btn-close-modal">x</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
-                <p class="text-danger">Lưu ý: Hành động này không thể hoàn tác!</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không, giữ lại</button>
-                <button type="button" class="btn btn-danger" id="confirmCancelBtn">Có, hủy đơn</button>
+    <!-- Modal Xác nhận hủy đơn -->
+    <div class="modal" id="confirmCancelModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận hủy đơn</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="display: flex; justify-content: center; align-items: center;">
+                        <span class="btn-close-modal">x</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
+                    <p class="text-danger">Lưu ý: Hành động này không thể hoàn tác!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không, giữ lại</button>
+                    <button type="button" class="btn btn-danger" id="confirmCancelBtn">Có, hủy đơn</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 <script src="/js/app.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-            // Kiểm tra trạng thái hoàn thành và hiển thị nút thanh toán
-            function checkAllBillsCompleted() {
-                const statusElements = document.querySelectorAll('.valueHistoryDetailHomeKare.status-completeHistoryDetailHomeKare');
-                return Array.from(statusElements).every(el => el.textContent.trim() === 'Đã hoàn thành');
+        // Kiểm tra trạng thái hoàn thành và hiển thị nút thanh toán
+        function checkAllBillsCompleted() {
+            const statusElements = document.querySelectorAll('.valueHistoryDetailHomeKare.status-completeHistoryDetailHomeKare');
+            return Array.from(statusElements).every(el => el.textContent.trim() === 'Đã hoàn thành');
+        }
+
+        function updatePayButtonVisibility() {
+            const payButton = document.getElementById('payButton');
+            if (checkAllBillsCompleted()) {
+                payButton.style.display = 'block';
+            } else {
+                payButton.style.display = 'none';
             }
+        }
 
-            function updatePayButtonVisibility() {
-                const payButton = document.getElementById('payButton');
-                if (checkAllBillsCompleted()) {
-                    payButton.style.display = 'block';
-                } else {
-                    payButton.style.display = 'none';
-                }
-            }
-
-            // Xử lý nút thanh toán
-            document.getElementById('payButton').addEventListener('click', function () {
-                const confirmModal = new bootstrap.Modal(document.getElementById('confirmPaymentModal'));
-                confirmModal.show();
-            });
-
-            // Xử lý xác nhận thanh toán
-            document.getElementById('confirmPayBtn').addEventListener('click', function () {
-                // Đóng modal xác nhận
-                const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmPaymentModal'));
-                confirmModal.hide();
-
-                // Hiển thị thông báo thành công
-                alert('Xác nhận thanh toán thành công!');
-
-                // Hiển thị modal đánh giá
-                const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
-                ratingModal.show();
-            });
-
-            // Xử lý đánh giá sao
-            const stars = document.querySelectorAll('.rating-stars .fa-star');
-            let selectedRating = 0;
-
-            stars.forEach(star => {
-                star.addEventListener('mouseover', function () {
-                    const rating = this.dataset.rating;
-                    highlightStars(rating);
-                });
-
-                star.addEventListener('mouseout', function () {
-                    highlightStars(selectedRating);
-                });
-
-                star.addEventListener('click', function () {
-                    selectedRating = this.dataset.rating;
-                    highlightStars(selectedRating);
-                });
-            });
-
-            function highlightStars(rating) {
-                stars.forEach(star => {
-                    const starRating = star.dataset.rating;
-                    if (starRating <= rating) {
-                        star.classList.add('active');
-                    } else {
-                        star.classList.remove('active');
-                    }
-                });
-            }
-
-            // Xử lý gửi đánh giá
-            document.getElementById('submitRatingBtn').addEventListener('click', function () {
-                const comment = document.getElementById('ratingComment').value;
-
-                if (selectedRating === 0) {
-                    alert('Vui lòng chọn số sao đánh giá!');
-                    return;
-                }
-
-                // Gửi đánh giá
-                console.log('Đánh giá:', selectedRating, 'sao');
-                console.log('Nhận xét:', comment);
-                //Đóng modal chi tiết
-                const closeModal=document.querySelector('.modalHistoryDetailHomeKare').classList.remove('showModalHistoryDetailHomeKare')
-                // Đóng modal đánh giá
-                const ratingModal = bootstrap.Modal.getInstance(document.getElementById('ratingModal'));
-                ratingModal.hide();
-
-                // Hiển thị thông báo thành công
-                alert('Cảm ơn bạn đã đánh giá!');
-            });
-
-            // Kiểm tra ban đầu
-            updatePayButtonVisibility();
+        // Xử lý nút thanh toán
+        document.getElementById('payButton').addEventListener('click', function () {
+            const confirmModal = new bootstrap.Modal(document.getElementById('confirmPaymentModal'));
+            confirmModal.show();
         });
+
+        // Xử lý xác nhận thanh toán
+        document.getElementById('confirmPayBtn').addEventListener('click', function () {
+            // Đóng modal xác nhận
+            const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmPaymentModal'));
+            confirmModal.hide();
+
+            // Hiển thị thông báo thành công
+            alert('Xác nhận thanh toán thành công!');
+
+            // Hiển thị modal đánh giá
+            const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
+            ratingModal.show();
+        });
+
+        // Xử lý đánh giá sao
+        const stars = document.querySelectorAll('.rating-stars .fa-star');
+        let selectedRating = 0;
+
+        stars.forEach(star => {
+            star.addEventListener('mouseover', function () {
+                const rating = this.dataset.rating;
+                highlightStars(rating);
+            });
+
+            star.addEventListener('mouseout', function () {
+                highlightStars(selectedRating);
+            });
+
+            star.addEventListener('click', function () {
+                selectedRating = this.dataset.rating;
+                highlightStars(selectedRating);
+            });
+        });
+
+        function highlightStars(rating) {
+            stars.forEach(star => {
+                const starRating = star.dataset.rating;
+                if (starRating <= rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Xử lý gửi đánh giá
+        document.getElementById('submitRatingBtn').addEventListener('click', function () {
+            const comment = document.getElementById('ratingComment').value;
+
+            if (selectedRating === 0) {
+                alert('Vui lòng chọn số sao đánh giá!');
+                return;
+            }
+
+            // Gửi đánh giá
+           
+           
+            //Đóng modal chi tiết
+            const closeModal = document.querySelector('.modalHistoryDetailHomeKare').classList.remove('showModalHistoryDetailHomeKare')
+            // Đóng modal đánh giá
+            const ratingModal = bootstrap.Modal.getInstance(document.getElementById('ratingModal'));
+            ratingModal.hide();
+
+            // Hiển thị thông báo thành công
+            alert('Cảm ơn bạn đã đánh giá!');
+        });
+
+        // Kiểm tra ban đầu
+        updatePayButtonVisibility();
+    });
 </script>
 <script>
     const nav = document.querySelector(".aside__nav"),
@@ -546,7 +589,7 @@
 
         const a = navList[i].querySelector("a");
         a.addEventListener("click", function () {
-            console.log(this);
+            
             removeBackSection();
             for (let j = 0; j < totalNavList; j++) {
                 if (navList[j].querySelector("a").classList.contains("aside__nav-active")) {
@@ -575,12 +618,12 @@
             allSection[i].classList.remove("home-active");
         }
         const target = element.getAttribute("href").split("#")[1];
-        console.log(target);
+        
         document.querySelector("#" + target).classList.add("home-active");
 
     }
     function updateNav(element) {
-        console.log(element.getAttribute("href").split("#")[1]);
+        
         for (let i = 0; i < totalSection; i++) {
             navList[i].querySelector("a").classList.remove("aside__nav-active");
             const target = element.getAttribute("href").split("#")[1];
@@ -591,7 +634,7 @@
 
 
     }
-    
+
     const navToggleBtn = document.querySelector('.aside__nav-toggle'), aside = document.querySelector(".aside");
     navToggleBtn.addEventListener("click", () => {
         asideSectionToggleBtn();
@@ -604,159 +647,159 @@
         }
     }
 
-    
+
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-            // Get form elements
-            const form = document.getElementById('userForm-input-form');
-            const inputs = form.querySelectorAll('.input-form-accountdetail');
-            const editBtn = document.getElementById('editBtn');
-            const saveBtn = document.getElementById('saveBtn');
-            const phoneInput = document.getElementById('phone');
+        // Get form elements
+        const form = document.getElementById('userForm-input-form');
+        const inputs = form.querySelectorAll('.input-form-accountdetail');
+        const editBtn = document.getElementById('editBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const phoneInput = document.getElementById('phone');
 
-            // Phone number validation
-            phoneInput.addEventListener('input', function (e) {
-                this.value = this.value.replace(/[^0-9]/g, '');
-            });
+        // Phone number validation
+        phoneInput.addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
 
-            // Edit button click handler
-            editBtn.addEventListener('click', function () {
-                // Enable all inputs
-                inputs.forEach(input => {
-                    input.disabled = false;
-                });
-
-                // Switch button states
-                editBtn.disabled = true;
-                saveBtn.disabled = false;
-
-                // Focus on first input
-                inputs[0].focus();
-            });
-
-            // Save button click handler
-            saveBtn.addEventListener('click', function () {
-                // Basic validation
-                let isValid = true;
-                inputs.forEach(input => {
-                    if (!input.value.trim()) {
-                        isValid = false;
-                        input.style.borderColor = '#ff4444';
-                        showError(input, 'không được để trống');
-                    } else {
-                        input.style.borderColor = '#e1e1e1';
-                        clearError(input);
-                    }
-                });
-
-                // Phone number specific validation
-                if (phoneInput.value.length < 10) {
-                    isValid = false;
-                    phoneInput.style.borderColor = '#ff4444';
-                    showError(phoneInput, 'Số điện thoại phải ít nhất 10 chữ số');
-                }
-
-                if (!isValid) {
-                    return;
-                }
-
-                // Disable inputs and update button states
-                inputs.forEach(input => {
-                    input.disabled = true;
-                });
-
-                editBtn.disabled = false;
-                saveBtn.disabled = true;
-
-                // Show success message
-                //alert('thay đổi thông tin thành công!');
-
-                form.submit()
-            });
-
-            // Helper function to show error message
-            function showError(input, message) {
-                let errorDiv = input.parentElement.querySelector('.error-message');
-                if (!errorDiv) {
-                    errorDiv = document.createElement('div');
-                    errorDiv.className = 'error-message';
-                    errorDiv.style.color = '#ff4444';
-                    errorDiv.style.fontSize = '0.8rem';
-                    errorDiv.style.marginTop = '5px';
-                    input.parentElement.appendChild(errorDiv);
-                }
-                errorDiv.textContent = message;
-            }
-
-            // Helper function to clear error message
-            function clearError(input) {
-                const errorDiv = input.parentElement.querySelector('.error-message');
-                if (errorDiv) {
-                    errorDiv.remove();
-                }
-            }
-
-            // Add input event listeners for real-time validation
+        // Edit button click handler
+        editBtn.addEventListener('click', function () {
+            // Enable all inputs
             inputs.forEach(input => {
-                input.addEventListener('input', function () {
-                    if (this.value.trim()) {
-                        this.style.borderColor = '#e1e1e1';
-                        clearError(this);
-                    }
-                });
+                input.disabled = false;
+            });
+
+            // Switch button states
+            editBtn.disabled = true;
+            saveBtn.disabled = false;
+
+            // Focus on first input
+            inputs[0].focus();
+        });
+
+        // Save button click handler
+        saveBtn.addEventListener('click', function () {
+            // Basic validation
+            let isValid = true;
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#ff4444';
+                    showError(input, 'không được để trống');
+                } else {
+                    input.style.borderColor = '#e1e1e1';
+                    clearError(input);
+                }
+            });
+
+            // Phone number specific validation
+            if (phoneInput.value.length < 10) {
+                isValid = false;
+                phoneInput.style.borderColor = '#ff4444';
+                showError(phoneInput, 'Số điện thoại phải ít nhất 10 chữ số');
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Disable inputs and update button states
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+
+            editBtn.disabled = false;
+            saveBtn.disabled = true;
+
+            // Show success message
+            //alert('thay đổi thông tin thành công!');
+
+            form.submit()
+        });
+
+        // Helper function to show error message
+        function showError(input, message) {
+            let errorDiv = input.parentElement.querySelector('.error-message');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                errorDiv.style.color = '#ff4444';
+                errorDiv.style.fontSize = '0.8rem';
+                errorDiv.style.marginTop = '5px';
+                input.parentElement.appendChild(errorDiv);
+            }
+            errorDiv.textContent = message;
+        }
+
+        // Helper function to clear error message
+        function clearError(input) {
+            const errorDiv = input.parentElement.querySelector('.error-message');
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+        }
+
+        // Add input event listeners for real-time validation
+        inputs.forEach(input => {
+            input.addEventListener('input', function () {
+                if (this.value.trim()) {
+                    this.style.borderColor = '#e1e1e1';
+                    clearError(this);
+                }
             });
         });
+    });
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-            // Get all status selects
-            const statusSelects = document.querySelectorAll('.status-select-homedetail');
+        // Get all status selects
+        const statusSelects = document.querySelectorAll('.status-select-homedetail');
 
-            // Function to update select styling based on selected value
-            function updateSelectStyle(select) {
-                // Remove all possible status classes
-                select.classList.remove('completed-homedetail', 'in-progress-homedetail', 'cancelled-homedetail');
+        // Function to update select styling based on selected value
+        function updateSelectStyle(select) {
+            // Remove all possible status classes
+            select.classList.remove('completed-homedetail', 'in-progress-homedetail', 'cancelled-homedetail');
 
-                // Add the appropriate class based on the selected value
-                select.classList.add(select.value);
+            // Add the appropriate class based on the selected value
+            select.classList.add(select.value);
 
-                // Update row styling
-                const row = select.closest('tr');
-                row.style.backgroundColor = getBackgroundColor(select.value);
+            // Update row styling
+            const row = select.closest('tr');
+            row.style.backgroundColor = getBackgroundColor(select.value);
+        }
+
+        // Function to get background color based on status
+        function getBackgroundColor(status) {
+            switch (status) {
+                case 'completed-homedetail':
+                    return '#f8fff8';
+                case 'in-progress-homedetail':
+                    return '#fff8f0';
+                case 'cancelled-homedetail':
+                    return '#fff5f5';
+                default:
+                    return 'transparent';
             }
+        }
 
-            // Function to get background color based on status
-            function getBackgroundColor(status) {
-                switch (status) {
-                    case 'completed-homedetail':
-                        return '#f8fff8';
-                    case 'in-progress-homedetail':
-                        return '#fff8f0';
-                    case 'cancelled-homedetail':
-                        return '#fff5f5';
-                    default:
-                        return 'transparent';
-                }
-            }
+        // Add change event listeners to all status selects
+        statusSelects.forEach(select => {
+            // Set initial styling
+            updateSelectStyle(select);
 
-            // Add change event listeners to all status selects
-            statusSelects.forEach(select => {
-                // Set initial styling
-                updateSelectStyle(select);
-
-                // Add change event listener
-                select.addEventListener('change', function () {
-                    updateSelectStyle(this);
-                });
+            // Add change event listener
+            select.addEventListener('change', function () {
+                updateSelectStyle(this);
             });
+        });
 
-            // Function to add new row to a table
-            function addNewRow(tableId, taskId) {
-                const tbody = document.getElementById(tableId);
-                const newRow = document.createElement('tr');
+        // Function to add new row to a table
+        function addNewRow(tableId, taskId) {
+            const tbody = document.getElementById(tableId);
+            const newRow = document.createElement('tr');
 
-                newRow.innerHTML = `
+            newRow.innerHTML = `
             <td>${taskId}</td>
             <td>New Task</td>
             <td>Unassigned</td>
@@ -771,180 +814,241 @@
             </td>
         `;
 
-                tbody.appendChild(newRow);
+            tbody.appendChild(newRow);
 
-                // Initialize the new status select
-                const newSelect = newRow.querySelector('.status-select-homedetail');
-                updateSelectStyle(newSelect);
-                newSelect.addEventListener('change', function () {
-                    updateSelectStyle(this);
-                });
-            }
-
-            // Example function to generate task IDs
-            function generateTaskId(tableId) {
-                const prefix = tableId === 'longTermTable-homedetail' ? 'LT' : 'ST';
-                const rows = document.getElementById(tableId).getElementsByTagName('tr');
-                const number = (rows.length + 1).toString().padStart(3, '0');
-                return `${prefix}${number}`;
-            }
-
-            // Optional: Add functionality to add new rows
-            window.addLongTermTask = function () {
-                addNewRow('longTermTable-homedetail', generateTaskId('longTermTable-homedetail'));
-            };
-
-            window.addShortTermTask = function () {
-                addNewRow('shortTermTable-homedetail', generateTaskId('shortTermTable-homedetail'));
-            };
-
-            // Initialize all existing rows with background colors
-            document.querySelectorAll('.modern-table-homedetail tbody tr').forEach(row => {
-                const select = row.querySelector('.status-select-homedetail');
-                if (select) {
-                    row.style.backgroundColor = getBackgroundColor(select.value);
-                }
+            // Initialize the new status select
+            const newSelect = newRow.querySelector('.status-select-homedetail');
+            updateSelectStyle(newSelect);
+            newSelect.addEventListener('change', function () {
+                updateSelectStyle(this);
             });
+        }
+
+        // Example function to generate task IDs
+        function generateTaskId(tableId) {
+            const prefix = tableId === 'longTermTable-homedetail' ? 'LT' : 'ST';
+            const rows = document.getElementById(tableId).getElementsByTagName('tr');
+            const number = (rows.length + 1).toString().padStart(3, '0');
+            return `${prefix}${number}`;
+        }
+
+        // Optional: Add functionality to add new rows
+        window.addLongTermTask = function () {
+            addNewRow('longTermTable-homedetail', generateTaskId('longTermTable-homedetail'));
+        };
+
+        window.addShortTermTask = function () {
+            addNewRow('shortTermTable-homedetail', generateTaskId('shortTermTable-homedetail'));
+        };
+
+        // Initialize all existing rows with background colors
+        document.querySelectorAll('.modern-table-homedetail tbody tr').forEach(row => {
+            const select = row.querySelector('.status-select-homedetail');
+            if (select) {
+                row.style.backgroundColor = getBackgroundColor(select.value);
+            }
         });
+    });
 </script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-            const dropdownBtn = document.querySelector('.dropdown-btn-homecare');
-            const dropdownContent = document.querySelector('.dropdown-content-homecare');
-            const dropdownItems = document.querySelectorAll('.dropdown-item-homecare');
-            const modals = document.querySelectorAll('.modal-homecare');
-            const closeButtons = document.querySelectorAll('.close-btn-homecare');
+        const dropdownBtn = document.querySelector('.dropdown-btn-homecare');
+        const dropdownContent = document.querySelector('.dropdown-content-homecare');
+        const dropdownItems = document.querySelectorAll('.dropdown-item-homecare');
+        const modals = document.querySelectorAll('.modal-homecare');
+        const closeButtons = document.querySelectorAll('.close-btn-homecare');
 
-            // Toggle dropdown
-            dropdownBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdownContent.classList.toggle('active-detail-homecare');
-            });
+        // Toggle dropdown
+        dropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownContent.classList.toggle('active-detail-homecare');
+        });
 
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!dropdownBtn.contains(e.target)) {
-                    dropdownContent.classList.remove('active-detail-homecare');
-                }
-            });
-
-            // Handle dropdown items click and show corresponding modal
-            dropdownItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const modalId = `${item.dataset.modal}-modal-homecare`;
-                    const modal = document.getElementById(modalId);
-                    modal.classList.add('active-detail-homecare');
-                    dropdownContent.classList.remove('active-detail-homecare');
-                });
-            });
-
-            // Close modal when clicking close button
-            closeButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const modal = btn.closest('.modal-homecare');
-                    modal.classList.remove('active-detail-homecare');
-                });
-            });
-
-            // Close modal when clicking outside
-            modals.forEach(modal => {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.classList.remove('active-detail-homecare');
-                    }
-                });
-            });
-
-            // Handle logout button
-            const logoutBtn = document.querySelector('.logout-btn-homecare');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', () => {
-                    alert('Logging out...');
-                    document.getElementById('logout-modal-homecare').classList.remove('active-detail-homecare');
-                });
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!dropdownBtn.contains(e.target)) {
+                dropdownContent.classList.remove('active-detail-homecare');
             }
         });
-</script>
-<script>
-    function showBillType(btn,type) {
-            // Get both bill containers
-            const shortTermBill = document.getElementById('shortTermBillHistoryDetailHomeKare');
-            const longTermBill = document.getElementById('longTermBillHistoryDetailHomeKare');
 
-
-            // Get all buttons
-            const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
-            index = btn.getAttribute('data-id')
-            
-            // Reset all buttons
-            buttons.forEach(button => {
-                button.style.background = '#3498db';
+        // Handle dropdown items click and show corresponding modal
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const modalId = `${item.dataset.modal}-modal-homecare`;
+                const modal = document.getElementById(modalId);
+                modal.classList.add('active-detail-homecare');
+                dropdownContent.classList.remove('active-detail-homecare');
             });
+        });
 
-            // Show selected bill type and highlight active button
-            if (type === 'short') {
-                openModal('shortTermModalHistoryDetailHomeKare',index);
+        // Close modal when clicking close button
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modal = btn.closest('.modal-homecare');
+                modal.classList.remove('active-detail-homecare');
+            });
+        });
 
-                buttons[0].style.background = '#2980b9';
-            } else {
-                openModal('longTermModalHistoryDetailHomeKare',index);
-                buttons[1].style.background = '#2980b9';
-            }
-        }
-
-        function openModal(modalId,index) {
-            const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
-            const row= buttons[index].parentNode;
-            console.log("open modal " ,row)
-            const modal=row.querySelector('#'+modalId)
-            //const modal = row.getElementById(modalId);
-            console.log("open modal ", modal)
-            modal.classList.add('showModalHistoryDetailHomeKare');
-            document.body.style.overflow = 'hidden';
-
-            // Add click outside to close functionality
-            modal.addEventListener('click', function (e) {
+        // Close modal when clicking outside
+        modals.forEach(modal => {
+            modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
-                    closeModal(modalId,index);
+                    modal.classList.remove('active-detail-homecare');
                 }
             });
-
-            // Add escape key to close functionality
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    closeModal(modalId);
-                }
-            });
-        }
-
-        function closeModal(modalId) {
-            const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
-            const row= buttons[index].parentNode;
-            console.log("open modal " ,row)
-            const modal=row.querySelector('#'+modalId)
-            //const modal = document.getElementById(modalId);
-            modal.classList.remove('showModalHistoryDetailHomeKare');
-            document.body.style.overflow = 'auto';
-        }
-       
-
-        // Show short term bill modal by default when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            // Don't show any modal by default, wait for user click
-            const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
-            buttons[0].style.background = '#2980b9';
         });
+
+        // Handle logout button
+        const logoutBtn = document.querySelector('.logout-btn-homecare');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                alert('Logging out...');
+                document.getElementById('logout-modal-homecare').classList.remove('active-detail-homecare');
+            });
+        }
+    });
 </script>
 <script>
- // Thay thế code hiện tại cho phần xử lý nút hủy đơn
+    function showBillType(btn, type) {
+       
+        // Get both bill containers
+        const shortTermBill = document.getElementById('shortTermBillHistoryDetailHomeKare');
+        const longTermBill = document.getElementById('longTermBillHistoryDetailHomeKare');
+
+
+        // Get all buttons
+        const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+        index = btn.getAttribute('data-id')
+        const status =btn.getAttribute('data-status');
+      
+
+        // Reset all buttons
+        buttons.forEach(button => {
+            button.style.background = '#3498db';
+        });
+
+        // Show selected bill type and highlight active button
+        if (type === 'short') {
+            openModal('shortTermModalHistoryDetailHomeKare', index);
+
+           // buttons[0].style.background = '#2980b9';
+           btn.style.background = '#2980b9';
+        } else {
+            openModal('longTermModalHistoryDetailHomeKare', index);
+           // buttons[1].style.background = '#2980b9';
+           btn.style.background = '#2980b9';
+        }
+    }
+
+    function openModal(modalId, index) {
+        const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+        const row = buttons[index].parentNode;
+        console.log("open modal ", row)
+        const modal = row.querySelector('#' + modalId)
+
+        //const modal = row.getElementById(modalId);
+        console.log("open modal ", modal)
+        modal.classList.add('showModalHistoryDetailHomeKare');
+        document.body.style.overflow = 'hidden';
+
+        // Add click outside to close functionality
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                closeModal(modalId, index);
+            }
+        });
+
+        // Add escape key to close functionality
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeModal(modalId);
+            }
+        });
+    }
+    //them
+  /*  function openModal(modalId, index, status) {
+        const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+        const row = buttons[index].parentNode;
+       
+        const modal = row.querySelector('#' + modalId);
+
+        if (!modal) {
+            console.error("Không tìm thấy modal:", modalId);
+            return;
+        }
+
+        // Lưu trạng thái tổng vào modal để sử dụng sau này
+        modal.setAttribute('data-request-status', status);
+
+        modal.classList.add('showModalHistoryDetailHomeKare');
+        document.body.style.overflow = 'hidden';
+
+        // Cập nhật hiển thị nút thanh toán dựa vào trạng thái tổng
+        updatePaymentButtonVisibility(modal, status);
+
+        // Add click outside to close functionality
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                closeModal(modalId);
+            }
+        });
+
+        // Add escape key to close functionality
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeModal(modalId);
+            }
+        });
+    }
+    // Hàm mới để cập nhật hiển thị nút thanh toán
+        function updatePaymentButtonVisibility(modal, status) {
+            const payButton = modal.querySelector('#payButton') || modal.querySelector('#payButtonShort');
+            const cancelButton = modal.querySelector('#cancelButton') || modal.querySelector('#cancelButtonShort');
+
+            if (payButton) {
+                // CHỈ hiển thị nút thanh toán nếu trạng thái tổng là waitPayment
+                if (status === 'waitPayment') {
+                    payButton.style.display = 'block';
+                    console.log("Hiển thị nút thanh toán - trạng thái waitPayment");
+                } else {
+                    payButton.style.display = 'none';
+                    console.log("Ẩn nút thanh toán - trạng thái không phải waitPayment");
+                }
+            }
+
+            if (cancelButton) {
+                // Chỉ hiển thị nút hủy đơn nếu trạng thái là notDone
+                if (status === 'notDone') {
+                    cancelButton.style.display = 'block';
+                } else {
+                    cancelButton.style.display = 'none';
+                }
+            }
+        }*/
+    function closeModal(modalId) {
+        const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+        const row = buttons[index].parentNode;
+        console.log("open modal ", row)
+        const modal = row.querySelector('#' + modalId)
+        //const modal = document.getElementById(modalId);
+        modal.classList.remove('showModalHistoryDetailHomeKare');
+        document.body.style.overflow = 'auto';
+    }
+
+
+    // Show short term bill modal by default when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        // Don't show any modal by default, wait for user click
+        const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+        buttons[0].style.background = '#2980b9';
+    });
+</script>
+<script>
+    // Thay thế code hiện tại cho phần xử lý nút hủy đơn
     document.addEventListener('click', function (e) {
         if (e.target.id === 'cancelButton' || e.target.id === 'cancelButtonShort') {
             const requestId = e.target.getAttribute('data-request-id');
-            console.log("requestId",requestId)
-
-            
-
             const tabletype = e.target.id === 'cancelButton' ? 'long' : 'short';
 
             // Lưu tham chiếu đến modal hiện tại
@@ -953,73 +1057,54 @@
             // Hiển thị modal xác nhận hủy
             const confirmModal = new bootstrap.Modal(document.getElementById('confirmCancelModal'));
 
-                // Thêm sự kiện cho nút xác nhận hủy
+            // Thêm sự kiện cho nút xác nhận hủy
             document.getElementById('confirmCancelBtn').onclick = function () {
                 // Đóng modal xác nhận
                 confirmModal.hide();
 
-                // Gửi yêu cầu hủy đến server
-                fetch('/request/cancel', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ orderId: requestId })
-                })
-                .then(response => {
-                    location.reload()
- /*                   if (response.ok) {
-                         ; // Tải lại trang để cập nhật trạng thái đơn hàng
-                       // Đóng modal chi tiết
-                        if (currentModal) {
-                            currentModal.classList.remove('showModalHistoryDetailHomeKare');
-                        }
+                // Đóng modal chi tiết
+                if (currentModal) {
+                    currentModal.classList.remove('showModalHistoryDetailHomeKare');
+                }
 
-                        // Tìm hàng từ bảng đúng loại
-                        const targetTable = tabletype === 'long'
-                            ? document.getElementById('longTermTable-homedetail')
-                            : document.getElementById('shortTermTable-homedetail');
+                // Tìm hàng từ bảng đúng loại
+                const targetTable = tabletype === 'long'
+                    ? document.getElementById('longTermTable-homedetail')
+                    : document.getElementById('shortTermTable-homedetail');
 
-                        if (targetTable) {
-                            // Tìm hàng theo request ID trong bảng cụ thể
-                            const rows = targetTable.querySelectorAll('tr[data-request-id="' + requestId + '"]');
+                if (targetTable) {
+                    // Tìm hàng theo request ID trong bảng cụ thể
+                    const rows = targetTable.querySelectorAll('tr[data-request-id="' + requestId + '"]');
 
-                            if (rows.length > 0) {
-                                rows.forEach(row => {
-                                    // Cập nhật trạng thái trong modal
-                                    const modal = row.querySelector('.modalHistoryDetailHomeKare');
-                                    if (modal) {
-                                        const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
-                                        statusElements.forEach(statusEl => {
-                                            // Cập nhật data-status để hiển thị trạng thái đã hủy
-                                            statusEl.setAttribute('data-status', 'cancelled');
-                                        });
-                                    }
-
-                                    // Cập nhật trạng thái hiển thị trong bảng (nếu có)
-                                    const statusCell = row.cells[5]; // Cell thứ 6 (index 5) thường là trạng thái
-                                    if (statusCell) {
-                                        const statusElement = statusCell.querySelector('.status-completeHistoryDetailHomeKare');
-                                        if (statusElement) {
-                                            statusElement.setAttribute('data-status', 'cancelled');
-                                        }
-                                    }
+                    if (rows.length > 0) {
+                        rows.forEach(row => {
+                            // Cập nhật trạng thái trong modal
+                            const modal = row.querySelector('.modalHistoryDetailHomeKare');
+                            if (modal) {
+                                const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
+                                statusElements.forEach(statusEl => {
+                                    // Cập nhật data-status để hiển thị trạng thái đã hủy
+                                    statusEl.setAttribute('data-status', 'cancelled');
                                 });
-
-                                // Hiển thị thông báo thành công
-                                //alert('Đã hủy đơn hàng thành công!');
-                            } else {
-                                console.warn(`Không tìm thấy hàng với requestId ${requestId} trong bảng ${tabletype}`);
                             }
-                        }
+
+                            // Cập nhật trạng thái hiển thị trong bảng (nếu có)
+                            const statusCell = row.cells[5]; // Cell thứ 6 (index 5) thường là trạng thái
+                            if (statusCell) {
+                                const statusElement = statusCell.querySelector('.status-completeHistoryDetailHomeKare');
+                                if (statusElement) {
+                                    statusElement.setAttribute('data-status', 'cancelled');
+                                }
+                            }
+                        });
+
+                        // Hiển thị thông báo thành công
+                        alert('Đã hủy đơn hàng thành công!');
+
                     } else {
-                        alert('Có lỗi xảy ra khi hủy đơn hàng. Vui lòng thử lại sau.');
-                    }*/
-                })
-                .catch(error => {
-                    console.error('Lỗi khi gửi yêu cầu hủy:', error);
-                    alert('Có lỗi xảy ra khi hủy đơn hàng. Vui lòng thử lại sau.');
-                });
+                        console.warn(`Không tìm thấy hàng với requestId ${requestId} trong bảng ${tabletype}`);
+                    }
+                }
             };
 
             // Hiển thị modal xác nhận
@@ -1078,24 +1163,32 @@
                 if (cancelButton) cancelButton.style.display = 'none';
 
                 // Tìm tất cả các phần tử trạng thái trong modal
+                //tommy
                 const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
-                console.log(`Modal ${modal.id} có ${statusElements.length} phần tử trạng thái`);
-
+               
+                const requestStatus = modal.getAttribute('data-request-status') ||
+                    modal.closest('tr')?.getAttribute('data-status');
+console.log(payButton);
+               
+                  // Hiển thị nút thanh toán nếu trạng thái là đã hoàn thành
+                  console.log("requestStatus", requestStatus);
+                if (requestStatus === 'waitPayment' && payButton) {
+                   
+                    payButton.style.display = 'block';
+                    
+                   
+                }
                 // Kiểm tra trạng thái của đơn hàng
                 statusElements.forEach(statusEl => {
                     const status = statusEl.getAttribute('data-status');
-                    console.log(`Trạng thái: ${status}`);
+                  
 
-                    // Hiển thị nút thanh toán nếu trạng thái là đã hoàn thành
-                    if (status === 'wayPayment' && payButton) {
-                        payButton.style.display = 'block';
-                        console.log(`Hiển thị nút thanh toán trong modal ${modal.id}`);
-                    }
+                  
 
                     // Hiển thị nút hủy đơn nếu trạng thái là chờ xác nhận
                     if (status === 'notDone' && cancelButton) {
                         cancelButton.style.display = 'block';
-                        console.log(`Hiển thị nút hủy đơn trong modal ${modal.id}`);
+                       
 
                         // Lưu trữ thông tin hàng cần xóa khi hủy
                         cancelButton.setAttribute('data-row-id', statusEl.closest('tr')?.id || '');
@@ -1104,6 +1197,8 @@
                 });
             });
         }
+    
+      
 
         // Thêm event listener cho các nút "Chi tiết"
         document.querySelectorAll('.btnHistoryDetailHomeKare').forEach(button => {
@@ -1230,171 +1325,141 @@
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-            // Khởi tạo tất cả modals
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                new bootstrap.Modal(modal);
-            });
-
-            // Xử lý nút close
-            const closeButtons = document.querySelectorAll('.btn-close');
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    const modal = this.closest('.modal');
-                    const modalInstance = bootstrap.Modal.getInstance(modal);
-                    if (modalInstance) {
-                        modalInstance.hide();
-                    }
-                });
-            });
+        // Khởi tạo tất cả modals
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            new bootstrap.Modal(modal);
         });
-</script>
 
-<script>
-     document.addEventListener('DOMContentLoaded', function() {
-         let isProcessing = false;
-
-     function handleStatusDisplay() {
-        if (isProcessing) {
-         console.log('Đang xử lý, bỏ qua...');
-     return;
-        }
-
-     isProcessing = true;
-     console.log('Bắt đầu xử lý status...');
-
-     try {
-            const statusElements = document.querySelectorAll('.status-completeHistoryDetailHomeKare');
-     console.log("Số lượng status elements:", statusElements.length);
-
-            statusElements.forEach(element => {
-                const currentHtml = element.innerHTML;
-     const status = element.getAttribute('data-status'); // Lấy status từ data attribute
-     console.log("Xử lý status:", status);
-
-     // Xóa classes cũ
-     removeAllStatusClasses(element);
-
-     // Thêm class mới và icon
-     updateStatusStyle(element, status);
+        // Xử lý nút close
+        const closeButtons = document.querySelectorAll('.btn-close');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const modal = this.closest('.modal');
+                const modalInstance = bootstrap.Modal.getInstance(modal);
+                if (modalInstance) {
+                    modalInstance.hide();
+                }
             });
-        } catch (error) {
-         console.error('Lỗi xử lý status:', error);
-        } finally {
-         isProcessing = false;
-        }
-    }
-
-     function removeAllStatusClasses(element) {
-        const statusClasses = [
-     'status-doneHistoryDetailHomeKare',
-     'status-assignedHistoryDetailHomeKare',
-     'status-notDoneHistoryDetailHomeKare',
-     'status-cancelHistoryDetailHomeKare',
-     'status-wayPaymentHistoryDetailHomeKare',
-     'status-processingHistoryDetailHomeKare'
-     ];
-     element.classList.remove(...statusClasses);
-    }
-
-     function updateStatusStyle(element, status) {
-        const statusMap = {
-         'done': {
-         class: 'status-doneHistoryDetailHomeKare',
-     icon: '<i class="fas fa-check-circle"></i>',
-     text: 'Đã hoàn thành'
-            },
-     'assigned': {
-         class: 'status-assignedHistoryDetailHomeKare',
-     icon: '<i class="fas fa-user-check"></i>',
-     text: 'Đã xác nhận'
-            },
-     'notDone': {
-         class: 'status-notDoneHistoryDetailHomeKare',
-     icon: '<i class="fas fa-clock"></i>',
-     text: 'Chờ xác nhận'
-            },
-     'cancelled': {
-         class: 'status-cancelHistoryDetailHomeKare',
-     icon: '<i class="fas fa-times-circle"></i>',
-     text: 'Đã hủy'
-            },
-     'wayPayment': {
-         class: 'status-wayPaymentHistoryDetailHomeKare',
-     icon: '<i class="fas fa-money-bill-wave"></i>',
-     text: 'Chờ thanh toán'
-            },
-     'processing': {
-         class: 'status-processingHistoryDetailHomeKare',
-     icon: '<i class="fas fa-spinner fa-spin"></i>',
-     text: 'Đang thực hiện'
-            }
-        };
-
-     const statusInfo = statusMap[status] || statusMap.notDone;
-     element.classList.add(statusInfo.class);
-     element.innerHTML = `${statusInfo.icon} ${statusInfo.text}`;
-    }
-
-    // Khởi tạo observer
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach(mutation => {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'data-status') {
-                handleStatusDisplay();
-            }
         });
     });
-
-    // Cấu hình và bắt đầu observe
-    const config = {
-        attributes: true,
-        attributeFilter: ['data-status'],
-        subtree: true
-    };
-
-    const container = document.querySelector('.container-homedetail');
-    if (container) {
-        observer.observe(container, config);
-        console.log('Observer đã được khởi tạo');
-    }
-
-    // Xử lý status ban đầu
-    handleStatusDisplay();
-});
-
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Handle "Thanh toán" button click
-        document.querySelectorAll('#payButton, #payButtonShort').forEach(button => {
-            button.addEventListener('click', function () {
-                const requestId = this.getAttribute('data-request-id');
-                console.log('Thanh toán cho request ID:', requestId);
-                fetch('/request/finishpayment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ orderId: requestId })
-                })
-                .then(response => {
-                                            location.reload(); // Reload the page to reflect changes
+        let isProcessing = false;
 
- /*                   if (response.ok) {
-                    } else {
-                        alert('Có lỗi xảy ra khi thanh toán. Vui lòng thử lại.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Có lỗi xảy ra khi thanh toán. Vui lòng thử lại.');
-                */
+        function handleStatusDisplay() {
+            if (isProcessing) {
+                console.log('Đang xử lý, bỏ qua...');
+                return;
+            }
+
+            isProcessing = true;
+            console.log('Bắt đầu xử lý status...');
+
+            try {
+                const statusElements = document.querySelectorAll('.status-completeHistoryDetailHomeKare');
+                console.log("Số lượng status elements:", statusElements.length);
+
+                statusElements.forEach(element => {
+                    const currentHtml = element.innerHTML;
+                    const status = element.getAttribute('data-status'); // Lấy status từ data attribute
+                    console.log("Xử lý status:", status);
+
+                    // Xóa classes cũ
+                    removeAllStatusClasses(element);
+
+                    // Thêm class mới và icon
+                    updateStatusStyle(element, status);
                 });
+            } catch (error) {
+                console.error('Lỗi xử lý status:', error);
+            } finally {
+                isProcessing = false;
+            }
+        }
+
+        function removeAllStatusClasses(element) {
+            const statusClasses = [
+                'status-doneHistoryDetailHomeKare',
+                'status-assignedHistoryDetailHomeKare',
+                'status-notDoneHistoryDetailHomeKare',
+                'status-cancelHistoryDetailHomeKare',
+                'status-wayPaymentHistoryDetailHomeKare',
+                'status-processingHistoryDetailHomeKare'
+            ];
+            element.classList.remove(...statusClasses);
+        }
+
+        function updateStatusStyle(element, status) {
+            const statusMap = {
+                'done': {
+                    class: 'status-doneHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-check-circle"></i>',
+                    text: 'Đã hoàn thành'
+                },
+                'assigned': {
+                    class: 'status-assignedHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-user-check"></i>',
+                    text: 'Đã xác nhận'
+                },
+                'notDone': {
+                    class: 'status-notDoneHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-clock"></i>',
+                    text: 'Chờ xác nhận'
+                },
+                'cancelled': {
+                    class: 'status-cancelHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-times-circle"></i>',
+                    text: 'Đã hủy'
+                },
+                'wayPayment': {
+                    class: 'status-wayPaymentHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-money-bill-wave"></i>',
+                    text: 'Chờ thanh toán'
+                },
+                'processing': {
+                    class: 'status-processingHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-spinner fa-spin"></i>',
+                    text: 'Đang thực hiện'
+                }
+            };
+
+            const statusInfo = statusMap[status] || statusMap.notDone;
+            element.classList.add(statusInfo.class);
+            element.innerHTML = `${statusInfo.icon} ${statusInfo.text}`;
+        }
+
+        // Khởi tạo observer
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach(mutation => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'data-status') {
+                    handleStatusDisplay();
+                }
             });
         });
+
+        // Cấu hình và bắt đầu observe
+        const config = {
+            attributes: true,
+            attributeFilter: ['data-status'],
+            subtree: true
+        };
+
+        const container = document.querySelector('.container-homedetail');
+        if (container) {
+            observer.observe(container, config);
+            console.log('Observer đã được khởi tạo');
+        }
+
+        // Xử lý status ban đầu
+        handleStatusDisplay();
     });
+
 </script>
 <script>
     window.dispatchEvent(new Event("template-loaded"));
 </script>
+
 </html>
