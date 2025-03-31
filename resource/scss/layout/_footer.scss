@@ -6,7 +6,7 @@
    background-position: center;
    background-repeat: no-repeat;
    padding: 50px 0;
-   background-color: rgba(2, 87, 28, 0.8);
+    background: linear-gradient(135deg, #2ecc71, #2980b9);
    &__heading{
     font-size: 30px;
     font-weight: 700;
@@ -37,7 +37,7 @@
     left: 0;
     width: 100%;
     height: 50px;
-    background-color: #02571c;
+        background: linear-gradient(135deg, #2ecc71, #2980b9);
    }
    &__icon-tiktok, &__icon-facebook, &__icon-youtube, &__icon-twitter, &__icon-linkin{
         width:20px;

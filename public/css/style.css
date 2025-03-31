@@ -1976,14 +1976,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .process-title {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
 .process-description {
   color: #666;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   margin: 0 auto;
   max-width: 200px;
 }
@@ -2019,7 +2019,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .stat-title {
   color: #666;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 @media (max-width: 991px) {
@@ -2052,7 +2052,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* Overall service section styling */
 #service {
-  background-color: #4CAF50;
+  background: linear-gradient(135deg, #2ecc71, #2980b9);
   padding-top: 70px;
   position: relative;
   overflow: hidden;
@@ -2126,7 +2126,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .service__box-content {
   color: #f5f5f5;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   line-height: 1.6;
   margin-bottom: 0;
 }
@@ -2535,7 +2535,7 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #4CAF50;
 }
 .btn-find {
-  background-color: #2ecc71;
+  background: linear-gradient(135deg, #2ecc71, #2980b9);
   border-radius: 0px;
   height: 45px;
   color: #fff;
@@ -3201,7 +3201,7 @@ input:not(:disabled) {
 }
 
 .faq__item-question {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 600;
   padding: 13px 40px;
   display: flex;
@@ -3243,7 +3243,7 @@ input:not(:disabled) {
 }
 .faq__item-answer .faq__item-answer-text--desc {
   padding: 2px 40px;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 .faq__item-answer .faq__item-answer-text--desc li {
   margin-left: 20px;
@@ -3269,7 +3269,7 @@ input:not(:disabled) {
 
 .section-subtitle {
   color: #6c757d;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin-bottom: 1.5rem;
 }
 
@@ -3305,7 +3305,7 @@ input:not(:disabled) {
 }
 .aside .aside__search {
   width: 100%;
-  background: var(--skin-color);
+  background: linear-gradient(135deg, #2ecc71, #2980b9);
   padding: 15px;
   position: absolute;
   top: 0;
@@ -6161,7 +6161,7 @@ html.dark {
   background-position: center;
   background-repeat: no-repeat;
   padding: 50px 0;
-  background-color: rgba(2, 87, 28, 0.8);
+  background: linear-gradient(135deg, #2ecc71, #2980b9);
 }
 .footer__heading {
   font-size: 30px;
@@ -6193,7 +6193,7 @@ html.dark {
   left: 0;
   width: 100%;
   height: 50px;
-  background-color: #02571c;
+  background: linear-gradient(135deg, #2ecc71, #2980b9);
 }
 .footer__icon-tiktok, .footer__icon-facebook, .footer__icon-youtube, .footer__icon-twitter, .footer__icon-linkin {
   width: 20px;
@@ -7642,7 +7642,7 @@ section {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  background: var(--skin-color);
+  background: linear-gradient(135deg, #2ecc71, #2980b9);
   color: var(--white);
   padding: 5px;
   border-radius: 50%;

@@ -1,6 +1,6 @@
  .faq {
     &__item-question {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
        // font-weight: 700;
         //background: linear-gradient(135deg, #43A047 0%, #2E7D32 100%); // Changed to a more suitable web color
         font-weight: 600;
@@ -51,7 +51,7 @@
     
     &__item-answer &__item-answer-text--desc {
         padding: 2px 40px;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         //background-color: #E8F5E9; // Changed to a softer background color
     }
     &__item-answer &__item-answer-text--desc li{
@@ -83,7 +83,7 @@
 
 .section-subtitle {
     color: #6c757d;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-bottom: 1.5rem;
 }
 

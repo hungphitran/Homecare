@@ -684,14 +684,14 @@
 }
 
 .process-title {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 10px;
 }
 
 .process-description {
     color: #666;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     margin: 0 auto;
     max-width: 200px;
 }
@@ -727,7 +727,7 @@
 
 .stat-title {
     color: #666;
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 @media (max-width: 991px) {
@@ -832,7 +832,7 @@
 // }
 /* Overall service section styling */
 #service {
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, #2ecc71, #2980b9);
    // padding: 80px 0;
    padding-top :70px;
     position: relative;
@@ -919,7 +919,7 @@
 
 .service__box-content {
     color: #f5f5f5;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     line-height: 1.6;
     margin-bottom: 0;
 }
