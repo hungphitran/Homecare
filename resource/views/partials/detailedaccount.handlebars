@@ -1051,6 +1051,8 @@
             const requestId = e.target.getAttribute('data-request-id');
             const tabletype = e.target.id === 'cancelButton' ? 'long' : 'short';
 
+            console.log("requestId", requestId);
+
             // Lưu tham chiếu đến modal hiện tại
             const currentModal = e.target.closest('.modalHistoryDetailHomeKare');
 
@@ -1062,49 +1064,68 @@
                 // Đóng modal xác nhận
                 confirmModal.hide();
 
-                // Đóng modal chi tiết
-                if (currentModal) {
-                    currentModal.classList.remove('showModalHistoryDetailHomeKare');
-                }
-
-                // Tìm hàng từ bảng đúng loại
-                const targetTable = tabletype === 'long'
-                    ? document.getElementById('longTermTable-homedetail')
-                    : document.getElementById('shortTermTable-homedetail');
-
-                if (targetTable) {
-                    // Tìm hàng theo request ID trong bảng cụ thể
-                    const rows = targetTable.querySelectorAll('tr[data-request-id="' + requestId + '"]');
-
-                    if (rows.length > 0) {
-                        rows.forEach(row => {
-                            // Cập nhật trạng thái trong modal
-                            const modal = row.querySelector('.modalHistoryDetailHomeKare');
-                            if (modal) {
-                                const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
-                                statusElements.forEach(statusEl => {
-                                    // Cập nhật data-status để hiển thị trạng thái đã hủy
-                                    statusEl.setAttribute('data-status', 'cancelled');
-                                });
-                            }
-
-                            // Cập nhật trạng thái hiển thị trong bảng (nếu có)
-                            const statusCell = row.cells[5]; // Cell thứ 6 (index 5) thường là trạng thái
-                            if (statusCell) {
-                                const statusElement = statusCell.querySelector('.status-completeHistoryDetailHomeKare');
-                                if (statusElement) {
-                                    statusElement.setAttribute('data-status', 'cancelled');
-                                }
-                            }
-                        });
-
-                        // Hiển thị thông báo thành công
-                        alert('Đã hủy đơn hàng thành công!');
-
-                    } else {
-                        console.warn(`Không tìm thấy hàng với requestId ${requestId} trong bảng ${tabletype}`);
+                fetch('/request/cancel', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ orderId:requestId })
+                }).then(response => {
+                    console.log("response", response)
+                    if (!response.status === 200) {
+                        alert('Hủy đơn hàng thất bại:', error);
                     }
+                    else{
+                        alert('Đã hủy đơn hàng thành công!');
+                    // Đóng modal chi tiết
+                    if (currentModal) {
+                        currentModal.classList.remove('showModalHistoryDetailHomeKare');
+                    }
+
+                    // Tìm hàng từ bảng đúng loại
+                    const targetTable = tabletype === 'long'
+                        ? document.getElementById('longTermTable-homedetail')
+                        : document.getElementById('shortTermTable-homedetail');
+
+                        if (targetTable) {
+                        // Tìm hàng theo request ID trong bảng cụ thể
+                        const rows = targetTable.querySelectorAll('tr[data-request-id="' + requestId + '"]');
+
+                        if (rows.length > 0) {
+                            rows.forEach(row => {
+                                // Cập nhật trạng thái trong modal
+                                const modal = row.querySelector('.modalHistoryDetailHomeKare');
+                                if (modal) {
+                                    const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
+                                    statusElements.forEach(statusEl => {
+                                        // Cập nhật data-status để hiển thị trạng thái đã hủy
+                                        statusEl.setAttribute('data-status', 'cancelled');
+                                    });
+                                }
+
+                                // Cập nhật trạng thái hiển thị trong bảng (nếu có)
+                                const statusCell = row.cells[5]; // Cell thứ 6 (index 5) thường là trạng thái
+                                if (statusCell) {
+                                    const statusElement = statusCell.querySelector('.status-completeHistoryDetailHomeKare');
+                                    if (statusElement) {
+                                        statusElement.setAttribute('data-status', 'cancelled');
+                                    }
+                                }
+                            });
+
+
+                        } else {
+                            console.warn(`Không tìm thấy hàng với requestId ${requestId} trong bảng ${tabletype}`);
+                        }
                 }
+                    }
+
+
+                }).catch(error => {
+                    alert('Error cancelling order:', error);
+                });
+
+                
             };
 
             // Hiển thị modal xác nhận
@@ -1168,7 +1189,7 @@
                
                 const requestStatus = modal.getAttribute('data-request-status') ||
                     modal.closest('tr')?.getAttribute('data-status');
-console.log(payButton);
+                    console.log(payButton);
                
                   // Hiển thị nút thanh toán nếu trạng thái là đã hoàn thành
                   console.log("requestStatus", requestStatus);

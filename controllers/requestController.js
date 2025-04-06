@@ -159,14 +159,10 @@ const requestController={
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    servicePrice: service.basicPrice,
+                    serviceTitle: service.title,
                     startTime: req.query.startTime,
                     endTime: req.query.endTime,
-                    workDate: req.query.dates[i],
-                    officeStartTime: general.officeStartTime,
-                    officeEndTime: general.officeEndTime,
-                    coefficient_other:costFactorOther,
-                    serviceFactor:costFactorService.value,
+                    workDate: req.query.dates[i]
                 })
             }).then(data=>data.json())
             .catch(err=>console.error(err))
@@ -272,17 +268,12 @@ const requestController={
         .then(data => {
             console.log(data)
             if(data.status === 200){
+                res.status(200).json({message:"Hủy đơn hàng thành công"})
                 return data.json()
-                .then(data=>Promise.resolve(data.message))
             }
             else {
-                console.log(data)
-                return data.json()
-                .then(data=>Promise.reject(data.message))
+                res.status(data.status).json({message:"Hủy đơn hàng thất bại"})
             }
-        })
-        .then(data=>{
-            res.redirect('/account/detail')
         })
         .catch(err=>{
             res.render("pages/notificationpage",{
@@ -292,24 +283,24 @@ const requestController={
         })
     },
     finishPayment: async (req, res, next) => {
-        let orderId = req.body.orderId;
-        console.log(orderId)
+        let detailId = req.body.detailId;
+        console.log(detailId)
         let option = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ id: orderId })
+            body: JSON.stringify({ detailId: detailId })
         };
         await fetch(process.env.API_URL + '/request/finishpayment', option)
             .then(data => {
                 console.log(data)
-                if (data.status === 200) {
+                if(data.status === 200){
+                    res.status(200).json({message:"Thanh toán đơn hàng thành công"})
                     return data.json()
-                        .then(data => Promise.resolve(data.message));
-                } else {
-                    return data.json()
-                        .then(data => Promise.reject(data.message));
+                }
+                else {
+                    res.status(data.status).json({message:"Thanh toán đơn hàng thất bại"})
                 }
             })
             .then(data => {
