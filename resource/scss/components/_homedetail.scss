@@ -332,74 +332,456 @@
 
     }
 }
-.tabs {
-    flex:0 0 100%;
-    max-width:100%;
-  display: flex;
-  position: relative;
-  &-details{
-    flex:0 0 100%;
-    max-height:100%;
-  }
-  @include abstracts.screen(md){
-    flex-direction: column;
-  }
+
+/* Tabs Container Styles */
+.helper-details__tabs {
+    margin-top: 30px;
+    margin-bottom: 60px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
 }
-.tabs .line {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
-  height: 6px;
-  border-radius: 15px;
-  background-color: var(--skin-color);
-  transition: all 0.2s ease;
+
+.tabs-container {
+    padding: 0;
 }
+
+/* Tabs Header */
+.tabs-header {
+    display: flex;
+    position: relative;
+    background: linear-gradient(to right, #f8f9fa, #fff);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 0;
+}
+
 .tab-item {
-  min-width: 80px;
-  padding: 16px 20px 11px 20px;
-  font-size: 1.5rem;
-  text-align: center;
-  color: var(--skin-color);
-  background-color: #fff;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom: 5px solid transparent;
-  opacity: 0.6;
-  cursor: pointer;
-  transition: all 0.5s ease;
-  white-space: nowrap;
-  @include abstracts.screen(lg){
-    font-size:1rem;
-  }
+    min-width: 120px;
+    padding: 18px 24px;
+    font-size: 15px;
+    text-align: center;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
 }
+
 .tab-icon {
-  font-size: 24px;
-  width: 32px;
-  position: relative;
-  top: 2px;
+    margin-right: 10px;
+    font-size: 18px;
+    color: #2ecc71;
 }
-.tab-item:hover {
-  opacity: 1;
-  background-color: rgba(194, 53, 100, 0.05);
-  border-color: rgba(194, 53, 100, 0.1);
-}
+
 .tab-item.active {
-  opacity: 1;
+    color: #2ecc71;
+    font-weight: 600;
 }
-.tab-content {
-  padding: 28px 0;
+
+.indicator {
+    position: absolute;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(135deg, #2ecc71, #2980b9);
+    border-radius: 3px 3px 0 0;
+    transition: all 0.3s;
 }
+
+/* Tab Content */
+.tabs-content {
+    background: #fff;
+    padding: 30px;
+}
+
 .tab-pane {
-  color: #333;
-  display: none;
+    display: none;
+    animation: fadeEffect 0.6s ease;
 }
+
 .tab-pane.active {
-  display: block;
+    display: block;
 }
-.tab-pane h2 {
-  font-size: 24px;
-  margin-bottom: 8px;
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-title {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.tab-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(135deg, #2ecc71, #2980b9);
+    border-radius: 3px;
+}
+
+/* Reviews Tab */
+.reviews-container {
+    display: grid;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.review-card {
+    background: #f8f9fc;
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s;
+    border-left: 3px solid #2ecc71;
+
+    
+    position: relative;
+}
+
+.review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.review-date {
+    display: flex;
+    align-items: center;
+    color: #666;
+    font-size: 14px;
+}
+
+.review-date i {
+    margin-right: 6px;
+    color: #2ecc71;
+    
+}
+
+.stars-container {
+    display: flex;
+    gap: 3px;
+}
+
+.stars-container i {
+    color: #ffb800;
+}
+
+.review-content {
+    color: #444;
+    line-height: 1.6;
+}
+
+.review-service {
+    margin-top: 15px;
+}
+
+.service-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    background: rgba(74, 108, 247, 0.1);
+    color: #2ecc71;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.no-reviews {
+    text-align: center;
+    padding: 40px 0;
+    color: #777;
+}
+
+.no-reviews i {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+/* Experience Tab */
+.experience-section {
+    display: grid;
+    gap: 30px;
+}
+
+.districts-grid,
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.district-card,
+.service-card {
+    background: #f8f9fc;
+    border-radius: 10px;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.district-card:hover,
+.service-card:hover {
+    background: #eef1ff;
+    transform: translateY(-2px);
+}
+
+.district-card i,
+.service-card i {
+    margin-right: 10px;
+    color: #2ecc71;
+}
+
+.section-subtitle {
+    font-size: 17px;
+    margin-bottom: 15px;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.section-subtitle i {
+    margin-right: 10px;
+    color: #2ecc71;
+    width: 24px;
+    text-align: center;
+}
+
+.year-badge {
+    background: linear-gradient(135deg, #2ecc71, #2980b9);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-top: 20px;
+    box-shadow: 0 10px 20px rgba(74, 108, 247, 0.2);
+}
+
+.year-badge span {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.year-badge p {
+    font-size: 14px;
+    margin-top: 5px;
+    opacity: 0.9;
+}
+
+/* Details Tab */
+.details-container {
+    display: grid;
+    gap: 30px;
+}
+
+.education-level {
+    background: #f8f9fc;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-top: 15px;
+}
+
+.skills-grid {
+    display: grid;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.skill-name {
+    font-weight: 500;
+    color: #444;
+}
+
+.skill-bar {
+    height: 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background: linear-gradient(135deg, #2ecc71, #2980b9);
+    border-radius: 4px;
+}
+
+.language-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fc;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin-top: 15px;
+}
+
+.language-level {
+    background: rgba(74, 108, 247, 0.1);
+    color: #2ecc71;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.no-data {
+    color: #777;
+    margin-top: 10px;
+}
+
+/* Certificate Tab */
+.certificate-container {
+    margin-top: 20px;
+}
+
+.certificate-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.certificate-item {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    aspect-ratio: 3/4;
+}
+
+.certificate-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.5s;
+}
+
+.certificate-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.certificate-item:hover .certificate-overlay {
+    opacity: 1;
+}
+
+.certificate-item:hover .certificate-img {
+    transform: scale(1.05);
+}
+
+.view-full {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.view-full i {
+    font-size: 16px;
+}
+
+.no-certificates {
+    text-align: center;
+    padding: 40px 0;
+    color: #777;
+}
+
+.no-certificates i {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .tabs-header {
+        flex-wrap: wrap;
+    }
+
+    .tab-item {
+        padding: 15px 10px;
+        font-size: 13px;
+    }
+
+    .tab-icon {
+        margin-right: 5px;
+    }
+
+    .tabs-content {
+        padding: 20px;
+    }
+
+    .districts-grid,
+    .services-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+
+    .certificate-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+/* Animation Keyframes */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.year-badge:hover {
+    animation: pulse 1.5s infinite;
 }
 // book item
 .book-item{
@@ -788,7 +1170,7 @@
 .selected-time-homecare {
     display: block;
     width: 100%;
-    padding: 13px 4px;
+    padding: 14px 4px;
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
     cursor: pointer;

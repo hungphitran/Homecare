@@ -110,6 +110,8 @@
     &__form-group--remain {
         width:30%;
         height:44px;
+        font-size:1.4rem;
+        font-weight:600;
         @include abstracts.screen(xl){
             width:100%;
             display: flex;
@@ -1022,39 +1024,361 @@
 //     padding-top: 20px;
 //     margin-bottom: 20px;
 // }
-.helper{
-    &__infor{
-        color:white;
-        padding: 10px 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        position:absolute;
-       width: 93%;
-    bottom: 100px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        height:40px;
-        box-sizing: border-box;
-        }
-    &__infor-name{
-        font-size: 1.7rem;
-        font-weight: 500;
-        color: white;
+// .helper{
+//     &__infor{
+//         color:white;
+//         padding: 10px 0;
+//         background-color: rgba(0, 0, 0, 0.5);
+//         position:absolute;
+//        width: 93%;
+//     bottom: 100px;
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         gap: 10px;
+//         height:40px;
+//         box-sizing: border-box;
+//         }
+//     &__infor-name{
+//         font-size: 1.7rem;
+//         font-weight: 500;
+//         color: white;
+//     }
+//     &__infor-time{
+//         font-size: 1.7rem;
+//         font-weight: 500;
+//         color: white;
+//         visibility: hidden;
+//         transition: opacity 0.1s ease, visibility 0.1s ease;
+//     }
+//     &__infor-age{
+//         font-size: 1.7rem;
+//         font-weight: 500;
+//         color: white;
+//         visibility: hidden;
+//         transition: opacity 0.1s ease, visibility 0.1s ease;
+//     }
+// }
+/* CSS nâng cấp cho phần Partner/Helper */
+.helper {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    position: relative;
+    overflow: hidden;
+}
+
+.helper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/img/pattern-dots.svg');
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.section-heading {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    position: relative;
+    text-align: center;
+    color: #333;
+}
+
+.section-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 3px;
+    background: linear-gradient(90deg, #4a6cf7, #24c1e0);
+    border-radius: 3px;
+}
+
+.helper__mySwiper {
+    padding: 20px 10px 50px;
+    overflow: visible !important;
+}
+
+.helper__wrapper {
+    padding-bottom: 15px;
+}
+
+.helper__swiper-slide {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transform: scale(0.95);
+    transition: all 0.4s ease !important;
+    position: relative;
+    background: #fff;
+    height: 300px;
+}
+
+.helper__swiper-slide:hover {
+    transform: translateY(-10px) scale(0.97);
+    // box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.helper__swiper-slide::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.helper__swiper-slide:hover::before {
+    opacity: 1;
+}
+
+.helper__swiper-slide::after {
+    content: 'Xem chi tiết';
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    z-index: 3;
+    opacity: 0;
+    transition: all 0.3s ease;
+    padding: 6px 12px;
+    background: rgba(74, 108, 247, 0.8);
+    border-radius: 20px;
+}
+
+.helper__swiper-slide:hover::after {
+    opacity: 1;
+    bottom: 25px;
+}
+
+.helper__swiper-slide a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.helper__swiper-slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.helper__swiper-slide:hover .helper__swiper-slide-img {
+    transform: scale(1.08);
+}
+
+/* Hiệu ứng dấu tích cho partner */
+.helper__swiper-slide a::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 22px;
+    height: 22px;
+    background: #4a6cf7;
+    border-radius: 50%;
+    z-index: 3;
+    // box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s ease;
+}
+
+.helper__swiper-slide a::after {
+    content: '✓';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 22px;
+    height: 22px;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s ease;
+}
+
+.helper__swiper-slide:hover a::before,
+.helper__swiper-slide:hover a::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Thêm hiệu ứng hiển thị thông tin người giúp việc */
+.helper__infor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(5px);
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    z-index: 5;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.helper__swiper-slide:hover .helper__infor {
+    transform: translateY(0);
+}
+
+.helper__infor-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.helper__infor-time,
+.helper__infor-age {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.helper__infor-time::before,
+.helper__infor-age::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: #4a6cf7;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+/* Làm đẹp thanh pagination */
+.swiper-pagination {
+    bottom: 0 !important;
+}
+
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: #ddd;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+    width: 20px;
+    background: linear-gradient(90deg, #4a6cf7, #24c1e0);
+    border-radius: 5px;
+}
+
+/* Thêm nút điều hướng */
+.helper__mySwiper .swiper-button-next,
+.helper__mySwiper .swiper-button-prev {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    // box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.helper__mySwiper .swiper-button-next:hover,
+.helper__mySwiper .swiper-button-prev:hover {
+    background: #4a6cf7;
+}
+
+.helper__mySwiper .swiper-button-next::after,
+.helper__mySwiper .swiper-button-prev::after {
+    font-size: 16px;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.helper__mySwiper .swiper-button-next:hover::after,
+.helper__mySwiper .swiper-button-prev:hover::after {
+    color: white;
+}
+
+/* Các điểm nhấn khi hiển thị slide */
+.swiper-slide-active.helper__swiper-slide {
+    transform: scale(1);
+    // box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation cho phần section heading */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
-    &__infor-time{
-        font-size: 1.7rem;
-        font-weight: 500;
-        color: white;
-        visibility: hidden;
-        transition: opacity 0.1s ease, visibility 0.1s ease;
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-    &__infor-age{
-        font-size: 1.7rem;
-        font-weight: 500;
-        color: white;
-        visibility: hidden;
-        transition: opacity 0.1s ease, visibility 0.1s ease;
+}
+
+#helper .section-heading {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Làm đẹp container */
+.partnership .container {
+    padding-bottom: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .helper {
+        padding: 40px 0;
+    }
+
+    .section-heading {
+        font-size: 28px;
+        margin-bottom: 35px;
+    }
+
+    .helper__swiper-slide {
+        height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .helper {
+        padding: 30px 0;
+    }
+
+    .section-heading {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
+    .helper__swiper-slide {
+        height: 220px;
+    }
+
+    .helper__swiper-slide::after {
+        font-size: 12px;
+        padding: 4px 10px;
     }
 }
 .padding-bottom{
@@ -1072,8 +1396,8 @@
         width:300px;
     height: 400px;
     &:hover .helper__infor{
-        height:30%;
-        background-color: rgba(0, 0, 0, 0.5);
+        // height:30%;
+        // background-color: rgba(0, 0, 0, 0.5);
     }
     &:hover .helper__infor-time{
         opacity: 1;

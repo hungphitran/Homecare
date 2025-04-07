@@ -1,87 +1,93 @@
 <div class="slideshow">
-    <div class="slideshow__inner">  
+    <div class="slideshow__inner">
         <section class="slider-lastest owl-carousel owl-theme">
             <div class="slider-lastest__item slider-lastest__item--2">
-            
+
             </div>
-           
+
         </section>
         <div class="slideshow__search">
             <section class="slideshow__search-inner">
                 <h2 class="slideshow__search-heading">Đặt dịch vụ giúp việc</h2>
                 <div class="slideshow__search-component">
                     <div class="slideshow__form-group slideshow__form-group--button">
-                        <button  id="short-term-btn" type="button" class="btn btn__short-term btn__form-term active-term">Theo ngày</button>
-                        <button id="long-term-btn" type="button"  class="btn btn__long-term btn__form-term">Dài hạn</button>
+                        <button id="short-term-btn" type="button"
+                            class="btn btn__short-term btn__form-term active-term">Theo ngày</button>
+                        <button id="long-term-btn" type="button" class="btn btn__long-term btn__form-term">Dài
+                            hạn</button>
                     </div>
                     <div id="short-term">
                         <form id="short-term-form" method='get' action="/request/shortterm" class="form__short-term">
                             <div class="form-group slideshow__form-group slideshow__form-group--adjust">
-                               
-                                    
-                                    <div class="wrapper-province extra-province" style="margin:0;">
-                                        <div class="wrapper-province__select-btn extra-short extra-border-left">
-                                            <span style="white-space:nowrap">Chọn Tỉnh</span>
-                                            <i class="fa-solid fa-chevron-down"></i>
-                                        </div>
-                                        <div class="wrapper-province__content" style="position:relative;">
-                                            <div class="warapper-province__search" style="display:flex; gap:5px;">
-                                                <input name="province" class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm" style="width:100%" >
-                                                <i class="fa-solid fa-magnifying-glass"></i>
-                                            </div>
-                                            <ul class="wrapper-province__options"></ul>
-                                        </div>
+
+
+                                <div class="wrapper-province extra-province" style="margin:0;">
+                                    <div class="wrapper-province__select-btn extra-short extra-border-left">
+                                        <span style="white-space:nowrap">Chọn Tỉnh</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
                                     </div>
-                               
-                             
-                                    
-                                      
-                                  
-                            <div class="wrapper-district extra-district" style="margin:0;">
-                                <div class="wrapper-district__select-btn extra-short">
-                                    <span style="white-space:nowrap">Chọn Quận</span>
-                                    <i class="fa-solid fa-chevron-down"></i>
+                                    <div class="wrapper-province__content" style="position:relative;">
+                                        <div class="warapper-province__search" style="display:flex; gap:5px;">
+                                            <input name="province" class="wrapper-province__input" spellcheck="false"
+                                                type="text" placeholder="Tìm kiếm" style="width:100%">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                        <ul class="wrapper-province__options"></ul>
+                                    </div>
                                 </div>
-                                <div class="wrapper-district__content" style="position:relative;">
-                                    <div class="warapper-district__search" style="display:flex; gap:5px;">
-                                        <input name="district" class="wrapper-district__input" spellcheck="false" type="text"
-                                            placeholder="Tìm kiếm" style="width:100%">
-                                        <i class="fa-solid fa-magnifying-glass"></i>
+
+
+
+
+
+                                <div class="wrapper-district extra-district" style="margin:0;">
+                                    <div class="wrapper-district__select-btn extra-short">
+                                        <span style="white-space:nowrap">Chọn Quận</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
                                     </div>
-                                    <ul class="wrapper-district__options"></ul>
+                                    <div class="wrapper-district__content" style="position:relative;">
+                                        <div class="warapper-district__search" style="display:flex; gap:5px;">
+                                            <input name="district" class="wrapper-district__input" spellcheck="false"
+                                                type="text" placeholder="Tìm kiếm" style="width:100%">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                        <ul class="wrapper-district__options"></ul>
+                                    </div>
                                 </div>
-                            </div>
-                               
-                               
-                                  
-                                    <div class="wrapper-service extra-service" style="margin:0;">
-                                        <div class="wrapper-service__select-btn extra-short">
-                                            <span style="white-space:nowrap">Chọn Dịch Vụ</span>
-                                            <i class="fa-solid fa-chevron-down"></i>
-                                        </div>
-                                        <div class="wrapper-service__content" style="position:relative;">
-                                            <div class="warapper-service__search" style="display:flex; gap:5px;align-items:center">
-                                                <input name="service" class="wrapper-service__input" spellcheck="false" type="text"
-                                                    placeholder="Tìm kiếm" style="width:100%">
-                                                <i class="fa-solid fa-magnifying-glass"></i>
-                                            </div>
-                                            <ul class="wrapper-service__options"></ul>
-                                        </div>
+
+
+
+                                <div class="wrapper-service extra-service" style="margin:0;">
+                                    <div class="wrapper-service__select-btn extra-short">
+                                        <span style="white-space:nowrap">Chọn Dịch Vụ</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
                                     </div>
-                                
-                                
+                                    <div class="wrapper-service__content" style="position:relative;">
+                                        <div class="warapper-service__search"
+                                            style="display:flex; gap:5px;align-items:center">
+                                            <input name="service" class="wrapper-service__input" spellcheck="false"
+                                                type="text" placeholder="Tìm kiếm" style="width:100%">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                        <ul class="wrapper-service__options"></ul>
+                                    </div>
+                                </div>
+
+
                                 <div class="form__group form-label__start-date" style="margin-top:0px;">
-                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
-                                        <input style="font-size: 1.5rem;height:20px" id="myID2" placeholder="Chọn ngày" type="text" class="form__input"
-                                            value="{{order.dates}}" name="dates" required class="input-date status">
-                                       
+                                    <div class="form__text-input form-control"
+                                        style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
+                                        <input style="font-size: 1.5rem;height:20px" id="myID2" placeholder="Chọn ngày"
+                                            type="text" class="form__input" value="{{order.dates}}" name="dates"
+                                            required class="input-date status">
+
                                         <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                     </div>
                                     <p class="form__error"></p>
                                 </div>
                             </div>
                             <div class="form-group slideshow__form-group slideshow__form-group--remain">
-            
+
                                 <div class="container-homecare">
                                     <div class="time-picker-wrapper-homecare">
                                         <div class="time-picker-homecare">
@@ -93,7 +99,7 @@
                                             </div>
                                             <input type="hidden" name="startTime" class="start-time-input-short">
                                         </div>
-                                
+
                                         <div class="time-picker-homecare">
                                             <div class="time-input-homecare" id="end-time-input">
                                                 <span class="selected-time-homecare">Giờ kết thúc</span>
@@ -104,88 +110,92 @@
                                             <input type="hidden" name="endTime" class="end-time-input-short">
                                         </div>
                                     </div>
+                                </div>
                             </div>
-                            </div>
-                           
+
                         </form>
-                        <button id="submitForm1" class="btn btn-find btn-find-short-term"
-                            style="border: 1px solid #d4d4d4;    position: relative;
+                        <button id="submitForm1" class="btn btn-find btn-find-short-term" style="border: 1px solid #d4d4d4;    position: relative;
     top: 10px;
-    left: 45%;border-radius:10px"form="short-term-form">Tìm kiếm</button>
+    left: 45%;border-radius:10px" form="short-term-form">Tìm kiếm</button>
                     </div>
                     <div id="long-term">
-                        <form id="long-term-form"  method="get" action="/request/longterm" class="form__long-term hide-form">
-                           
-                                <div class="form-group slideshow__form-group slideshow__form-group--adjust">
-                                    
-                                        <!-- <select name="province" class="province form-select form-select__province status">
+                        <form id="long-term-form" method="get" action="/request/longterm"
+                            class="form__long-term hide-form">
+
+                            <div class="form-group slideshow__form-group slideshow__form-group--adjust">
+
+                                <!-- <select name="province" class="province form-select form-select__province status">
                                             <option value="0">Chọn Tỉnh</option>
                                             {{#each locations}}
                                             <option value="{{this.Name}}">{{this.Name}}</option>
                                             {{/each}}
                                         </select> -->
-                                        <div class="wrapper-province__long extra-province" style="margin:0;">
-                                            <div class="wrapper-province__select-btn extra-short extra-border-left">
-                                                <span style="white-space:nowrap">Chọn Tỉnh</span>
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </div>
-                                            <div class="wrapper-province__content" style="position:relative;">
-                                                <div class="warapper-province__search" style="display:flex; gap:5px;">
-                                                    <input name="province" class="wrapper-province__input" spellcheck="false" type="text" placeholder="Tìm kiếm" style="width:100%">
-                                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                                </div>
-                                                <ul class="wrapper-province__options"></ul>
-                                            </div>
-                                        </div>
-                                   
-                               
-                                    {{!-- <select name="district" class="district form-select form-select__district status" aria-label="Default select example">
-                                        <option selected>Chọn Quận</option>
-                                    </select>             --}}
-                                    <div class="wrapper-district extra-district wrapper-district__long" style="margin:0;">
-                                        <div class="wrapper-district__select-btn extra-short">
-                                            <span style="white-space:nowrap">Chọn Quận</span>
-                                            <i class="fa-solid fa-chevron-down"></i>
-                                        </div>
-                                        <div class="wrapper-district__content" style="position:relative;">
-                                            <div class="warapper-district__search" style="display:flex; gap:5px;">
-                                                <input name="district" class="wrapper-district__input" spellcheck="false" type="text" placeholder="Tìm kiếm"
-                                                    style="width:100%">
-                                                <i class="fa-solid fa-magnifying-glass"></i>
-                                            </div>
-                                            <ul class="wrapper-district__options"></ul>
-                                        </div>
+                                <div class="wrapper-province__long extra-province" style="margin:0;">
+                                    <div class="wrapper-province__select-btn extra-short extra-border-left">
+                                        <span style="white-space:nowrap">Chọn Tỉnh</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
                                     </div>
-                                   
-                                        <!-- <select name="service_id" class="service form-select form-select__service status">
+                                    <div class="wrapper-province__content" style="position:relative;">
+                                        <div class="warapper-province__search" style="display:flex; gap:5px;">
+                                            <input name="province" class="wrapper-province__input" spellcheck="false"
+                                                type="text" placeholder="Tìm kiếm" style="width:100%">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                        <ul class="wrapper-province__options"></ul>
+                                    </div>
+                                </div>
+
+
+                                {{!-- <select name="district" class="district form-select form-select__district status"
+                                    aria-label="Default select example">
+                                    <option selected>Chọn Quận</option>
+                                </select> --}}
+                                <div class="wrapper-district extra-district wrapper-district__long" style="margin:0;">
+                                    <div class="wrapper-district__select-btn extra-short">
+                                        <span style="white-space:nowrap">Chọn Quận</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </div>
+                                    <div class="wrapper-district__content" style="position:relative;">
+                                        <div class="warapper-district__search" style="display:flex; gap:5px;">
+                                            <input name="district" class="wrapper-district__input" spellcheck="false"
+                                                type="text" placeholder="Tìm kiếm" style="width:100%">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </div>
+                                        <ul class="wrapper-district__options"></ul>
+                                    </div>
+                                </div>
+
+                                <!-- <select name="service_id" class="service form-select form-select__service status">
                                             <option value="0">Chọn dịch vụ</option>
                                             {{#each services}}
                                             <option value="{{this._id}}">{{this.title}}</option>
                                             {{/each}}
                                         </select> -->
-                                        <div class="wrapper-service extra-service wrapper-service__long" style="margin:0;">
-                                            <div class="wrapper-service__select-btn extra-short">
-                                                <span style="white-space:nowrap">Chọn Dịch Vụ</span>
-                                                <i class="fa-solid fa-chevron-down"></i>
-                                            </div>
-                                            <div class="wrapper-service__content" style="position:relative;">
-                                                <div class="warapper-service__search" style="display:flex; gap:5px;">
-                                                    <input name="service" class="wrapper-service__input" spellcheck="false" type="text" placeholder="Tìm kiếm"
-                                                        style="width:100%">
-                                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                                </div>
-                                                <ul class="wrapper-service__options"></ul>
-                                            </div>
+                                <div class="wrapper-service extra-service wrapper-service__long" style="margin:0;">
+                                    <div class="wrapper-service__select-btn extra-short">
+                                        <span style="white-space:nowrap">Chọn Dịch Vụ</span>
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </div>
+                                    <div class="wrapper-service__content" style="position:relative;">
+                                        <div class="warapper-service__search" style="display:flex; gap:5px;">
+                                            <input name="service" class="wrapper-service__input" spellcheck="false"
+                                                type="text" placeholder="Tìm kiếm" style="width:100%">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
                                         </div>
-                                    
+                                        <ul class="wrapper-service__options"></ul>
+                                    </div>
+                                </div>
+
                                 <!-- <label for="start-date" class="form-label__start-date">
                                     <input type="date" id="start-date" name="startDate" min="{{formatDate}}" style="height:44px"
                                         onfocus="this.showPicker()" value="{{formatDate}}" class="input-date status">
                                 </label> -->
                                 <div class="form__group form-label__start-date" style="margin-top:0px;">
-                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
-                                        <input style="font-size: 1.5rem;height:20px" id="myID7" placeholder="Ngày Bắt Đầu" type="text" class="form__input"
-                                           name="startDate" required class="input-date status">
+                                    <div class="form__text-input form-control"
+                                        style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
+                                        <input style="font-size: 1.5rem;height:20px" id="myID7"
+                                            placeholder="Ngày Bắt Đầu" type="text" class="form__input" name="startDate"
+                                            required class="input-date status">
                                         <!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> -->
                                         <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                     </div>
@@ -196,53 +206,58 @@
                                         onfocus="this.showPicker()" min="{{formatDate}}" value="{{formatDate}}" class="input-date status">
                                 </label>                             -->
                                 <div class="form__group form-label__start-date" style="margin-top:0px;">
-                                    <div class="form__text-input form-control" style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
-                                        <input style="font-size: 1.5rem;height:20px" id="myID8" placeholder="Ngày Kết Thúc" type="text" class="form__input"
-                                             name="endDate" required class="input-date status">
+                                    <div class="form__text-input form-control"
+                                        style="border-radius:0px;height:100%;border: 1px solid #d4d4d4;">
+                                        <input style="font-size: 1.5rem;height:20px" id="myID8"
+                                            placeholder="Ngày Kết Thúc" type="text" class="form__input" name="endDate"
+                                            required class="input-date status">
                                         <!-- <img src="/icon/evelope.svg" alt="evelope" class="form__input-icon"> -->
                                         <img src="/icon/error.svg" alt="" class="form__input-icon-error">
                                     </div>
                                     <p class="form__error"></p>
                                 </div>
-                                </div>
-                                <div class="form-group slideshow__form-group slideshow__form-group--remain">
-                                   
-                                            <div class="container-homecare-long">
-                                                <div class="time-picker-wrapper-homecare-long">
-                                                    <div class="time-picker-homecare-long">
-                                                        <div class="time-input-homecare-long" id="start-time-input-long">
-                                                            <span class="selected-time-homecare-long">Giờ bắt đầu</span>
-                                                            <div class="dropdown-homecare-long">
-                                                                <div class="time-list-homecare-long" id="start-time-list-long"></div>
-                                                            </div>
-                                                        </div>
-                                                        <input type="hidden" name="startTime" id="start-time-value-long">
-                                                    </div>
-                                            
-                                                    <div class="time-picker-homecare-long">
-                                                        <div class="time-input-homecare-long" id="end-time-input-long">
-                                                            <span class="selected-time-homecare-long">Giờ kết thúc</span>
-                                                            <div class="dropdown-homecare-long">
-                                                                <div class="time-list-homecare-long" id="end-time-list-long"></div>
-                                                            </div>
-                                                        </div>
-                                                        <input type="hidden" name="endTime" id="end-time-value-long" >
+                            </div>
+                            <div class="form-group slideshow__form-group slideshow__form-group--remain">
+
+                                <div class="container-homecare-long">
+                                    <div class="time-picker-wrapper-homecare-long">
+                                        <div class="time-picker-homecare-long">
+                                            <div class="time-input-homecare-long" id="start-time-input-long">
+                                                <span class="selected-time-homecare-long">Giờ bắt đầu</span>
+                                                <div class="dropdown-homecare-long">
+                                                    <div class="time-list-homecare-long" id="start-time-list-long">
                                                     </div>
                                                 </div>
                                             </div>
-                                        
-                                   
+                                            <input type="hidden" name="startTime" id="start-time-value-long">
+                                        </div>
+
+                                        <div class="time-picker-homecare-long">
+                                            <div class="time-input-homecare-long" id="end-time-input-long">
+                                                <span class="selected-time-homecare-long">Giờ kết thúc</span>
+                                                <div class="dropdown-homecare-long">
+                                                    <div class="time-list-homecare-long" id="end-time-list-long"></div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="endTime" id="end-time-value-long">
+                                        </div>
+                                    </div>
                                 </div>
-                          
+
+
+                            </div>
+
 
                         </form>
-                            <button class="btn btn-find btn-long hide-form" id="submitForm2" style="border-radius:10px;border: 1px solid #d4d4d4;" form="long-term-form">TÌM KIẾM</button>
+                        <button class="btn btn-find btn-long hide-form" id="submitForm2"
+                            style="border-radius:10px;border: 1px solid #d4d4d4;" form="long-term-form">TÌM
+                            KIẾM</button>
                     </div>
                 </div>
             </section>
         </div>
-        </div>
     </div>
+</div>
 {{!-- </div> --}}
 {{!-- <section id="introduce" class="about">
     <div class="container">
@@ -250,14 +265,19 @@
             <div class="col-lg-12">
                 <h2 class="heading">Tất cả vì sự hài lòng của quý khách hàng</h2>
                 <p class="about__content">
-                    Chúng tôi, Procleaner, là tập hợp những cá nhân xuất thân từ thực tế cuộc sống của những người giúp việc, được sự chắp
-                    cánh của những cộng sự am hiểu công nghệ và giàu kinh nghiệm quản lý.Procleaner mong muốn đem đến cho Quý khách hàng
+                    Chúng tôi, Procleaner, là tập hợp những cá nhân xuất thân từ thực tế cuộc sống của những người giúp
+                    việc, được sự chắp
+                    cánh của những cộng sự am hiểu công nghệ và giàu kinh nghiệm quản lý.Procleaner mong muốn đem đến
+                    cho Quý khách hàng
                     những dịch vụ tốt nhất với những con người được huấn luyện theo quy trình công nghiệp.
                     <br>
                     <br>
-                    Đội ngũ nhân viên giúp việc của Procleaner được trang bị những kỹ năng làm việc chuyên nghiệp, phẩm chất đạo đức tốt, lý
-                    lịch rõ ràng và sức khỏe đầy đủ. Bên cạnh đó, được sự hỗ trợ của những công nghệ tiên tiến nhất hiện nay, chúng tôi đã
-                    sẵn sàng mang đến cho Quý khách hàng những dịch vụ chuyên nghiệp với phương châm “Tất cả vì sự hài lòng của Quý khách
+                    Đội ngũ nhân viên giúp việc của Procleaner được trang bị những kỹ năng làm việc chuyên nghiệp, phẩm
+                    chất đạo đức tốt, lý
+                    lịch rõ ràng và sức khỏe đầy đủ. Bên cạnh đó, được sự hỗ trợ của những công nghệ tiên tiến nhất hiện
+                    nay, chúng tôi đã
+                    sẵn sàng mang đến cho Quý khách hàng những dịch vụ chuyên nghiệp với phương châm “Tất cả vì sự hài
+                    lòng của Quý khách
                     hàng.
                 </p>
                 <a href="https://play.google.com/store" class="google-play" target="_blank">
@@ -278,7 +298,7 @@
                             <span class="about__process-content">1</span>
                         </div>
                         <h3 class="about__process-heading">Chọn dịch vụ</h3>
-                    </div>  
+                    </div>
                     <div class="col-md-3 about__process-center">
                         <div class="about__process-item">
                             <span class="about__process-content">2</span>
@@ -297,7 +317,7 @@
                         </div>
                         <h3 class="about__process-heading">Đánh giá người giúp việc</h3>
                     </div>
-               </div>
+                </div>
             </div>
         </div>
     </div>
@@ -323,7 +343,7 @@
                     <div class="about__features">
                         <div class="about__feature-item">
                             <div class="feature-icon">
-                            <i class="fa-solid fa-shield-halved"></i>
+                                <i class="fa-solid fa-shield-halved"></i>
                             </div>
                             <div class="feature-text">
                                 <h4>An toàn & Bảo mật</h4>
@@ -486,61 +506,77 @@
         <div class="row grid-service">
             <div class="col-lg-3 col-md-6 col-mobile-12">
                 <div class="service__box">
-                    <i class="fa-solid fa-child-reaching" style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
+                    <i class="fa-solid fa-child-reaching"
+                        style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
                     <h3 class="service__box-heading">Chăm sóc bé</h3>
-                    <p class="service__box-content">Cho bé ăn, uống sữa, ru ngũ, tắm bé, thay tã lót, quần áo, chơi với trẻ, dẫn bé đi dạo ...</p>
+                    <p class="service__box-content">Cho bé ăn, uống sữa, ru ngũ, tắm bé, thay tã lót, quần áo, chơi với
+                        trẻ, dẫn bé đi dạo ...</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-mobile-12">
                 <div class="service__box">
-                    <i class="fa-solid fa-wheelchair" style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
+                    <i class="fa-solid fa-wheelchair"
+                        style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
                     <h3 class="service__box-heading">Chăm sóc người già</h3>
-                    <p class="service__box-content">Tắm rửa, giặt quần áo, trò chuyện, dẫn đi dạo, nấu thức ăn ... cho người già.</p>
+                    <p class="service__box-content">Tắm rửa, giặt quần áo, trò chuyện, dẫn đi dạo, nấu thức ăn ... cho
+                        người già.</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-mobile-12">
                 <div class="service__box">
-                    <i class="fa-solid fa-person-dress" style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
+                    <i class="fa-solid fa-person-dress"
+                        style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
                     <h3 class="service__box-heading">Chăm sóc sản phụ</h3>
-                    <p class="service__box-content">Đi chợ, nấu ăn, tắm rửa và vệ sinh cho sản phụ, xông hơ, giặt quần áo ... cho sản phụ</p>
+                    <p class="service__box-content">Đi chợ, nấu ăn, tắm rửa và vệ sinh cho sản phụ, xông hơ, giặt quần
+                        áo ... cho sản phụ</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-mobile-12">
                 <div class="service__box">
-                    <i class="fa-solid fa-stethoscope" style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
+                    <i class="fa-solid fa-stethoscope"
+                        style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
                     <h3 class="service__box-heading">Nuôi bệnh</h3>
-                    <p class="service__box-content">Theo dõi mạch, nhiệt, hô hấp, giấc ngủ, cho ăn, cho uống nước, sửa, thuốc, xoa bóp ... cho người bệnh.</p>
+                    <p class="service__box-content">Theo dõi mạch, nhiệt, hô hấp, giấc ngủ, cho ăn, cho uống nước, sửa,
+                        thuốc, xoa bóp ... cho người bệnh.</p>
                 </div>
             </div>
         </div>
         <div class="row margin-top grid-service">
             <div class="col-lg-3 col-md-6 col-mobile-12">
                 <div class="service__box">
-                    <i class="fa-solid fa-trash" style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
+                    <i class="fa-solid fa-trash"
+                        style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
                     <h3 class="service__box-heading">Dọn dẹp vệ sinh</h3>
-                    <p class="service__box-content">Quét dọn nhà cửa, sân vườn, vệ sinh toilet, cầu thang, tưới cây, giặt phơi quần áo, nấu ăn, rửa chén bát, pha trà ...</p>
+                    <p class="service__box-content">Quét dọn nhà cửa, sân vườn, vệ sinh toilet, cầu thang, tưới cây,
+                        giặt phơi quần áo, nấu ăn, rửa chén bát, pha trà ...</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-mobile-12">
                 <div class="service__box">
-                    <i class="fa-solid fa-bus" style="color: #ffffff; font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
+                    <i class="fa-solid fa-bus"
+                        style="color: #ffffff; font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
                     <h3 class="service__box-heading">Đưa đón bé đi học</h3>
-                    <p class="service__box-content">Đưa bé đến trường, trao đổi với giao viên về tình hình học tập của bé, đưa đón bé về nhà, truyền tải thông điệp của giáo
-                    viên đến phụ huynh ...</p>
+                    <p class="service__box-content">Đưa bé đến trường, trao đổi với giao viên về tình hình học tập của
+                        bé, đưa đón bé về nhà, truyền tải thông điệp của giáo
+                        viên đến phụ huynh ...</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-mobile-12">
                 <div class="service__box">
-                    <i class="fa-solid fa-spoon" style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
+                    <i class="fa-solid fa-spoon"
+                        style="color: #ffffff;font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}"></i>
                     <h3 class="service__box-heading">Nấu ăn</h3>
-                    <p class="service__box-content">Đi chợ, chọn mua thức ăn, chế biến các món ăn theo yêu cầu, bày biện món, dọn dẹp, rửa chén, lau bàn, bếp ...</p>
+                    <p class="service__box-content">Đi chợ, chọn mua thức ăn, chế biến các món ăn theo yêu cầu, bày biện
+                        món, dọn dẹp, rửa chén, lau bàn, bếp ...</p>
                 </div>
             </div>
-                <div class="col-lg-3 col-md-6 col-mobile-12">
+            <div class="col-lg-3 col-md-6 col-mobile-12">
                 <div class="service__box">
-                    <i class="fa-solid fa-building" style="color: #ffffff; font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}  "></i>
+                    <i class="fa-solid fa-building"
+                        style="color: #ffffff; font-size: 40px;@include abstracts.screen(xl){font-size: 25px;}  "></i>
                     <h3 class="service__box-heading">Vệ sinh văn phòng</h3>
-                    <p class="service__box-content">Vệ sinh trần, sàn; giặt thảm, ghế sofa; lau chùi cửa, kính, bàn ghế, tủ hồ sơ; vệ sinh văn phòng, công ty, nhà xưởng...</p>
+                    <p class="service__box-content">Vệ sinh trần, sàn; giặt thảm, ghế sofa; lau chùi cửa, kính, bàn ghế,
+                        tủ hồ sơ; vệ sinh văn phòng, công ty, nhà xưởng...</p>
                 </div>
             </div>
         </div>
@@ -570,10 +606,16 @@
                     </div>
                     <div class="faq__item-answer">
                         <div class="faq__item-answer-text">
-                            <p class="faq__item-answer-text--desc faq-title"></p>
+                            <p class="faq__item-answer-text--desc faq-title"
+                                style="font-weight: 700; margin-bottom: 15px; color: #0056b3; font-size: 1.05rem;"></p>
                             <ul class="faq__item-answer-text--desc">
                                 {{#each answers}}
-                                    <li>{{this}}</li>
+                                <li
+                                    style="list-style-type: none; position: relative; padding-left: 20px; margin-bottom: 10px; line-height: 1.5;">
+                                    <span
+                                        style="position: absolute; left: 0; font-weight: bold; font-size: 1.2em; color: #0056b3;">•</span>
+                                    {{this}}
+                                </li>
                                 {{/each}}
                             </ul>
                         </div>
@@ -678,7 +720,7 @@
 </section> --}}
 
 
-<section id="helper" class="partnership">
+<section class="partnership">
     <div class="container">
         <div class="row">
             <div class="col-lg-12" style="display: flex;
@@ -689,297 +731,301 @@
     </div>
 </section>
 
-<div  class="helper">
+<div class="helper" id="helper">
     <div class="container">
         <div class="swiper mySwiper helper__mySwiper">
             <div class="swiper-wrapper helper__wrapper">
                 {{#each helpers}}
                 <div class="swiper-slide helper__swiper-slide">
-                   <a href="/helper/{{this._id}}"> <img src="{{this.avatar}}" alt="helper" class="helper__swiper-slide-img"></a>
-                    {{!-- <div class="helper__infor">
+                    <a href="/helper/{{this._id}}">
+                        <img src="{{this.avatar}}" alt="{{this.fullName}}" class="helper__swiper-slide-img">
+                    </a>
+                    <div class="helper__infor">
                         <h5 class="helper__infor-name">{{this.fullName}}</h5>
-                        <p class="helper__infor-time">1000 giờ</p>
-                        <p class="helper__infor-age">20 tuổi</p>
-                    </div> --}}
+                        <p class="helper__infor-time">{{this.experience}} giờ kinh nghiệm</p>
+                        <p class="helper__infor-age">{{this.age}} tuổi</p>
+                    </div>
                 </div>
                 {{/each}}
             </div>
-            <div class="swiper-pagination" ></div>
+            <div class="swiper-pagination"></div>
+            <!-- Nút điều hướng sẽ được thêm bởi JavaScript -->
         </div>
     </div>
 </div>
 
+
 <script>
-      document.addEventListener('DOMContentLoaded', function () {
-            const wrapper_service = document.querySelector(".wrapper-service");
-            const selectBtn_service = wrapper_service.querySelector(".wrapper-service__select-btn");
-            const searchInp_service = wrapper_service.querySelector(".wrapper-service__input");
-            const options_service = wrapper_service.querySelector(".wrapper-service__options");
+    document.addEventListener('DOMContentLoaded', function () {
+        const wrapper_service = document.querySelector(".wrapper-service");
+        const selectBtn_service = wrapper_service.querySelector(".wrapper-service__select-btn");
+        const searchInp_service = wrapper_service.querySelector(".wrapper-service__input");
+        const options_service = wrapper_service.querySelector(".wrapper-service__options");
 
-            // Kiểm tra xem các element có tồn tại không
-            if (!wrapper_service || !selectBtn_service || !searchInp_service || !options_service) {
-                console.error("Không tìm thấy các element cần thiết");
-                return;
-            }
-
-
-       // let services = ["11","22"];
-      // map(location => { return location.Name.replace(/(Tỉnh|Thành phố) /g, '') });
-        let services = {{{json services}}}.map((service)=>{return {title:service.title,id:service._id}});
-        
-        console.log(services);
-        function addCountry_service(selectedCountry) {
-            options_service.innerHTML = "";
-            services.forEach((country, index) => {
-                let isSelected = country.title == selectedCountry ? "selected" : "";
-                let li = `<li onclick="updateName_service(this)"   class="${isSelected}">${country.title}</li>`;
-                options_service.insertAdjacentHTML("beforeend", li);
-            });
+        // Kiểm tra xem các element có tồn tại không
+        if (!wrapper_service || !selectBtn_service || !searchInp_service || !options_service) {
+            console.error("Không tìm thấy các element cần thiết");
+            return;
         }
 
-        function updateName_service(selectedLi) {
-            console.log("updataName service is running")
-            let idService =0;
-            console.log(selectedLi);
-            for(let i =0 ; i< services.length;i++){
-                if (selectedLi.innerText == services[i].title){
-                    idService=services[i].id;
-                    break;
-                }
-            }
-            searchInp_service.Name=idService;
-            //searchInp_service.value = selectedLi.innerText;
-            searchInp_service.value = idService;
-            addCountry_service(selectedLi.innerText);
-            wrapper_service.classList.remove("active-menu-search");
-            selectBtn_service.firstElementChild.innerText = selectedLi.innerText;
-            //console.log("Selected index:", selectedIndex); // Log ra index
-            // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
-            // give the district selections with index
-           
-        }
 
-        // Đưa updateName vào global scope để onclick có thể truy cập
-        window.updateName_service = updateName_service;
+        // let services = ["11","22"];
+        // map(location => { return location.Name.replace(/(Tỉnh|Thành phố) /g, '') });
+        let services = {{{ json services }}}.map((service) => { return { title: service.title, id: service._id } });
 
-        searchInp_service.addEventListener("keyup", () => {
-            let arr = [];
-            let searchWord = searchInp_service.value.toLowerCase();
-            arr = services.filter((data, index) => {
-                return data.toLowerCase().startsWith(searchWord);
-            }).map((data, index) => {
-                console.log(data);
-                let isSelected = data == selectBtn_service.firstElementChild.innerText ? "selected" : "";
-                return `<li onclick="updateName_service(this)" class="${isSelected}">${data}</li>`;
-            }).join("");
-            options_service.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
-        });
-
-        selectBtn_service.addEventListener("click", () => wrapper_service.classList.toggle("active-menu-search"));
-
-        // Khởi tạo danh sách ban đầu
-        addCountry_service();
-        });
-        //long-service
-        document.addEventListener('DOMContentLoaded', function () {
-                const wrapper_service = document.querySelector(".wrapper-service__long");
-                const selectBtn_service = wrapper_service.querySelector(".wrapper-service__select-btn");
-                const searchInp_service = wrapper_service.querySelector(".wrapper-service__input");
-                const options_service = wrapper_service.querySelector(".wrapper-service__options");
-
-                // Kiểm tra xem các element có tồn tại không
-                if (!wrapper_service || !selectBtn_service || !searchInp_service || !options_service) {
-                    console.error("Không tìm thấy các element cần thiết");
-                    return;
-                }
-
-
-                let services = {{{ json services }}}.map((service) => { return service.title });
-                function addCountry_serviceLong(selectedCountry) {
-                    options_service.innerHTML = "";
-                    services.forEach((country, index) => {
-                        let isSelected = country == selectedCountry ? "selected" : "";
-                        let li = `<li onclick="updateName_serviceLong(this)" class="${isSelected}">${country}</li>`;
-                        options_service.insertAdjacentHTML("beforeend", li);
-                    });
-                }
-
-                function updateName_serviceLong(selectedLi) {
-                    console.log("updataName service is running")
-                    searchInp_service.value = selectedLi.innerText;
-                    addCountry_serviceLong(selectedLi.innerText);
-                    wrapper_service.classList.remove("active-menu-search");
-                    selectBtn_service.firstElementChild.innerText = selectedLi.innerText;
-                     // Log ra index
-                    // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
-                    // give the district selections with index
-
-                }
-                // Đưa updateName vào global scope để onclick có thể truy cập
-                window.updateName_serviceLong = updateName_serviceLong;
-
-                searchInp_service.addEventListener("keyup", () => {
-                    let arr = [];
-                    let searchWord = searchInp_service.value.toLowerCase();
-                    arr = services.filter((data, index) => {
-                        return data.toLowerCase().startsWith(searchWord);
-                    }).map((data, index) => {
-                        let isSelected = data == selectBtn_service.firstElementChild.innerText ? "selected" : "";
-                        return `<li onclick="updateName_serviceLong(this)" class="${isSelected}">${data}</li>`;
-                    }).join("");
-                    options_service.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
-                });
-
-                selectBtn_service.addEventListener("click", () => wrapper_service.classList.toggle("active-menu-search"));
-
-                // Khởi tạo danh sách ban đầu
-                addCountry_serviceLong();
-            });
-    let districts=[];
-    function makeAction_short(){
-        document.addEventListener('DOMContentLoaded', function () {
-                    const wrapper = document.querySelector(".wrapper-province");
-                    const selectBtn = wrapper.querySelector(".wrapper-province__select-btn");
-                    const searchInp = wrapper.querySelector(".wrapper-province__input");
-                    const options = wrapper.querySelector(".wrapper-province__options");
-
-                    // Kiểm tra xem các element có tồn  tại không
-                    if (!wrapper || !selectBtn || !searchInp || !options) {
-                        console.error("Không tìm thấy các element cần thiết");
-                        return;
-                    }
-
-
-                    let countries = {{{ json locations }}}.map(location =>{return  location.Name.replace(/(Tỉnh|Thành phố) /g, '')});
-            console.log(countries);
-            
-
-            function addCountry(selectedCountry) {
-                options.innerHTML = "";
-                countries.forEach((country, index) => {
-                    let isSelected = country == selectedCountry ? "selected" : "";
-                    let li = `<li onclick="updateName(this, ${index})" class="${isSelected}">${country}</li>`;
-                    options.insertAdjacentHTML("beforeend", li);
-                });
-            }
-
-            function updateName(selectedLi, selectedIndex) {
-                searchInp.value = selectedLi.innerText;
-                addCountry(selectedLi.innerText);
-                wrapper.classList.remove("active-menu-search");
-                selectBtn.firstElementChild.innerText = selectedLi.innerText;
-                console.log("Selected index:", selectedIndex); // Log ra index
-                // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
-                // give the district selections with index
-                 districts = [];
-               
-                for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
-                   let districtName;
-                    console.log(districtName);
-                    
-                    districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
-                }
-                console.log(districts);
-                makeWrapperDistrict(districts,selectedLi);
-            }
-            // Đưa updateName vào global scope để onclick có thể truy cập
-            window.updateName = updateName;
-            searchInp.addEventListener("keyup", () => {
-                let arr = [];
-                let searchWord = searchInp.value.toLowerCase();
-                arr = countries.filter((data, index) => {
-
-                    return data.toLowerCase().startsWith(searchWord);
-                }).map((data, index) => {
-                    for(let i =0 ; i < countries.length;i++){
-                        if(data == countries[i]){
-                            index=i;
-                            break;
-                        }
-                    }
-                    let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
-                    return `<li onclick="updateName(this, ${index})" class="${isSelected}">${data}</li>`;
-                }).join("");
-                options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
-            });
-
-            selectBtn.addEventListener("click", () => wrapper.classList.toggle("active-menu-search"));
-
-            // Khởi tạo danh sách ban đầu
-            addCountry();
+    console.log(services);
+    function addCountry_service(selectedCountry) {
+        options_service.innerHTML = "";
+        services.forEach((country, index) => {
+            let isSelected = country.title == selectedCountry ? "selected" : "";
+            let li = `<li onclick="updateName_service(this)"   class="${isSelected}">${country.title}</li>`;
+            options_service.insertAdjacentHTML("beforeend", li);
         });
     }
 
-      document.addEventListener('DOMContentLoaded', function () {
+    function updateName_service(selectedLi) {
+        console.log("updataName service is running")
+        let idService = 0;
+        console.log(selectedLi);
+        for (let i = 0; i < services.length; i++) {
+            if (selectedLi.innerText == services[i].title) {
+                idService = services[i].id;
+                break;
+            }
+        }
+        searchInp_service.Name = idService;
+        //searchInp_service.value = selectedLi.innerText;
+        searchInp_service.value = idService;
+        addCountry_service(selectedLi.innerText);
+        wrapper_service.classList.remove("active-menu-search");
+        selectBtn_service.firstElementChild.innerText = selectedLi.innerText;
+        //console.log("Selected index:", selectedIndex); // Log ra index
+        // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+        // give the district selections with index
+
+    }
+
+    // Đưa updateName vào global scope để onclick có thể truy cập
+    window.updateName_service = updateName_service;
+
+    searchInp_service.addEventListener("keyup", () => {
+        let arr = [];
+        let searchWord = searchInp_service.value.toLowerCase();
+        arr = services.filter((data, index) => {
+            return data.toLowerCase().startsWith(searchWord);
+        }).map((data, index) => {
+            console.log(data);
+            let isSelected = data == selectBtn_service.firstElementChild.innerText ? "selected" : "";
+            return `<li onclick="updateName_service(this)" class="${isSelected}">${data}</li>`;
+        }).join("");
+        options_service.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+    });
+
+    selectBtn_service.addEventListener("click", () => wrapper_service.classList.toggle("active-menu-search"));
+
+    // Khởi tạo danh sách ban đầu
+    addCountry_service();
+        });
+    //long-service
+    document.addEventListener('DOMContentLoaded', function () {
+        const wrapper_service = document.querySelector(".wrapper-service__long");
+        const selectBtn_service = wrapper_service.querySelector(".wrapper-service__select-btn");
+        const searchInp_service = wrapper_service.querySelector(".wrapper-service__input");
+        const options_service = wrapper_service.querySelector(".wrapper-service__options");
+
+        // Kiểm tra xem các element có tồn tại không
+        if (!wrapper_service || !selectBtn_service || !searchInp_service || !options_service) {
+            console.error("Không tìm thấy các element cần thiết");
+            return;
+        }
+
+
+        let services = {{{ json services }}}.map((service) => { return service.title });
+    function addCountry_serviceLong(selectedCountry) {
+        options_service.innerHTML = "";
+        services.forEach((country, index) => {
+            let isSelected = country == selectedCountry ? "selected" : "";
+            let li = `<li onclick="updateName_serviceLong(this)" class="${isSelected}">${country}</li>`;
+            options_service.insertAdjacentHTML("beforeend", li);
+        });
+    }
+
+    function updateName_serviceLong(selectedLi) {
+        console.log("updataName service is running")
+        searchInp_service.value = selectedLi.innerText;
+        addCountry_serviceLong(selectedLi.innerText);
+        wrapper_service.classList.remove("active-menu-search");
+        selectBtn_service.firstElementChild.innerText = selectedLi.innerText;
+        // Log ra index
+        // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+        // give the district selections with index
+
+    }
+    // Đưa updateName vào global scope để onclick có thể truy cập
+    window.updateName_serviceLong = updateName_serviceLong;
+
+    searchInp_service.addEventListener("keyup", () => {
+        let arr = [];
+        let searchWord = searchInp_service.value.toLowerCase();
+        arr = services.filter((data, index) => {
+            return data.toLowerCase().startsWith(searchWord);
+        }).map((data, index) => {
+            let isSelected = data == selectBtn_service.firstElementChild.innerText ? "selected" : "";
+            return `<li onclick="updateName_serviceLong(this)" class="${isSelected}">${data}</li>`;
+        }).join("");
+        options_service.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+    });
+
+    selectBtn_service.addEventListener("click", () => wrapper_service.classList.toggle("active-menu-search"));
+
+    // Khởi tạo danh sách ban đầu
+    addCountry_serviceLong();
+            });
+    let districts = [];
+    function makeAction_short() {
+        document.addEventListener('DOMContentLoaded', function () {
             const wrapper = document.querySelector(".wrapper-province");
             const selectBtn = wrapper.querySelector(".wrapper-province__select-btn");
             const searchInp = wrapper.querySelector(".wrapper-province__input");
             const options = wrapper.querySelector(".wrapper-province__options");
 
-            // Kiểm tra xem các element có tồn tại không
+            // Kiểm tra xem các element có tồn  tại không
             if (!wrapper || !selectBtn || !searchInp || !options) {
                 console.error("Không tìm thấy các element cần thiết");
                 return;
             }
 
 
-            let countries = {{{ json locations }}}.map(location =>{return  location.Name.replace(/(Tỉnh|Thành phố) /g, '')});
-        console.log(countries);
+            let countries = {{{ json locations }}}.map(location => { return location.Name.replace(/(Tỉnh|Thành phố) /g, '') });
+    console.log(countries);
 
-        function addCountry(selectedCountry) {
-            options.innerHTML = "";
-            countries.forEach((country, index) => {
-                let isSelected = country == selectedCountry ? "selected" : "";
-                let li = `<li onclick="updateName(this, ${index})" class="${isSelected}">${country}</li>`;
-                options.insertAdjacentHTML("beforeend", li);
-            });
-        }
 
-        function updateName(selectedLi, selectedIndex) {
-
-            searchInp.value = selectedLi.innerText;
-            addCountry(selectedLi.innerText);
-            wrapper.classList.remove("active-menu-search");
-            selectBtn.firstElementChild.innerText = selectedLi.innerText;
-            console.log("Selected index:", selectedIndex); // Log ra index
-            // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
-            // give the district selections with index
-            districts = [];
-           
-            for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
-                let districtName;
-                 console.log(districtName);
-                districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
-            }
-            console.log(districts);
-            makeWrapperDistrict(districts,selectedLi);
-        }
-
-        // Đưa updateName vào global scope để onclick có thể truy cập
-        window.updateName = updateName;
-
-        searchInp.addEventListener("keyup", () => {
-            let arr = [];
-            let searchWord = searchInp.value.toLowerCase();
-            arr = countries.filter((data, index) => {
-                return data.toLowerCase().startsWith(searchWord);
-            }).map((data, index) => {
-                for (let i = 0; i < countries.length; i++) {
-                    if (data == countries[i]) {
-                        index = i;
-                        break;
-                    }
-                }
-                let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
-                return `<li onclick="updateName(this, ${index})" class="${isSelected}">${data}</li>`;
-            }).join("");
-            options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+    function addCountry(selectedCountry) {
+        options.innerHTML = "";
+        countries.forEach((country, index) => {
+            let isSelected = country == selectedCountry ? "selected" : "";
+            let li = `<li onclick="updateName(this, ${index})" class="${isSelected}">${country}</li>`;
+            options.insertAdjacentHTML("beforeend", li);
         });
+    }
 
-        selectBtn.addEventListener("click", () => wrapper.classList.toggle("active-menu-search"));
+    function updateName(selectedLi, selectedIndex) {
+        searchInp.value = selectedLi.innerText;
+        addCountry(selectedLi.innerText);
+        wrapper.classList.remove("active-menu-search");
+        selectBtn.firstElementChild.innerText = selectedLi.innerText;
+        console.log("Selected index:", selectedIndex); // Log ra index
+        // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+        // give the district selections with index
+        districts = [];
 
-        // Khởi tạo danh sách ban đầu
-        addCountry();
+        for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+            let districtName;
+            console.log(districtName);
+
+            districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
+        }
+        console.log(districts);
+        makeWrapperDistrict(districts, selectedLi);
+    }
+    // Đưa updateName vào global scope để onclick có thể truy cập
+    window.updateName = updateName;
+    searchInp.addEventListener("keyup", () => {
+        let arr = [];
+        let searchWord = searchInp.value.toLowerCase();
+        arr = countries.filter((data, index) => {
+
+            return data.toLowerCase().startsWith(searchWord);
+        }).map((data, index) => {
+            for (let i = 0; i < countries.length; i++) {
+                if (data == countries[i]) {
+                    index = i;
+                    break;
+                }
+            }
+            let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
+            return `<li onclick="updateName(this, ${index})" class="${isSelected}">${data}</li>`;
+        }).join("");
+        options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+    });
+
+    selectBtn.addEventListener("click", () => wrapper.classList.toggle("active-menu-search"));
+
+    // Khởi tạo danh sách ban đầu
+    addCountry();
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const wrapper = document.querySelector(".wrapper-province");
+        const selectBtn = wrapper.querySelector(".wrapper-province__select-btn");
+        const searchInp = wrapper.querySelector(".wrapper-province__input");
+        const options = wrapper.querySelector(".wrapper-province__options");
+
+        // Kiểm tra xem các element có tồn tại không
+        if (!wrapper || !selectBtn || !searchInp || !options) {
+            console.error("Không tìm thấy các element cần thiết");
+            return;
+        }
+
+
+        let countries = {{{ json locations }}}.map(location => { return location.Name.replace(/(Tỉnh|Thành phố) /g, '') });
+    console.log(countries);
+
+    function addCountry(selectedCountry) {
+        options.innerHTML = "";
+        countries.forEach((country, index) => {
+            let isSelected = country == selectedCountry ? "selected" : "";
+            let li = `<li onclick="updateName(this, ${index})" class="${isSelected}">${country}</li>`;
+            options.insertAdjacentHTML("beforeend", li);
+        });
+    }
+
+    function updateName(selectedLi, selectedIndex) {
+
+        searchInp.value = selectedLi.innerText;
+        addCountry(selectedLi.innerText);
+        wrapper.classList.remove("active-menu-search");
+        selectBtn.firstElementChild.innerText = selectedLi.innerText;
+        console.log("Selected index:", selectedIndex); // Log ra index
+        // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+        // give the district selections with index
+        districts = [];
+
+        for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+            let districtName;
+            console.log(districtName);
+            districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
+        }
+        console.log(districts);
+        makeWrapperDistrict(districts, selectedLi);
+    }
+
+    // Đưa updateName vào global scope để onclick có thể truy cập
+    window.updateName = updateName;
+
+    searchInp.addEventListener("keyup", () => {
+        let arr = [];
+        let searchWord = searchInp.value.toLowerCase();
+        arr = countries.filter((data, index) => {
+            return data.toLowerCase().startsWith(searchWord);
+        }).map((data, index) => {
+            for (let i = 0; i < countries.length; i++) {
+                if (data == countries[i]) {
+                    index = i;
+                    break;
+                }
+            }
+            let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
+            return `<li onclick="updateName(this, ${index})" class="${isSelected}">${data}</li>`;
+        }).join("");
+        options.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+    });
+
+    selectBtn.addEventListener("click", () => wrapper.classList.toggle("active-menu-search"));
+
+    // Khởi tạo danh sách ban đầu
+    addCountry();
         });
     function makeAction() {
         const wrapper_long = document.querySelector(".wrapper-province__long");
@@ -993,41 +1039,41 @@
             return;
         }
 
-        let countries = locations.map(location =>   {return location.Name.replace(/(Tỉnh|Thành phố) /g, '')});
+        let countries = locations.map(location => { return location.Name.replace(/(Tỉnh|Thành phố) /g, '') });
 
-              function addCountry_long(selectedCountry) {
-                options_long.innerHTML = "";
-                countries.forEach((country, index) => {
-                    let isSelected = country == selectedCountry ? "selected" : "";
-                    let li = `<li onclick="updateNameLong(this, ${index})" class="${isSelected}">${country}</li>`;
-                    options_long.insertAdjacentHTML("beforeend", li);
-                });
+        function addCountry_long(selectedCountry) {
+            options_long.innerHTML = "";
+            countries.forEach((country, index) => {
+                let isSelected = country == selectedCountry ? "selected" : "";
+                let li = `<li onclick="updateNameLong(this, ${index})" class="${isSelected}">${country}</li>`;
+                options_long.insertAdjacentHTML("beforeend", li);
+            });
+        }
+
+
+        function updateNameLong(selectedLi, selectedIndex) {
+
+            searchInp_long.value = selectedLi.innerText;
+            addCountry_long(selectedLi.innerText);
+            wrapper_long.classList.remove("active-menu-search");
+            selectBtn_long.firstElementChild.innerText = selectedLi.innerText;
+            console.log("Selected index:", selectedIndex); // Log ra index
+            // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
+            // give the district selections with index
+            districts = [];
+
+            for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+                let districtName;
+                console.log(districtName);
+                districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
             }
+            console.log(districts);
+            makeWrapperDistrictLong(districts, selectedLi);
+        }
 
-        
-         function updateNameLong(selectedLi, selectedIndex) {
+        // Đưa updateName vào global scope để onclick có thể truy cập
+        window.updateNameLong = updateNameLong;
 
-                searchInp_long.value = selectedLi.innerText;
-                addCountry_long(selectedLi.innerText);
-                wrapper_long.classList.remove("active-menu-search");
-                selectBtn_long.firstElementChild.innerText = selectedLi.innerText;
-                console.log("Selected index:", selectedIndex); // Log ra index
-                // Có thể lưu index vào một biến hoặc xử lý theo nhu cầu
-                // give the district selections with index
-                districts = [];
-
-                for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
-                    let districtName;
-                    console.log(districtName);
-                    districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
-                }
-                console.log(districts);
-                makeWrapperDistrictLong(districts, selectedLi);
-            }
-
-            // Đưa updateName vào global scope để onclick có thể truy cập
-            window.updateNameLong = updateNameLong;
-        
         searchInp_long.addEventListener("keyup", () => {
             let arr = [];
             let searchWord = searchInp_long.value.toLowerCase();
@@ -1051,86 +1097,86 @@
         // Khởi tạo danh sách ban đầu
         addCountry_long();
     }
-     const wrapper_district = document.querySelector(".wrapper-district");
-        console.log(wrapper_district);
-        const selectBtn_district = wrapper_district.querySelector(".wrapper-district__select-btn");
-        console.log(selectBtn_district);
-        const searchInp_district = wrapper_district.querySelector(".wrapper-district__input");
-        console.log(searchInp_district);
-        const options_district = wrapper_district.querySelector(".wrapper-district__options");
-        const wrapper_districtLong = document.querySelector(".wrapper-district__long");
-            console.log(wrapper_districtLong);
-            const selectBtn_districtLong = wrapper_districtLong.querySelector(".wrapper-district__select-btn");
-            console.log(selectBtn_districtLong);
-            const searchInp_districtLong = wrapper_districtLong.querySelector(".wrapper-district__input");
-            console.log(searchInp_districtLong);
-            const options_districtLong = wrapper_districtLong.querySelector(".wrapper-district__options");
-   //makeWrapperDistrict(districts);
+    const wrapper_district = document.querySelector(".wrapper-district");
+    console.log(wrapper_district);
+    const selectBtn_district = wrapper_district.querySelector(".wrapper-district__select-btn");
+    console.log(selectBtn_district);
+    const searchInp_district = wrapper_district.querySelector(".wrapper-district__input");
+    console.log(searchInp_district);
+    const options_district = wrapper_district.querySelector(".wrapper-district__options");
+    const wrapper_districtLong = document.querySelector(".wrapper-district__long");
+    console.log(wrapper_districtLong);
+    const selectBtn_districtLong = wrapper_districtLong.querySelector(".wrapper-district__select-btn");
+    console.log(selectBtn_districtLong);
+    const searchInp_districtLong = wrapper_districtLong.querySelector(".wrapper-district__input");
+    console.log(searchInp_districtLong);
+    const options_districtLong = wrapper_districtLong.querySelector(".wrapper-district__options");
+    //makeWrapperDistrict(districts);
     function makeWrapperDistrictLong(districts, selectedLi) {
-            console.log(1);
-            selectBtn_districtLong.firstElementChild.innerText = districts[0];
-            searchInp_districtLong.value = districts[0];
-            // Kiểm tra xem các element có tồn tại không
-            if (!wrapper_districtLong || !selectBtn_districtLong || !searchInp_districtLong || !options_districtLong) {
-                console.error("Không tìm thấy các element cần thiết");
-                return;
-            }
-
-            console.log(districts);
-            function addCountry_districtLong(selectedCountry) {
-                options_districtLong.innerHTML = "";
-                districts.forEach((country, index) => {
-                    let isSelected = country == selectedCountry ? "selected" : "";
-                    let li = `<li onclick="updateName_districtLong(this, ${index})" class="${isSelected}">${country}</li>`;
-                    options_districtLong.insertAdjacentHTML("beforeend", li);
-                });
-            }
-
-            function updateName_districtLong(selectedLi, selectedIndex) {
-
-                searchInp_districtLong.value = selectedLi.innerText;
-                addCountry_districtLong(selectedLi.innerText);
-                wrapper_districtLong.classList.remove("active-menu-search");
-                console.log(selectedLi);
-                selectBtn_districtLong.firstElementChild.innerText = selectedLi.innerText;
-                console.log("Selected index:", selectedIndex); // Log ra index
-            }
-
-            // Đưa updateName vào global scope để onclick có thể truy cập
-            window.updateName_districtLong = updateName_districtLong;
-
-            searchInp_districtLong.addEventListener("keyup", () => {
-                let arr = [];
-                let searchWord = searchInp_districtLong.value.toLowerCase();
-                arr = districts.filter((data, index) => {
-                    return data.toLowerCase().startsWith(searchWord);
-                }).map((data, index) => {
-                    let isSelected = data == selectBtn_districtLong.firstElementChild.innerText ? "selected" : "";
-                    return `<li onclick="updateName_districtLong(this, ${index})" class="${isSelected}">${data}</li>`;
-                }).join("");
-                options_districtLong.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
-            });
-
-
-            // Khởi tạo danh sách ban đầu
-            addCountry_districtLong();
-        }
-        selectBtn_districtLong.addEventListener("click", (e) => {
-            e.stopPropagation(); // Ngăn event bubbling
-            wrapper_districtLong.classList.toggle("active-menu-search");
-            console.log("District button clicked"); // Debug log);
-        })
-    function makeWrapperDistrict(districts,selectedLi){
         console.log(1);
-           selectBtn_district.firstElementChild.innerText = districts[0];
-           searchInp_district.value = districts[0];
-            // Kiểm tra xem các element có tồn tại không
-            if (!wrapper_district || !selectBtn_district || !searchInp_district || !options_district) {
-                console.error("Không tìm thấy các element cần thiết");
-                return;
-            }
+        selectBtn_districtLong.firstElementChild.innerText = districts[0];
+        searchInp_districtLong.value = districts[0];
+        // Kiểm tra xem các element có tồn tại không
+        if (!wrapper_districtLong || !selectBtn_districtLong || !searchInp_districtLong || !options_districtLong) {
+            console.error("Không tìm thấy các element cần thiết");
+            return;
+        }
 
-console.log(districts);
+        console.log(districts);
+        function addCountry_districtLong(selectedCountry) {
+            options_districtLong.innerHTML = "";
+            districts.forEach((country, index) => {
+                let isSelected = country == selectedCountry ? "selected" : "";
+                let li = `<li onclick="updateName_districtLong(this, ${index})" class="${isSelected}">${country}</li>`;
+                options_districtLong.insertAdjacentHTML("beforeend", li);
+            });
+        }
+
+        function updateName_districtLong(selectedLi, selectedIndex) {
+
+            searchInp_districtLong.value = selectedLi.innerText;
+            addCountry_districtLong(selectedLi.innerText);
+            wrapper_districtLong.classList.remove("active-menu-search");
+            console.log(selectedLi);
+            selectBtn_districtLong.firstElementChild.innerText = selectedLi.innerText;
+            console.log("Selected index:", selectedIndex); // Log ra index
+        }
+
+        // Đưa updateName vào global scope để onclick có thể truy cập
+        window.updateName_districtLong = updateName_districtLong;
+
+        searchInp_districtLong.addEventListener("keyup", () => {
+            let arr = [];
+            let searchWord = searchInp_districtLong.value.toLowerCase();
+            arr = districts.filter((data, index) => {
+                return data.toLowerCase().startsWith(searchWord);
+            }).map((data, index) => {
+                let isSelected = data == selectBtn_districtLong.firstElementChild.innerText ? "selected" : "";
+                return `<li onclick="updateName_districtLong(this, ${index})" class="${isSelected}">${data}</li>`;
+            }).join("");
+            options_districtLong.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
+        });
+
+
+        // Khởi tạo danh sách ban đầu
+        addCountry_districtLong();
+    }
+    selectBtn_districtLong.addEventListener("click", (e) => {
+        e.stopPropagation(); // Ngăn event bubbling
+        wrapper_districtLong.classList.toggle("active-menu-search");
+        console.log("District button clicked"); // Debug log);
+    })
+    function makeWrapperDistrict(districts, selectedLi) {
+        console.log(1);
+        selectBtn_district.firstElementChild.innerText = districts[0];
+        searchInp_district.value = districts[0];
+        // Kiểm tra xem các element có tồn tại không
+        if (!wrapper_district || !selectBtn_district || !searchInp_district || !options_district) {
+            console.error("Không tìm thấy các element cần thiết");
+            return;
+        }
+
+        console.log(districts);
         function addCountry_district(selectedCountry) {
             options_district.innerHTML = "";
             districts.forEach((country, index) => {
@@ -1164,60 +1210,61 @@ console.log(districts);
             }).join("");
             options_district.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! tỉnh không tồn tại</p>`;
         });
-        
+
 
         // Khởi tạo danh sách ban đầu
         addCountry_district();
     }
-        selectBtn_district.addEventListener("click", (e) =>{ e.stopPropagation(); // Ngăn event bubbling
+    selectBtn_district.addEventListener("click", (e) => {
+        e.stopPropagation(); // Ngăn event bubbling
         wrapper_district.classList.toggle("active-menu-search");
         console.log("District button clicked"); // Debug log);
     })
-      
-   
+
+
 </script>
 <script>
 
-        const locations = {{{ json locations }}};
-        console.log(locations);
-        const activeForm = $(".btn__form-term.active-term");
-        const btnFormTerms = $$(".btn__form-term");
-        const shortTerm = document.getElementById('short-term-form')
-        const longTerm = document.getElementById('long-term-form')        
-        const shortTermForm=document.querySelector('.form__short-term')
-        const longTermForm =document.querySelector('.form__long-term')
-        const shortTermBtn = document.getElementById('short-term-btn')
-        const longTermBtn = document.getElementById('long-term-btn')
-        const btnLong =document.getElementById('submitForm2');
-        const btnShort =document.getElementById('submitForm1');
-      let provinceSelect = shortTerm.querySelector('.province')
-      let  districtSelect = shortTerm.querySelector('.district');
+    const locations = {{{ json locations }}};
+    console.log(locations);
+    const activeForm = $(".btn__form-term.active-term");
+    const btnFormTerms = $$(".btn__form-term");
+    const shortTerm = document.getElementById('short-term-form')
+    const longTerm = document.getElementById('long-term-form')
+    const shortTermForm = document.querySelector('.form__short-term')
+    const longTermForm = document.querySelector('.form__long-term')
+    const shortTermBtn = document.getElementById('short-term-btn')
+    const longTermBtn = document.getElementById('long-term-btn')
+    const btnLong = document.getElementById('submitForm2');
+    const btnShort = document.getElementById('submitForm1');
+    let provinceSelect = shortTerm.querySelector('.province')
+    let districtSelect = shortTerm.querySelector('.district');
 
- 
-     
 
-        shortTermBtn.onclick = function () {
-           shortTermForm.classList.toggle("hide-form");
-           longTermForm.classList.toggle("hide-form");
-           btnLong.classList.add("hide-form");
-              btnShort.classList.remove("hide-form");
-            $(".btn__form-term.active-term").classList.remove('active-term');
-            this.classList.add('active-term');
-            districtSelect = shortTerm.querySelector('.district');
-            makeAction_short();
-            }
-        longTermBtn.onclick = function (e) {
-            longTermForm.classList.toggle("hide-form");
-            shortTermForm.classList.toggle("hide-form");
-            btnShort.classList.add("hide-form");
-            btnLong.classList.remove("hide-form");
-            $(".btn__form-term.active-term").classList.remove('active-term');
-            this.classList.add('active-term');
-             districtSelect = longTerm.querySelector('.district');
-            makeAction();
-          
-            }
-    let slideShowIndex=0;
+
+
+    shortTermBtn.onclick = function () {
+        shortTermForm.classList.toggle("hide-form");
+        longTermForm.classList.toggle("hide-form");
+        btnLong.classList.add("hide-form");
+        btnShort.classList.remove("hide-form");
+        $(".btn__form-term.active-term").classList.remove('active-term');
+        this.classList.add('active-term');
+        districtSelect = shortTerm.querySelector('.district');
+        makeAction_short();
+    }
+    longTermBtn.onclick = function (e) {
+        longTermForm.classList.toggle("hide-form");
+        shortTermForm.classList.toggle("hide-form");
+        btnShort.classList.add("hide-form");
+        btnLong.classList.remove("hide-form");
+        $(".btn__form-term.active-term").classList.remove('active-term');
+        this.classList.add('active-term');
+        districtSelect = longTerm.querySelector('.district');
+        makeAction();
+
+    }
+    let slideShowIndex = 0;
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
@@ -1227,32 +1274,32 @@ console.log(districts);
         dateFormat: "h:i K", // Định dạng 12 giờ (AM/PM)
         time_24hr: false, // Sử dụng AM/PM thay vì 24 giờ
         minuteIncrement: 1, // Tăng số phút mỗi bước
-       
+
     });
-     flatpickr("#myID4", {
-            enableTime: true,
-         noCalendar: true,
-         dateFormat: "H:i",
-         conjunction: " :: ",
-         minTime: "06:00",
-         maxTime: "20:00",
-        });
-        flatpickr("#myID5", {
-                enableTime: true,
-                noCalendar: true,
-                dateFormat: "H:i",
-                conjunction: " :: ",
-                minTime: "06:00",
-                maxTime: "20:00",
-            });
-            flatpickr("#myID6", {
-                    enableTime: true,
-                    noCalendar: true,
-                    dateFormat: "H:i",
-                    conjunction: " :: ",
-                    minTime: "06:00",
-                    maxTime: "20:00",
-                });
+    flatpickr("#myID4", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        conjunction: " :: ",
+        minTime: "06:00",
+        maxTime: "20:00",
+    });
+    flatpickr("#myID5", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        conjunction: " :: ",
+        minTime: "06:00",
+        maxTime: "20:00",
+    });
+    flatpickr("#myID6", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        conjunction: " :: ",
+        minTime: "06:00",
+        maxTime: "20:00",
+    });
     flatpickr("#myID2", {
         minDate: "today",
         mode: "single",
@@ -1260,318 +1307,318 @@ console.log(districts);
         conjunction: " :: "
     });
     flatpickr("#myID7", {
-            minDate: "today",
-            mode: "single",
-            dateFormat: "Y-m-d",
-            conjunction: " :: "
-           
-        });
-        flatpickr("#myID8", {
-                minDate: "today",
-                mode: "single",
-                dateFormat: "Y-m-d",
-                conjunction: " :: ",
-               
+        minDate: "today",
+        mode: "single",
+        dateFormat: "Y-m-d",
+        conjunction: " :: "
 
-            });
-           
+    });
+    flatpickr("#myID8", {
+        minDate: "today",
+        mode: "single",
+        dateFormat: "Y-m-d",
+        conjunction: " :: ",
+
+
+    });
+
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-            const timeDisplay = document.getElementById('timeDisplay');
-            const timePicker = document.getElementById('timePicker');
-            const timeList = document.getElementById('timeList');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const timePicker = document.getElementById('timePicker');
+        const timeList = document.getElementById('timeList');
 
-            // Generate time slots with 30-minute intervals
-            function generateTimeSlots() {
-                const slots = [];
-                for (let hour = 0; hour < 24; hour++) {
-                    for (let minute of [0, 30]) {
-                        const formattedHour = hour.toString().padStart(2, '0');
-                        const formattedMinute = minute.toString().padStart(2, '0');
-                        slots.push(`${formattedHour}:${formattedMinute}`);
-                    }
+        // Generate time slots with 30-minute intervals
+        function generateTimeSlots() {
+            const slots = [];
+            for (let hour = 0; hour < 24; hour++) {
+                for (let minute of [0, 30]) {
+                    const formattedHour = hour.toString().padStart(2, '0');
+                    const formattedMinute = minute.toString().padStart(2, '0');
+                    slots.push(`${formattedHour}:${formattedMinute}`);
                 }
-                return slots;
+            }
+            return slots;
+        }
+
+        // Populate time list
+        function populateTimeList() {
+            const timeSlots = generateTimeSlots();
+            timeList.innerHTML = '';
+
+            timeSlots.forEach(time => {
+                const timeOption = document.createElement('div');
+                timeOption.classList.add('time-option');
+                timeOption.textContent = time;
+                timeOption.addEventListener('click', () => selectTime(time));
+                timeList.appendChild(timeOption);
+            });
+        }
+
+        // Handle time selection
+        function selectTime(time) {
+            timeDisplay.value = time;
+            hideTimePicker();
+
+            // Remove previous selection
+            const selected = timeList.querySelector('.selected');
+            if (selected) {
+                selected.classList.remove('selected');
             }
 
-            // Populate time list
-            function populateTimeList() {
-                const timeSlots = generateTimeSlots();
-                timeList.innerHTML = '';
-
-                timeSlots.forEach(time => {
-                    const timeOption = document.createElement('div');
-                    timeOption.classList.add('time-option');
-                    timeOption.textContent = time;
-                    timeOption.addEventListener('click', () => selectTime(time));
-                    timeList.appendChild(timeOption);
-                });
-            }
-
-            // Handle time selection
-            function selectTime(time) {
-                timeDisplay.value = time;
-                hideTimePicker();
-
-                // Remove previous selection
-                const selected = timeList.querySelector('.selected');
-                if (selected) {
-                    selected.classList.remove('selected');
+            // Add selection to current choice
+            const options = timeList.querySelectorAll('.time-option');
+            options.forEach(option => {
+                if (option.textContent === time) {
+                    option.classList.add('selected');
                 }
+            });
+        }
 
-                // Add selection to current choice
+        // Show time picker
+        function showTimePicker() {
+            timePicker.classList.add('active');
+            const selectedTime = timeDisplay.value;
+            if (selectedTime) {
                 const options = timeList.querySelectorAll('.time-option');
                 options.forEach(option => {
-                    if (option.textContent === time) {
-                        option.classList.add('selected');
+                    if (option.textContent === selectedTime) {
+                        option.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
                 });
             }
+        }
 
-            // Show time picker
-            function showTimePicker() {
-                timePicker.classList.add('active');
-                const selectedTime = timeDisplay.value;
-                if (selectedTime) {
-                    const options = timeList.querySelectorAll('.time-option');
-                    options.forEach(option => {
-                        if (option.textContent === selectedTime) {
-                            option.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        }
-                    });
-                }
-            }
+        // Hide time picker
+        function hideTimePicker() {
+            timePicker.classList.remove('active');
+        }
 
-            // Hide time picker
-            function hideTimePicker() {
-                timePicker.classList.remove('active');
-            }
-
-            // Event listeners
-            timeDisplay.addEventListener('click', (e) => {
-                e.stopPropagation();
-                showTimePicker();
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!timePicker.contains(e.target) && e.target !== timeDisplay) {
-                    hideTimePicker();
-                }
-            });
-
-            // Initialize time list
-            populateTimeList();
+        // Event listeners
+        timeDisplay.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showTimePicker();
         });
+
+        document.addEventListener('click', (e) => {
+            if (!timePicker.contains(e.target) && e.target !== timeDisplay) {
+                hideTimePicker();
+            }
+        });
+
+        // Initialize time list
+        populateTimeList();
+    });
 </script>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-       
-            // Time picker elements
-            const startTimeInput = document.getElementById('start-time-input');
-            const endTimeInput = document.getElementById('end-time-input');
-            const startTimeList = document.getElementById('start-time-list');
-            const endTimeList = document.getElementById('end-time-list');
-            const divStartTimeShort = document.querySelector("div[id='start-time-input']");
-           const inputStartTimeShort = document.querySelector("input[class='start-time-input-short']");
-           const divEndTimeShort = document.querySelector("div[id='end-time-input']");
-            const inputEndTimeShort = document.querySelector("input[class='end-time-input-short']");
-            divStartTimeShort.addEventListener('change', function () {
+
+        // Time picker elements
+        const startTimeInput = document.getElementById('start-time-input');
+        const endTimeInput = document.getElementById('end-time-input');
+        const startTimeList = document.getElementById('start-time-list');
+        const endTimeList = document.getElementById('end-time-list');
+        const divStartTimeShort = document.querySelector("div[id='start-time-input']");
+        const inputStartTimeShort = document.querySelector("input[class='start-time-input-short']");
+        const divEndTimeShort = document.querySelector("div[id='end-time-input']");
+        const inputEndTimeShort = document.querySelector("input[class='end-time-input-short']");
+        divStartTimeShort.addEventListener('change', function () {
             console.log('Time changed:', this.querySelector('.selected-time-homecare').textContent);
             console.log('Hidden input value:', inputStartTimeShort.value);
         });
-         // Add event listeners to verify changes
+        // Add event listeners to verify changes
         divEndTimeShort.addEventListener('change', function () {
             console.log('End time changed:', this.querySelector('.selected-time-homecare').textContent);
             console.log('Hidden end time value:', inputEndTimeShort.value);
         });
-                        // Initially disable end time picker
-            endTimeInput.style.opacity = '0.5';
-            endTimeInput.style.pointerEvents = 'none';
+        // Initially disable end time picker
+        endTimeInput.style.opacity = '0.5';
+        endTimeInput.style.pointerEvents = 'none';
 
-            // Generate time options
-            function generateTimeOptions(startHour, endHour) {
-                const times = [];
-                for (let hour = startHour; hour <= endHour; hour++) {
-                    const period = hour >= 12 ? 'PM' : 'AM';
-                    const displayHour = hour > 12 ? hour - 12 : hour;
+        // Generate time options
+        function generateTimeOptions(startHour, endHour) {
+            const times = [];
+            for (let hour = startHour; hour <= endHour; hour++) {
+                const period = hour >= 12 ? 'PM' : 'AM';
+                const displayHour = hour > 12 ? hour - 12 : hour;
 
-                    // Add :00 option
+                // Add :00 option
+                times.push({
+                    display: `${displayHour}:00 ${period}`,
+                    value: `${hour.toString().padStart(2, '0')}:00`,
+                    hour: hour
+                });
+
+                // Add :30 option if not the last hour
+                if (hour < endHour) {
                     times.push({
-                        display: `${displayHour}:00 ${period}`,
-                        value: `${hour.toString().padStart(2, '0')}:00`,
-                        hour: hour
-                    });
-
-                    // Add :30 option if not the last hour
-                    if (hour < endHour) {
-                        times.push({
-                            display: `${displayHour}:30 ${period}`,
-                            value: `${hour.toString().padStart(2, '0')}:30`,
-                            hour: hour + 0.5
-                        });
-                    }
-                }
-                return times;
-            }
-
-            // Generate time options for both pickers
-            const startTimes = generateTimeOptions(6, 18); // 6 AM to 6 PM
-            const endTimes = generateTimeOptions(8, 20);   // 8 AM to 8 PM
-
-            // Populate time lists
-            function populateTimeList(timeList, times) {
-                timeList.innerHTML = '';
-                times.forEach(time => {
-                    const option = document.createElement('div');
-                    option.className = 'time-option-homecare';
-                    option.textContent = time.display;
-                    option.dataset.value = time.value;
-                    option.dataset.hour = time.hour;
-                    timeList.appendChild(option);
-                });
-            }
-
-            populateTimeList(startTimeList, startTimes);
-            populateTimeList(endTimeList, endTimes);
-
-            // Calculate end time options based on start time
-            function updateEndTimeOptions(selectedStartHour) {
-                const twoHoursLater = selectedStartHour + 2;
-                const validEndTimes = endTimes.filter(time => time.hour >= twoHoursLater);
-                populateTimeList(endTimeList, validEndTimes);
-
-                // Auto-select the time that's 2 hours after start time
-                const autoSelectTime = validEndTimes.find(time => time.hour === twoHoursLater);
-                if (autoSelectTime) {
-                    const endTimeOption = endTimeList.querySelector(`[data-value="${autoSelectTime.value}"]`);
-                    if (endTimeOption) {
-                        handleTimeSelection(endTimeInput, endTimeOption);
-                    }
-                }
-            }
-
-            // Handle time selection
-            function handleTimeSelection(input, selectedOption) {
-                const selectedTime = input.querySelector('.selected-time-homecare');
-                selectedTime.textContent = selectedOption.textContent;
-                input.classList.remove('active-extra');
-
-                // Remove previous selection
-                input.querySelectorAll('.time-option-homecare').forEach(option => {
-                    option.classList.remove('selected');
-                });
-                selectedOption.classList.add('selected');
-
-                // If this is the start time, update end time options
-                if (input === startTimeInput) {
-                     // Lưu giá trị vào input ẩn
-                    inputStartTimeShort.value = selectedOption.dataset.value;
-                    const selectedHour = parseFloat(selectedOption.dataset.hour);
-                    endTimeInput.style.opacity = '1';
-                    endTimeInput.style.pointerEvents = 'auto';
-                    updateEndTimeOptions(selectedHour);
-                     // Trigger custom change event
-                    const event = new Event('change', { bubbles: true });
-                    divStartTimeShort.dispatchEvent(event); 
-                }
-                 // If this is the end time 
-                else if (input === endTimeInput) {
-                    // Set value for end time input
-                    inputEndTimeShort.value = selectedOption.dataset.value;
-
-                    // Trigger change event for end time
-                    const endEvent = new Event('change', { bubbles: true });
-                    divEndTimeShort.dispatchEvent(endEvent);
-
-                    // Add debug logs
-                    console.log('End time selected:', selectedOption.dataset.value);
-                    console.log('End time input value:', inputEndTimeShort.value);
-                }
-                
-                
-            }
-
-            // Toggle dropdown
-            function toggleDropdown(input) {
-                // If this is the end time input and start time hasn't been selected, do nothing
-                if (input === endTimeInput && !startTimeInput.querySelector('.time-option-homecare.selected')) {
-                    return;
-                }
-
-                const wasActive = input.classList.contains('active-extra');
-
-                // Close all dropdowns
-                document.querySelectorAll('.time-input-homecare').forEach(element => {
-                    element.classList.remove('active-extra');
-                });
-
-                // Toggle current dropdown
-                if (!wasActive) {
-                    input.classList.add('active-extra');
-
-                    // Scroll to selected option if exists
-                    const selectedOption = input.querySelector('.time-option-homecare.selected');
-                    if (selectedOption) {
-                        selectedOption.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                        });
-                    }
-                }
-            }
-
-            // Event listeners
-            startTimeInput.addEventListener('click', (e) => {
-                if (!e.target.classList.contains('time-option-homecare')) {
-                    toggleDropdown(startTimeInput);
-                }
-            });
-
-            endTimeInput.addEventListener('click', (e) => {
-                if (!e.target.classList.contains('time-option-homecare')) {
-                    toggleDropdown(endTimeInput);
-                }
-            });
-
-            // Handle time option selection
-            startTimeList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('time-option-homecare')) {
-                    handleTimeSelection(startTimeInput, e.target);
-                }
-            });
-
-            endTimeList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('time-option-homecare')) {
-                    handleTimeSelection(endTimeInput, e.target);
-                }
-            });
-
-            // Close dropdowns when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.time-input-homecare')) {
-                    document.querySelectorAll('.time-input-homecare').forEach(input => {
-                        input.classList.remove('active-extra');
+                        display: `${displayHour}:30 ${period}`,
+                        value: `${hour.toString().padStart(2, '0')}:30`,
+                        hour: hour + 0.5
                     });
                 }
+            }
+            return times;
+        }
+
+        // Generate time options for both pickers
+        const startTimes = generateTimeOptions(6, 18); // 6 AM to 6 PM
+        const endTimes = generateTimeOptions(8, 20);   // 8 AM to 8 PM
+
+        // Populate time lists
+        function populateTimeList(timeList, times) {
+            timeList.innerHTML = '';
+            times.forEach(time => {
+                const option = document.createElement('div');
+                option.className = 'time-option-homecare';
+                option.textContent = time.display;
+                option.dataset.value = time.value;
+                option.dataset.hour = time.hour;
+                timeList.appendChild(option);
             });
+        }
+
+        populateTimeList(startTimeList, startTimes);
+        populateTimeList(endTimeList, endTimes);
+
+        // Calculate end time options based on start time
+        function updateEndTimeOptions(selectedStartHour) {
+            const twoHoursLater = selectedStartHour + 2;
+            const validEndTimes = endTimes.filter(time => time.hour >= twoHoursLater);
+            populateTimeList(endTimeList, validEndTimes);
+
+            // Auto-select the time that's 2 hours after start time
+            const autoSelectTime = validEndTimes.find(time => time.hour === twoHoursLater);
+            if (autoSelectTime) {
+                const endTimeOption = endTimeList.querySelector(`[data-value="${autoSelectTime.value}"]`);
+                if (endTimeOption) {
+                    handleTimeSelection(endTimeInput, endTimeOption);
+                }
+            }
+        }
+
+        // Handle time selection
+        function handleTimeSelection(input, selectedOption) {
+            const selectedTime = input.querySelector('.selected-time-homecare');
+            selectedTime.textContent = selectedOption.textContent;
+            input.classList.remove('active-extra');
+
+            // Remove previous selection
+            input.querySelectorAll('.time-option-homecare').forEach(option => {
+                option.classList.remove('selected');
+            });
+            selectedOption.classList.add('selected');
+
+            // If this is the start time, update end time options
+            if (input === startTimeInput) {
+                // Lưu giá trị vào input ẩn
+                inputStartTimeShort.value = selectedOption.dataset.value;
+                const selectedHour = parseFloat(selectedOption.dataset.hour);
+                endTimeInput.style.opacity = '1';
+                endTimeInput.style.pointerEvents = 'auto';
+                updateEndTimeOptions(selectedHour);
+                // Trigger custom change event
+                const event = new Event('change', { bubbles: true });
+                divStartTimeShort.dispatchEvent(event);
+            }
+            // If this is the end time 
+            else if (input === endTimeInput) {
+                // Set value for end time input
+                inputEndTimeShort.value = selectedOption.dataset.value;
+
+                // Trigger change event for end time
+                const endEvent = new Event('change', { bubbles: true });
+                divEndTimeShort.dispatchEvent(endEvent);
+
+                // Add debug logs
+                console.log('End time selected:', selectedOption.dataset.value);
+                console.log('End time input value:', inputEndTimeShort.value);
+            }
+
+
+        }
+
+        // Toggle dropdown
+        function toggleDropdown(input) {
+            // If this is the end time input and start time hasn't been selected, do nothing
+            if (input === endTimeInput && !startTimeInput.querySelector('.time-option-homecare.selected')) {
+                return;
+            }
+
+            const wasActive = input.classList.contains('active-extra');
+
+            // Close all dropdowns
+            document.querySelectorAll('.time-input-homecare').forEach(element => {
+                element.classList.remove('active-extra');
+            });
+
+            // Toggle current dropdown
+            if (!wasActive) {
+                input.classList.add('active-extra');
+
+                // Scroll to selected option if exists
+                const selectedOption = input.querySelector('.time-option-homecare.selected');
+                if (selectedOption) {
+                    selectedOption.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            }
+        }
+
+        // Event listeners
+        startTimeInput.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('time-option-homecare')) {
+                toggleDropdown(startTimeInput);
+            }
         });
+
+        endTimeInput.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('time-option-homecare')) {
+                toggleDropdown(endTimeInput);
+            }
+        });
+
+        // Handle time option selection
+        startTimeList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('time-option-homecare')) {
+                handleTimeSelection(startTimeInput, e.target);
+            }
+        });
+
+        endTimeList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('time-option-homecare')) {
+                handleTimeSelection(endTimeInput, e.target);
+            }
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.time-input-homecare')) {
+                document.querySelectorAll('.time-input-homecare').forEach(input => {
+                    input.classList.remove('active-extra');
+                });
+            }
+        });
+    });
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-            // Time picker elements with long suffix
-            const startTimeInput = document.getElementById('start-time-input-long');
-            const endTimeInput = document.getElementById('end-time-input-long');
-            const startTimeList = document.getElementById('start-time-list-long');
-            const endTimeList = document.getElementById('end-time-list-long');
-             // Thêm các biến mới
+        // Time picker elements with long suffix
+        const startTimeInput = document.getElementById('start-time-input-long');
+        const endTimeInput = document.getElementById('end-time-input-long');
+        const startTimeList = document.getElementById('start-time-list-long');
+        const endTimeList = document.getElementById('end-time-list-long');
+        // Thêm các biến mới
         const divStartTimeLong = document.querySelector("div[id='start-time-input-long']");
         const inputStartTimeLong = document.querySelector("input[class='start-time-input-long']");
         const divEndTimeLong = document.querySelector("div[id='end-time-input-long']");
         const inputEndTimeLong = document.querySelector("input[class='end-time-input-long']");
-        const inputStartTimeLongExtra =document.getElementById('start-time-value-long');
-        const inputEndTimeLongExtra =document.getElementById('end-time-value-long');
+        const inputStartTimeLongExtra = document.getElementById('start-time-value-long');
+        const inputEndTimeLongExtra = document.getElementById('end-time-value-long');
         // Thêm event listeners để verify changes
         divStartTimeLong.addEventListener('change', function () {
             console.log('Long term start time changed:', this.querySelector('.selected-time-homecare-long').textContent);
@@ -1585,69 +1632,69 @@ console.log(districts);
             inputEndTimeLongExtra.value = inputEndTimeLong.value;
         });
 
-            // Initially disable end time picker
-            endTimeInput.style.opacity = '0.5';
-            endTimeInput.style.pointerEvents = 'none';
+        // Initially disable end time picker
+        endTimeInput.style.opacity = '0.5';
+        endTimeInput.style.pointerEvents = 'none';
 
-            // Generate time options remains the same
-            function generateTimeOptions(startHour, endHour) {
-                const times = [];
-                for (let hour = startHour; hour <= endHour; hour++) {
-                    const period = hour >= 12 ? 'PM' : 'AM';
-                    const displayHour = hour > 12 ? hour - 12 : hour;
+        // Generate time options remains the same
+        function generateTimeOptions(startHour, endHour) {
+            const times = [];
+            for (let hour = startHour; hour <= endHour; hour++) {
+                const period = hour >= 12 ? 'PM' : 'AM';
+                const displayHour = hour > 12 ? hour - 12 : hour;
 
-                    times.push({
-                        display: `${displayHour}:00 ${period}`,
-                        value: `${hour.toString().padStart(2, '0')}:00`,
-                        hour: hour
-                    });
-
-                    if (hour < endHour) {
-                        times.push({
-                            display: `${displayHour}:30 ${period}`,
-                            value: `${hour.toString().padStart(2, '0')}:30`,
-                            hour: hour + 0.5
-                        });
-                    }
-                }
-                return times;
-            }
-
-            const startTimes = generateTimeOptions(6, 18);
-            const endTimes = generateTimeOptions(8, 20);
-
-            // Update class names with long suffix
-            function populateTimeList(timeList, times) {
-                timeList.innerHTML = '';
-                times.forEach(time => {
-                    const option = document.createElement('div');
-                    option.className = 'time-option-homecare-long';
-                    option.textContent = time.display;
-                    option.dataset.value = time.value;
-                    option.dataset.hour = time.hour;
-                    timeList.appendChild(option);
+                times.push({
+                    display: `${displayHour}:00 ${period}`,
+                    value: `${hour.toString().padStart(2, '0')}:00`,
+                    hour: hour
                 });
-            }
 
-            populateTimeList(startTimeList, startTimes);
-            populateTimeList(endTimeList, endTimes);
-
-            function updateEndTimeOptions(selectedStartHour) {
-                const twoHoursLater = selectedStartHour + 2;
-                const validEndTimes = endTimes.filter(time => time.hour >= twoHoursLater);
-                populateTimeList(endTimeList, validEndTimes);
-
-                const autoSelectTime = validEndTimes.find(time => time.hour === twoHoursLater);
-                if (autoSelectTime) {
-                    const endTimeOption = endTimeList.querySelector(`[data-value="${autoSelectTime.value}"]`);
-                    if (endTimeOption) {
-                        handleTimeSelection(endTimeInput, endTimeOption);
-                    }
+                if (hour < endHour) {
+                    times.push({
+                        display: `${displayHour}:30 ${period}`,
+                        value: `${hour.toString().padStart(2, '0')}:30`,
+                        hour: hour + 0.5
+                    });
                 }
             }
+            return times;
+        }
 
-            // Update class names in handleTimeSelection
-             function handleTimeSelection(input, selectedOption) {
+        const startTimes = generateTimeOptions(6, 18);
+        const endTimes = generateTimeOptions(8, 20);
+
+        // Update class names with long suffix
+        function populateTimeList(timeList, times) {
+            timeList.innerHTML = '';
+            times.forEach(time => {
+                const option = document.createElement('div');
+                option.className = 'time-option-homecare-long';
+                option.textContent = time.display;
+                option.dataset.value = time.value;
+                option.dataset.hour = time.hour;
+                timeList.appendChild(option);
+            });
+        }
+
+        populateTimeList(startTimeList, startTimes);
+        populateTimeList(endTimeList, endTimes);
+
+        function updateEndTimeOptions(selectedStartHour) {
+            const twoHoursLater = selectedStartHour + 2;
+            const validEndTimes = endTimes.filter(time => time.hour >= twoHoursLater);
+            populateTimeList(endTimeList, validEndTimes);
+
+            const autoSelectTime = validEndTimes.find(time => time.hour === twoHoursLater);
+            if (autoSelectTime) {
+                const endTimeOption = endTimeList.querySelector(`[data-value="${autoSelectTime.value}"]`);
+                if (endTimeOption) {
+                    handleTimeSelection(endTimeInput, endTimeOption);
+                }
+            }
+        }
+
+        // Update class names in handleTimeSelection
+        function handleTimeSelection(input, selectedOption) {
             const selectedTime = input.querySelector('.selected-time-homecare-long');
             selectedTime.textContent = selectedOption.textContent;
             input.classList.remove('active-extra-long');
@@ -1676,63 +1723,77 @@ console.log(districts);
             }
         }
 
-            // Update class names in toggleDropdown
-            function toggleDropdown(input) {
-                if (input === endTimeInput && !startTimeInput.querySelector('.time-option-homecare-long.selected')) {
-                    return;
-                }
-
-                const wasActive = input.classList.contains('active-extra-long');
-
-                document.querySelectorAll('.time-input-homecare-long').forEach(element => {
-                    element.classList.remove('active-extra-long');
-                });
-
-                if (!wasActive) {
-                    input.classList.add('active-extra-long');
-
-                    const selectedOption = input.querySelector('.time-option-homecare-long.selected');
-                    if (selectedOption) {
-                        selectedOption.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'center'
-                        });
-                    }
-                }
+        // Update class names in toggleDropdown
+        function toggleDropdown(input) {
+            if (input === endTimeInput && !startTimeInput.querySelector('.time-option-homecare-long.selected')) {
+                return;
             }
 
-            // Update event listeners
-            startTimeInput.addEventListener('click', (e) => {
-                if (!e.target.classList.contains('time-option-homecare-long')) {
-                    toggleDropdown(startTimeInput);
-                }
+            const wasActive = input.classList.contains('active-extra-long');
+
+            document.querySelectorAll('.time-input-homecare-long').forEach(element => {
+                element.classList.remove('active-extra-long');
             });
 
-            endTimeInput.addEventListener('click', (e) => {
-                if (!e.target.classList.contains('time-option-homecare-long')) {
-                    toggleDropdown(endTimeInput);
-                }
-            });
+            if (!wasActive) {
+                input.classList.add('active-extra-long');
 
-            startTimeList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('time-option-homecare-long')) {
-                    handleTimeSelection(startTimeInput, e.target);
-                }
-            });
-
-            endTimeList.addEventListener('click', (e) => {
-                if (e.target.classList.contains('time-option-homecare-long')) {
-                    handleTimeSelection(endTimeInput, e.target);
-                }
-            });
-
-            // Update document click handler
-            document.addEventListener('click', (e) => {
-                if (!e.target.closest('.time-input-homecare-long')) {
-                    document.querySelectorAll('.time-input-homecare-long').forEach(input => {
-                        input.classList.remove('active-extra-long');
+                const selectedOption = input.querySelector('.time-option-homecare-long.selected');
+                if (selectedOption) {
+                    selectedOption.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
                     });
+                }
+            }
+        }
+
+        // Update event listeners
+        startTimeInput.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('time-option-homecare-long')) {
+                toggleDropdown(startTimeInput);
+            }
+        });
+
+        endTimeInput.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('time-option-homecare-long')) {
+                toggleDropdown(endTimeInput);
+            }
+        });
+
+        startTimeList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('time-option-homecare-long')) {
+                handleTimeSelection(startTimeInput, e.target);
+            }
+        });
+
+        endTimeList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('time-option-homecare-long')) {
+                handleTimeSelection(endTimeInput, e.target);
+            }
+        });
+
+        // Update document click handler
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.time-input-homecare-long')) {
+                document.querySelectorAll('.time-input-homecare-long').forEach(input => {
+                    input.classList.remove('active-extra-long');
+                });
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.querySelector('.slider-lastest_item--2');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.backgroundImage = "url('/img/slider-2.jpg')";
+                    observer.unobserve(entry.target);
                 }
             });
         });
+        observer.observe(slider);
+    });
 </script>

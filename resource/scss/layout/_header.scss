@@ -9,7 +9,7 @@
     z-index: 999;
 }
 #helper{
-    padding:7%;
+    padding:10%;
 position: relative;
     top: 20px;
 }
@@ -326,7 +326,7 @@ position: relative;
     font-weight: 700;
 }
 .modal-header{
-    background-color: #478e3a;
+        background: linear-gradient(135deg, #2ecc71, #2980b9);
 }
 .modal-title{
     color:white;
@@ -367,7 +367,7 @@ position: relative;
 }
 
 .price-table th {
-    background-color: #0B5722;
+        background: linear-gradient(135deg, #2ecc71, #2980b9);
     color: white;
     padding: 12px;
     text-align: left;
@@ -380,7 +380,7 @@ position: relative;
 }
 
 .price-table tr:nth-child(odd) {
-    background-color: #90C165;
+    background: linear-gradient(135deg, #2ecc71, #2980b9);
 }
 
 .price-table tr:nth-child(even) {
@@ -414,4 +414,330 @@ position: relative;
     position: absolute;
     left: 0;
     color: #0B5722;
+}
+/* === CSS nâng cao cho Modal === */
+.modal-content {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Header của modal */
+.modal-header {
+        background: linear-gradient(135deg, #2ecc71, #2980b9);
+    padding: 20px 25px;
+    border-bottom: none;
+    position: relative;
+}
+
+.modal-title {
+    color: white !important;
+    font-size: 22px !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+}
+
+.modal-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 20px;
+    background: white;
+    margin-right: 12px;
+    border-radius: 3px;
+}
+
+.modal .close {
+    color: white;
+    opacity: 0.8;
+    text-shadow: none;
+    transition: all 0.2s ease;
+    position: absolute;
+    top: 20px;
+    right: 25px;
+}
+
+.modal .close:hover {
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
+/* Body của modal */
+.modal-body {
+    padding: 30px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-body h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Scrollbar tùy chỉnh cho modal body */
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Định dạng tiêu đề và nội dung chính sách */
+.header-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.header-title::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, #2ecc71, #2980b9);
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.header-para {
+    padding-left: 18px;
+    border-left: 2px solid #f0f0f0;
+    margin-bottom: 15px;
+}
+
+.header-para p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+/* Footer của modal */
+.modal-footer {
+    padding: 15px 25px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background: #f8f9fa;
+}
+
+.modal-footer .btn {
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    font-size: 14px;
+}
+
+.modal-footer .btn-secondary {
+        background: linear-gradient(135deg, #2ecc71, #2980b9) !important;
+    border-color: #4a6cf7 !important;
+}
+
+.modal-footer .btn-secondary:hover {
+        background: linear-gradient(135deg, #2ecc71, #2980b9) !important;
+    box-shadow: 0 5px 15px rgba(74, 108, 247, 0.2);
+    transform: translateY(-2px);
+}
+
+.modal-footer .btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* === CSS cho bảng giá === */
+.price-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.price-table th,
+.price-table td {
+    padding: 15px;
+    text-align: left;
+    border: none;
+}
+
+.price-table th {
+    
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.price-table tr {
+    border-bottom: 1px solid #f1f1f1;
+    transition: all 0.2s ease;
+}
+
+.price-table tr:nth-child(even) {
+    background-color: #f8f9fc;
+}
+
+.price-table tr:hover {
+    background-color: #f0f4ff;
+}
+
+.price-table td {
+    color: #444;
+    font-size: 14px;
+}
+
+.price-table td:nth-child(2) {
+    font-weight: 600;
+    //color: #4a6cf7;
+}
+
+/* Phần ghi chú */
+.notes {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border-left: 4px solid #4a6cf7;
+}
+
+.notes h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.notes h2::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 18px;
+    background: #4a6cf7;
+    border-radius: 3px;
+}
+
+.notes ul {
+    padding-left: 20px;
+}
+
+.notes li {
+    margin-bottom: 12px;
+    position: relative;
+    list-style-type: none;
+    padding-left: 15px;
+    line-height: 1.6;
+    font-size: 14px;
+    color: #555;
+}
+
+.notes li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #4a6cf7;
+    font-weight: bold;
+}
+
+/* Hiệu ứng mở modal */
+.modal.fade .modal-dialog {
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-title {
+        font-size: 18px !important;
+    }
+
+    .header-title {
+        font-size: 15px;
+    }
+
+    .price-table th,
+    .price-table td {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .notes {
+        padding: 15px;
+    }
+
+    .notes h2 {
+        font-size: 16px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-body>* {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.modal-body>*:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.modal-body>*:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.modal-body>*:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.modal-body>*:nth-child(5) {
+    animation-delay: 0.4s;
 }

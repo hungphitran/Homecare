@@ -136,68 +136,208 @@
     
                         </div>
                     </div>
-                    <div class="home__row-2">
-                        <div class="about-detail__tab-ui padd-15" style="padding-bottom:50px;">
-                            <div class="tabs">
-                                <div class="tab-item active">
-                                    <i class="tab-icon fas fa-code"></i>
-                                    Đánh giá chung
+                   
+                    <div class="home_row-2">
+                        <div class="about-detail__tab-ui">
+
+                    <div class="helper-details__tabs padd-15">
+                        <div class="tabs-container">
+                            <div class="tabs-header">
+                                <div class="tab-item active" data-tab="reviews">
+                                    <i class="fas fa-star tab-icon"></i>
+                                    <span>Đánh giá chung</span>
                                 </div>
-                                <div class="tab-item">
-                                    <i class="tab-icon fas fa-cog"></i>
-                                    Mô tả kinh nghiệm
+                                <div class="tab-item" data-tab="experience">
+                                    <i class="fas fa-briefcase tab-icon"></i>
+                                    <span>Mô tả kinh nghiệm</span>
                                 </div>
-                                <div class="tab-item">
-                                    <i class="tab-icon fas fa-plus-circle"></i>
-                                    Thông tin chi tiết
+                                <div class="tab-item" data-tab="details">
+                                    <i class="fas fa-info-circle tab-icon"></i>
+                                    <span>Thông tin chi tiết</span>
                                 </div>
-                                <div class="tab-item">
-                                    <i class="tab-icon fas fa-pen-nib"></i>
-                                    Giấy khám sức khỏe
+                                <div class="tab-item" data-tab="certificate">
+                                    <i class="fas fa-file-medical tab-icon"></i>
+                                    <span>Giấy khám sức khỏe</span>
                                 </div>
-                                <div class="line"></div>
+                                <div class="indicator"></div>
                             </div>
-    
+                    
                             <!-- Tab content -->
-                            <div class="tab-content">
-                                <div class="tab-pane active">
-                                    <h2>Đánh giá</h2>
-                                    {{#each requestDetails as |req|}}
-                                        <span>Ngày: {{#formatDate}} {{req.workingDate}}{{/formatDate}}</span>
-                                        <p>Đánh giá:{{req.comment.review}}</p>
-                                    {{/each}}
-                                    
-                                </div>
-                                <div class="tab-pane">
-                                    <h2>Khu vực làm việc</h2>
-                                    <ul>
-                                    {{#each  helper.workingArea.districts}}
-                                        <li>{{this}}</li>
-                                    {{/each}}
-                                    </ul>
-
-                                    <h2>Dịch vụ</h2>
-                                    {{#each helper.jobs}}
-                                        <p>{{this}}</p>
-                                    {{/each}}
-
-
-                                </div>
-                                <div class="tab-pane">
-                                    <h2>Trình độ học vấn</h2>
-                                    <p>{{helper.educationLevel}}</p>
-                                </div>
-                                <div class="tab-pane">
-                                    {{!-- <h2>Vue.js</h2>
-                                    <p>Vue (pronounced /vjuː/, like view) is a progressive framework for building user
-                                        interfaces. Unlike other
-                                        monolithic frameworks, Vue is designed from the ground up to be incrementally
-                                        adoptable. </p> --}}
-                                        {{#each helper.healthCertificates}}
-                                        <img src="{{this}}" alt="">
+                            <div class="tabs-content">
+                                <div class="tab-pane active" id="reviews">
+                                    <h2 class="tab-title">Đánh giá từ khách hàng</h2>
+                    
+                                    {{#if requestDetails.length}}
+                                    <div class="reviews-container">
+                                        {{#each requestDetails as |req|}}
+                                        <div class="review-card">
+                                            <div class="review-header">
+                                                <div class="review-date">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                    <span>{{#formatDate}} {{req.workingDate}}{{/formatDate}}</span>
+                                                </div>
+                                                <div class="review-rating">
+                                                    {{#if req.comment.rating}}
+                                                    <div class="stars-container">
+                                                        {{#times req.comment.rating}}
+                                                        <i class="fas fa-star"></i>
+                                                        {{/times}}
+                                                        {{#times (subtract 5 req.comment.rating)}}
+                                                        <i class="far fa-star"></i>
+                                                        {{/times}}
+                                                    </div>
+                                                    {{else}}
+                                                    <div class="stars-container">
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    </div>
+                                                    {{/if}}
+                                                </div>
+                                            </div>
+                                            <div class="review-content">
+                                                <p>{{req.comment.review}}</p>
+                                            </div>
+                                            <div class="review-service">
+                                                <span class="service-badge">{{req.service}}</span>
+                                            </div>
+                                        </div>
                                         {{/each}}
+                                    </div>
+                                    {{else}}
+                                    <div class="no-reviews">
+                                        <i class="far fa-comment-dots"></i>
+                                        <p>Chưa có đánh giá nào</p>
+                                    </div>
+                                    {{/if}}
+                                </div>
+                    
+                                <div class="tab-pane" id="experience">
+                                    <h2 class="tab-title">Kinh nghiệm làm việc</h2>
+                    
+                                    <div class="experience-section">
+                                        <div class="experience-area">
+                                            <h3 class="section-subtitle">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                Khu vực làm việc
+                                            </h3>
+                                            <div class="districts-grid">
+                                                {{#each helper.workingArea.districts}}
+                                                <div class="district-card">
+                                                    <i class="fas fa-map-pin"></i>
+                                                    <span>{{this}}</span>
+                                                </div>
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                    
+                                        <div class="experience-services">
+                                            <h3 class="section-subtitle">
+                                                <i class="fas fa-tools"></i>
+                                                Dịch vụ cung cấp
+                                            </h3>
+                                            <div class="services-grid">
+                                                {{#each helper.jobs}}
+                                                <div class="service-card">
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <span>{{this}}</span>
+                                                </div>
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                    
+                                        <div class="experience-years">
+                                            <h3 class="section-subtitle">
+                                                <i class="fas fa-history"></i>
+                                                Kinh nghiệm
+                                            </h3>
+                                            <div class="year-badge">
+                                                <span>{{helper.yearOfExperience}}</span>
+                                                <p>Năm kinh nghiệm</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                <div class="tab-pane" id="details">
+                                    <h2 class="tab-title">Thông tin chi tiết</h2>
+                    
+                                    <div class="details-container">
+                                        <div class="details-education">
+                                            <h3 class="section-subtitle">
+                                                <i class="fas fa-graduation-cap"></i>
+                                                Trình độ học vấn
+                                            </h3>
+                                            <div class="education-level">
+                                                <p>{{helper.educationLevel}}</p>
+                                            </div>
+                                        </div>
+                    
+                                        <div class="details-skills">
+                                            <h3 class="section-subtitle">
+                                                <i class="fas fa-medal"></i>
+                                                Kỹ năng
+                                            </h3>
+                                            <div class="skills-grid">
+                                                {{#each helper.skills}}
+                                                <div class="skill-item">
+                                                    <div class="skill-name">{{@key}}</div>
+                                                    <div class="skill-bar">
+                                                        <div class="skill-progress" style="width:{{this}}%"></div>
+                                                    </div>
+                                                </div>
+                                                {{else}}
+                                                <p class="no-data">Chưa cập nhật kỹ năng</p>
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                    
+                                        <div class="details-languages">
+                                            <h3 class="section-subtitle">
+                                                <i class="fas fa-language"></i>
+                                                Ngôn ngữ
+                                            </h3>
+                                            <div class="languages-list">
+                                                <div class="language-item">
+                                                    <span>Tiếng Việt</span>
+                                                    <div class="language-level">Bản địa</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                <div class="tab-pane" id="certificate">
+                                    <h2 class="tab-title">Giấy khám sức khỏe</h2>
+                    
+                                    <div class="certificate-container">
+                                        {{#if helper.healthCertificates.length}}
+                                        <div class="certificate-gallery">
+                                            {{#each helper.healthCertificates}}
+                                            <div class="certificate-item">
+                                                <img src="{{this}}" alt="Giấy khám sức khỏe" class="certificate-img">
+                                                <div class="certificate-overlay">
+                                                    <a href="{{this}}" target="_blank" class="view-full">
+                                                        <i class="fas fa-search-plus"></i>
+                                                        Xem đầy đủ
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                        {{else}}
+                                        <div class="no-certificates">
+                                            <i class="fas fa-file-excel"></i>
+                                            <p>Chưa có giấy khám sức khỏe</p>
+                                        </div>
+                                        {{/if}}
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                         </div>
                     </div>
                 </div>
@@ -210,6 +350,79 @@
     
     <script src="/js/app.js"></script>
     
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+                const tabs = document.querySelectorAll('.tab-item');
+                const tabPanes = document.querySelectorAll('.tab-pane');
+                const indicator = document.querySelector('.indicator');
+
+                function setIndicatorPosition(activeTab) {
+                    indicator.style.width = `${activeTab.offsetWidth}px`;
+                    indicator.style.left = `${activeTab.offsetLeft}px`;
+                }
+
+                // Set initial indicator position
+                if (tabs.length > 0) {
+                    const activeTab = document.querySelector('.tab-item.active');
+                    setIndicatorPosition(activeTab);
+                }
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function () {
+                        // Remove active class from all tabs and panes
+                        tabs.forEach(tab => tab.classList.remove('active'));
+                        tabPanes.forEach(pane => pane.classList.remove('active'));
+
+                        // Add active class to the clicked tab
+                        this.classList.add('active');
+
+                        // Show corresponding tab pane
+                        const tabId = this.getAttribute('data-tab');
+                        document.getElementById(tabId).classList.add('active');
+
+                        // Update indicator position
+                        setIndicatorPosition(this);
+                    });
+                });
+
+                // Helper function to make certificate images viewable in a lightbox
+                const certificateImages = document.querySelectorAll('.certificate-img');
+                certificateImages.forEach(img => {
+                    img.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const parentLink = this.closest('.certificate-item').querySelector('.view-full');
+                        if (parentLink) {
+                            const imageUrl = parentLink.getAttribute('href');
+                            openLightbox(imageUrl);
+                        }
+                    });
+                });
+
+                function openLightbox(imageUrl) {
+                    const lightbox = document.createElement('div');
+                    lightbox.classList.add('lightbox');
+                    lightbox.innerHTML = `
+      <div class="lightbox-content">
+        <span class="close-lightbox">&times;</span>
+        <img src="${imageUrl}" class="lightbox-image">
+      </div>
+    `;
+
+                    document.body.appendChild(lightbox);
+
+                    // Prevent scrolling when lightbox is open
+                    document.body.style.overflow = 'hidden';
+
+                    // Close lightbox when clicking on background or close button
+                    lightbox.addEventListener('click', function (e) {
+                        if (e.target === lightbox || e.target.classList.contains('close-lightbox')) {
+                            document.body.removeChild(lightbox);
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                }
+            });
+    </script>
     <script>
         // điều mình mong muốn
         validator({

@@ -6,7 +6,11 @@ const session = require('express-session')//lib for modifying session
 const path = require('path')
 //mongodb-url 
 require('dotenv').config()
+// Trong file cấu hình handlebars (thường là app.js hoặc server.js)
+// const { isWaitPayment } = require('./utils/helpers');
 
+// // Đăng ký helper
+// hbs.registerHelper('isWaitPayment', isWaitPayment);
 //init reference of express application
 const app = express()
 
@@ -17,6 +21,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 //template engine helpers
 const hbs = handlebars.create({
     helpers: {
+        isWaitPayment: function(status) {
+    return status === 'waitPayment';
+},
         json: function (context) {
             return JSON.stringify(context);
         },
@@ -104,6 +111,7 @@ const hbs = handlebars.create({
                 default: return status;
             }
         },
+        
         sum: function(n1,n2){
             let num1 = Number.parseInt(n1)
             let num2 = Number.parseInt(n2)

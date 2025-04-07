@@ -29,7 +29,217 @@
     <script src="/js/scripts.js"></script>
     <link rel="shortcut icon" href="/icon/logo-removeBg.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/01acedffd5.js" crossorigin="anonymous"></script>
+<style>
+    /* Card styles and shadows */
+    .modal-content-homecare,
+    .modal-homecare .container-input-form,
+    .billDetailsHistoryDetailHomeKare,
+    .paymentInfo {
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
 
+    .modal-content-homecare:hover,
+    .billDetailsHistoryDetailHomeKare:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Form input improvements */
+    .input-form-accountdetail {
+        border-radius: 8px;
+        border: 1px solid #e1e1e1;
+        padding: 10px 15px;
+        transition: all 0.3s ease;
+    }
+
+    .input-form-accountdetail:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+    /* Button styles */
+    .btn-homedetail,
+    .itemPayButton {
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: 500;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-homedetail:hover,
+    .itemPayButton:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-homedetail:active,
+    .itemPayButton:active {
+        transform: translateY(1px);
+    }
+
+    /* Payment section animations */
+    .paymentSectionHistoryDetailHomeKare {
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid #e1e1e1;
+        background: white;
+        animation: slideDown 0.3s ease-out;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Status indicators */
+    .status-doneHistoryDetailHomeKare,
+    .status-assignedHistoryDetailHomeKare,
+    .status-notDoneHistoryDetailHomeKare,
+    .status-cancelHistoryDetailHomeKare,
+    .status-wayPaymentHistoryDetailHomeKare,
+    .status-processingHistoryDetailHomeKare {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .status-doneHistoryDetailHomeKare {
+        background: #d4edda;
+        color: #155724;
+        border-left: 3px solid #28a745;
+    }
+
+    .status-assignedHistoryDetailHomeKare {
+        background: #e3f2fd;
+        color: #0d47a1;
+        border-left: 3px solid #2196f3;
+    }
+
+    .status-notDoneHistoryDetailHomeKare {
+        background: #fff3e0;
+        color: #e65100;
+        border-left: 3px solid #ff9800;
+    }
+
+    .status-cancelHistoryDetailHomeKare {
+        background: #ffebee;
+        color: #c62828;
+        border-left: 3px solid #f44336;
+    }
+
+    .status-wayPaymentHistoryDetailHomeKare {
+        background: #fff3cd;
+        color: #856404;
+        border-left: 3px solid #ffc107;
+        animation: pulse 2s infinite;
+    }
+
+    .status-processingHistoryDetailHomeKare {
+        background: #e8eaf6;
+        color: #283593;
+        border-left: 3px solid #3f51b5;
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 6px rgba(255, 193, 7, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+        }
+    }
+
+    /* Modal improvements */
+    .modalHistoryDetailHomeKare {
+        backdrop-filter: blur(5px);
+    }
+
+    .modalContentHistoryDetailHomeKare {
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        animation: modalFade 0.3s ease-out;
+    }
+
+    @keyframes modalFade {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Rating stars */
+    .rating-stars .fa-star {
+        color: #ddd;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .rating-stars .fa-star:hover,
+    .rating-stars .fa-star.active {
+        color: #ffc107;
+        transform: scale(1.2);
+    }
+
+    /* Loading overlay */
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(5px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .loading-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 4px solid #3498db;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
 </head>
 
 <body>
@@ -215,7 +425,8 @@
                                     </thead>
                                     <tbody id="longTermTable-homedetail">
                                         {{#each longTermRequests}}
-                                        <tr id="long-row-{{@index}}" data-request-id="{{_id}}" data-status="{{status}}" class="long-term-row">
+                                        <tr id="long-row-{{@index}}" data-request-id="{{_id}}" data-status="{{status}}"
+                                            class="long-term-row">
                                             <td>{{orderDate}}</td>
                                             <td>{{requestType}}</td>
                                             <td>{{service.title}}</td>
@@ -224,11 +435,11 @@
                                             <td>{{#formatTime endTime }}{{/formatTime}}</td>
                                             <td>
                                                 {{!-- <p class="status-detail cancel">{{status}}</p> --}}
-                                                <button class="btnHistoryDetailHomeKare" data-id="{{@index}}"  data-status="{{status}}"  
-                                                    onclick="showBillType(this,'long')"
+                                                <button class="btnHistoryDetailHomeKare" data-id="{{@index}}"
+                                                    data-status="{{status}}" onclick="showBillType(this,'long')"
                                                     aria-label="View Long Term Bill Details">Chi tiết</button>
-                                                    {{!-- {{request.status}} --}}
-                                                
+                                                {{!-- {{request.status}} --}}
+
                                                 <!-- Long Term Modal -->
                                                 <div class="modalHistoryDetailHomeKare"
                                                     id="longTermModalHistoryDetailHomeKare" data-request-id="{{_id}}">
@@ -241,7 +452,7 @@
                                                         </div>
                                                         <div class="longTermContainerHistoryDetailHomeKare"
                                                             id="{{this.schedules.length}}">
-                                                            {{#each this.schedules}}
+                                                            {{!-- {{#each this.schedules}}
                                                             <div class="dayBillHistoryDetailHomeKare">
                                                                 <h3 class="dayTitleHistoryDetailHomeKare">{{#showdate
                                                                     workingDate}}{{/showdate}}</h3>
@@ -276,15 +487,57 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            {{/each}}
+                                                            {{/each}} --}}
+         {{!-- phần sửa                                                    --}}
+        {{#each this.schedules}}
+        <div class="dayBillHistoryDetailHomeKare">
+            <h3 class="dayTitleHistoryDetailHomeKare">{{#showdate workingDate}}{{/showdate}}</h3>
+            <div class="billDetailsHistoryDetailHomeKare">
+                <div class="detailItemHistoryDetailHomeKare">
+                    <span class="labelHistoryDetailHomeKare">Giờ bắt đầu</span>
+                    <span class="valueHistoryDetailHomeKare">{{#formatTime startTime}}{{/formatTime}}</span>
+                </div>
+                <div class="detailItemHistoryDetailHomeKare">
+                    <span class="labelHistoryDetailHomeKare">Giờ kết thúc</span>
+                    <span class="valueHistoryDetailHomeKare">{{#formatTime endTime}}{{/formatTime}}</span>
+                </div>
+                <div class="detailItemHistoryDetailHomeKare">
+                    <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
+                    <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
+                        data-status="{{status}}">{{#getStatus status}}{{/getStatus}}</span>
+                </div>
+                <div class="detailItemHistoryDetailHomeKare">
+                    <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
+                    <p class="commentHistoryDetailHomeKare">{{comment.review}}</p>
+                </div>
+        
+                <!-- Thêm thông tin thanh toán và nút nếu trạng thái là waitPayment -->
+                {{#if status}}
+                {{#if (isWaitPayment status)}}
+                <div class="paymentSectionHistoryDetailHomeKare">
+                    <div class="detailItemHistoryDetailHomeKare paymentInfo">
+                        <span class="labelHistoryDetailHomeKare">Số tiền cần thanh toán:</span>
+                        <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{price}}đ</span>
+                    </div>
+                    <button class="btn btn-success itemPayButton" data-schedule-id="{{_id}}" data-request-id="{{../this._id}}"
+                        data-type="long">
+                        <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
+                    </button>
+                </div>
+                {{/if}}
+                {{/if}}
+            </div>
+        </div>
+        {{/each}}
+         {{!-- phần sữa kết --}}
                                                             <div class="totalCostHistoryDetailHomeKare">
                                                                 <span class="labelHistoryDetailHomeKare">Tổng số
                                                                     tiền:</span>
                                                                 <span
                                                                     class="valueHistoryDetailHomeKare">{{totalCost}}VNĐ</span>
                                                                 <!-- Add Thanh toán button -->
-                                                                <button id="payButton" class="btn btn-primary"
-                                                                    data-id="{{_id}}">Thanh toán</button>
+                                                                {{!-- <button id="payButton" class="btn btn-primary"
+                                                                    data-id="{{_id}}">Thanh toán</button> --}}
                                                             </div>
                                                         </div>
 
@@ -297,6 +550,67 @@
                                 </table>
                             </div>
                         </div>
+                    
+                        <!-- Loading Overlay -->
+                        <div class="loading-overlay">
+                            <div class="loading-spinner"></div>
+                        </div>
+                    
+                        <!-- Notification Container -->
+                        <div class="notification-container"></div>
+                    
+                        <style>
+                            /* Notification styles */
+                            .notification-container {
+                                position: fixed;
+                                top: 20px;
+                                right: 20px;
+                                z-index: 9999;
+                            }
+                    
+                            .notification {
+                                display: flex;
+                                align-items: center;
+                                padding: 12px 24px;
+                                border-radius: 8px;
+                                margin-bottom: 10px;
+                                color: white;
+                                transform: translateX(120%);
+                                opacity: 0;
+                                transition: all 0.3s ease;
+                            }
+                    
+                            .notification-success {
+                                background: #28a745;
+                                box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+                            }
+                    
+                            .notification-error {
+                                background: #dc3545;
+                                box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+                            }
+                    
+                            .notification-warning {
+                                background: #ffc107;
+                                box-shadow: 0 4px 12px rgba(255, 193, 7, 0.2);
+                                color: #000;
+                            }
+                    
+                            .notification-info {
+                                background: #17a2b8;
+                                box-shadow: 0 4px 12px rgba(23, 162, 184, 0.2);
+                            }
+                    
+                            .notification-icon {
+                                margin-right: 12px;
+                                font-size: 18px;
+                            }
+                    
+                            .notification.show {
+                                transform: translateX(0);
+                                opacity: 1;
+                            }
+                        </style>
 
                         <div class="table-section-homedetail">
                             <h2 class="title-homedetail">Ngắn hạn</h2>
@@ -316,7 +630,8 @@
                                     <tbody id="shortTermTable-homedetail">
 
                                         {{#each shortTermRequests}}
-                                        <tr id="short-row-{{@index}}" data-status="{{status}}"data-request-id="{{_id}}" class="short-term-row">
+                                        <tr id="short-row-{{@index}}" data-status="{{status}}" data-request-id="{{_id}}"
+                                            class="short-term-row">
                                             <td>{{orderDate}}</td>
                                             <td>{{requestType}}</td>
                                             <td>{{service.title}}</td>
@@ -327,8 +642,7 @@
                                                 {{!-- <p class="status-detail cancel">{{status}}</p> --}}
                                                 <button class="btnHistoryDetailHomeKare"
                                                     data-id="{{#sum @index ../longTermRequests.length}}{{/sum}}"
-                                                    data-status="{{status}}"
-                                                    onclick="showBillType(this,'short')"
+                                                    data-status="{{status}}" onclick="showBillType(this,'short')"
                                                     aria-label="View Short Term Bill Details">Chi tiết</button>
                                                 <!-- Thay thế phần modal chi tiết ngắn hạn hiện tại -->
                                                 <div class="modalHistoryDetailHomeKare"
@@ -340,7 +654,7 @@
                                                             <h2 class="modalTitleHistoryDetailHomeKare">Chi tiết hóa đơn
                                                                 ngắn hạn</h2>
                                                         </div>
-                                                        <div class="billDetailsHistoryDetailHomeKare">
+                                                        {{!-- <div class="billDetailsHistoryDetailHomeKare">
                                                             <div class="detailItemHistoryDetailHomeKare">
                                                                 <span class="labelHistoryDetailHomeKare">Ngày:</span>
                                                                 <span
@@ -384,7 +698,57 @@
                                                             <!-- Thêm nút thanh toán -->
                                                             <button id="payButtonShort" class="btn btn-primary"
                                                                 style="margin-left:auto;">Thanh toán</button>
+                                                        </div> --}}
+                                                        {{!-- phần sửa --}}
+                                                        <div class="billDetailsHistoryDetailHomeKare">
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Ngày:</span>
+                                                                <span class="valueHistoryDetailHomeKare">{{orderDate}}</span>
+                                                            </div>
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Giờ bắt đầu:</span>
+                                                                <span class="valueHistoryDetailHomeKare">{{#formatTime startTime}}{{/formatTime}}</span>
+                                                            </div>
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Giờ kết thúc:</span>
+                                                                <span class="valueHistoryDetailHomeKare">{{#formatTime endTime}}{{/formatTime}}</span>
+                                                            </div>
+                                                            {{#each schedules}}
+                                                            {{#if @first}}
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
+                                                                <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
+                                                                    data-status="{{status}}">{{#getStatus status}}{{/getStatus}}</span>
+                                                            </div>
+                                                            {{/if}}
+                                                            {{/each}}
+                                                        
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Chi phí:</span>
+                                                                <span class="valueHistoryDetailHomeKare">{{totalCost}}đ</span>
+                                                            </div>
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
+                                                                <p class="commentHistoryDetailHomeKare">{{comment}}</p>
+                                                            </div>
+                                                        
+                                                            <!-- Thêm nút thanh toán riêng với điều kiện -->
+                                                            {{#if status}}
+                                                            {{#if (isWaitPayment status)}}
+                                                            <div class="paymentSectionHistoryDetailHomeKare">
+                                                                <div class="detailItemHistoryDetailHomeKare paymentInfo">
+                                                                    <span class="labelHistoryDetailHomeKare">Cần thanh toán:</span>
+                                                                    <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{totalCost}}đ</span>
+                                                                </div>
+                                                                <button id="payButtonShort" class="btn btn-success itemPayButton" data-schedule-id="{{schedules.[0]._id}}"
+                                                                    data-request-id="{{_id}}" data-type="short">
+                                                                    <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
+                                                                </button>
+                                                            </div>
+                                                            {{/if}}
+                                                            {{/if}}
                                                         </div>
+                                                        {{!-- phần kết --}}
                                                     </div>
                                                 </div>
                                             </td>
@@ -488,6 +852,225 @@
 <script src="/js/app.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Lưu trữ thông tin đơn hàng hiện tại
+        let currentPaymentInfo = {
+            scheduleId: null,
+            requestId: null,
+            type: null
+        };
+
+        // Xử lý khi nhấp vào các nút thanh toán riêng lẻ
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('itemPayButton') || e.target.closest('.itemPayButton')) {
+                const button = e.target.classList.contains('itemPayButton') ? e.target : e.target.closest('.itemPayButton');
+
+                // Lấy thông tin thanh toán
+                currentPaymentInfo.scheduleId = button.getAttribute('data-schedule-id');
+                currentPaymentInfo.requestId = button.getAttribute('data-request-id');
+                currentPaymentInfo.type = button.getAttribute('data-type');
+
+                // Lưu tham chiếu đến nút hiện tại
+                window.currentPaymentButton = button;
+
+                // Hiển thị modal xác nhận thanh toán
+                const confirmModal = new bootstrap.Modal(document.getElementById('confirmPaymentModal'));
+                confirmModal.show();
+            }
+        });
+
+        // Xử lý nút xác nhận thanh toán
+        document.getElementById('confirmPayBtn').addEventListener('click', function () {
+            if (!currentPaymentInfo.scheduleId || !currentPaymentInfo.requestId) {
+                console.error('Thiếu thông tin thanh toán');
+                return;
+            }
+
+            // Đóng modal xác nhận
+            const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmPaymentModal'));
+            confirmModal.hide();
+
+            // Ở đây bạn sẽ gọi API thanh toán thực tế
+            // Mô phỏng gọi API thanh toán
+            // Show loading
+            document.querySelector('.loading-overlay').classList.add('active');
+
+            // Xử lý thanh toán
+            processPayment(currentPaymentInfo.scheduleId, currentPaymentInfo.requestId, currentPaymentInfo.type)
+                .then(success => {
+                    if (success) {
+                        showNotification('success', 'Thanh toán thành công!');
+                        
+                        // Hiển thị modal đánh giá
+                        const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
+                        
+                        // Lưu thông tin cho đánh giá
+                        document.getElementById('submitRatingBtn').setAttribute('data-schedule-id', currentPaymentInfo.scheduleId);
+                        document.getElementById('submitRatingBtn').setAttribute('data-request-id', currentPaymentInfo.requestId);
+                        document.getElementById('submitRatingBtn').setAttribute('data-type', currentPaymentInfo.type);
+                        
+                        ratingModal.show();
+                    } else {
+                        showNotification('error', 'Có lỗi xảy ra khi thanh toán. Vui lòng thử lại sau.');
+                    }
+                })
+                .catch(error => {
+                    showNotification('error', 'Có lỗi xảy ra: ' + error.message);
+                })
+                .finally(() => {
+                    // Hide loading
+                    document.querySelector('.loading-overlay').classList.remove('active');
+                });
+        });
+
+        // Xử lý gửi đánh giá
+        document.getElementById('submitRatingBtn').addEventListener('click', function () {
+            const rating = selectedRating;
+            const comment = document.getElementById('ratingComment').value;
+            const scheduleId = this.getAttribute('data-schedule-id');
+            const requestId = this.getAttribute('data-request-id');
+            const type = this.getAttribute('data-type');
+
+            if (rating === 0) {
+                alert('Vui lòng chọn số sao đánh giá!');
+                return;
+            }
+
+            // Mô phỏng gửi đánh giá
+            // Show loading
+            document.querySelector('.loading-overlay').classList.add('active');
+
+            submitRating(scheduleId, requestId, type, rating, comment)
+                .then(success => {
+                    if (success) {
+                        // Đóng modal đánh giá
+                        const ratingModal = bootstrap.Modal.getInstance(document.getElementById('ratingModal'));
+                        ratingModal.hide();
+
+                        // Cập nhật giao diện
+                        updateUIAfterPayment(scheduleId, requestId, type);
+
+                        // Hiển thị thông báo thành công với animation
+                        showNotification('success', 'Cảm ơn bạn đã đánh giá! 🌟');
+                        
+                        // Reset form
+                        document.getElementById('ratingComment').value = '';
+                        selectedRating = 0;
+                        highlightStars(0);
+                    } else {
+                        showNotification('error', 'Có lỗi xảy ra khi gửi đánh giá. Vui lòng thử lại.');
+                    }
+                })
+                .catch(error => {
+                    showNotification('error', 'Có lỗi xảy ra: ' + error.message);
+                })
+                .finally(() => {
+                    // Hide loading
+                    document.querySelector('.loading-overlay').classList.remove('active');
+                });
+        });
+
+        // Hàm mô phỏng xử lý thanh toán
+        function processPayment(scheduleId, requestId, type) {
+            console.log(`Xử lý thanh toán cho lịch trình ${scheduleId} thuộc đơn hàng ${requestId} (${type})`);
+
+            // Trong thực tế, đây sẽ là một API call
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(true); // Giả lập thanh toán thành công
+                }, 500);
+            });
+        }
+
+        // Hàm mô phỏng gửi đánh giá
+        function submitRating(scheduleId, requestId, type, rating, comment) {
+            console.log(`Gửi đánh giá ${rating} sao cho lịch trình ${scheduleId} thuộc đơn hàng ${requestId} (${type})`);
+            console.log(`Nhận xét: ${comment}`);
+
+            // Trong thực tế, đây sẽ là một API call
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(true); // Giả lập đánh giá thành công
+                }, 500);
+            });
+        }
+
+        // Cập nhật UI sau khi thanh toán
+        function updateUIAfterPayment(scheduleId, requestId, type) {
+            // Tìm và cập nhật trạng thái phần tử cụ thể
+            if (window.currentPaymentButton) {
+                // Tìm phần tử cha chứa paymentSection
+                const paymentSection = window.currentPaymentButton.closest('.paymentSectionHistoryDetailHomeKare');
+                if (paymentSection) {
+                    // Ẩn phần thanh toán đã hoàn thành
+                    paymentSection.style.display = 'none';
+
+                    // Tìm phần tử trạng thái gần nhất và cập nhật
+                    const container = paymentSection.closest('.billDetailsHistoryDetailHomeKare');
+                    if (container) {
+                        const statusElement = container.querySelector('.status-completeHistoryDetailHomeKare');
+                        if (statusElement) {
+                            // Cập nhật status thành 'done'
+                            statusElement.setAttribute('data-status', 'done');
+                            updateStatusStyle(statusElement, 'done');
+                        }
+                    }
+                }
+            }
+        }
+
+        // Cập nhật hiển thị trạng thái (sử dụng lại từ code ban đầu)
+        function updateStatusStyle(element, status) {
+            const statusMap = {
+                'done': {
+                    class: 'status-doneHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-check-circle"></i>',
+                    text: 'Đã hoàn thành'
+                },
+                'assigned': {
+                    class: 'status-assignedHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-user-check"></i>',
+                    text: 'Đã xác nhận'
+                },
+                'notDone': {
+                    class: 'status-notDoneHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-clock"></i>',
+                    text: 'Chờ xác nhận'
+                },
+                'cancelled': {
+                    class: 'status-cancelHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-times-circle"></i>',
+                    text: 'Đã hủy'
+                },
+                'waitPayment': {
+                    class: 'status-wayPaymentHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-money-bill-wave"></i>',
+                    text: 'Chờ thanh toán'
+                },
+                'processing': {
+                    class: 'status-processingHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-spinner fa-spin"></i>',
+                    text: 'Đang thực hiện'
+                }
+            };
+
+            // Xóa tất cả các classes trạng thái cũ
+            element.classList.remove(
+                'status-doneHistoryDetailHomeKare',
+                'status-assignedHistoryDetailHomeKare',
+                'status-notDoneHistoryDetailHomeKare',
+                'status-cancelHistoryDetailHomeKare',
+                'status-wayPaymentHistoryDetailHomeKare',
+                'status-processingHistoryDetailHomeKare'
+            );
+
+            const statusInfo = statusMap[status] || statusMap.notDone;
+            element.classList.add(statusInfo.class);
+            element.innerHTML = `${statusInfo.icon} ${statusInfo.text}`;
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
         // Kiểm tra trạng thái hoàn thành và hiển thị nút thanh toán
         function checkAllBillsCompleted() {
             const statusElements = document.querySelectorAll('.valueHistoryDetailHomeKare.status-completeHistoryDetailHomeKare');
@@ -564,8 +1147,8 @@
             }
 
             // Gửi đánh giá
-           
-           
+
+
             //Đóng modal chi tiết
             const closeModal = document.querySelector('.modalHistoryDetailHomeKare').classList.remove('showModalHistoryDetailHomeKare')
             // Đóng modal đánh giá
@@ -589,7 +1172,7 @@
 
         const a = navList[i].querySelector("a");
         a.addEventListener("click", function () {
-            
+
             removeBackSection();
             for (let j = 0; j < totalNavList; j++) {
                 if (navList[j].querySelector("a").classList.contains("aside__nav-active")) {
@@ -618,12 +1201,12 @@
             allSection[i].classList.remove("home-active");
         }
         const target = element.getAttribute("href").split("#")[1];
-        
+
         document.querySelector("#" + target).classList.add("home-active");
 
     }
     function updateNav(element) {
-        
+
         for (let i = 0; i < totalSection; i++) {
             navList[i].querySelector("a").classList.remove("aside__nav-active");
             const target = element.getAttribute("href").split("#")[1];
@@ -911,7 +1494,7 @@
 </script>
 <script>
     function showBillType(btn, type) {
-       
+
         // Get both bill containers
         const shortTermBill = document.getElementById('shortTermBillHistoryDetailHomeKare');
         const longTermBill = document.getElementById('longTermBillHistoryDetailHomeKare');
@@ -920,8 +1503,8 @@
         // Get all buttons
         const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
         index = btn.getAttribute('data-id')
-        const status =btn.getAttribute('data-status');
-      
+        const status = btn.getAttribute('data-status');
+
 
         // Reset all buttons
         buttons.forEach(button => {
@@ -932,12 +1515,12 @@
         if (type === 'short') {
             openModal('shortTermModalHistoryDetailHomeKare', index);
 
-           // buttons[0].style.background = '#2980b9';
-           btn.style.background = '#2980b9';
+            // buttons[0].style.background = '#2980b9';
+            btn.style.background = '#2980b9';
         } else {
             openModal('longTermModalHistoryDetailHomeKare', index);
-           // buttons[1].style.background = '#2980b9';
-           btn.style.background = '#2980b9';
+            // buttons[1].style.background = '#2980b9';
+            btn.style.background = '#2980b9';
         }
     }
 
@@ -967,65 +1550,65 @@
         });
     }
     //them
-  /*  function openModal(modalId, index, status) {
-        const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
-        const row = buttons[index].parentNode;
-       
-        const modal = row.querySelector('#' + modalId);
-
-        if (!modal) {
-            console.error("Không tìm thấy modal:", modalId);
-            return;
-        }
-
-        // Lưu trạng thái tổng vào modal để sử dụng sau này
-        modal.setAttribute('data-request-status', status);
-
-        modal.classList.add('showModalHistoryDetailHomeKare');
-        document.body.style.overflow = 'hidden';
-
-        // Cập nhật hiển thị nút thanh toán dựa vào trạng thái tổng
-        updatePaymentButtonVisibility(modal, status);
-
-        // Add click outside to close functionality
-        modal.addEventListener('click', function (e) {
-            if (e.target === modal) {
-                closeModal(modalId);
-            }
-        });
-
-        // Add escape key to close functionality
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                closeModal(modalId);
-            }
-        });
-    }
-    // Hàm mới để cập nhật hiển thị nút thanh toán
-        function updatePaymentButtonVisibility(modal, status) {
-            const payButton = modal.querySelector('#payButton') || modal.querySelector('#payButtonShort');
-            const cancelButton = modal.querySelector('#cancelButton') || modal.querySelector('#cancelButtonShort');
-
-            if (payButton) {
-                // CHỈ hiển thị nút thanh toán nếu trạng thái tổng là waitPayment
-                if (status === 'waitPayment') {
-                    payButton.style.display = 'block';
-                    console.log("Hiển thị nút thanh toán - trạng thái waitPayment");
-                } else {
-                    payButton.style.display = 'none';
-                    console.log("Ẩn nút thanh toán - trạng thái không phải waitPayment");
-                }
-            }
-
-            if (cancelButton) {
-                // Chỉ hiển thị nút hủy đơn nếu trạng thái là notDone
-                if (status === 'notDone') {
-                    cancelButton.style.display = 'block';
-                } else {
-                    cancelButton.style.display = 'none';
-                }
-            }
-        }*/
+    /*  function openModal(modalId, index, status) {
+          const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+          const row = buttons[index].parentNode;
+         
+          const modal = row.querySelector('#' + modalId);
+  
+          if (!modal) {
+              console.error("Không tìm thấy modal:", modalId);
+              return;
+          }
+  
+          // Lưu trạng thái tổng vào modal để sử dụng sau này
+          modal.setAttribute('data-request-status', status);
+  
+          modal.classList.add('showModalHistoryDetailHomeKare');
+          document.body.style.overflow = 'hidden';
+  
+          // Cập nhật hiển thị nút thanh toán dựa vào trạng thái tổng
+          updatePaymentButtonVisibility(modal, status);
+  
+          // Add click outside to close functionality
+          modal.addEventListener('click', function (e) {
+              if (e.target === modal) {
+                  closeModal(modalId);
+              }
+          });
+  
+          // Add escape key to close functionality
+          document.addEventListener('keydown', function (e) {
+              if (e.key === 'Escape') {
+                  closeModal(modalId);
+              }
+          });
+      }
+      // Hàm mới để cập nhật hiển thị nút thanh toán
+          function updatePaymentButtonVisibility(modal, status) {
+              const payButton = modal.querySelector('#payButton') || modal.querySelector('#payButtonShort');
+              const cancelButton = modal.querySelector('#cancelButton') || modal.querySelector('#cancelButtonShort');
+  
+              if (payButton) {
+                  // CHỈ hiển thị nút thanh toán nếu trạng thái tổng là waitPayment
+                  if (status === 'waitPayment') {
+                      payButton.style.display = 'block';
+                      console.log("Hiển thị nút thanh toán - trạng thái waitPayment");
+                  } else {
+                      payButton.style.display = 'none';
+                      console.log("Ẩn nút thanh toán - trạng thái không phải waitPayment");
+                  }
+              }
+  
+              if (cancelButton) {
+                  // Chỉ hiển thị nút hủy đơn nếu trạng thái là notDone
+                  if (status === 'notDone') {
+                      cancelButton.style.display = 'block';
+                  } else {
+                      cancelButton.style.display = 'none';
+                  }
+              }
+          }*/
     function closeModal(modalId) {
         const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
         const row = buttons[index].parentNode;
@@ -1069,55 +1652,55 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ orderId:requestId })
+                    body: JSON.stringify({ orderId: requestId })
                 }).then(response => {
                     console.log("response", response)
                     if (!response.status === 200) {
                         alert('Hủy đơn hàng thất bại:', error);
                     }
-                    else{
+                    else {
                         alert('Đã hủy đơn hàng thành công!');
-                    // Đóng modal chi tiết
-                    if (currentModal) {
-                        currentModal.classList.remove('showModalHistoryDetailHomeKare');
-                    }
+                        // Đóng modal chi tiết
+                        if (currentModal) {
+                            currentModal.classList.remove('showModalHistoryDetailHomeKare');
+                        }
 
-                    // Tìm hàng từ bảng đúng loại
-                    const targetTable = tabletype === 'long'
-                        ? document.getElementById('longTermTable-homedetail')
-                        : document.getElementById('shortTermTable-homedetail');
+                        // Tìm hàng từ bảng đúng loại
+                        const targetTable = tabletype === 'long'
+                            ? document.getElementById('longTermTable-homedetail')
+                            : document.getElementById('shortTermTable-homedetail');
 
                         if (targetTable) {
-                        // Tìm hàng theo request ID trong bảng cụ thể
-                        const rows = targetTable.querySelectorAll('tr[data-request-id="' + requestId + '"]');
+                            // Tìm hàng theo request ID trong bảng cụ thể
+                            const rows = targetTable.querySelectorAll('tr[data-request-id="' + requestId + '"]');
 
-                        if (rows.length > 0) {
-                            rows.forEach(row => {
-                                // Cập nhật trạng thái trong modal
-                                const modal = row.querySelector('.modalHistoryDetailHomeKare');
-                                if (modal) {
-                                    const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
-                                    statusElements.forEach(statusEl => {
-                                        // Cập nhật data-status để hiển thị trạng thái đã hủy
-                                        statusEl.setAttribute('data-status', 'cancelled');
-                                    });
-                                }
-
-                                // Cập nhật trạng thái hiển thị trong bảng (nếu có)
-                                const statusCell = row.cells[5]; // Cell thứ 6 (index 5) thường là trạng thái
-                                if (statusCell) {
-                                    const statusElement = statusCell.querySelector('.status-completeHistoryDetailHomeKare');
-                                    if (statusElement) {
-                                        statusElement.setAttribute('data-status', 'cancelled');
+                            if (rows.length > 0) {
+                                rows.forEach(row => {
+                                    // Cập nhật trạng thái trong modal
+                                    const modal = row.querySelector('.modalHistoryDetailHomeKare');
+                                    if (modal) {
+                                        const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
+                                        statusElements.forEach(statusEl => {
+                                            // Cập nhật data-status để hiển thị trạng thái đã hủy
+                                            statusEl.setAttribute('data-status', 'cancelled');
+                                        });
                                     }
-                                }
-                            });
+
+                                    // Cập nhật trạng thái hiển thị trong bảng (nếu có)
+                                    const statusCell = row.cells[5]; // Cell thứ 6 (index 5) thường là trạng thái
+                                    if (statusCell) {
+                                        const statusElement = statusCell.querySelector('.status-completeHistoryDetailHomeKare');
+                                        if (statusElement) {
+                                            statusElement.setAttribute('data-status', 'cancelled');
+                                        }
+                                    }
+                                });
 
 
-                        } else {
-                            console.warn(`Không tìm thấy hàng với requestId ${requestId} trong bảng ${tabletype}`);
+                            } else {
+                                console.warn(`Không tìm thấy hàng với requestId ${requestId} trong bảng ${tabletype}`);
+                            }
                         }
-                }
                     }
 
 
@@ -1125,7 +1708,7 @@
                     alert('Error cancelling order:', error);
                 });
 
-                
+
             };
 
             // Hiển thị modal xác nhận
@@ -1135,8 +1718,75 @@
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Hàm đơn giản kiểm tra và cập nhật nút thanh toán khi mở modal
+        // Thay thế hoặc cập nhật hàm setupPaymentButtons hiện tại
         function setupPaymentButtons() {
+            // Xử lý cho tất cả các phần tử có trạng thái
+            document.querySelectorAll('.status-completeHistoryDetailHomeKare').forEach(statusEl => {
+                const status = statusEl.getAttribute('data-status');
+                const container = statusEl.closest('.billDetailsHistoryDetailHomeKare');
+
+                // Tìm hoặc tạo phần thanh toán cho mỗi đơn
+                let paymentSection = container.querySelector('.paymentSectionHistoryDetailHomeKare');
+
+                // Nếu đã có phần thanh toán, xóa đi để tạo lại tránh trùng lặp
+                if (paymentSection) {
+                    paymentSection.remove();
+                }
+
+                // Nếu trạng thái là chờ thanh toán, tạo phần UI thanh toán
+                if (status === 'waitPayment') {
+                    // Tạo phần thanh toán mới
+                    paymentSection = document.createElement('div');
+                    paymentSection.className = 'paymentSectionHistoryDetailHomeKare';
+
+                    // Lấy thông tin cần thiết
+                    const modal = statusEl.closest('.modalHistoryDetailHomeKare');
+                    const requestId = modal.getAttribute('data-request-id');
+                    const isLongTerm = modal.id === 'longTermModalHistoryDetailHomeKare';
+
+                    // Tìm đúng phần tử chứa giá (có thể khác nhau giữa dài hạn và ngắn hạn)
+                    let price = "0";
+                    if (isLongTerm) {
+                        const totalCostEl = modal.querySelector('.totalCostHistoryDetailHomeKare .valueHistoryDetailHomeKare');
+                        if (totalCostEl) {
+                            price = totalCostEl.textContent;
+                        }
+                        // Đối với dài hạn, cần xác định scheduleId cụ thể
+                        const dayBill = container.closest('.dayBillHistoryDetailHomeKare');
+                        const index = Array.from(modal.querySelectorAll('.dayBillHistoryDetailHomeKare')).indexOf(dayBill);
+                        if (index > -1) {
+                            scheduleId = `schedule_${requestId}_${index}`;  // Tạo ID ảo nếu không có thật
+                        }
+                    } else {
+                        // Đối với ngắn hạn
+                        const priceEl = container.querySelector('.detailItemHistoryDetailHomeKare:nth-child(5) .valueHistoryDetailHomeKare');
+                        if (priceEl) {
+                            price = priceEl.textContent;
+                        }
+                        scheduleId = `schedule_${requestId}_0`;  // Tạo ID ảo nếu không có thật
+                    }
+
+                    // Tạo HTML cho phần thanh toán
+                    paymentSection.innerHTML = `
+                <div class="detailItemHistoryDetailHomeKare paymentInfo">
+                    <span class="labelHistoryDetailHomeKare">Số tiền cần thanh toán:</span>
+                    <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">${price}</span>
+                </div>
+                <button class="btn btn-success itemPayButton" 
+                    data-schedule-id="${scheduleId}" 
+                    data-request-id="${requestId}"
+                    data-type="${isLongTerm ? 'long' : 'short'}">
+                    <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
+                </button>
+            `;
+
+                    // Thêm vào container
+                    container.appendChild(paymentSection);
+                }
+            });
+        }
+        // Hàm đơn giản kiểm tra và cập nhật nút thanh toán khi mở modal
+       /* function setupPaymentButtons() {
             // Xử lý cho tất cả các modal
             document.querySelectorAll('.modalHistoryDetailHomeKare').forEach(modal => {
                 // Lấy nút thanh toán dựa vào ID modal
@@ -1186,30 +1836,30 @@
                 // Tìm tất cả các phần tử trạng thái trong modal
                 //tommy
                 const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
-               
+
                 const requestStatus = modal.getAttribute('data-request-status') ||
                     modal.closest('tr')?.getAttribute('data-status');
-                    console.log(payButton);
-               
-                  // Hiển thị nút thanh toán nếu trạng thái là đã hoàn thành
-                  console.log("requestStatus", requestStatus);
+                console.log(payButton);
+
+                // Hiển thị nút thanh toán nếu trạng thái là đã hoàn thành
+                console.log("requestStatus", requestStatus);
                 if (requestStatus === 'waitPayment' && payButton) {
-                   
+
                     payButton.style.display = 'block';
-                    
-                   
+
+
                 }
                 // Kiểm tra trạng thái của đơn hàng
                 statusElements.forEach(statusEl => {
                     const status = statusEl.getAttribute('data-status');
-                  
 
-                  
+
+
 
                     // Hiển thị nút hủy đơn nếu trạng thái là chờ xác nhận
                     if (status === 'notDone' && cancelButton) {
                         cancelButton.style.display = 'block';
-                       
+
 
                         // Lưu trữ thông tin hàng cần xóa khi hủy
                         cancelButton.setAttribute('data-row-id', statusEl.closest('tr')?.id || '');
@@ -1217,9 +1867,9 @@
                     }
                 });
             });
-        }
-    
-      
+        }*/
+
+
 
         // Thêm event listener cho các nút "Chi tiết"
         document.querySelectorAll('.btnHistoryDetailHomeKare').forEach(button => {

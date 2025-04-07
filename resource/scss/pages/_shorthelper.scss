@@ -161,7 +161,7 @@
 .wrapper-service__select-btn {
     display: flex;
     height: 100%;
-    padding: 0 15px;
+    padding: 0 7px;
     background: #fff;
     border: 1px solid #d4d4d4;
     
@@ -171,7 +171,8 @@
 }
 
 .wrapper-service__select-btn span {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .wrapper-service__content {
