@@ -755,7 +755,7 @@
 </div>
 
 
-<script>
+<script defer>
     document.addEventListener('DOMContentLoaded', function () {
         const wrapper_service = document.querySelector(".wrapper-service");
         const selectBtn_service = wrapper_service.querySelector(".wrapper-service__select-btn");
@@ -1223,7 +1223,7 @@
 
 
 </script>
-<script>
+<script defer>
 
     const locations = {{{ json locations }}};
     console.log(locations);
@@ -1266,8 +1266,8 @@
     }
     let slideShowIndex = 0;
 </script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
+<script defer src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script defer>
     flatpickr("#myID3", {
         enableTime: true,
         noCalendar: true, // Ẩn phần chọn ngày, chỉ hiển thị giờ
@@ -1323,7 +1323,7 @@
     });
 
 </script>
-<script>
+<script defer>
     document.addEventListener('DOMContentLoaded', () => {
         const timeDisplay = document.getElementById('timeDisplay');
         const timePicker = document.getElementById('timePicker');
@@ -1412,7 +1412,7 @@
     });
 </script>
 
-<script>
+<script defer>
     document.addEventListener('DOMContentLoaded', () => {
 
         // Time picker elements
@@ -1605,7 +1605,7 @@
         });
     });
 </script>
-<script>
+<script defer>
     document.addEventListener('DOMContentLoaded', () => {
         // Time picker elements with long suffix
         const startTimeInput = document.getElementById('start-time-input-long');
@@ -1783,7 +1783,7 @@
         });
     });
 </script>
-<script>
+<script defer>
     document.addEventListener("DOMContentLoaded", function () {
         const slider = document.querySelector('.slider-lastest_item--2');
         const observer = new IntersectionObserver((entries, observer) => {
