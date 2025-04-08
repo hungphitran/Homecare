@@ -472,12 +472,16 @@
                                                                             endTime}}{{/formatTime}}</span>
                                                                     </div>
                                                                     <div class="detailItemHistoryDetailHomeKare">
+                                                                        <span class="labelHistoryDetailHomeKare">Chi phí</span>
+                                                                        <span
+                                                                            class="valueHistoryDetailHomeKare">{{cost}}</span>
+                                                                    </div>
+                                                                    <div class="detailItemHistoryDetailHomeKare">
                                                                         <span class="labelHistoryDetailHomeKare">Trạng
                                                                             thái:</span>
                                                                         <span
                                                                             class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
-                                                                            data-status="{{status}}">{{#getStatus
-                                                                            status}}{{/getStatus}}</span>
+                                                                            data-status="{{status}}" data-detail-id="{{_id}}" data-cost="{{cost}}">{{#getStatus status}}{{/getStatus}}</span>
                                                                     </div>
                                                                     <div class="detailItemHistoryDetailHomeKare">
                                                                         <span class="labelHistoryDetailHomeKare">Nhận
@@ -504,7 +508,11 @@
                 <div class="detailItemHistoryDetailHomeKare">
                     <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
                     <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
-                        data-status="{{status}}">{{#getStatus status}}{{/getStatus}}</span>
+                        data-status="{{status}}" data-detail-id="{{_id}}" data-cost="{{cost}}">{{#getStatus status}}{{/getStatus}}</span>
+                </div>
+                <div class="detailItemHistoryDetailHomeKare">
+                    <span class="labelHistoryDetailHomeKare">Chi phí:</span>
+                    <p class="commentHistoryDetailHomeKare">{{cost}}</p>
                 </div>
                 <div class="detailItemHistoryDetailHomeKare">
                     <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
@@ -517,9 +525,9 @@
                 <div class="paymentSectionHistoryDetailHomeKare">
                     <div class="detailItemHistoryDetailHomeKare paymentInfo">
                         <span class="labelHistoryDetailHomeKare">Số tiền cần thanh toán:</span>
-                        <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{price}}đ</span>
+                        <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{cost}}đ</span>
                     </div>
-                    <button class="btn btn-success itemPayButton" data-schedule-id="{{_id}}" data-request-id="{{../this._id}}"
+                    <button class="btn btn-success itemPayButton" data-cost="{{cost}}" data-schedule-id="{{_id}}" data-request-id="{{../this._id}}"
                         data-type="long">
                         <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
                     </button>
@@ -679,17 +687,17 @@
                                                                     thái:</span>
                                                                 <span
                                                                     class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
-                                                                    data-status="{{status}}">{{#getStatus
-                                                                    status}}{{/getStatus}}</span>
+                                                                    data-status="{{status}}" data-detail-id="{{_id}}" data-cost="{{cost}}">{{#getStatus status}}{{/getStatus}}</span>
+                                                            </div>
+                                                                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Chi phí:</span>
+                                                                <span
+                                                                    class="valueHistoryDetailHomeKare">{{cost}}</span>
                                                             </div>
                                                             {{/if}}
 
                                                             {{/each}}
-                                                            <div class="detailItemHistoryDetailHomeKare">
-                                                                <span class="labelHistoryDetailHomeKare">Chi phí:</span>
-                                                                <span
-                                                                    class="valueHistoryDetailHomeKare">{{totalCost}}</span>
-                                                            </div>
+
                                                             <div class="detailItemHistoryDetailHomeKare">
                                                                 <span class="labelHistoryDetailHomeKare">Nhận
                                                                     xét:</span>
@@ -718,15 +726,16 @@
                                                             <div class="detailItemHistoryDetailHomeKare">
                                                                 <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
                                                                 <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
-                                                                    data-status="{{status}}">{{#getStatus status}}{{/getStatus}}</span>
+                                                                    data-status="{{status}}" data-detail-id="{{_id}}" data-cost="{{cost}}">{{#getStatus status}}{{/getStatus}}</span>
+                                                            </div>
+                                                            <div class="detailItemHistoryDetailHomeKare">
+                                                                <span class="labelHistoryDetailHomeKare">Chi phí:</span>
+                                                                <span class="valueHistoryDetailHomeKare">{{this.cost}}đ</span>
                                                             </div>
                                                             {{/if}}
                                                             {{/each}}
                                                         
-                                                            <div class="detailItemHistoryDetailHomeKare">
-                                                                <span class="labelHistoryDetailHomeKare">Chi phí:</span>
-                                                                <span class="valueHistoryDetailHomeKare">{{totalCost}}đ</span>
-                                                            </div>
+
                                                             <div class="detailItemHistoryDetailHomeKare">
                                                                 <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
                                                                 <p class="commentHistoryDetailHomeKare">{{comment}}</p>
@@ -738,10 +747,10 @@
                                                             <div class="paymentSectionHistoryDetailHomeKare">
                                                                 <div class="detailItemHistoryDetailHomeKare paymentInfo">
                                                                     <span class="labelHistoryDetailHomeKare">Cần thanh toán:</span>
-                                                                    <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{totalCost}}đ</span>
+                                                                    <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{cost}}đ</span>
                                                                 </div>
-                                                                <button id="payButtonShort" class="btn btn-success itemPayButton" data-schedule-id="{{schedules.[0]._id}}"
-                                                                    data-request-id="{{_id}}" data-type="short">
+                                                                <button id="payButtonShort" class="btn btn-success itemPayButton" data-detail-id="{{schedules.[0]._id}}"
+                                                                    data-request-id="{{_id}}" data-cost="{{cost}}" data-type="short">
                                                                     <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
                                                                 </button>
                                                             </div>
@@ -799,12 +808,12 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Đánh giá người giúp việc</h5>
 
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="display: flex
+                    <a href="/account/detailed" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="display: flex
                 ;
                     justify-content: center;
                     align-items: center;">
                         <span class="btn-close-modal">x</span>
-                    </button>
+                    </a>
                 </div>
                 <div class="modal-body">
                     <div class="rating-stars">
@@ -865,7 +874,7 @@
                 const button = e.target.classList.contains('itemPayButton') ? e.target : e.target.closest('.itemPayButton');
 
                 // Lấy thông tin thanh toán
-                currentPaymentInfo.scheduleId = button.getAttribute('data-schedule-id');
+                currentPaymentInfo.scheduleId = button.getAttribute('data-detail-id');
                 currentPaymentInfo.requestId = button.getAttribute('data-request-id');
                 currentPaymentInfo.type = button.getAttribute('data-type');
 
@@ -880,7 +889,8 @@
 
         // Xử lý nút xác nhận thanh toán
         document.getElementById('confirmPayBtn').addEventListener('click', function () {
-            if (!currentPaymentInfo.scheduleId || !currentPaymentInfo.requestId) {
+            console.log('Xác nhận thanh toán cho lịch trình:', currentPaymentInfo);
+            if (!currentPaymentInfo.scheduleId) {
                 console.error('Thiếu thông tin thanh toán');
                 return;
             }
@@ -897,100 +907,140 @@
             // Xử lý thanh toán
             processPayment(currentPaymentInfo.scheduleId, currentPaymentInfo.requestId, currentPaymentInfo.type)
                 .then(success => {
-                    if (success) {
-                        showNotification('success', 'Thanh toán thành công!');
+                    console.log(success)
+                        //showNotification('success', 'Thanh toán thành công!');
                         
                         // Hiển thị modal đánh giá
                         const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
                         
                         // Lưu thông tin cho đánh giá
-                        document.getElementById('submitRatingBtn').setAttribute('data-schedule-id', currentPaymentInfo.scheduleId);
+                        document.getElementById('submitRatingBtn').setAttribute('data-detail-id', currentPaymentInfo.scheduleId);
                         document.getElementById('submitRatingBtn').setAttribute('data-request-id', currentPaymentInfo.requestId);
                         document.getElementById('submitRatingBtn').setAttribute('data-type', currentPaymentInfo.type);
                         
-                        ratingModal.show();
-                    } else {
-                        showNotification('error', 'Có lỗi xảy ra khi thanh toán. Vui lòng thử lại sau.');
-                    }
+                    ratingModal.show();
                 })
                 .catch(error => {
-                    showNotification('error', 'Có lỗi xảy ra: ' + error.message);
+                    //showNotification('error', 'Có lỗi xảy ra: ' + error.message);
                 })
                 .finally(() => {
                     // Hide loading
-                    document.querySelector('.loading-overlay').classList.remove('active');
+                    //document.querySelector('.loading-overlay').classList.remove('active');
                 });
         });
 
         // Xử lý gửi đánh giá
         document.getElementById('submitRatingBtn').addEventListener('click', function () {
-            const rating = selectedRating;
+            const rating =  5 //selectedRating; 
             const comment = document.getElementById('ratingComment').value;
-            const scheduleId = this.getAttribute('data-schedule-id');
+            //const scheduleId =this.getAttribute('data-detail-id');
+            const scheduleId = currentPaymentInfo.scheduleId
             const requestId = this.getAttribute('data-request-id');
             const type = this.getAttribute('data-type');
+            console.log('Gửi đánh giá cho lịch trình:', scheduleId, requestId, type, rating, comment);
 
-            if (rating === 0) {
+   /*         if (rating === 0) {
                 alert('Vui lòng chọn số sao đánh giá!');
                 return;
-            }
+            }*/
 
             // Mô phỏng gửi đánh giá
             // Show loading
-            document.querySelector('.loading-overlay').classList.add('active');
+            //ocument.querySelector('.loading-overlay').classList.add('active');
 
-            submitRating(scheduleId, requestId, type, rating, comment)
+            submitRating(scheduleId, rating, comment)
                 .then(success => {
-                    if (success) {
+                    console.log('Đánh giá đã được gửi thành công!', success);
                         // Đóng modal đánh giá
                         const ratingModal = bootstrap.Modal.getInstance(document.getElementById('ratingModal'));
                         ratingModal.hide();
 
                         // Cập nhật giao diện
-                        updateUIAfterPayment(scheduleId, requestId, type);
+                        //updateUIAfterPayment(scheduleId, requestId, type);
 
                         // Hiển thị thông báo thành công với animation
-                        showNotification('success', 'Cảm ơn bạn đã đánh giá! 🌟');
+                        //showNotification('success', 'Cảm ơn bạn đã đánh giá! 🌟');
                         
+                        window.location.reload(); // Tải lại trang để cập nhật thông tin
+
                         // Reset form
-                        document.getElementById('ratingComment').value = '';
-                        selectedRating = 0;
-                        highlightStars(0);
-                    } else {
-                        showNotification('error', 'Có lỗi xảy ra khi gửi đánh giá. Vui lòng thử lại.');
-                    }
+                        //document.getElementById('ratingComment').value = '';
+                        //selectedRating = 0;
+                        //highlightStars(0);
                 })
                 .catch(error => {
-                    showNotification('error', 'Có lỗi xảy ra: ' + error.message);
+                    console.error('Có lỗi xảy ra:', error);
+                    //showNotification('error', 'Có lỗi xảy ra: ' + error.message);
                 })
                 .finally(() => {
                     // Hide loading
-                    document.querySelector('.loading-overlay').classList.remove('active');
+                    //document.querySelector('.loading-overlay').classList.remove('active');
                 });
         });
 
         // Hàm mô phỏng xử lý thanh toán
         function processPayment(scheduleId, requestId, type) {
-            console.log(`Xử lý thanh toán cho lịch trình ${scheduleId} thuộc đơn hàng ${requestId} (${type})`);
-
+            //console.log(`Xử lý thanh toán cho lịch trình ${scheduleId} thuộc đơn hàng ${requestId} (${type})`);
+            //console.log('Đang xử lý thanh toán...', scheduleId, requestId, type);
             // Trong thực tế, đây sẽ là một API call
-            return new Promise(resolve => {
+
+            return fetch('/request/finishpayment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    detailId: scheduleId
+                })
+            }).then(response => {
+        if (!response.ok) {
+            throw new Error(`Payment failed with status ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Thanh toán thành công:', data);
+        return data; // Return the parsed response
+    })
+    .catch(error => {
+        console.error('Có lỗi xảy ra:', error);
+        throw error; // Reject the promise with the error
+    });
+
+   /*         return new Promise(resolve => {
                 setTimeout(() => {
                     resolve(true); // Giả lập thanh toán thành công
                 }, 500);
-            });
+            });*/
         }
 
         // Hàm mô phỏng gửi đánh giá
-        function submitRating(scheduleId, requestId, type, rating, comment) {
-            console.log(`Gửi đánh giá ${rating} sao cho lịch trình ${scheduleId} thuộc đơn hàng ${requestId} (${type})`);
-            console.log(`Nhận xét: ${comment}`);
+        function submitRating(scheduleId, rating, comment) {
+     /*       console.log(`Gửi đánh giá ${rating} sao cho lịch trình ${scheduleId} thuộc đơn hàng ${requestId} (${type})`);
+            */console.log(`Nhận xét: ${comment}`);
 
             // Trong thực tế, đây sẽ là một API call
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    resolve(true); // Giả lập đánh giá thành công
-                }, 500);
+
+
+
+            return fetch('/request/review', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    detailId: scheduleId,
+                    comment: {
+                        review: comment,
+                        loseThings:false,
+                        breakThings:false,
+                    }
+                })
+            }).then(data => {
+                return Promise.resolve()
+            }).catch(error => {
+                console.error('Có lỗi xảy ra:', error);
+                return Promise.reject(error);
             });
         }
 
@@ -1099,8 +1149,7 @@
             confirmModal.hide();
 
             // Hiển thị thông báo thành công
-            alert('Xác nhận thanh toán thành công!');
-
+            //alert('Xác nhận thanh toán thành công!');
             // Hiển thị modal đánh giá
             const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
             ratingModal.show();
@@ -1141,10 +1190,10 @@
         document.getElementById('submitRatingBtn').addEventListener('click', function () {
             const comment = document.getElementById('ratingComment').value;
 
-            if (selectedRating === 0) {
+            /* if (selectedRating === 0) {
                 alert('Vui lòng chọn số sao đánh giá!');
                 return;
-            }
+            } */
 
             // Gửi đánh giá
 
@@ -1160,7 +1209,7 @@
         });
 
         // Kiểm tra ban đầu
-        updatePayButtonVisibility();
+        //updatePayButtonVisibility();
     });
 </script>
 <script>
@@ -1723,8 +1772,12 @@
             // Xử lý cho tất cả các phần tử có trạng thái
             document.querySelectorAll('.status-completeHistoryDetailHomeKare').forEach(statusEl => {
                 const status = statusEl.getAttribute('data-status');
+                let scheduleId = statusEl.getAttribute('data-detail-id') || statusEl.closest('tr').getAttribute('data-detail-id');
                 const container = statusEl.closest('.billDetailsHistoryDetailHomeKare');
+                    // Tìm đúng phần tử chứa giá (có thể khác nhau giữa dài hạn và ngắn hạn)
+                const price = statusEl.getAttribute('data-cost') || statusEl.closest('tr').getAttribute('data-cost');
 
+                console.log("price", price)
                 // Tìm hoặc tạo phần thanh toán cho mỗi đơn
                 let paymentSection = container.querySelector('.paymentSectionHistoryDetailHomeKare');
 
@@ -1739,13 +1792,13 @@
                     paymentSection = document.createElement('div');
                     paymentSection.className = 'paymentSectionHistoryDetailHomeKare';
 
+
                     // Lấy thông tin cần thiết
                     const modal = statusEl.closest('.modalHistoryDetailHomeKare');
                     const requestId = modal.getAttribute('data-request-id');
                     const isLongTerm = modal.id === 'longTermModalHistoryDetailHomeKare';
 
-                    // Tìm đúng phần tử chứa giá (có thể khác nhau giữa dài hạn và ngắn hạn)
-                    let price = "0";
+
                     if (isLongTerm) {
                         const totalCostEl = modal.querySelector('.totalCostHistoryDetailHomeKare .valueHistoryDetailHomeKare');
                         if (totalCostEl) {
@@ -1754,16 +1807,16 @@
                         // Đối với dài hạn, cần xác định scheduleId cụ thể
                         const dayBill = container.closest('.dayBillHistoryDetailHomeKare');
                         const index = Array.from(modal.querySelectorAll('.dayBillHistoryDetailHomeKare')).indexOf(dayBill);
-                        if (index > -1) {
+                        /*if (index > -1) {
                             scheduleId = `schedule_${requestId}_${index}`;  // Tạo ID ảo nếu không có thật
-                        }
+                        }*/
                     } else {
                         // Đối với ngắn hạn
                         const priceEl = container.querySelector('.detailItemHistoryDetailHomeKare:nth-child(5) .valueHistoryDetailHomeKare');
-                        if (priceEl) {
+                        /*if (priceEl) {
                             price = priceEl.textContent;
                         }
-                        scheduleId = `schedule_${requestId}_0`;  // Tạo ID ảo nếu không có thật
+                        scheduleId = `schedule_${requestId}_0`; */ // Tạo ID ảo nếu không có thật
                     }
 
                     // Tạo HTML cho phần thanh toán
@@ -1773,7 +1826,8 @@
                     <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">${price}</span>
                 </div>
                 <button class="btn btn-success itemPayButton" 
-                    data-schedule-id="${scheduleId}" 
+                    data-cost="${price}"
+                    data-detail-id="${scheduleId}" 
                     data-request-id="${requestId}"
                     data-type="${isLongTerm ? 'long' : 'short'}">
                     <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
@@ -1947,7 +2001,7 @@
                         icon: '<i class="fas fa-times-circle"></i>',
                         text: 'Đã hủy'
                     },
-                    'wayPayment': {
+                    'waitPayment': {
                         class: 'status-wayPaymentHistoryDetailHomeKare',
                         icon: '<i class="fas fa-money-bill-wave"></i>',
                         text: 'Chờ thanh toán'
@@ -2085,7 +2139,7 @@
                     icon: '<i class="fas fa-times-circle"></i>',
                     text: 'Đã hủy'
                 },
-                'wayPayment': {
+                'waitPayment': {
                     class: 'status-wayPaymentHistoryDetailHomeKare',
                     icon: '<i class="fas fa-money-bill-wave"></i>',
                     text: 'Chờ thanh toán'
