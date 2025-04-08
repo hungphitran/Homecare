@@ -283,35 +283,61 @@ const requestController={
         })
     },
     finishPayment: async (req, res, next) => {
-        let detailId = req.body.detailId;
-        console.log(detailId)
-        let option = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ detailId: detailId })
-        };
-        await fetch(process.env.API_URL + '/request/finishpayment', option)
-            .then(data => {
-                console.log(data)
-                if(data.status === 200){
-                    res.status(200).json({message:"Thanh toán đơn hàng thành công"})
-                    return data.json()
-                }
-                else {
-                    res.status(data.status).json({message:"Thanh toán đơn hàng thất bại"})
-                }
-            })
-            .then(data => {
-                res.redirect('/account/detail');
-            })
-            .catch(err => {
-                res.render("pages/notificationpage", {
-                    layout: false,
-                    noti: err
-                });
-            });
+        try {
+            console.log("req.body in finish payment: ",req.body)
+            let detailId = req.body.detailId;
+            if(!detailId){
+                res.status(400).json({ message: "Missing detailId" });
+            }
+            let option = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ detailId: detailId })
+            };
+            await fetch(process.env.API_URL + '/request/finishpayment', option)
+                .then(data => {
+                    if (data.status === 200) {
+                        res.status(200).json({ message: "Payment finished successfully" });
+                    }
+                    else {
+                        res.status(data.status).json({ message: "Payment failed" });
+                    }
+                })
+        }
+        catch (err) {
+            console.error(err);
+            res.status(500).json({ message: "Error in finish payment" });
+        }
+    },
+    //POST submit review for detail order
+    submitReview: async (req, res, next) => {
+        try{
+            console.log("req.body in review: ",req.body)
+            let option={
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(req.body)
+            }
+            await fetch(process.env.API_URL + '/requestDetail/review', option)
+                .then(data => {
+                    if(data.status === 200){
+                        res.status(200).json({message:"Đánh giá thành công"})
+                    }
+                    else {
+                        res.status(data.status).json({message:"Đánh giá thất bại"})
+                    }
+                })
+                .catch(err=>{
+                    res.status(500).json({message:"Error in submit review"})
+                })
+        }
+        catch (err) {
+            res.status(500).json({ message: "Error in submit review" });
+        }
     }
 }
 module.exports = requestController;

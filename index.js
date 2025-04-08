@@ -22,8 +22,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 const hbs = handlebars.create({
     helpers: {
         isWaitPayment: function(status) {
-    return status === 'waitPayment';
-},
+            return status === 'waitPayment';
+        },
         json: function (context) {
             return JSON.stringify(context);
         },
