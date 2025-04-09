@@ -1664,7 +1664,7 @@ h1, h2, h3, h4, h5, h6 {
 .form__short-term {
   margin-top: 20px;
   display: flex;
-  width: 92%;
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   border: 1px solid #d4d4d4;
@@ -2894,7 +2894,8 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   margin: auto;
-  margin-top: 10px;
+  position: relative;
+  top: 10px;
 }
 
 .product-card {
@@ -5604,29 +5605,8 @@ tbody tr:hover {
   height: 100%;
 }
 
-.slider-lastest__item--1 {
-  background-image: url(/img/slider-1.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
 .slider-lastest__item--2 {
-  background-image: url(/img/slider-2.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.slider-lastest__item--3 {
-  background-image: url(/img/slider-3.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.slider-lastest__item--4 {
-  background-image: url(/img/slider-4.jpg);
+  background-image: url(/img/pexels-falling4utah-2724748.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
