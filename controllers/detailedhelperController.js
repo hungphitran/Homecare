@@ -5,7 +5,7 @@ const detailedhelperController = {
         let services;
         let helper;
         let user;
-        let requestDetails;
+        let requestDetails=[];
         try {
             //call api to get current user
             let phone = req.session.user;
@@ -41,6 +41,7 @@ const detailedhelperController = {
                 .then(data => data.json())
                 .then(data => data)
                 .catch(err => console.error(err))
+            requestDetails = requestDetails.slice(0, 5);
         }
         catch(err){
             console.error(err);
@@ -54,8 +55,7 @@ const detailedhelperController = {
                 }
             }
         }
-        console.log(helper)
-
+        console.log(requestDetails.length)
         res.render('partials/detailedhelper', {
             user: user,
             helper: helper,

@@ -159,8 +159,10 @@ const accountController = {
             requests[i].endTime = requests[i].endTime
         }
 
+
         let longTermRequests = requests.filter(request=>request.requestType.toLowerCase()=="dài hạn")
         let shortTermRequests = requests.filter(request=>request.requestType.toLowerCase()=="ngắn hạn")
+        
         res.render('partials/detailedaccount',{
             user:user,
             longTermRequests:longTermRequests,
