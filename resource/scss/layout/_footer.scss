@@ -101,5 +101,8 @@
     @include abstracts.screen(md){
         gap:10px
     }
+    @include abstracts.screen(sm){
+            flex-direction: column;
+    }
     
 }

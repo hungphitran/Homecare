@@ -27,7 +27,7 @@
                                         <span style="white-space:nowrap">Chọn Tỉnh</span>
                                         <i class="fa-solid fa-chevron-down"></i>
                                     </div>
-                                    <div class="wrapper-province__content" style="position:relative;">
+                                    <div class="wrapper-province__content" style="position:relative;z-index:999;">
                                         <div class="warapper-province__search" style="display:flex; gap:5px;">
                                             <input name="province" class="wrapper-province__input" spellcheck="false"
                                                 type="text" placeholder="Tìm kiếm" style="width:100%">
@@ -46,7 +46,7 @@
                                         <span style="white-space:nowrap">Chọn Quận</span>
                                         <i class="fa-solid fa-chevron-down"></i>
                                     </div>
-                                    <div class="wrapper-district__content" style="position:relative;">
+                                    <div class="wrapper-district__content" style="position:relative;z-index:999;">
                                         <div class="warapper-district__search" style="display:flex; gap:5px;">
                                             <input name="district" class="wrapper-district__input" spellcheck="false"
                                                 type="text" placeholder="Tìm kiếm" style="width:100%">
@@ -117,9 +117,7 @@
                             </div>
 
                         </form>
-                        <button id="submitForm1" class="btn btn-find btn-find-short-term" style="border: 1px solid #d4d4d4;    position: relative;
-    top: 10px;
-    left: 45%;border-radius:10px" form="short-term-form">Tìm kiếm</button>
+                        <button id="submitForm1" class="btn btn-find btn-find-short-term" form="short-term-form">Tìm kiếm</button>
                     </div>
                     <div id="long-term">
                         <form id="long-term-form" method="get" action="/request/longterm"
@@ -132,7 +130,7 @@
                                         <span style="white-space:nowrap">Chọn Tỉnh</span>
                                         <i class="fa-solid fa-chevron-down"></i>
                                     </div>
-                                    <div class="wrapper-province__content" style="position:relative;">
+                                    <div class="wrapper-province__content" style="position:relative;z-index: index 999;">
                                         <div class="warapper-province__search" style="display:flex; gap:5px;">
                                             <input name="province" class="wrapper-province__input" spellcheck="false"
                                                 type="text" placeholder="Tìm kiếm" style="width:100%">
@@ -148,7 +146,7 @@
                                         <span style="white-space:nowrap">Chọn Quận</span>
                                         <i class="fa-solid fa-chevron-down"></i>
                                     </div>
-                                    <div class="wrapper-district__content" style="position:relative;">
+                                    <div class="wrapper-district__content" style="position:relative;z-index:999;">
                                         <div class="warapper-district__search" style="display:flex; gap:5px;">
                                             <input name="district" class="wrapper-district__input" spellcheck="false"
                                                 type="text" placeholder="Tìm kiếm" style="width:100%">
@@ -237,6 +235,8 @@
                 </div>
             </section>
         </div>
+       
+       
     </div>
 </div>
 

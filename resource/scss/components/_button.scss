@@ -155,4 +155,14 @@
         position: relative;
             top: 10px;
     }
+    .btn-find-short-term{
+        border: 1px solid #d4d4d4;
+            position: relative;
+            top: 10px;
+            left: 45%;
+            border-radius: 10px;
+        @include abstracts.screen(sm){
+            left:34%;
+        }
+    }
       

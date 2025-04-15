@@ -26,6 +26,9 @@
     @include abstracts.screen(md){
         width: 90% !important;
     }
+    @include abstracts.screen(sm){
+        width: 100% !important;
+    }
 
  
     
@@ -125,6 +128,9 @@
         }
         @include abstracts.screen(xl){
             height:70px;
+        }
+        @include abstracts.screen(sm){
+            margin-top:-15px;
         }
     }
     .form-select__province{
