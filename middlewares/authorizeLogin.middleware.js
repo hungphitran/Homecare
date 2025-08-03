@@ -1,6 +1,8 @@
 module.exports = async (req, res, next) => {
     if(!req.session.phone){
-        res.redirect('/account')
+        return res.redirect('/account'); // Add return to prevent further execution
     }
-    else next();
+    else {
+        next();
+    }
 }

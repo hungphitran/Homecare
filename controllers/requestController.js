@@ -22,10 +22,10 @@ const requestController={
 
         res.render('partials/longtermorder', {
             order: order,
-            helper: helpers[0],
-            helpers:helpers,
-            locations:locations,
-            services:services,
+            helper: helpers && helpers.length > 0 ? helpers[0] : null,
+            helpers:helpers || [],
+            locations:locations || [],
+            services:services || [],
             layout:false
         });
     },
@@ -108,20 +108,43 @@ const requestController={
             //call api to get current user
             let phone = req.session.phone;
             if(phone){
-                user = await fetch(process.env.API_URL + '/customer/' + phone)
-                .then(data =>data.json())
-                user.address = user.addresses[0].detailAddress;
+                // Add authorization header if token exists
+                let headers = {
+                    'Content-Type': 'application/json'
+                };
+                
+                if (req.session.accessToken) {
+                    headers['Authorization'] = `Bearer ${req.session.accessToken}`;
+                }
+
+                user = await fetch(process.env.API_URL + '/customer/' + phone, {
+                    headers: headers
+                })
+                .then(data => data.json())
+                .catch(err => {
+                    console.error('Error fetching user data:', err);
+                    return null;
+                });
+
+                // Check if user and addresses exist before accessing
+                if (user && user.addresses && user.addresses.length > 0) {
+                    user.address = user.addresses[0].detailAddress;
+                } else {
+                    user.address = ''; // Set empty string if no address available
+                }
             }
             else{
                 user={
-                    
+                    address: '' // Set default empty address
                 }
-
             }
             
         }
         catch (err) {
             console.error(err);
+            user = {
+                address: '' // Set default values on error
+            };
         }
 
 
@@ -133,11 +156,23 @@ const requestController={
         //get cost factors
         let costFactorService = await fetch(process.env.API_URL + '/costfactor/service')
         .then(data => data.json())
-        .then(data=>data[0])
-        .then(data=>{
-            return data.coefficientList.find(e=>e._id === service.coefficient_id)
+        .then(data => {
+            // Check if data is array and has elements
+            if (Array.isArray(data) && data.length > 0) {
+                return data[0];
+            }
+            return null;
         })
-        .catch(err=>console.error(err))
+        .then(data => {
+            if (data && data.coefficientList) {
+                return data.coefficientList.find(e => e._id === service.coefficient_id);
+            }
+            return null;
+        })
+        .catch(err => {
+            console.error('Error fetching cost factor service:', err);
+            return null;
+        })
 
         let costFactorOther = await fetch(process.env.API_URL + '/costfactor/other')
         .then(data => data.json())
@@ -153,20 +188,68 @@ const requestController={
         req.query.totalCost=0;
         
         for(let i=0;i<req.query.dates.length;i++){
+            // Handle time format - can be HH:MM or just HH
+            let startTime = req.query.startTime ? req.query.startTime.toString() : '00:00';
+            let endTime = req.query.endTime ? req.query.endTime.toString() : '00:00';
+            
+            // If time doesn't contain colon, assume it's just hours and add :00
+            if (!startTime.includes(':')) {
+                startTime = startTime.padStart(2, '0') + ':00';
+            }
+            if (!endTime.includes(':')) {
+                endTime = endTime.padStart(2, '0') + ':00';
+            }
+            
+            // Validate time format (should be HH:MM)
+            const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+            if (!timeRegex.test(startTime)) {
+                console.error('Invalid startTime format:', req.query.startTime);
+                continue; // Skip this iteration
+            }
+            if (!timeRegex.test(endTime)) {
+                console.error('Invalid endTime format:', req.query.endTime);
+                continue; // Skip this iteration
+            }
+            
+            let startTimeFormatted = startTime + ':00.000Z';
+            let endTimeFormatted = endTime + ':00.000Z';
+            
+            let costData = {
+                serviceId: service._id,
+                startTime: req.query.dates[i] + 'T' + startTimeFormatted,
+                endTime: req.query.dates[i] + 'T' + endTimeFormatted,
+                location: {
+                    province: req.query.province,
+                    district: req.query.district,
+                    ward: req.query.ward
+                }
+            };
+
+            console.log('Sending cost calculation request:', costData);
+            console.log('Date validation check:', {
+                startTimeString: costData.startTime,
+                endTimeString: costData.endTime,
+                startTimeDate: new Date(costData.startTime),
+                endTimeDate: new Date(costData.endTime),
+                isValidStart: !isNaN(new Date(costData.startTime)),
+                isValidEnd: !isNaN(new Date(costData.endTime))
+            });
+
             let response= await fetch(process.env.API_URL + '/request/calculateCost',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    serviceTitle: service.title,
-                    startTime: req.query.startTime,
-                    endTime: req.query.endTime,
-                    workDate: req.query.dates[i]
-                })
+                body: JSON.stringify(costData)
             }).then(data=>data.json())
-            .catch(err=>console.error(err))
-            req.query.totalCost += response.totalCost;
+            .catch(err=>{
+                console.error('Error calculating cost:', err);
+                return { totalCost: 0 }; // Return default cost on error
+            })
+            
+            if (response && response.totalCost !== undefined) {
+                req.query.totalCost += response.totalCost;
+            }
         }
 
         
@@ -191,10 +274,55 @@ const requestController={
         });
     },
     create: async (req,res,next)=>{
-        let st =req.body.startTime;
-        st= st.length <2 ?'0'+ st :st
-        let et =req.body.endTime;
-        et= et.length <2 ?'0'+ et :et
+        console.log('Full request body received:', JSON.stringify(req.body, null, 2));
+        console.log('Location data specifically:', req.body.location);
+        console.log('Location type:', typeof req.body.location);
+        
+        // Handle time format - can be HH:MM or just HH
+        let st = req.body.startTime ? req.body.startTime.toString() : '00:00';
+        let et = req.body.endTime ? req.body.endTime.toString() : '00:00';
+        
+        // If time doesn't contain colon, assume it's just hours and add :00
+        if (!st.includes(':')) {
+            st = st.padStart(2, '0') + ':00';
+        }
+        if (!et.includes(':')) {
+            et = et.padStart(2, '0') + ':00';
+        }
+        
+        // Validate time format (should be HH:MM)
+        const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
+        if (!timeRegex.test(st)) {
+            console.error('Invalid startTime format:', req.body.startTime);
+            return res.status(400).json({ error: 'Invalid start time format. Expected HH:MM or HH' });
+        }
+        
+        if (!timeRegex.test(et)) {
+            console.error('Invalid endTime format:', req.body.endTime);
+            return res.status(400).json({ error: 'Invalid end time format. Expected HH:MM or HH' });
+        }
+
+        // Check if dates array exists and has elements
+        if (!req.body.dates || !Array.isArray(req.body.dates) || req.body.dates.length === 0) {
+            console.error('req.body.dates is invalid:', req.body.dates);
+            return res.status(400).json({ error: 'Invalid dates provided' });
+        }
+
+        // Validate required fields
+        if (!req.body.service) {
+            console.error('Missing service data');
+            return res.status(400).json({ error: 'Service information is required' });
+        }
+
+        if (!req.body.customerInfo) {
+            console.error('Missing customer info');
+            return res.status(400).json({ error: 'Customer information is required' });
+        }
+
+        // Ensure location object exists with default values
+        if (!req.body.location) {
+            req.body.location = { province: '', district: '', ward: '' };
+        }
 
         let dates="";
         for (let i = 0; i < req.body.dates.length; i++){
@@ -203,34 +331,63 @@ const requestController={
         }
         req.body.startDate=dates.substring(0,dates.length-1);//remove the last comma
 
-        req.body.startTime=`${req.body.dates[0]}T${st}:00`;
-        req.body.endTime=`${req.body.dates[0]}T${et}:00`;
-        let service = await fetch(process.env.API_URL + '/service/' + req.body.service_id)
-        .then(data => data.json())
-        .catch(err=>console.error(err))
-        console.log("service: ",service)
-        req.body.service = {
-            title: service.title,
-            coefficient_service: Number.parseFloat(service.factor)||1,
-            coefficient_other: 0,
-            cost: service.basicPrice
+        console.log('Creating request with times:', {
+            st: st,
+            et: et,
+            startTimeFormatted: `${req.body.dates[0]}T${st}:00.000Z`,
+            endTimeFormatted: `${req.body.dates[0]}T${et}:00.000Z`,
+            dateValidation: {
+                isValidStart: !isNaN(new Date(`${req.body.dates[0]}T${st}:00.000Z`)),
+                isValidEnd: !isNaN(new Date(`${req.body.dates[0]}T${et}:00.000Z`))
+            }
+        });
+
+        // Format according to API documentation
+        let requestData = {
+            service: {
+                title: req.body.service?.title || '',
+                coefficient_service: Number.parseFloat(req.body.service?.coefficient_service) || 1,
+                coefficient_other: Number.parseFloat(req.body.service?.coefficient_other) || 1,
+                cost: req.body.service?.cost || 0
+            },
+            startTime: `${req.body.dates[0]}T${st}:00.000Z`,
+            endTime: `${req.body.dates[0]}T${et}:00.000Z`,
+            customerInfo: {
+                fullName: req.body.customerInfo?.fullName || '',
+                phone: req.body.customerInfo?.phone || '',
+                address: req.body.customerInfo?.address || '',
+                usedPoint: req.body.customerInfo?.usedPoint || 0
+            },
+            location: {
+                province: req.body.location?.province || '',
+                district: req.body.location?.district || '',
+                ward: req.body.location?.ward || ''
+            },
+            requestType: req.body.requestType || "regular",
+            totalCost: req.body.totalCost
+        };
+
+        let headers = {
+            'Content-Type': 'application/json'
+        };
+        
+        // Add authorization header if token exists
+        if (req.session.accessToken) {
+            headers['Authorization'] = `Bearer ${req.session.accessToken}`;
         }
-      console.log(req.body)
 
         let option={
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(req.body)
+            headers: headers,
+            body: JSON.stringify(requestData)
         }
 
-        console.log(req.body)
+        console.log(requestData)
 
         //create a success notification
         await fetch(process.env.API_URL + '/request', option)
             .then(data => {
-                if(data.status === 200){
+                if(data.status === 200 || data.status === 201){
                     return data.json()
                     .then(data=>Promise.resolve(data.message))
                 }
@@ -257,11 +414,19 @@ const requestController={
     cancelOrder: async (req,res,next)=>{
         let orderId = req.body.orderId;
         console.log("order id: ",orderId)
+
+        let headers = {
+            'Content-Type': 'application/json'
+        };
+        
+        // Add authorization header if token exists
+        if (req.session.accessToken) {
+            headers['Authorization'] = `Bearer ${req.session.accessToken}`;
+        }
+
         let option={
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: headers,
             body: JSON.stringify({id:orderId})
         }
         await fetch(process.env.API_URL + '/request/cancel', option)
@@ -289,11 +454,19 @@ const requestController={
             if(!detailId){
                 res.status(400).json({ message: "Missing detailId" });
             }
+
+            let headers = {
+                'Content-Type': 'application/json'
+            };
+            
+            // Add authorization header if token exists
+            if (req.session.accessToken) {
+                headers['Authorization'] = `Bearer ${req.session.accessToken}`;
+            }
+
             let option = {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: headers,
                 body: JSON.stringify({ detailId: detailId })
             };
             await fetch(process.env.API_URL + '/request/finishpayment', option)

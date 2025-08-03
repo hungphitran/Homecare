@@ -294,26 +294,32 @@
         <!-- Modals -->
         <div class="modal-homecare" id="profile-modal-homecare" style="z-index:99999;">
             <div class="container-input-form">
-                <form id="userForm-input-form" action="/account/update" method="post">
+                <form id="userForm-input-form" action="/account/update" method="post" novalidate>
                     <h2 class="title-input-form">Thông tin khách hàng</h2>
                     <div class="form-group-input-form">
                         <label class="label-input-form" for="phone">Số điện thoại</label>
                         <input class="input-form-accountdetail" type="tel" id="phone" name="phone"
-                            value="{{user.phone}}" pattern="[0-9]+" disabled required>
+                            value="{{user.phone}}" pattern="^0\d{9,10}$" readonly required 
+                            autocomplete="tel" maxlength="11" style="background-color: #f8f9fa; cursor: not-allowed;">
+                        <small class="form-text text-muted">Số điện thoại không thể thay đổi vì lý do bảo mật</small>
                     </div>
                     <div class="form-group-input-form">
                         <label class="label-input-form" for="name">Họ và tên</label>
                         <input class="input-form-accountdetail" type="text" id="name" name="name"
-                            value="{{user.fullName}}" disabled required>
+                            value="{{user.fullName}}" disabled required 
+                            autocomplete="name" maxlength="100" minlength="2">
                     </div>
                     <div class="form-group-input-form">
                         <label class="label-input-form" for="address">Địa chỉ</label>
                         <input class="input-form-accountdetail" type="text" id="address" name="address"
-                            value="{{user.address}}" disabled required>
+                            value="{{user.address}}" disabled required 
+                            autocomplete="address" maxlength="200" minlength="5">
                     </div>
                     <div class="button-group-input-form">
-                        <button type="button" id="editBtn" class="btn-homedetail edit">chỉnh sửa thông tin</button>
-                        <button type="button" id="saveBtn" class="btn-homedetail save" disabled>Lưu thay đổi</button>
+                        <button type="button" id="editBtn" class="btn-homedetail edit" 
+                                aria-label="Chỉnh sửa thông tin khách hàng">chỉnh sửa thông tin</button>
+                        <button type="button" id="saveBtn" class="btn-homedetail save" disabled 
+                                aria-label="Lưu thay đổi thông tin khách hàng">Lưu thay đổi</button>
                     </div>
                 </form>
             </div>
@@ -1308,60 +1314,182 @@
 
         // Edit button click handler
         editBtn.addEventListener('click', function () {
-            // Enable all inputs
+            // Confirm if user wants to edit
+            if (!confirm('Bạn có muốn chỉnh sửa thông tin không?')) {
+                return;
+            }
+
+            // Enable all inputs except phone (phone is readonly for security)
             inputs.forEach(input => {
-                input.disabled = false;
+                if (input.id !== 'phone') { // Keep phone readonly for security
+                    input.disabled = false;
+                }
             });
 
             // Switch button states
             editBtn.disabled = true;
             saveBtn.disabled = false;
 
-            // Focus on first input
-            inputs[0].focus();
+            // Add visual indicator for edit mode
+            form.style.border = '2px solid #007bff';
+            form.style.borderRadius = '8px';
+
+            // Focus on first editable input
+            const firstEditableInput = Array.from(inputs).find(input => !input.disabled);
+            if (firstEditableInput) {
+                firstEditableInput.focus();
+            }
+
+            // Show edit mode notification
+            showNotification('info', 'Chế độ chỉnh sửa đã được kích hoạt. Số điện thoại không thể thay đổi vì lý do bảo mật.');
         });
 
         // Save button click handler
-        saveBtn.addEventListener('click', function () {
+        saveBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            // Prevent double submission
+            if (saveBtn.disabled) return;
+            
             // Basic validation
             let isValid = true;
+            let errorMessages = [];
+
             inputs.forEach(input => {
-                if (!input.value.trim()) {
+                if (!input.disabled && !input.value.trim()) {
                     isValid = false;
                     input.style.borderColor = '#ff4444';
-                    showError(input, 'không được để trống');
-                } else {
+                    showError(input, 'Trường này không được để trống');
+                } else if (!input.disabled) {
                     input.style.borderColor = '#e1e1e1';
                     clearError(input);
                 }
             });
 
-            // Phone number specific validation
-            if (phoneInput.value.length < 10) {
+            // Enhanced phone number validation (skip since phone is disabled/readonly)
+            // Phone validation is not needed since it cannot be changed
+            
+            // Name validation
+            const nameInput = document.getElementById('name');
+            if (nameInput.value.trim().length < 2) {
                 isValid = false;
-                phoneInput.style.borderColor = '#ff4444';
-                showError(phoneInput, 'Số điện thoại phải ít nhất 10 chữ số');
+                nameInput.style.borderColor = '#ff4444';
+                showError(nameInput, 'Họ tên phải có ít nhất 2 ký tự');
+                errorMessages.push('Họ tên quá ngắn');
+            }
+
+            // Address validation
+            const addressInput = document.getElementById('address');
+            if (addressInput.value.trim().length < 5) {
+                isValid = false;
+                addressInput.style.borderColor = '#ff4444';
+                showError(addressInput, 'Địa chỉ phải có ít nhất 5 ký tự');
+                errorMessages.push('Địa chỉ quá ngắn');
             }
 
             if (!isValid) {
+                // Show summary error message
+                showNotification('error', 'Vui lòng kiểm tra lại thông tin: ' + errorMessages.join(', '));
                 return;
             }
 
-            // Disable inputs and update button states
-            inputs.forEach(input => {
-                input.disabled = true;
-            });
-
-            editBtn.disabled = false;
+            // Show loading state
+            const originalText = saveBtn.textContent;
             saveBtn.disabled = true;
+            saveBtn.textContent = 'Đang lưu...';
 
-            // Show success message
-            //alert('thay đổi thông tin thành công!');
+            // Prepare form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Manually add phone number since it's disabled and won't be included in FormData
+            data.phone = phoneInput.value;
 
-            form.submit()
+            // Submit form via AJAX
+            fetch('/account/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Disable inputs and update button states (except phone which stays readonly)
+                    inputs.forEach(input => {
+                        if (input.id !== 'phone') {
+                            input.disabled = true;
+                        }
+                    });
+
+                    editBtn.disabled = false;
+                    saveBtn.disabled = true;
+                    saveBtn.textContent = originalText;
+
+                    // Remove visual edit mode indicator
+                    form.style.border = 'none';
+
+                    // Show success message
+                    showNotification('success', result.message || 'Cập nhật thông tin thành công!');
+                    
+                    // Optionally reload page after a delay
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                } else {
+                    throw new Error(result.message || 'Có lỗi xảy ra');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                    showNotification('error', error.message || 'Có lỗi xảy ra khi cập nhật thông tin');
+                    
+                    // Reset button state
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = originalText;
+                });
         });
 
-        // Helper function to show error message
+        // Add cancel functionality when in edit mode
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !editBtn.disabled) {
+                if (confirm('Bạn có muốn hủy các thay đổi và thoát khỏi chế độ chỉnh sửa?')) {
+                    resetForm();
+                }
+            }
+        });
+
+        // Function to reset form to original state
+        function resetForm() {
+            // Reset all inputs to original values
+            inputs.forEach(input => {
+                if (input.id !== 'phone') {
+                    input.disabled = true;
+                }
+                input.style.borderColor = '#e1e1e1';
+                clearError(input);
+                
+                // Reset to original value (except phone which is readonly)
+                switch(input.id) {
+                    case 'name':
+                        input.value = '{{user.fullName}}';
+                        break;
+                    case 'address':
+                        input.value = '{{user.address}}';
+                        break;
+                    // Phone stays as is since it's readonly
+                }
+            });
+
+            // Reset button states
+            editBtn.disabled = false;
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Lưu thay đổi';
+
+            // Remove visual edit mode indicator
+            form.style.border = 'none';
+        }        // Helper function to show error message
         function showError(input, message) {
             let errorDiv = input.parentElement.querySelector('.error-message');
             if (!errorDiv) {
@@ -1383,12 +1511,146 @@
             }
         }
 
+        // Helper function to show notification
+        function showNotification(type, message) {
+            // Remove existing notifications
+            const existingNotification = document.querySelector('.notification-toast');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            // Color scheme for different types
+            const typeColors = {
+                'success': { bg: '#d4edda', color: '#155724', border: '#c3e6cb', icon: '✓' },
+                'error': { bg: '#f8d7da', color: '#721c24', border: '#f5c6cb', icon: '⚠' },
+                'info': { bg: '#d1ecf1', color: '#0c5460', border: '#bee5eb', icon: 'ℹ' }
+            };
+
+            const colors = typeColors[type] || typeColors.info;
+
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification-toast notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${colors.icon}</span>
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+                </div>
+            `;
+
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${colors.bg};
+                color: ${colors.color};
+                border: 1px solid ${colors.border};
+                border-radius: 8px;
+                padding: 15px;
+                z-index: 10000;
+                max-width: 400px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                animation: slideIn 0.3s ease-out;
+            `;
+
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                .notification-content {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                .notification-close {
+                    background: none;
+                    border: none;
+                    font-size: 18px;
+                    cursor: pointer;
+                    margin-left: auto;
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Add to page
+            document.body.appendChild(notification);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
         // Add input event listeners for real-time validation
         inputs.forEach(input => {
             input.addEventListener('input', function () {
                 if (this.value.trim()) {
                     this.style.borderColor = '#e1e1e1';
                     clearError(this);
+                }
+                
+                // Real-time validation for specific fields
+                if (this.id === 'phone') {
+                    // Remove non-numeric characters
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    
+                    // Limit to 11 characters
+                    if (this.value.length > 11) {
+                        this.value = this.value.substring(0, 11);
+                    }
+                    
+                    // Validate format
+                    if (this.value.length > 0 && !this.value.startsWith('0')) {
+                        showError(this, 'Số điện thoại phải bắt đầu bằng số 0');
+                        this.style.borderColor = '#ff4444';
+                    } else if (this.value.length >= 10 && this.value.length <= 11 && /^0\d{9,10}$/.test(this.value)) {
+                        clearError(this);
+                        this.style.borderColor = '#28a745';
+                    }
+                } else if (this.id === 'name') {
+                    // Remove leading/trailing spaces and multiple spaces
+                    this.value = this.value.replace(/\s+/g, ' ');
+                    
+                    // Validate name format (only letters and spaces)
+                    if (this.value && !/^[a-zA-ZÀ-ỹ\s]+$/.test(this.value)) {
+                        showError(this, 'Họ tên chỉ được chứa chữ cái và khoảng trắng');
+                        this.style.borderColor = '#ff4444';
+                    } else if (this.value.trim().length >= 2) {
+                        clearError(this);
+                        this.style.borderColor = '#28a745';
+                    }
+                } else if (this.id === 'address') {
+                    if (this.value.trim().length >= 5) {
+                        clearError(this);
+                        this.style.borderColor = '#28a745';
+                    }
+                }
+            });
+
+            // Add blur event for final validation
+            input.addEventListener('blur', function () {
+                if (this.id === 'phone' && this.value) {
+                    if (this.value.length < 10 || this.value.length > 11 || !this.value.startsWith('0')) {
+                        showError(this, 'Số điện thoại phải có 10-11 số và bắt đầu bằng số 0');
+                        this.style.borderColor = '#ff4444';
+                    }
+                } else if (this.id === 'name' && this.value) {
+                    if (this.value.trim().length < 2) {
+                        showError(this, 'Họ tên phải có ít nhất 2 ký tự');
+                        this.style.borderColor = '#ff4444';
+                    }
+                } else if (this.id === 'address' && this.value) {
+                    if (this.value.trim().length < 5) {
+                        showError(this, 'Địa chỉ phải có ít nhất 5 ký tự');
+                        this.style.borderColor = '#ff4444';
+                    }
                 }
             });
         });
