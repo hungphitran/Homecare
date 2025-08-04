@@ -1,4 +1,5 @@
 require('dotenv').config()
+const { formatDateTimeForAPI } = require('../util/datetime');
 
 const requestController={
         //show order information
@@ -86,6 +87,11 @@ const requestController={
     },
     //GET redirect to detail order page
     submit: async (req, res, next) => {
+        // Validate that required parameters exist
+        if (!req.query.service || !req.query.helperId) {
+            return res.redirect('/?error=missing_parameters');
+        }
+        
         //format dates if ordertype is longterm
         if(req.query.requestType == 'Dài hạn'){
             let startDate = new Date(req.query.startDate);
@@ -97,7 +103,14 @@ const requestController={
             req.query.dates = dates;
         }
         else{
-            req.query.dates = [req.query.dates]
+            // Handle both array format and string format (from flatpickr multiple mode)
+            if (typeof req.query.dates === 'string' && req.query.dates.includes(' :: ')) {
+                req.query.dates = req.query.dates.split(' :: ').map(date => date.trim()).filter(date => date);
+            } else if (typeof req.query.dates === 'string') {
+                req.query.dates = [req.query.dates];
+            } else if (!Array.isArray(req.query.dates)) {
+                req.query.dates = [req.query.dates];
+            }
         }
         req.body.orderDate = Date.now();
         console.log("req.query in submit: ",req.query)
@@ -151,7 +164,13 @@ const requestController={
         //get service information
         let service = await fetch(process.env.API_URL + '/service/' + req.query.service)
             .then(data => data.json())
-            .catch(err=>console.error(err))
+            .catch(err=>{
+                console.error('Error fetching service:', err);
+                return null;
+            })
+
+        console.log('Service data received:', service);
+        console.log('Service ID from query:', req.query.service);
 
         //get cost factors
         let costFactorService = await fetch(process.env.API_URL + '/costfactor/service')
@@ -188,16 +207,35 @@ const requestController={
         req.query.totalCost=0;
         
         for(let i=0;i<req.query.dates.length;i++){
-            // Handle time format - can be HH:MM or just HH
-            let startTime = req.query.startTime ? req.query.startTime.toString() : '00:00';
-            let endTime = req.query.endTime ? req.query.endTime.toString() : '00:00';
+            // Handle time format - can be HH:MM, just HH, or full ISO string
+            let startTime, endTime;
             
-            // If time doesn't contain colon, assume it's just hours and add :00
-            if (!startTime.includes(':')) {
-                startTime = startTime.padStart(2, '0') + ':00';
-            }
-            if (!endTime.includes(':')) {
-                endTime = endTime.padStart(2, '0') + ':00';
+            if (req.query.startTime && req.query.startTime.includes('T')) {
+                // Full ISO string
+                let startDate = new Date(req.query.startTime);
+                let endDate = new Date(req.query.endTime);
+                
+                if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                    console.error('Invalid ISO datetime strings in cost calc:', req.query.startTime, req.query.endTime);
+                    continue;
+                }
+            
+                startTime = startDate.getUTCHours().toString().padStart(2, '0') + ':' + 
+                           startDate.getUTCMinutes().toString().padStart(2, '0');
+                endTime = endDate.getUTCHours().toString().padStart(2, '0') + ':' + 
+                         endDate.getUTCMinutes().toString().padStart(2, '0');
+            } else {
+                // Simple time format
+                startTime = req.query.startTime ? req.query.startTime.toString() : '00:00';
+                endTime = req.query.endTime ? req.query.endTime.toString() : '00:00';
+                
+                // If time doesn't contain colon, assume it's just hours and add :00
+                if (!startTime.includes(':')) {
+                    startTime = startTime.padStart(2, '0') + ':00';
+                }
+                if (!endTime.includes(':')) {
+                    endTime = endTime.padStart(2, '0') + ':00';
+                }
             }
             
             // Validate time format (should be HH:MM)
@@ -211,13 +249,43 @@ const requestController={
                 continue; // Skip this iteration
             }
             
-            let startTimeFormatted = startTime + ':00.000Z';
-            let endTimeFormatted = endTime + ':00.000Z';
+            // Validate that the date is in proper format
+            let currentDate = req.query.dates[i];
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(currentDate)) {
+                console.error('Invalid date format in cost calculation:', currentDate);
+                continue; // Skip this iteration
+            }
+            
+            let startTimeFormatted = startTime + ':00';
+            let endTimeFormatted = endTime + ':00';
+            
+            let startTimeString = currentDate + 'T' + startTimeFormatted;
+            let endTimeString = currentDate + 'T' + endTimeFormatted;
+            
+            // Validate the resulting datetime strings
+            let startDateTime = new Date(startTimeString);
+            let endDateTime = new Date(endTimeString);
+            
+            if (isNaN(startDateTime.getTime()) || isNaN(endDateTime.getTime())) {
+                console.error('Invalid datetime combination for cost calculation:', {
+                    date: currentDate,
+                    startTime: startTime,
+                    endTime: endTime,
+                    startTimeString: startTimeString,
+                    endTimeString: endTimeString
+                });
+                continue; // Skip this iteration
+            }
+            
+            // Convert to ISO strings for API compatibility
+            let startTimeISO = startDateTime.toISOString();
+            let endTimeISO = endDateTime.toISOString();
             
             let costData = {
                 serviceId: service._id,
-                startTime: req.query.dates[i] + 'T' + startTimeFormatted,
-                endTime: req.query.dates[i] + 'T' + endTimeFormatted,
+                startTime: startTimeISO,
+                endTime: endTimeISO,
+                workDate: currentDate, // Add workDate for API compatibility
                 location: {
                     province: req.query.province,
                     district: req.query.district,
@@ -227,12 +295,14 @@ const requestController={
 
             console.log('Sending cost calculation request:', costData);
             console.log('Date validation check:', {
-                startTimeString: costData.startTime,
-                endTimeString: costData.endTime,
-                startTimeDate: new Date(costData.startTime),
-                endTimeDate: new Date(costData.endTime),
-                isValidStart: !isNaN(new Date(costData.startTime)),
-                isValidEnd: !isNaN(new Date(costData.endTime))
+                startTimeString: startTimeString,
+                endTimeString: endTimeString,
+                startTimeISO: startTimeISO,
+                endTimeISO: endTimeISO,
+                startTimeDate: startDateTime,
+                endTimeDate: endDateTime,
+                isValidStart: !isNaN(startDateTime.getTime()),
+                isValidEnd: !isNaN(endDateTime.getTime())
             });
 
             let response= await fetch(process.env.API_URL + '/request/calculateCost',{
@@ -246,8 +316,9 @@ const requestController={
                 console.error('Error calculating cost:', err);
                 return { totalCost: 0 }; // Return default cost on error
             })
-            
+            console.log('Cost calculation response:', response);
             if (response && response.totalCost !== undefined) {
+                
                 req.query.totalCost += response.totalCost;
             }
         }
@@ -269,7 +340,7 @@ const requestController={
             customer: user,
             request: req.query,
             helper: helper,
-            service: service,
+            service: service || { title: '', _id: '', cost: 0 },
             layout:false
         });
     },
@@ -278,16 +349,60 @@ const requestController={
         console.log('Location data specifically:', req.body.location);
         console.log('Location type:', typeof req.body.location);
         
-        // Handle time format - can be HH:MM or just HH
-        let st = req.body.startTime ? req.body.startTime.toString() : '00:00';
-        let et = req.body.endTime ? req.body.endTime.toString() : '00:00';
-        
-        // If time doesn't contain colon, assume it's just hours and add :00
-        if (!st.includes(':')) {
-            st = st.padStart(2, '0') + ':00';
+        // Validate that dates array exists and is not empty
+        // Handle both array format and string format (from flatpickr multiple mode)
+        let datesArray = [];
+        if (req.body.dates) {
+            if (Array.isArray(req.body.dates)) {
+                datesArray = req.body.dates;
+            } else if (typeof req.body.dates === 'string') {
+                // Handle flatpickr multiple mode format (dates separated by " :: ")
+                datesArray = req.body.dates.split(' :: ').map(date => date.trim()).filter(date => date);
+            }
         }
-        if (!et.includes(':')) {
-            et = et.padStart(2, '0') + ':00';
+        
+        if (datesArray.length === 0) {
+            console.error('No valid dates provided:', req.body.dates);
+            return res.status(400).json({ error: 'Invalid dates provided' });
+        }
+        
+        // Replace req.body.dates with the properly formatted array
+        req.body.dates = datesArray;
+        console.log('Processed dates array:', req.body.dates);
+        
+        // Handle time format - can be HH:MM, just HH, or full ISO string
+        let st, et;
+        
+        // Check if startTime and endTime are full ISO strings or just time
+        if (req.body.startTime && req.body.startTime.includes('T')) {
+            // Full ISO string like "2025-08-09T06:30:00.000Z"
+            let startDate = new Date(req.body.startTime);
+            let endDate = new Date(req.body.endTime);
+            
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                console.error('Invalid ISO datetime strings:', req.body.startTime, req.body.endTime);
+                return res.status(400).json({ error: 'Invalid datetime format' });
+            }
+            
+            // Extract time components from ISO string
+            st = startDate.getUTCHours().toString().padStart(2, '0') + ':' + 
+                 startDate.getUTCMinutes().toString().padStart(2, '0');
+            et = endDate.getUTCHours().toString().padStart(2, '0') + ':' + 
+                 endDate.getUTCMinutes().toString().padStart(2, '0');
+                 
+            console.log('Extracted times from ISO strings:', { st, et });
+        } else {
+            // Simple time format like "06:30" or "6"
+            st = req.body.startTime ? req.body.startTime.toString() : '00:00';
+            et = req.body.endTime ? req.body.endTime.toString() : '00:00';
+            
+            // If time doesn't contain colon, assume it's just hours and add :00
+            if (!st.includes(':')) {
+                st = st.padStart(2, '0') + ':00';
+            }
+            if (!et.includes(':')) {
+                et = et.padStart(2, '0') + ':00';
+            }
         }
         
         // Validate time format (should be HH:MM)
@@ -302,14 +417,14 @@ const requestController={
             return res.status(400).json({ error: 'Invalid end time format. Expected HH:MM or HH' });
         }
 
-        // Check if dates array exists and has elements
+        // Check if dates array exists and has elements (already validated above)
         if (!req.body.dates || !Array.isArray(req.body.dates) || req.body.dates.length === 0) {
-            console.error('req.body.dates is invalid:', req.body.dates);
-            return res.status(400).json({ error: 'Invalid dates provided' });
+            console.error('req.body.dates is invalid after processing:', req.body.dates);
+            return res.status(400).json({ error: 'Invalid dates provided after processing' });
         }
 
         // Validate required fields
-        if (!req.body.service) {
+        if (!req.body.service && !req.body.service_id) {
             console.error('Missing service data');
             return res.status(400).json({ error: 'Service information is required' });
         }
@@ -319,9 +434,67 @@ const requestController={
             return res.status(400).json({ error: 'Customer information is required' });
         }
 
+        // Handle service data - could be string (title) or object
+        let serviceData;
+        if (typeof req.body.service === 'string') {
+            // If service is sent as title string, create service object
+            serviceData = {
+                title: req.body.service,
+                _id: req.body.service_id || '',
+                coefficient_service: 1,
+                coefficient_other: 1,
+                cost: 0
+            };
+        } else if (typeof req.body.service === 'object') {
+            // If service is already an object
+            serviceData = req.body.service;
+        } else {
+            // Parse JSON string if needed
+            try {
+                serviceData = JSON.parse(req.body.service);
+            } catch (e) {
+                serviceData = {
+                    title: req.body.service || '',
+                    _id: req.body.service_id || '',
+                    coefficient_service: 1,
+                    coefficient_other: 1,
+                    cost: 0
+                };
+            }
+        }
+
+        // Handle customerInfo - could be JSON string or object
+        let customerInfoData;
+        if (typeof req.body.customerInfo === 'string') {
+            try {
+                customerInfoData = JSON.parse(req.body.customerInfo);
+            } catch (e) {
+                console.error('Error parsing customerInfo JSON:', e);
+                customerInfoData = {
+                    fullName: '',
+                    phone: '',
+                    address: '',
+                    usedPoint: 0
+                };
+            }
+        } else if (typeof req.body.customerInfo === 'object') {
+            customerInfoData = req.body.customerInfo;
+        } else {
+            customerInfoData = {
+                fullName: '',
+                phone: '',
+                address: '',
+                usedPoint: 0
+            };
+        }
+
         // Ensure location object exists with default values
         if (!req.body.location) {
-            req.body.location = { province: '', district: '', ward: '' };
+            req.body.location = { 
+                province: req.body.province || '', 
+                district: req.body.district || '', 
+                ward: req.body.ward || '' 
+            };
         }
 
         let dates="";
@@ -331,40 +504,109 @@ const requestController={
         }
         req.body.startDate=dates.substring(0,dates.length-1);//remove the last comma
 
+        // Validate and format the first date
+        let firstDate = req.body.dates[0];
+        
+        // Ensure date is in YYYY-MM-DD format
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(firstDate)) {
+            console.error('Invalid date format:', firstDate);
+            return res.status(400).json({ error: 'Invalid date format. Expected YYYY-MM-DD' });
+        }
+
+        // Create properly formatted datetime strings
+        // Parse the time components properly
+        let [startHour, startMinute] = st.split(':').map(num => parseInt(num));
+        let [endHour, endMinute] = et.split(':').map(num => parseInt(num));
+        
+        // Create Date objects with explicit components to avoid timezone issues
+        let startDateTime = new Date(firstDate + 'T00:00:00.000Z');
+        startDateTime.setUTCHours(startHour, startMinute, 0, 0);
+        
+        let endDateTime = new Date(firstDate + 'T00:00:00.000Z');
+        endDateTime.setUTCHours(endHour, endMinute, 0, 0);
+        
+        // Validate that the resulting dates are valid
+        if (isNaN(startDateTime.getTime())) {
+            console.error('Invalid start datetime:', {
+                firstDate,
+                st,
+                startHour,
+                startMinute,
+                startDateTime
+            });
+            return res.status(400).json({ error: 'Invalid start date/time combination' });
+        }
+        
+        if (isNaN(endDateTime.getTime())) {
+            console.error('Invalid end datetime:', {
+                firstDate,
+                et,
+                endHour,
+                endMinute,
+                endDateTime
+            });
+            return res.status(400).json({ error: 'Invalid end date/time combination' });
+        }
+        
+        // Get ISO strings in UTC format
+        let startTimeISO = startDateTime.toISOString();
+        let endTimeISO = endDateTime.toISOString();
+        
+        // Try different formats for API compatibility
+        let startTimeLocal = `${firstDate}T${st}:00`; // Local time without Z
+        let endTimeLocal = `${firstDate}T${et}:00`; // Local time without Z
+        
+        console.log('Testing different datetime formats:', {
+            isoFormat: { start: startTimeISO, end: endTimeISO },
+            localFormat: { start: startTimeLocal, end: endTimeLocal },
+            dateOnly: firstDate,
+            timeOnly: { start: st, end: et }
+        });
+
         console.log('Creating request with times:', {
-            st: st,
-            et: et,
-            startTimeFormatted: `${req.body.dates[0]}T${st}:00.000Z`,
-            endTimeFormatted: `${req.body.dates[0]}T${et}:00.000Z`,
+            originalStartTime: req.body.startTime,
+            originalEndTime: req.body.endTime,
+            processedSt: st,
+            processedEt: et,
+            firstDate: firstDate,
+            finalStartTime: startTimeISO,
+            finalEndTime: endTimeISO,
+            startTimeFormatted: startTimeLocal,
+            endTimeFormatted: endTimeLocal,
+            startDateTime: startDateTime.toISOString(),
+            endDateTime: endDateTime.toISOString(),
             dateValidation: {
-                isValidStart: !isNaN(new Date(`${req.body.dates[0]}T${st}:00.000Z`)),
-                isValidEnd: !isNaN(new Date(`${req.body.dates[0]}T${et}:00.000Z`))
+                isValidStart: !isNaN(startDateTime.getTime()),
+                isValidEnd: !isNaN(endDateTime.getTime())
             }
         });
 
         // Format according to API documentation
+        // Try local time format instead of UTC
         let requestData = {
             service: {
-                title: req.body.service?.title || '',
-                coefficient_service: Number.parseFloat(req.body.service?.coefficient_service) || 1,
-                coefficient_other: Number.parseFloat(req.body.service?.coefficient_other) || 1,
-                cost: req.body.service?.cost || 0
+                title: serviceData.title || '',
+                coefficient_service: Number.parseFloat(serviceData.coefficient_service) || 1,
+                coefficient_other: Number.parseFloat(serviceData.coefficient_other) || 1,
+                cost: serviceData.cost || 0
             },
-            startTime: `${req.body.dates[0]}T${st}:00.000Z`,
-            endTime: `${req.body.dates[0]}T${et}:00.000Z`,
+            startTime: startTimeLocal, // Try local format first
+            endTime: endTimeLocal, // Try local format first
+            startDate: req.body.startDate, // Add startDate for API compatibility
             customerInfo: {
-                fullName: req.body.customerInfo?.fullName || '',
-                phone: req.body.customerInfo?.phone || '',
-                address: req.body.customerInfo?.address || '',
-                usedPoint: req.body.customerInfo?.usedPoint || 0
+                fullName: customerInfoData.fullName || '',
+                phone: customerInfoData.phone || '',
+                address: customerInfoData.address || '',
+                usedPoint: customerInfoData.usedPoint || 0
             },
             location: {
-                province: req.body.location?.province || '',
-                district: req.body.location?.district || '',
-                ward: req.body.location?.ward || ''
+                province: req.body.province || '',
+                district: req.body.district || '',
+                ward: req.body.ward || ''
             },
             requestType: req.body.requestType || "regular",
-            totalCost: req.body.totalCost
+            totalCost: req.body.totalCost,
+            helperId: req.body.helperId || req.body.helper_id || "" // Add helperId for API compatibility
         };
 
         let headers = {
@@ -382,34 +624,108 @@ const requestController={
             body: JSON.stringify(requestData)
         }
 
-        console.log(requestData)
+        console.log('Request data being sent to API:', JSON.stringify(requestData, null, 2));
+        console.log('Service data being sent:', JSON.stringify(requestData.service, null, 2));
 
         //create a success notification
-        await fetch(process.env.API_URL + '/request', option)
-            .then(data => {
-                if(data.status === 200 || data.status === 201){
-                    return data.json()
-                    .then(data=>Promise.resolve(data.message))
-                }
-                else {
-                    console.log(data)
-                    return data.json()
-                    .then(data=>Promise.reject(data.message))
-                }
+        async function tryApiRequest(timeFormat) {
+            const testRequestData = {
+                ...requestData,
+                startTime: timeFormat.start,
+                endTime: timeFormat.end
+            };
+            
+            const response = await fetch(process.env.API_URL + '/request', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(testRequestData)
+            });
+            
+            return { response, format: timeFormat.name };
+        }
 
-            })
-            .then(data => {
-                res.render("pages/notificationpage",{
-                    layout:false,
-                    noti: "Đặt lịch thành công"+ data
-                })
-            })
-            .catch(err => {
-                res.render("pages/notificationpage",{
-                    layout:false,
-                    noti: err
-                })
-            })
+        // Try different time formats
+        const timeFormats = [
+            { 
+                name: 'local', 
+                start: formatDateTimeForAPI(firstDate, st, 'local'), 
+                end: formatDateTimeForAPI(firstDate, et, 'local') 
+            },
+            { 
+                name: 'vietnam', 
+                start: formatDateTimeForAPI(firstDate, st, 'vietnam'), 
+                end: formatDateTimeForAPI(firstDate, et, 'vietnam') 
+            },
+            { 
+                name: 'iso', 
+                start: formatDateTimeForAPI(firstDate, st, 'iso'), 
+                end: formatDateTimeForAPI(firstDate, et, 'iso') 
+            },
+            { 
+                name: 'simple', 
+                start: st, 
+                end: et 
+            },
+            { 
+                name: 'timestamp', 
+                start: formatDateTimeForAPI(firstDate, st, 'timestamp'), 
+                end: formatDateTimeForAPI(firstDate, et, 'timestamp') 
+            }
+        ];
+
+        let lastError = null;
+        let success = false;
+
+        for (const timeFormat of timeFormats) {
+            try {
+                console.log(`Trying time format: ${timeFormat.name}`, { start: timeFormat.start, end: timeFormat.end });
+                
+                const { response, format } = await tryApiRequest(timeFormat);
+                
+                console.log(`API Response for ${format} format - status:`, response.status);
+                
+                if (response.status === 200 || response.status === 201) {
+                    const responseText = await response.text();
+                    console.log(`Success with ${format} format:`, responseText);
+                    
+                    res.render("pages/notificationpage", {
+                        layout: false,
+                        noti: "Đặt lịch thành công"
+                    });
+                    success = true;
+                    break;
+                } else {
+                    const errorText = await response.text();
+                    console.log(`Failed with ${format} format:`, errorText);
+                    lastError = errorText;
+                }
+            } catch (err) {
+                console.error(`Error with ${timeFormat.name} format:`, err);
+                lastError = err.message || err;
+            }
+        }
+
+        if (!success) {
+            console.error('All time formats failed. Last error:', lastError);
+            let errorMessage = "Đặt lịch thất bại";
+            if (lastError) {
+                if (typeof lastError === 'string') {
+                    try {
+                        const parsedError = JSON.parse(lastError);
+                        errorMessage += ": " + (parsedError.message || parsedError.error || lastError);
+                    } catch (e) {
+                        errorMessage += ": " + lastError;
+                    }
+                } else {
+                    errorMessage += ": " + (lastError.message || lastError.error || lastError);
+                }
+            }
+            
+            res.render("pages/notificationpage", {
+                layout: false,
+                noti: errorMessage
+            });
+        }
     },
     cancelOrder: async (req,res,next)=>{
         let orderId = req.body.orderId;
@@ -431,20 +747,33 @@ const requestController={
         }
         await fetch(process.env.API_URL + '/request/cancel', option)
         .then(data => {
-            console.log(data)
+            console.log('Cancel response status:', data.status)
             if(data.status === 200){
-                res.status(200).json({message:"Hủy đơn hàng thành công"})
-                return data.json()
+                return data.text()
+                .then(responseText => {
+                    // API trả về "success" string
+                    if (responseText === "success") {
+                        res.status(200).json({message:"Hủy đơn hàng thành công"})
+                    } else {
+                        try {
+                            const jsonResponse = JSON.parse(responseText);
+                            res.status(200).json({message: jsonResponse.message || "Hủy đơn hàng thành công"})
+                        } catch (e) {
+                            res.status(200).json({message:"Hủy đơn hàng thành công"})
+                        }
+                    }
+                })
             }
             else {
-                res.status(data.status).json({message:"Hủy đơn hàng thất bại"})
+                return data.json()
+                .then(errorData => {
+                    res.status(data.status).json({message: errorData.message || "Hủy đơn hàng thất bại"})
+                })
             }
         })
         .catch(err=>{
-            res.render("pages/notificationpage",{
-                layout:false,
-                noti: err
-            })
+            console.error('Error canceling order:', err);
+            res.status(500).json({message: "Hủy đơn hàng thất bại: " + err})
         })
     },
     finishPayment: async (req, res, next) => {
@@ -472,11 +801,31 @@ const requestController={
             await fetch(process.env.API_URL + '/request/finishpayment', option)
                 .then(data => {
                     if (data.status === 200) {
-                        res.status(200).json({ message: "Payment finished successfully" });
+                        return data.text()
+                        .then(responseText => {
+                            // API trả về "Success" string
+                            if (responseText === "Success") {
+                                res.status(200).json({ message: "Payment finished successfully" });
+                            } else {
+                                try {
+                                    const jsonResponse = JSON.parse(responseText);
+                                    res.status(200).json({ message: jsonResponse.message || "Payment finished successfully" });
+                                } catch (e) {
+                                    res.status(200).json({ message: "Payment finished successfully" });
+                                }
+                            }
+                        })
                     }
                     else {
-                        res.status(data.status).json({ message: "Payment failed" });
+                        return data.text()
+                        .then(errorText => {
+                            res.status(data.status).json({ message: errorText || "Payment failed" });
+                        })
                     }
+                })
+                .catch(fetchErr => {
+                    console.error('Fetch error:', fetchErr);
+                    res.status(500).json({ message: "Payment failed: " + fetchErr.message });
                 })
         }
         catch (err) {
@@ -488,28 +837,60 @@ const requestController={
     submitReview: async (req, res, next) => {
         try{
             console.log("req.body in review: ",req.body)
+            
+            // Ensure proper format according to API spec
+            let reviewData = {
+                detailId: req.body.detailId,
+                comment: req.body.comment || req.body.review || ""
+            };
+            
+            let headers = {
+                'Content-Type': 'application/json'
+            };
+            
+            // Add authorization header if token exists
+            if (req.session.accessToken) {
+                headers['Authorization'] = `Bearer ${req.session.accessToken}`;
+            }
+            
             let option={
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(req.body)
+                headers: headers,
+                body: JSON.stringify(reviewData)
             }
             await fetch(process.env.API_URL + '/requestDetail/review', option)
                 .then(data => {
                     if(data.status === 200){
-                        res.status(200).json({message:"Đánh giá thành công"})
+                        return data.text()
+                        .then(responseText => {
+                            // API trả về "success" string
+                            if (responseText === "success") {
+                                res.status(200).json({message:"Đánh giá thành công"})
+                            } else {
+                                try {
+                                    const jsonResponse = JSON.parse(responseText);
+                                    res.status(200).json({message: jsonResponse.message || "Đánh giá thành công"})
+                                } catch (e) {
+                                    res.status(200).json({message:"Đánh giá thành công"})
+                                }
+                            }
+                        })
                     }
                     else {
-                        res.status(data.status).json({message:"Đánh giá thất bại"})
+                        return data.text()
+                        .then(errorText => {
+                            res.status(data.status).json({message: errorText || "Đánh giá thất bại"})
+                        })
                     }
                 })
                 .catch(err=>{
-                    res.status(500).json({message:"Error in submit review"})
+                    console.error('Error submitting review:', err);
+                    res.status(500).json({message:"Error in submit review: " + err.message})
                 })
         }
         catch (err) {
-            res.status(500).json({ message: "Error in submit review" });
+            console.error(err);
+            res.status(500).json({ message: "Error in submit review: " + err.message });
         }
     }
 }

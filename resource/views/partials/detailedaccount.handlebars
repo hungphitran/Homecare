@@ -30,28 +30,11 @@
     <link rel="shortcut icon" href="/icon/logo-removeBg.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/01acedffd5.js" crossorigin="anonymous"></script>
 <style>
-    /* Card styles and shadows */
-    .modal-content-homecare,
-    .modal-homecare .container-input-form,
-    .billDetailsHistoryDetailHomeKare,
-    .paymentInfo {
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-    }
-
-    .modal-content-homecare:hover,
-    .billDetailsHistoryDetailHomeKare:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Form input improvements */
+    /* Simplified styles */
     .input-form-accountdetail {
         border-radius: 8px;
         border: 1px solid #e1e1e1;
         padding: 10px 15px;
-        transition: all 0.3s ease;
     }
 
     .input-form-accountdetail:focus {
@@ -59,45 +42,20 @@
         box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
     }
 
-    /* Button styles */
     .btn-homedetail,
     .itemPayButton {
         border-radius: 8px;
         padding: 10px 20px;
         font-weight: 500;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
     }
 
-    .btn-homedetail:hover,
-    .itemPayButton:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .btn-homedetail:active,
-    .itemPayButton:active {
-        transform: translateY(1px);
-    }
-
-    /* Payment section animations */
     .paymentSectionHistoryDetailHomeKare {
         margin-top: 15px;
         padding: 15px;
-        border-radius: 12px;
+        border-radius: 8px;
         border: 1px solid #e1e1e1;
         background: white;
-        animation: slideDown 0.3s ease-out;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
-
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        to {
             opacity: 1;
             transform: translateY(0);
         }
@@ -2323,138 +2281,149 @@
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Khởi tạo tất cả modals
-        const modals = document.querySelectorAll('.modal');
-        modals.forEach(modal => {
-            new bootstrap.Modal(modal);
-        });
+        // Consolidated status handling
+        const statusManager = {
+            statusMap: {
+                'done': { class: 'status-doneHistoryDetailHomeKare', icon: '<i class="fas fa-check-circle"></i>', text: 'Đã hoàn thành' },
+                'assigned': { class: 'status-assignedHistoryDetailHomeKare', icon: '<i class="fas fa-user-check"></i>', text: 'Đã xác nhận' },
+                'notDone': { class: 'status-notDoneHistoryDetailHomeKare', icon: '<i class="fas fa-clock"></i>', text: 'Chờ xác nhận' },
+                'cancelled': { class: 'status-cancelHistoryDetailHomeKare', icon: '<i class="fas fa-times-circle"></i>', text: 'Đã hủy' },
+                'waitPayment': { class: 'status-wayPaymentHistoryDetailHomeKare', icon: '<i class="fas fa-money-bill-wave"></i>', text: 'Chờ thanh toán' },
+                'processing': { class: 'status-processingHistoryDetailHomeKare', icon: '<i class="fas fa-spinner fa-spin"></i>', text: 'Đang thực hiện' }
+            },
 
-        // Xử lý nút close
-        const closeButtons = document.querySelectorAll('.btn-close');
-        closeButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const modal = this.closest('.modal');
-                const modalInstance = bootstrap.Modal.getInstance(modal);
-                if (modalInstance) {
-                    modalInstance.hide();
-                }
-            });
-        });
-    });
-</script>
+            updateElement(element, status) {
+                const statusClasses = Object.values(this.statusMap).map(s => s.class);
+                element.classList.remove(...statusClasses);
+                
+                const statusInfo = this.statusMap[status] || this.statusMap.notDone;
+                element.classList.add(statusInfo.class);
+                element.innerHTML = `${statusInfo.icon} ${statusInfo.text}`;
+            },
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let isProcessing = false;
-
-        function handleStatusDisplay() {
-            if (isProcessing) {
-                console.log('Đang xử lý, bỏ qua...');
-                return;
-            }
-
-            isProcessing = true;
-            console.log('Bắt đầu xử lý status...');
-
-            try {
-                const statusElements = document.querySelectorAll('.status-completeHistoryDetailHomeKare');
-                console.log("Số lượng status elements:", statusElements.length);
-
-                statusElements.forEach(element => {
-                    const currentHtml = element.innerHTML;
-                    const status = element.getAttribute('data-status'); // Lấy status từ data attribute
-                    console.log("Xử lý status:", status);
-
-                    // Xóa classes cũ
-                    removeAllStatusClasses(element);
-
-                    // Thêm class mới và icon
-                    updateStatusStyle(element, status);
+            updateAll() {
+                document.querySelectorAll('.status-completeHistoryDetailHomeKare').forEach(element => {
+                    const status = element.getAttribute('data-status');
+                    this.updateElement(element, status);
                 });
-            } catch (error) {
-                console.error('Lỗi xử lý status:', error);
-            } finally {
-                isProcessing = false;
             }
-        }
+        };
 
-        function removeAllStatusClasses(element) {
-            const statusClasses = [
-                'status-doneHistoryDetailHomeKare',
-                'status-assignedHistoryDetailHomeKare',
-                'status-notDoneHistoryDetailHomeKare',
-                'status-cancelHistoryDetailHomeKare',
-                'status-wayPaymentHistoryDetailHomeKare',
-                'status-processingHistoryDetailHomeKare'
-            ];
-            element.classList.remove(...statusClasses);
-        }
+        // Initialize status display
+        statusManager.updateAll();
 
-        function updateStatusStyle(element, status) {
-            const statusMap = {
-                'done': {
-                    class: 'status-doneHistoryDetailHomeKare',
-                    icon: '<i class="fas fa-check-circle"></i>',
-                    text: 'Đã hoàn thành'
-                },
-                'assigned': {
-                    class: 'status-assignedHistoryDetailHomeKare',
-                    icon: '<i class="fas fa-user-check"></i>',
-                    text: 'Đã xác nhận'
-                },
-                'notDone': {
-                    class: 'status-notDoneHistoryDetailHomeKare',
-                    icon: '<i class="fas fa-clock"></i>',
-                    text: 'Chờ xác nhận'
-                },
-                'cancelled': {
-                    class: 'status-cancelHistoryDetailHomeKare',
-                    icon: '<i class="fas fa-times-circle"></i>',
-                    text: 'Đã hủy'
-                },
-                'waitPayment': {
-                    class: 'status-wayPaymentHistoryDetailHomeKare',
-                    icon: '<i class="fas fa-money-bill-wave"></i>',
-                    text: 'Chờ thanh toán'
-                },
-                'processing': {
-                    class: 'status-processingHistoryDetailHomeKare',
-                    icon: '<i class="fas fa-spinner fa-spin"></i>',
-                    text: 'Đang thực hiện'
-                }
-            };
-
-            const statusInfo = statusMap[status] || statusMap.notDone;
-            element.classList.add(statusInfo.class);
-            element.innerHTML = `${statusInfo.icon} ${statusInfo.text}`;
-        }
-
-        // Khởi tạo observer
+        // Single observer for all status changes
         const observer = new MutationObserver((mutations) => {
             mutations.forEach(mutation => {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'data-status') {
-                    handleStatusDisplay();
+                    const status = mutation.target.getAttribute('data-status');
+                    statusManager.updateElement(mutation.target, status);
                 }
             });
         });
 
-        // Cấu hình và bắt đầu observe
-        const config = {
-            attributes: true,
-            attributeFilter: ['data-status'],
-            subtree: true
-        };
-
+        // Observe status changes
         const container = document.querySelector('.container-homedetail');
         if (container) {
-            observer.observe(container, config);
-            console.log('Observer đã được khởi tạo');
+            observer.observe(container, {
+                attributes: true,
+                attributeFilter: ['data-status'],
+                subtree: true
+            });
         }
 
-        // Xử lý status ban đầu
-        handleStatusDisplay();
+        // Payment button handling
+        function setupPaymentButtons() {
+            document.querySelectorAll('.status-completeHistoryDetailHomeKare').forEach(statusEl => {
+                const status = statusEl.getAttribute('data-status');
+                const container = statusEl.closest('.billDetailsHistoryDetailHomeKare');
+                
+                if (!container) return;
+
+                // Remove existing payment sections
+                const existingPayment = container.querySelector('.paymentSectionHistoryDetailHomeKare');
+                if (existingPayment) existingPayment.remove();
+
+                // Add payment section if needed
+                if (status === 'waitPayment') {
+                    const modal = statusEl.closest('.modalHistoryDetailHomeKare');
+                    const requestId = modal?.getAttribute('data-request-id');
+                    const price = statusEl.getAttribute('data-cost');
+                    const scheduleId = statusEl.getAttribute('data-detail-id');
+
+                    if (price && requestId) {
+                        const paymentSection = document.createElement('div');
+                        paymentSection.className = 'paymentSectionHistoryDetailHomeKare';
+                        paymentSection.innerHTML = `
+                            <div class="detailItemHistoryDetailHomeKare paymentInfo">
+                                <span class="labelHistoryDetailHomeKare">Số tiền cần thanh toán:</span>
+                                <span class="valueHistoryDetailHomeKare">${price}</span>
+                            </div>
+                            <button class="btn btn-success itemPayButton" 
+                                data-cost="${price}"
+                                data-detail-id="${scheduleId}"
+                                data-request-id="${requestId}"
+                                data-type="${modal?.id === 'longTermModalHistoryDetailHomeKare' ? 'long' : 'short'}">
+                                <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
+                            </button>
+                        `;
+                        container.appendChild(paymentSection);
+                    }
+                }
+            });
+        }
+
+        // Initialize payment buttons
+        setupPaymentButtons();
+
+        // Re-setup payment buttons when modals are shown
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btnHistoryDetailHomeKare')) {
+                setTimeout(setupPaymentButtons, 100);
+            }
+        });
     });
 
+    // Modal and utility functions
+    function showBillType(button, type) {
+        const row = button.closest('tr');
+        const modal = row.querySelector(type === 'long' ? '#longTermModalHistoryDetailHomeKare' : '#shortTermModalHistoryDetailHomeKare');
+        
+        if (modal) {
+            modal.classList.add('showModalHistoryDetailHomeKare');
+            document.body.style.overflow = 'hidden';
+            window.index = Array.from(document.querySelectorAll('.btnHistoryDetailHomeKare')).indexOf(button);
+        }
+    }
+
+    function closeModal(modalId) {
+        const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
+        const row = buttons[window.index]?.parentNode;
+        
+        if (row) {
+            const modal = row.querySelector('#' + modalId);
+            if (modal) {
+                modal.classList.remove('showModalHistoryDetailHomeKare');
+                document.body.style.overflow = 'auto';
+            }
+        }
+    }
+
+    // Initialize Bootstrap modals and escape key handler  
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.modal').forEach(modal => {
+            new bootstrap.Modal(modal);
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                const visibleModal = document.querySelector('.modalHistoryDetailHomeKare.showModalHistoryDetailHomeKare');
+                if (visibleModal) {
+                    closeModal(visibleModal.id);
+                }
+            }
+        });
+    });
 </script>
 <script>
     window.dispatchEvent(new Event("template-loaded"));

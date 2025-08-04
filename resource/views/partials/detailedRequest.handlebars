@@ -65,20 +65,27 @@
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="startTime">Giờ bắt đầu</label>
-                    <input class="input-form-homecare" type="time" id="startTime" name="startTime" value="{{request.startTime}}" required>
+                    <input class="input-form-homecare" type="time" id="startTime" name="startTime" value="{{formatTime request.startTime}}" required>
                 </div>
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="endTime">Giờ kết thúc</label>
-                    <input class="input-form-homecare" type="time" id="endTime" name="endTime" value="{{request.endTime}}" required>
+                    <input class="input-form-homecare" type="time" id="endTime" name="endTime" value="{{formatTime request.endTime}}" required>
                 </div>
     
                 <div class="group-form-homecare full-width-form-homecare">
                     <label class="label-form-homecare" for="service-confirm">Dịch vụ đã chọn</label>
+                    {{#if service.title}}
                     <input class="input-form-homecare readonly-form-homecare" type="text" id="service-confirm" name="service" value="{{service.title}}"
                         readonly>
-                        <input class="input-form-homecare readonly-form-homecare" type="hidden" id="service-confirm" name="service_id"
-                            value="{{service._id}}" readonly>
+                    <input class="input-form-homecare readonly-form-homecare" type="hidden" id="service-confirm" name="service_id"
+                        value="{{service._id}}" readonly>
+                    {{else}}
+                    <input class="input-form-homecare readonly-form-homecare" type="text" id="service-confirm" name="service" value="Lỗi: Không có thông tin dịch vụ"
+                        readonly style="border-color: red; color: red;">
+                    <input class="input-form-homecare readonly-form-homecare" type="hidden" id="service-confirm" name="service_id"
+                        value="" readonly>
+                    {{/if}}
                 </div>
     
                 <div class="group-form-homecare full-width-form-homecare">
@@ -110,7 +117,15 @@
     console.log(nameInput);
     console.log(phoneInput);
     console.log(addressInput);
+    
     submitBtn.onclick = function () {
+        // Validate service title
+        const serviceInput = document.querySelector('input[name="service"]');
+        if (!serviceInput.value || serviceInput.value.trim() === '') {
+            alert('Lỗi: Không có thông tin dịch vụ. Vui lòng quay lại trang trước và chọn dịch vụ.');
+            return false;
+        }
+        
         customerInfo.value = JSON.stringify({
             fullName: nameInput.value,
             phone: phoneInput.value,
@@ -242,6 +257,36 @@
             // In a real application, you would redirect to your actual home page URL
             window.location.href = 'index.html';
         }
+
+        document.getElementById('confirmationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Debug: Log all form data
+            const formData = new FormData(this);
+            const formObject = {};
+            for (let [key, value] of formData.entries()) {
+                formObject[key] = value;
+            }
+            console.log('Form submission data:', formObject);
+            
+            // Validate required fields
+            const requiredFields = ['phone', 'fullname', 'province', 'district', 'address', 'startTime', 'endTime'];
+            let isValid = true;
+            
+            for (let field of requiredFields) {
+                const input = document.querySelector(`[name="${field}"]`);
+                if (!input || !input.value.trim()) {
+                    alert(`Vui lòng điền ${field}`);
+                    isValid = false;
+                    break;
+                }
+            }
+            
+            if (isValid) {
+                // Submit form
+                this.submit();
+            }
+        });
 
         // Validate phone number
         document.getElementById('phone').addEventListener('input', function (e) {

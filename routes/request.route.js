@@ -8,5 +8,5 @@ router.post('/cancel', authTokenMiddleware, requestController.cancelOrder)
 router.post('/finishpayment', authTokenMiddleware, requestController.finishPayment)
 router.post('/review', authTokenMiddleware, requestController.submitReview)
 router.post('/save', authTokenMiddleware, requestController.create);
-router.get('/',requestController.submit)
+router.get('/',authTokenMiddleware,requestController.submit)
 module.exports=router;

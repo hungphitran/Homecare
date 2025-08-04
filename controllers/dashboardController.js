@@ -47,7 +47,7 @@ const dashboardController = {
         }
         try {
             //call api to get costFactors
-            costFactors = await fetch(process.env.API_URL + '/costfactor/service')
+            costFactors = await fetch(process.env.API_URL + '/costFactor/service')
                 .then(data => data.json())
                 .then(data => {
                     // Check if data is array and has elements
@@ -158,8 +158,6 @@ const dashboardController = {
             console.error(err);
 
         }
-        console.log("general : ",general)
-
         // give data to dashboard
         res.render('partials/index', {
             user: user,

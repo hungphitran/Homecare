@@ -10,7 +10,7 @@ function sortByDate(blogs){
         if (!b1 || !b2) return 0;
         const date1 = b1.date ? new Date(b1.date) : new Date(0);
         const date2 = b2.date ? new Date(b2.date) : new Date(0);
-        return date1 - date2;
+        return date2 - date1; // Changed to descending order (newest first)
     })
 }
 

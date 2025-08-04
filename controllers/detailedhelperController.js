@@ -59,7 +59,7 @@ const detailedhelperController = {
         }
 
         try{
-            requestDetails = await fetch(process.env.API_URL + '/requestDetail/helper/' + helper._id)
+            requestDetails = await fetch(process.env.API_URL + '/requestDetail/helper/' + helper.helper_id)
                 .then(data => data.json())
                 .then(data => data)
                 .catch(err => {

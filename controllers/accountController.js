@@ -44,18 +44,22 @@ const accountController = {
             
             if (response.ok) {
                 let result = await response.json();
-                // Save authentication info in session
+                // Save authentication info in session according to API response format
                 req.session.phone = result.user.phone;
                 req.session.username = result.user.fullName;
                 req.session.accessToken = result.accessToken;
                 req.session.refreshToken = result.refreshToken;
                 res.redirect('/account/detailed');
             } else {
-                console.log("Login failed");
-                res.render('pages/login', { layout: false, error: "Thông tin đăng nhập không chính xác" });
+                console.log("Login failed with status:", response.status);
+                let errorData = await response.json();
+                res.render('pages/login', { 
+                    layout: false, 
+                    error: errorData.message || "Thông tin đăng nhập không chính xác" 
+                });
             }
         } catch (err) {
-            console.error(err);
+            console.error('Login error:', err);
             res.render('pages/login', { layout: false, error: "Đăng nhập thất bại" });
         }
     },
@@ -77,7 +81,13 @@ const accountController = {
             phone: req.body.phone,
             password: req.body.password,
             fullName: req.body.name,
-            email: req.body.email
+            email: req.body.email,
+            address: {
+                province: req.body.province,
+                district: req.body.district,
+                ward: req.body.ward,
+                detailAddress: req.body.address
+            }
         };
 
         let option = {
@@ -92,13 +102,19 @@ const accountController = {
             let response = await fetch(process.env.API_URL + '/auth/register/customer', option);
             
             if (response.ok) {
+                let result = await response.json();
+                // Registration successful, redirect to login
                 res.status(200).redirect('/account');
             } else {
                 let error = await response.json();
-                res.render('pages/register', { layout: false, err: error.message || "Đăng ký thất bại" });
+                console.error('Registration failed:', error);
+                res.render('pages/register', { 
+                    layout: false, 
+                    err: error.message || "Đăng ký thất bại" 
+                });
             }
         } catch (err) {
-            console.error(err);
+            console.error('Registration error:', err);
             res.render('pages/register', { layout: false, err: "Đăng ký thất bại" });
         }
     },
@@ -117,12 +133,26 @@ const accountController = {
         let user = await fetch(process.env.API_URL + '/customer/' + req.session.phone, {
             headers: headers
         })
-        .then(data => data.json())
+        .then(data => {
+            if (data.status === 401) {
+                // Token expired, middleware should have handled this
+                throw new Error('Token expired');
+            }
+            if (!data.ok) {
+                throw new Error(`HTTP error! status: ${data.status}`);
+            }
+            return data.json();
+        })
         .then(data=>{
             return data
         })        
         .catch(err=>{
-            console.error(err);
+            console.error('Error fetching user data:', err);
+            if (err.message === 'Token expired') {
+                // Redirect to login if token expired
+                res.redirect('/account?message=' + encodeURIComponent('Phiên đăng nhập đã hết hạn'));
+                return;
+            }
             res.redirect('/')
         })
         if(user==null){
@@ -287,8 +317,8 @@ const accountController = {
     changePassword: async (req,res,next)=>{
         //Call API to change password with authentication
         let changePasswordData = {
-            oldPassword: req.body.oldPassword, // Assuming form has old password
-            newPassword: req.body.password
+            currentPassword: req.body.currentPassword || req.body.oldPassword,
+            newPassword: req.body.newPassword || req.body.password
         };
 
         let headers = {
@@ -310,13 +340,15 @@ const accountController = {
             let response = await fetch(process.env.API_URL + '/auth/change-password', option);
             
             if (response.ok) {
-                res.redirect('/account');
+                let result = await response.json();
+                res.redirect('/account?success=Đổi mật khẩu thành công');
             } else {
-                res.redirect('/account/changepassword?err=Đổi mật khẩu thất bại');
+                let errorData = await response.json();
+                res.redirect('/account/changepassword?err=' + encodeURIComponent(errorData.message || 'Đổi mật khẩu thất bại'));
             }
         } catch (err) {
-            console.error(err);
-            res.redirect('/account/changepassword?err=Đổi mật khẩu thất bại');
+            console.error('Change password error:', err);
+            res.redirect('/account/changepassword?err=' + encodeURIComponent('Đổi mật khẩu thất bại'));
         }
     },
     updateAccount: async (req,res,next) =>{
@@ -355,6 +387,20 @@ const accountController = {
             account.phone = account.phone.trim();
         }
 
+        // Format data according to API spec
+        let updateData = {
+            fullName: account.name,
+            email: account.email || "",
+            addresses: [
+                {
+                    province: account.province || "",
+                    district: account.district || "",  
+                    ward: account.ward || "",
+                    detailAddress: account.address
+                }
+            ]
+        };
+
         let updateHeaders = {
             'Content-Type': 'application/json'
         };
@@ -367,7 +413,7 @@ const accountController = {
         let option = {
             method: 'PATCH',
             headers: updateHeaders,
-            body: JSON.stringify(account)
+            body: JSON.stringify(updateData)
         }
         
         try {

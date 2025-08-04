@@ -3,6 +3,7 @@ const db = require('./db/connect')
 const { route } = require('./routes/config.route')//file contains root-route
 const handlebars = require('express-handlebars')//lib for template engine
 const session = require('express-session')//lib for modifying session
+const MongoStore = require('connect-mongo')//MongoDB session store
 const path = require('path')
 //mongodb-url 
 require('dotenv').config()
@@ -34,7 +35,33 @@ const hbs = handlebars.create({
             return new Date().toISOString().split('T')[0];
         },
         formatTime: function (date) {
-            return date.split('T')[1].split('.')[0];
+            if (!date) return '';
+            
+            // If it's already in HH:MM format
+            if (typeof date === 'string' && /^\d{1,2}:\d{2}$/.test(date)) {
+                return date;
+            }
+            
+            // If it's an ISO string
+            if (typeof date === 'string' && date.includes('T')) {
+                try {
+                    const dateObj = new Date(date);
+                    if (!isNaN(dateObj.getTime())) {
+                        const hours = dateObj.getUTCHours().toString().padStart(2, '0');
+                        const minutes = dateObj.getUTCMinutes().toString().padStart(2, '0');
+                        return `${hours}:${minutes}`;
+                    }
+                } catch (e) {
+                    console.error('Error parsing date for formatTime:', date, e);
+                }
+            }
+            
+            // Fallback: try to split by 'T' 
+            if (typeof date === 'string' && date.includes('T')) {
+                return date.split('T')[1].split('.')[0].substring(0, 5); // Get HH:MM
+            }
+            
+            return date;
         },
         // showdate: function(date){
         //     return date
@@ -146,11 +173,15 @@ app.use(session({//setting for session
     secret:"secretkey",
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: process.env.DB_URL,
+        touchAfter: 24 * 3600 // lazy session update
+    }),
     cookie: {
         maxAge: 1000 * 60 * 30 // Session expired after 30 minutes
     }
 }));
-//db.connect();
+db.connect();
 
 
 // config routes for app
