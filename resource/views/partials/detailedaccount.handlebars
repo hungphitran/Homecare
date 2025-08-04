@@ -56,6 +56,26 @@
         border: 1px solid #e1e1e1;
         background: white;
     }
+    
+    .cancelSectionHistoryDetailHomeKare {
+        margin-top: 15px;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #e1e1e1;
+        background: #fff5f5;
+        text-align: center;
+    }
+    
+    .actionButtonsHistoryDetailHomeKare {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #e1e1e1;
+    }
+    
+    .actionButtonsHistoryDetailHomeKare .paymentSectionHistoryDetailHomeKare,
+    .actionButtonsHistoryDetailHomeKare .cancelSectionHistoryDetailHomeKare {
+        margin-top: 10px;
+    }
             opacity: 1;
             transform: translateY(0);
         }
@@ -390,9 +410,9 @@
                                     <thead>
                                         <tr id="row-{{@index}}" data-request-id="{{_id}}">
                                             <th>Ngày Yêu cầu</th>
-                                            <th>Loại Đơn</th>
+                                            <th>Thời gian</th>
                                             <th>Dịch vụ</th>
-                                            <th>Giá Chuẩn</th>
+                                            <th>Tổng tiền</th>
                                             <th>Giờ bắt đầu</th>
                                             <th>Giờ kết thúc</th>
                                             <th>Trạng Thái</th>
@@ -403,9 +423,9 @@
                                         <tr id="long-row-{{@index}}" data-request-id="{{_id}}" data-status="{{status}}"
                                             class="long-term-row">
                                             <td>{{orderDate}}</td>
-                                            <td>{{requestType}}</td>
+                                            <td>{{#if schedules}}{{schedules.length}} ngày{{else}}1 ngày{{/if}}</td>
                                             <td>{{service.title}}</td>
-                                            <td>{{totalCost}}</td>
+                                            <td>{{#formatMoney totalCost}}{{/formatMoney}}</td>
                                             <td>{{#formatTime startTime }}{{/formatTime}}</td>
                                             <td>{{#formatTime endTime }}{{/formatTime}}</td>
                                             <td>
@@ -425,102 +445,93 @@
                                                             <h2 class="modalTitleHistoryDetailHomeKare">Chi tiết hóa đơn
                                                                 dài hạn</h2>
                                                         </div>
-                                                        <div class="longTermContainerHistoryDetailHomeKare"
-                                                            id="{{this.schedules.length}}">
-                                                            {{!-- {{#each this.schedules}}
-                                                            <div class="dayBillHistoryDetailHomeKare">
-                                                                <h3 class="dayTitleHistoryDetailHomeKare">{{#showdate
-                                                                    workingDate}}{{/showdate}}</h3>
-                                                                <div class="billDetailsHistoryDetailHomeKare">
-                                                                    <div class="detailItemHistoryDetailHomeKare">
-                                                                        <span class="labelHistoryDetailHomeKare">Giờ bắt
-                                                                            đầu</span>
-                                                                        <span
-                                                                            class="valueHistoryDetailHomeKare">{{#formatTime
-                                                                            startTime}}{{/formatTime}}</span>
-                                                                    </div>
-                                                                    <div class="detailItemHistoryDetailHomeKare">
-                                                                        <span class="labelHistoryDetailHomeKare">Giờ kết
-                                                                            thúc</span>
-                                                                        <span
-                                                                            class="valueHistoryDetailHomeKare">{{#formatTime
-                                                                            endTime}}{{/formatTime}}</span>
-                                                                    </div>
-                                                                    <div class="detailItemHistoryDetailHomeKare">
-                                                                        <span class="labelHistoryDetailHomeKare">Chi phí</span>
-                                                                        <span
-                                                                            class="valueHistoryDetailHomeKare">{{cost}}</span>
-                                                                    </div>
-                                                                    <div class="detailItemHistoryDetailHomeKare">
-                                                                        <span class="labelHistoryDetailHomeKare">Trạng
-                                                                            thái:</span>
-                                                                        <span
-                                                                            class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
-                                                                            data-status="{{status}}" data-detail-id="{{_id}}" data-cost="{{cost}}">{{#getStatus status}}{{/getStatus}}</span>
-                                                                    </div>
-                                                                    <div class="detailItemHistoryDetailHomeKare">
-                                                                        <span class="labelHistoryDetailHomeKare">Nhận
-                                                                            xét:</span>
-                                                                        <p class="commentHistoryDetailHomeKare">
-                                                                            {{comment.review}}</p>
+                                                        <div class="longTermContainerHistoryDetailHomeKare">
+                                                            {{#if this.schedules}}
+                                                                {{#each this.schedules}}
+                                                                <div class="dayBillHistoryDetailHomeKare">
+                                                                    <h3 class="dayTitleHistoryDetailHomeKare">
+                                                                        Ngày: {{#showdate workingDate}}{{/showdate}}
+                                                                    </h3>
+                                                                    <div class="billDetailsHistoryDetailHomeKare">
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Giờ bắt đầu:</span>
+                                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime startTime}}{{/formatTime}}</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Giờ kết thúc:</span>
+                                                                            <span class="valueHistoryDetailHomeKare">{{#formatTime endTime}}{{/formatTime}}</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
+                                                                            <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
+                                                                                data-status="{{status}}" data-detail-id="{{_id}}" data-cost="{{cost}}">
+                                                                                {{#getStatus status}}{{/getStatus}}
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Chi phí:</span>
+                                                                            <span class="valueHistoryDetailHomeKare">{{#formatMoney cost}}{{/formatMoney}}</span>
+                                                                        </div>
+                                                                        <div class="detailItemHistoryDetailHomeKare">
+                                                                            <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
+                                                                            <p class="commentHistoryDetailHomeKare">
+                                                                                {{#if comment.review}}
+                                                                                    {{comment.review}}
+                                                                                {{else}}
+                                                                                    Chưa có nhận xét
+                                                                                {{/if}}
+                                                                            </p>
+                                                                        </div>
+                                                                        
+
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            {{/each}} --}}
-         {{!-- phần sửa                                                    --}}
-        {{#each this.schedules}}
-        <div class="dayBillHistoryDetailHomeKare">
-            <h3 class="dayTitleHistoryDetailHomeKare">{{#showdate workingDate}}{{/showdate}}</h3>
-            <div class="billDetailsHistoryDetailHomeKare">
-                <div class="detailItemHistoryDetailHomeKare">
-                    <span class="labelHistoryDetailHomeKare">Giờ bắt đầu</span>
-                    <span class="valueHistoryDetailHomeKare">{{#formatTime startTime}}{{/formatTime}}</span>
-                </div>
-                <div class="detailItemHistoryDetailHomeKare">
-                    <span class="labelHistoryDetailHomeKare">Giờ kết thúc</span>
-                    <span class="valueHistoryDetailHomeKare">{{#formatTime endTime}}{{/formatTime}}</span>
-                </div>
-                <div class="detailItemHistoryDetailHomeKare">
-                    <span class="labelHistoryDetailHomeKare">Trạng thái:</span>
-                    <span class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
-                        data-status="{{status}}" data-detail-id="{{_id}}" data-cost="{{cost}}">{{#getStatus status}}{{/getStatus}}</span>
-                </div>
-                <div class="detailItemHistoryDetailHomeKare">
-                    <span class="labelHistoryDetailHomeKare">Chi phí:</span>
-                    <p class="commentHistoryDetailHomeKare">{{cost}}</p>
-                </div>
-                <div class="detailItemHistoryDetailHomeKare">
-                    <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
-                    <p class="commentHistoryDetailHomeKare">{{comment.review}}</p>
-                </div>
-        
-                <!-- Thêm thông tin thanh toán và nút nếu trạng thái là waitPayment -->
-                {{#if status}}
-                {{#if (isWaitPayment status)}}
-                <div class="paymentSectionHistoryDetailHomeKare">
-                    <div class="detailItemHistoryDetailHomeKare paymentInfo">
-                        <span class="labelHistoryDetailHomeKare">Số tiền cần thanh toán:</span>
-                        <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{cost}}đ</span>
-                    </div>
-                    <button class="btn btn-success itemPayButton" data-cost="{{cost}}" data-schedule-id="{{_id}}" data-request-id="{{../this._id}}"
-                        data-type="long">
-                        <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
-                    </button>
-                </div>
-                {{/if}}
-                {{/if}}
-            </div>
-        </div>
-        {{/each}}
-         {{!-- phần sữa kết --}}
+                                                                {{/each}}
+                                                            {{else}}
+                                                                <div class="no-schedules-message" style="text-align: center; padding: 20px; color: #666;">
+                                                                    <p><i class="fas fa-info-circle"></i> Chưa có lịch trình chi tiết cho đơn hàng này.</p>
+                                                                    <p style="font-size: 12px; margin-top: 10px;">
+                                                                        Request ID: {{this._id}}<br>
+                                                                        Request Type: {{this.requestType}}<br>
+                                                                        Schedules Count: {{#if this.schedules}}{{this.schedules.length}}{{else}}0{{/if}}
+                                                                    </p>
+                                                                </div>
+                                                            {{/if}}
                                                             <div class="totalCostHistoryDetailHomeKare">
                                                                 <span class="labelHistoryDetailHomeKare">Tổng số
                                                                     tiền:</span>
                                                                 <span
-                                                                    class="valueHistoryDetailHomeKare">{{totalCost}}VNĐ</span>
-                                                                <!-- Add Thanh toán button -->
-                                                                {{!-- <button id="payButton" class="btn btn-primary"
-                                                                    data-id="{{_id}}">Thanh toán</button> --}}
+                                                                    class="valueHistoryDetailHomeKare">{{#formatMoney totalCost}}{{/formatMoney}}</span>
+                                                            </div>
+                                                            
+                                                            <!-- Nút hành động ở cuối modal -->
+                                                            <div class="actionButtonsHistoryDetailHomeKare">
+                                                                <!-- Nút thanh toán nếu có schedule nào đó cần thanh toán -->
+                                                                {{#if (hasWaitPaymentSchedules schedules)}}
+                                                                <div class="paymentSectionHistoryDetailHomeKare">
+                                                                    <div class="detailItemHistoryDetailHomeKare paymentInfo">
+                                                                        <span class="labelHistoryDetailHomeKare">Tổng tiền cần thanh toán:</span>
+                                                                        <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{#formatMoney (getTotalWaitPaymentCost schedules)}}{{/formatMoney}}</span>
+                                                                    </div>
+                                                                    <button class="btn btn-success itemPayButton" 
+                                                                        data-request-id="{{this._id}}"
+                                                                        data-type="long"
+                                                                        data-schedules="{{json schedules}}">
+                                                                        <i class="fas fa-money-bill-wave"></i> Thanh toán tất cả
+                                                                    </button>
+                                                                </div>
+                                                                {{/if}}
+                                                                
+                                                                <!-- Nút hủy đơn nếu có schedule nào đó chưa thực hiện -->
+                                                                {{#if (hasNotDoneSchedules schedules)}}
+                                                                <div class="cancelSectionHistoryDetailHomeKare">
+                                                                    <button class="btn btn-danger cancelButton" 
+                                                                        data-request-id="{{this._id}}"
+                                                                        data-type="long">
+                                                                        <i class="fas fa-times"></i> Hủy đơn hàng
+                                                                    </button>
+                                                                </div>
+                                                                {{/if}}
                                                             </div>
                                                         </div>
 
@@ -602,9 +613,9 @@
                                     <thead>
                                         <tr id="row-{{@index}}" data-request-id="{{_id}}">
                                             <th>Ngày Yêu cầu</th>
-                                            <th>Loại Đơn</th>
+                                            <th>Thời gian</th>
                                             <th>Dịch vụ</th>
-                                            <th>Giá Chuẩn</th>
+                                            <th>Tổng tiền</th>
                                             <th>Giờ bắt đầu</th>
                                             <th>Giờ kết thúc</th>
                                             <th>Trạng Thái</th>
@@ -616,9 +627,9 @@
                                         <tr id="short-row-{{@index}}" data-status="{{status}}" data-request-id="{{_id}}"
                                             class="short-term-row">
                                             <td>{{orderDate}}</td>
-                                            <td>{{requestType}}</td>
+                                            <td>{{#if schedules}}{{schedules.length}} ngày{{else}}1 ngày{{/if}}</td>
                                             <td>{{service.title}}</td>
-                                            <td>{{totalCost}}</td>
+                                            <td>{{#formatMoney totalCost}}{{/formatMoney}}</td>
                                             <td>{{#formatTime startTime }}{{/formatTime}}</td>
                                             <td>{{#formatTime endTime }}{{/formatTime}}</td>
                                             <td>
@@ -715,22 +726,42 @@
                                                                 <span class="labelHistoryDetailHomeKare">Nhận xét:</span>
                                                                 <p class="commentHistoryDetailHomeKare">{{comment}}</p>
                                                             </div>
-                                                        
-                                                            <!-- Thêm nút thanh toán riêng với điều kiện -->
-                                                            {{#if status}}
-                                                            {{#if (isWaitPayment status)}}
-                                                            <div class="paymentSectionHistoryDetailHomeKare">
-                                                                <div class="detailItemHistoryDetailHomeKare paymentInfo">
-                                                                    <span class="labelHistoryDetailHomeKare">Cần thanh toán:</span>
-                                                                    <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{cost}}đ</span>
+                                                            
+                                                            <!-- Nút hành động ở cuối modal -->
+                                                            <div class="actionButtonsHistoryDetailHomeKare">
+                                                                <!-- Nút thanh toán nếu schedule cần thanh toán -->
+                                                                {{#each schedules}}
+                                                                {{#if @first}}
+                                                                {{#if (isWaitPayment status)}}
+                                                                <div class="paymentSectionHistoryDetailHomeKare">
+                                                                    <div class="detailItemHistoryDetailHomeKare paymentInfo">
+                                                                        <span class="labelHistoryDetailHomeKare">Số tiền cần thanh toán:</span>
+                                                                        <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{#formatMoney cost}}{{/formatMoney}}</span>
+                                                                    </div>
+                                                                    <button class="btn btn-success itemPayButton" 
+                                                                        data-schedule-id="{{_id}}"
+                                                                        data-request-id="{{../this._id}}" 
+                                                                        data-cost="{{cost}}" 
+                                                                        data-type="short">
+                                                                        <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
+                                                                    </button>
                                                                 </div>
-                                                                <button id="payButtonShort" class="btn btn-success itemPayButton" data-detail-id="{{schedules.[0]._id}}"
-                                                                    data-request-id="{{_id}}" data-cost="{{cost}}" data-type="short">
-                                                                    <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
-                                                                </button>
+                                                                {{/if}}
+                                                                
+                                                                <!-- Nút hủy đơn nếu schedule chưa thực hiện -->
+                                                                {{#if (eq status "notDone")}}
+                                                                <div class="cancelSectionHistoryDetailHomeKare">
+                                                                    <button class="btn btn-danger cancelButton" 
+                                                                        data-request-id="{{../this._id}}"
+                                                                        data-type="short">
+                                                                        <i class="fas fa-times"></i> Hủy đơn hàng
+                                                                    </button>
+                                                                </div>
+                                                                {{/if}}
+                                                                {{/if}}
+                                                                {{/each}}
                                                             </div>
-                                                            {{/if}}
-                                                            {{/if}}
+
                                                         </div>
                                                         {{!-- phần kết --}}
                                                     </div>
@@ -843,15 +874,16 @@
             type: null
         };
 
-        // Xử lý khi nhấp vào các nút thanh toán riêng lẻ
+        // Xử lý khi nhấp vào các nút thanh toán
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('itemPayButton') || e.target.closest('.itemPayButton')) {
                 const button = e.target.classList.contains('itemPayButton') ? e.target : e.target.closest('.itemPayButton');
 
                 // Lấy thông tin thanh toán
-                currentPaymentInfo.scheduleId = button.getAttribute('data-detail-id');
+                currentPaymentInfo.scheduleId = button.getAttribute('data-schedule-id');
                 currentPaymentInfo.requestId = button.getAttribute('data-request-id');
                 currentPaymentInfo.type = button.getAttribute('data-type');
+                currentPaymentInfo.schedules = button.getAttribute('data-schedules');
 
                 // Lưu tham chiếu đến nút hiện tại
                 window.currentPaymentButton = button;
@@ -864,45 +896,121 @@
 
         // Xử lý nút xác nhận thanh toán
         document.getElementById('confirmPayBtn').addEventListener('click', function () {
-            console.log('Xác nhận thanh toán cho lịch trình:', currentPaymentInfo);
-            if (!currentPaymentInfo.scheduleId) {
+            console.log('Xác nhận thanh toán:', currentPaymentInfo);
+            
+            if (!currentPaymentInfo.requestId) {
                 console.error('Thiếu thông tin thanh toán');
+                alert('Thông tin thanh toán không hợp lệ!');
                 return;
             }
 
+            // Nếu có scheduleId cụ thể (ngắn hạn)
+            if (currentPaymentInfo.scheduleId) {
+                processSinglePayment(currentPaymentInfo.scheduleId);
+            } 
+            // Nếu có schedules (dài hạn - thanh toán nhiều)
+            else if (currentPaymentInfo.schedules) {
+                processMultiplePayments(currentPaymentInfo.schedules);
+            } 
+            else {
+                alert('Thông tin thanh toán không hợp lệ!');
+            }
+        });
+
+        // Xử lý thanh toán đơn lẻ
+        function processSinglePayment(scheduleId) {
             // Đóng modal xác nhận
             const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmPaymentModal'));
             confirmModal.hide();
 
-            // Ở đây bạn sẽ gọi API thanh toán thực tế
-            // Mô phỏng gọi API thanh toán
             // Show loading
             document.querySelector('.loading-overlay').classList.add('active');
 
-            // Xử lý thanh toán
-            processPayment(currentPaymentInfo.scheduleId, currentPaymentInfo.requestId, currentPaymentInfo.type)
-                .then(success => {
-                    console.log(success)
-                        //showNotification('success', 'Thanh toán thành công!');
-                        
-                        // Hiển thị modal đánh giá
-                        const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
-                        
-                        // Lưu thông tin cho đánh giá
-                        document.getElementById('submitRatingBtn').setAttribute('data-detail-id', currentPaymentInfo.scheduleId);
-                        document.getElementById('submitRatingBtn').setAttribute('data-request-id', currentPaymentInfo.requestId);
-                        document.getElementById('submitRatingBtn').setAttribute('data-type', currentPaymentInfo.type);
-                        
+            fetch('/request/finishpayment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    detailId: scheduleId
+                })
+            }).then(response => {
+                if (response.ok) {
+                    // Hiển thị modal đánh giá
+                    const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
+                    
+                    // Lưu thông tin cho đánh giá
+                    document.getElementById('submitRatingBtn').setAttribute('data-detail-id', scheduleId);
+                    document.getElementById('submitRatingBtn').setAttribute('data-request-id', currentPaymentInfo.requestId);
+                    document.getElementById('submitRatingBtn').setAttribute('data-type', currentPaymentInfo.type);
+                    
                     ratingModal.show();
-                })
-                .catch(error => {
-                    //showNotification('error', 'Có lỗi xảy ra: ' + error.message);
-                })
-                .finally(() => {
-                    // Hide loading
-                    //document.querySelector('.loading-overlay').classList.remove('active');
-                });
-        });
+                } else {
+                    alert('Thanh toán thất bại!');
+                }
+            }).catch(error => {
+                console.error('Error processing payment:', error);
+                alert('Có lỗi xảy ra khi thanh toán!');
+            }).finally(() => {
+                // Hide loading
+                document.querySelector('.loading-overlay').classList.remove('active');
+            });
+        }
+
+        // Xử lý thanh toán nhiều schedule
+        function processMultiplePayments(schedulesJson) {
+            try {
+                const schedules = JSON.parse(schedulesJson);
+                const waitPaymentSchedules = schedules.filter(s => s.status === 'waitPayment');
+                
+                if (waitPaymentSchedules.length === 0) {
+                    alert('Không có schedule nào cần thanh toán!');
+                    return;
+                }
+
+                // Đóng modal xác nhận
+                const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmPaymentModal'));
+                confirmModal.hide();
+
+                // Show loading
+                document.querySelector('.loading-overlay').classList.add('active');
+
+                // Thanh toán từng schedule một
+                const paymentPromises = waitPaymentSchedules.map(schedule => 
+                    fetch('/request/finishpayment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            detailId: schedule._id
+                        })
+                    })
+                );
+
+                Promise.all(paymentPromises)
+                    .then(responses => {
+                        const allSuccessful = responses.every(response => response.ok);
+                        if (allSuccessful) {
+                            alert('Thanh toán tất cả thành công!');
+                            window.location.reload();
+                        } else {
+                            alert('Một số thanh toán thất bại!');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error processing multiple payments:', error);
+                        alert('Có lỗi xảy ra khi thanh toán!');
+                    })
+                    .finally(() => {
+                        // Hide loading
+                        document.querySelector('.loading-overlay').classList.remove('active');
+                    });
+            } catch (error) {
+                console.error('Error parsing schedules:', error);
+                alert('Có lỗi xảy ra khi xử lý thông tin thanh toán!');
+            }
+        }
 
         // Xử lý gửi đánh giá
         document.getElementById('submitRatingBtn').addEventListener('click', function () {
@@ -1111,80 +1219,7 @@
             }
         }
 
-        // Xử lý nút thanh toán
-        document.getElementById('payButton').addEventListener('click', function () {
-            const confirmModal = new bootstrap.Modal(document.getElementById('confirmPaymentModal'));
-            confirmModal.show();
-        });
 
-        // Xử lý xác nhận thanh toán
-        document.getElementById('confirmPayBtn').addEventListener('click', function () {
-            // Đóng modal xác nhận
-            const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmPaymentModal'));
-            confirmModal.hide();
-
-            // Hiển thị thông báo thành công
-            //alert('Xác nhận thanh toán thành công!');
-            // Hiển thị modal đánh giá
-            const ratingModal = new bootstrap.Modal(document.getElementById('ratingModal'));
-            ratingModal.show();
-        });
-
-        // Xử lý đánh giá sao
-        const stars = document.querySelectorAll('.rating-stars .fa-star');
-        let selectedRating = 0;
-
-        stars.forEach(star => {
-            star.addEventListener('mouseover', function () {
-                const rating = this.dataset.rating;
-                highlightStars(rating);
-            });
-
-            star.addEventListener('mouseout', function () {
-                highlightStars(selectedRating);
-            });
-
-            star.addEventListener('click', function () {
-                selectedRating = this.dataset.rating;
-                highlightStars(selectedRating);
-            });
-        });
-
-        function highlightStars(rating) {
-            stars.forEach(star => {
-                const starRating = star.dataset.rating;
-                if (starRating <= rating) {
-                    star.classList.add('active');
-                } else {
-                    star.classList.remove('active');
-                }
-            });
-        }
-
-        // Xử lý gửi đánh giá
-        document.getElementById('submitRatingBtn').addEventListener('click', function () {
-            const comment = document.getElementById('ratingComment').value;
-
-            /* if (selectedRating === 0) {
-                alert('Vui lòng chọn số sao đánh giá!');
-                return;
-            } */
-
-            // Gửi đánh giá
-
-
-            //Đóng modal chi tiết
-            const closeModal = document.querySelector('.modalHistoryDetailHomeKare').classList.remove('showModalHistoryDetailHomeKare')
-            // Đóng modal đánh giá
-            const ratingModal = bootstrap.Modal.getInstance(document.getElementById('ratingModal'));
-            ratingModal.hide();
-
-            // Hiển thị thông báo thành công
-            alert('Cảm ơn bạn đã đánh giá!');
-        });
-
-        // Kiểm tra ban đầu
-        //updatePayButtonVisibility();
     });
 </script>
 <script>
@@ -1908,13 +1943,13 @@
     });
 </script>
 <script>
-    // Thay thế code hiện tại cho phần xử lý nút hủy đơn
+    // Xử lý nút hủy đơn
     document.addEventListener('click', function (e) {
-        if (e.target.id === 'cancelButton' || e.target.id === 'cancelButtonShort') {
+        if (e.target.classList.contains('cancelButton')) {
             const requestId = e.target.getAttribute('data-request-id');
-            const tabletype = e.target.id === 'cancelButton' ? 'long' : 'short';
+            const type = e.target.getAttribute('data-type');
 
-            console.log("requestId", requestId);
+            console.log("Hủy đơn hàng:", requestId, type);
 
             // Lưu tham chiếu đến modal hiện tại
             const currentModal = e.target.closest('.modalHistoryDetailHomeKare');
@@ -1934,61 +1969,23 @@
                     },
                     body: JSON.stringify({ orderId: requestId })
                 }).then(response => {
-                    console.log("response", response)
-                    if (!response.status === 200) {
-                        alert('Hủy đơn hàng thất bại:', error);
-                    }
-                    else {
+                    if (response.ok) {
                         alert('Đã hủy đơn hàng thành công!');
+                        
                         // Đóng modal chi tiết
                         if (currentModal) {
                             currentModal.classList.remove('showModalHistoryDetailHomeKare');
                         }
 
-                        // Tìm hàng từ bảng đúng loại
-                        const targetTable = tabletype === 'long'
-                            ? document.getElementById('longTermTable-homedetail')
-                            : document.getElementById('shortTermTable-homedetail');
-
-                        if (targetTable) {
-                            // Tìm hàng theo request ID trong bảng cụ thể
-                            const rows = targetTable.querySelectorAll('tr[data-request-id="' + requestId + '"]');
-
-                            if (rows.length > 0) {
-                                rows.forEach(row => {
-                                    // Cập nhật trạng thái trong modal
-                                    const modal = row.querySelector('.modalHistoryDetailHomeKare');
-                                    if (modal) {
-                                        const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
-                                        statusElements.forEach(statusEl => {
-                                            // Cập nhật data-status để hiển thị trạng thái đã hủy
-                                            statusEl.setAttribute('data-status', 'cancelled');
-                                        });
-                                    }
-
-                                    // Cập nhật trạng thái hiển thị trong bảng (nếu có)
-                                    const statusCell = row.cells[5]; // Cell thứ 6 (index 5) thường là trạng thái
-                                    if (statusCell) {
-                                        const statusElement = statusCell.querySelector('.status-completeHistoryDetailHomeKare');
-                                        if (statusElement) {
-                                            statusElement.setAttribute('data-status', 'cancelled');
-                                        }
-                                    }
-                                });
-
-
-                            } else {
-                                console.warn(`Không tìm thấy hàng với requestId ${requestId} trong bảng ${tabletype}`);
-                            }
-                        }
+                        // Reload trang để cập nhật trạng thái
+                        window.location.reload();
+                    } else {
+                        alert('Hủy đơn hàng thất bại!');
                     }
-
-
                 }).catch(error => {
-                    alert('Error cancelling order:', error);
+                    console.error('Error cancelling order:', error);
+                    alert('Có lỗi xảy ra khi hủy đơn hàng!');
                 });
-
-
             };
 
             // Hiển thị modal xác nhận

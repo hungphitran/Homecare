@@ -138,6 +138,48 @@ const hbs = handlebars.create({
                 default: return status;
             }
         },
+        // Helper để debug dữ liệu
+        debug: function(data) {
+            console.log('Template Debug:', data);
+            return JSON.stringify(data, null, 2);
+        },
+        // Helper để kiểm tra array có phần tử không
+        hasItems: function(array) {
+            return array && Array.isArray(array) && array.length > 0;
+        },
+        // Helper để so sánh giá trị
+        eq: function(a, b) {
+            return a === b;
+        },
+        // Helper để kiểm tra có schedule nào cần thanh toán không
+        hasWaitPaymentSchedules: function(schedules) {
+            if (!schedules || !Array.isArray(schedules)) return false;
+            return schedules.some(schedule => schedule.status === 'waitPayment');
+        },
+        // Helper để tính tổng tiền cần thanh toán
+        getTotalWaitPaymentCost: function(schedules) {
+            if (!schedules || !Array.isArray(schedules)) return 0;
+            return schedules
+                .filter(schedule => schedule.status === 'waitPayment')
+                .reduce((total, schedule) => total + (schedule.cost || 0), 0);
+        },
+        // Helper để kiểm tra có schedule nào chưa thực hiện không
+        hasNotDoneSchedules: function(schedules) {
+            if (!schedules || !Array.isArray(schedules)) return false;
+            return schedules.some(schedule => schedule.status === 'notDone');
+        },
+        // Helper để chuyển đổi object thành JSON string
+        json: function(obj) {
+            return JSON.stringify(obj);
+        },
+        // Helper để format số tiền
+        formatMoney: function(amount) {
+            if (!amount && amount !== 0) return '0 VNĐ';
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(amount);
+        },
         
         sum: function(n1,n2){
             let num1 = Number.parseInt(n1)

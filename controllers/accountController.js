@@ -200,92 +200,64 @@ const accountController = {
             return [];
         });
 
-        //get all schedule ids of all requests
-        let schedule_ids="";
-        
-        // Check if requests is array before processing
+        // Process requests data - API already returns schedules array
         if (Array.isArray(requests)) {
-            for(let request of requests){
-                // Check if request has scheduleIds array
-                if (request && Array.isArray(request.scheduleIds)) {
-                    for(let id of request.scheduleIds){
-                        //concat all schedule ids with "," to query
-                        schedule_ids+=id+',';
-                    }
-                }
-            }
-        }
-        
-        let requestDetails = [];
-        if (schedule_ids.length > 0) {
-            schedule_ids = schedule_ids.slice(0, schedule_ids.length - 1)//eliminate last ","
-            //GET call api to get all details with ids on query
-            requestDetails = await fetch(process.env.API_URL+'/requestDetail?ids='+schedule_ids)
-            .then(data=>data.json())   
-            .catch(err=>{
-                console.error(err);
-                return [];
-            })
-        }
-        
-        // Check if requestDetails is array
-        if (!Array.isArray(requestDetails)) {
-            requestDetails = [];
-        }
-        
-        //match all detail with its request
-        let startIndex=0;
-        if (Array.isArray(requests)) {
-            for(let i=0;i<requests.length;i++){
+            for(let i = 0; i < requests.length; i++) {
                 if (requests[i]) {
-                    //format date
+                    // Format orderDate
                     let orderDate = requests[i].orderDate;
                     if (orderDate && typeof orderDate === 'string') {
                         requests[i].orderDate = orderDate.slice(0, 10);
                     }
-                    requests[i].schedules=[];
                     
-                    //get all details of each request
-                    if (Array.isArray(requests[i].scheduleIds)) {
-                        for(let j=startIndex;j<startIndex+requests[i].scheduleIds.length;j++){
-                            try{
-                                //format date and status of each detail
-                                if (requestDetails[j]) {
-                                    requests[i].schedules.push(requestDetails[j]);
-                                }
+                    // Process schedules if they exist
+                    if (Array.isArray(requests[i].schedules)) {
+                        for(let j = 0; j < requests[i].schedules.length; j++) {
+                            let schedule = requests[i].schedules[j];
+                            
+                            // Format workingDate if it exists
+                            if (schedule.workingDate && typeof schedule.workingDate === 'string') {
+                                schedule.workingDate = schedule.workingDate.slice(0, 10);
                             }
-                            catch(err){
-                                console.error(err);
+                            
+                            // Add comment field for template compatibility (API doesn't return comment)
+                            if (!schedule.comment) {
+                                schedule.comment = { review: '' };
+                            }
+                            
+                            // Ensure all required fields exist
+                            if (!schedule.status) {
+                                schedule.status = 'notDone';
+                            }
+                            if (!schedule.cost) {
+                                schedule.cost = 0;
                             }
                         }
-                        //update start index
-                        startIndex+=requests[i].scheduleIds.length;
+                    } else {
+                        // If no schedules array, create empty array
+                        requests[i].schedules = [];
                     }
                 }
             }
         }
-
-        //format date to display
-        if (Array.isArray(requests)) {
-            for(let i=0;i<requests.length;i++){
-                if (requests[i]) {
-                    requests[i].startTime = requests[i].startTime;
-                    requests[i].endTime = requests[i].endTime;
-                }
-            }
-        }
-
+        
         // Ensure requests is array before filtering
         if (!Array.isArray(requests)) {
             requests = [];
         }
 
-        let longTermRequests = requests.filter(request => 
-            request && request.requestType && request.requestType.toLowerCase() === "dài hạn"
-        );
-        let shortTermRequests = requests.filter(request => 
-            request && request.requestType && request.requestType.toLowerCase() === "ngắn hạn"
-        );
+        // Filter requests based on number of schedules
+        // Long term: multiple schedules (multiple days)
+        // Short term: single schedule (single day)
+        let longTermRequests = requests.filter(request => {
+            if (!request || !Array.isArray(request.schedules)) return false;
+            return request.schedules.length > 1; // Multiple schedules = long term
+        });
+        
+        let shortTermRequests = requests.filter(request => {
+            if (!request || !Array.isArray(request.schedules)) return false;
+            return request.schedules.length === 1; // Single schedule = short term
+        });
         
         res.render('partials/detailedaccount',{
             user:user,
@@ -293,6 +265,24 @@ const accountController = {
             shortTermRequests:shortTermRequests,
             layout:false
         });
+        
+        // Debug logging
+        console.log('=== DEBUG: Request Classification ===');
+        console.log('Total requests:', requests ? requests.length : 0);
+        console.log('Long term requests:', longTermRequests.length);
+        console.log('Short term requests:', shortTermRequests.length);
+        
+        if (Array.isArray(requests)) {
+            requests.forEach((request, index) => {
+                console.log(`Request ${index}:`, {
+                    id: request._id,
+                    requestType: request.requestType,
+                    schedulesCount: request.schedules ? request.schedules.length : 0,
+                    isLongTerm: request.schedules && request.schedules.length > 1,
+                    isShortTerm: request.schedules && request.schedules.length === 1
+                });
+            });
+        }
     },
     sendotp: async(req,res,next)=>{
         if(req.body.phone){
