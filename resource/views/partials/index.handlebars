@@ -1713,5 +1713,49 @@
             });
         });
         observer.observe(slider);
+        
+        // Show notification if exists in URL params (same format as notification-toast.js)
+        const urlParams = new URLSearchParams(window.location.search);
+        const success = urlParams.get('success');
+        const error = urlParams.get('error');
+        const warning = urlParams.get('warning');
+        const info = urlParams.get('info');
+        
+        // Wait for notification-toast to be available
+        const checkToast = () => {
+            if (window.notificationToast) {
+                if (success) {
+                    window.notificationToast.success(decodeURIComponent(success));
+                    // Clean URL
+                    const newUrl = window.location.pathname;
+                    window.history.replaceState({}, '', newUrl);
+                }
+                if (error) {
+                    window.notificationToast.error(decodeURIComponent(error));
+                    // Clean URL
+                    const newUrl = window.location.pathname;
+                    window.history.replaceState({}, '', newUrl);
+                }
+                if (warning) {
+                    window.notificationToast.warning(decodeURIComponent(warning));
+                    // Clean URL
+                    const newUrl = window.location.pathname;
+                    window.history.replaceState({}, '', newUrl);
+                }
+                if (info) {
+                    window.notificationToast.info(decodeURIComponent(info));
+                    // Clean URL
+                    const newUrl = window.location.pathname;
+                    window.history.replaceState({}, '', newUrl);
+                }
+            } else {
+                setTimeout(checkToast, 100);
+            }
+        };
+        
+        // Check for any notifications
+        if (success || error || warning || info) {
+            checkToast();
+        }
     });
 </script>

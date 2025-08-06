@@ -228,6 +228,188 @@
         flex: 0 0 120px;
         color: #34495e;
     }
+
+    /* Province and District Dropdown Styles for Account Form */
+    .wrapper-province-account,
+    .wrapper-district-account {
+        position: relative !important;
+        width: 100% !important;
+        margin-bottom: 5px !important;
+        box-sizing: border-box !important;
+    }
+
+    .wrapper-province__select-btn-account,
+    .wrapper-district__select-btn-account {
+        display: flex !important;
+        height: 40px !important;
+        background: #fff !important;
+        padding: 8px 12px !important;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        border-radius: 8px !important;
+        border: 1px solid #e1e1e1 !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        justify-content: space-between !important;
+        user-select: none !important;
+        transition: all 0.3s ease !important;
+        box-sizing: border-box !important;
+        min-height: 40px !important;
+        max-height: 40px !important;
+    }
+
+    .wrapper-province__select-btn-account:hover,
+    .wrapper-district__select-btn-account:hover {
+        border-color: #3498db;
+    }
+
+    .wrapper-province__select-btn-account.active,
+    .wrapper-district__select-btn-account.active {
+        border-color: #3498db;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    }
+
+    .wrapper-province__select-btn-account span,
+    .wrapper-district__select-btn-account span {
+        flex: 1 !important;
+        color: #333 !important;
+        font-size: 14px !important;
+        line-height: 1.2 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .wrapper-province__select-btn-account i,
+    .wrapper-district__select-btn-account i {
+        font-size: 12px !important;
+        color: #666 !important;
+        margin-left: 8px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .wrapper-province__select-btn-account[disabled],
+    .wrapper-district__select-btn-account[disabled] {
+        background-color: #f8f9fa;
+        cursor: not-allowed;
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    .wrapper-province__select-btn-account[disabled] span,
+    .wrapper-district__select-btn-account[disabled] span {
+        color: #6c757d;
+    }
+
+    /* Force compact style for all dropdown elements */
+    .form-group-input-form .wrapper-province-account .wrapper-province__select-btn-account,
+    .form-group-input-form .wrapper-district-account .wrapper-district__select-btn-account {
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+        padding: 10px 15px !important;
+        font-size: 16px !important;
+        line-height: 1.2 !important;
+        border: 1px solid #e1e1e1 !important;
+        border-radius: 8px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Match input style exactly */
+    .wrapper-province__select-btn-account,
+    .wrapper-district__select-btn-account {
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+    }
+
+    .wrapper-province__content-account,
+    .wrapper-district__content-account {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #e1e1e1;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .wrapper-province__content-account.active,
+    .wrapper-district__content-account.active {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .warapper-province__search-account,
+    .warapper-district__search-account {
+        position: relative;
+        padding: 6px;
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+    .wrapper-province__input-account,
+    .wrapper-district__input-account {
+        width: 100%;
+        padding: 6px 25px 6px 8px;
+        border: 1px solid #e1e1e1;
+        border-radius: 6px;
+        font-size: 13px;
+        outline: none;
+    }
+
+    .wrapper-province__input-account:focus,
+    .wrapper-district__input-account:focus {
+        border-color: #3498db;
+    }
+
+    .warapper-province__search-account i,
+    .warapper-district__search-account i {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+        font-size: 11px;
+    }
+
+    .wrapper-province__options-account,
+    .wrapper-district__options-account {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .wrapper-province__options-account li,
+    .wrapper-district__options-account li {
+        padding: 8px 12px;
+        cursor: pointer;
+        border-bottom: 1px solid #f5f5f5;
+        transition: background-color 0.2s ease;
+        font-size: 13px;
+    }
+
+    .wrapper-province__options-account li:hover,
+    .wrapper-district__options-account li:hover {
+        background-color: #f8f9fa;
+    }
+
+    .wrapper-province__options-account li.selected,
+    .wrapper-district__options-account li.selected {
+        background-color: #3498db;
+        color: white;
+    }
+
+    .wrapper-province__options-account li:last-child,
+    .wrapper-district__options-account li:last-child {
+        border-bottom: none;
+    }
 </style>
 </head>
 
@@ -262,7 +444,7 @@
                     <div class="dropdown-item-homecare" data-modal="logout">
                         <a href="/account/logout">
                             <i class="fas fa-sign-out-alt"></i>
-                            Thoát
+                            Đăng xuất
                         </a>
                     </div>
                 </div>
@@ -287,11 +469,80 @@
                             value="{{user.fullName}}" disabled required 
                             autocomplete="name" maxlength="100" minlength="2">
                     </div>
+
+                    <!-- Province dropdown -->
+                    {{#if locations}}
                     <div class="form-group-input-form">
-                        <label class="label-input-form" for="address">Địa chỉ</label>
+                        <label class="label-input-form" for="province">Tỉnh/Thành phố</label>
+                        <div class="wrapper-province-account">
+                            <div class="wrapper-province__select-btn-account" style="padding: 10px 15px !important; font-size: 16px !important; height: auto !important; min-height: auto !important; line-height: 1.2 !important;">
+                                <span id="province-selected">{{#if user.province}}{{user.province}}{{else}}Chọn Tỉnh/Thành phố{{/if}}</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="wrapper-province__content-account">
+                                <div class="warapper-province__search-account">
+                                    <input name="province" id="province" class="wrapper-province__input-account" spellcheck="false"
+                                        type="text" placeholder="Tìm kiếm tỉnh/thành phố" value="{{user.province}}" disabled required>
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                                <ul class="wrapper-province__options-account"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- District dropdown -->
+                    <div class="form-group-input-form">
+                        <label class="label-input-form" for="district">Quận/Huyện</label>
+                        <div class="wrapper-district-account">
+                            <div class="wrapper-district__select-btn-account" style="padding: 10px 15px !important; font-size: 16px !important; height: auto !important; min-height: auto !important; line-height: 1.2 !important;">
+                                <span id="district-selected">{{#if user.district}}{{user.district}}{{else}}Chọn Quận/Huyện{{/if}}</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="wrapper-district__content-account">
+                                <div class="warapper-district__search-account">
+                                    <input name="district" id="district" class="wrapper-district__input-account" spellcheck="false"
+                                        type="text" placeholder="Tìm kiếm quận/huyện" value="{{user.district}}" disabled required>
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                                <ul class="wrapper-district__options-account"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ward input -->
+                    <div class="form-group-input-form">
+                        <label class="label-input-form" for="ward">Phường/Xã</label>
+                        <input class="input-form-accountdetail" type="text" id="ward" name="ward"
+                            value="{{user.ward}}" disabled 
+                            autocomplete="address-level3" maxlength="100">
+                    </div>
+                    {{else}}
+                    <!-- Fallback: Text inputs if no locations data -->
+                    <div class="form-group-input-form">
+                        <label class="label-input-form" for="province">Tỉnh/Thành phố</label>
+                        <input class="input-form-accountdetail" type="text" id="province" name="province"
+                            value="{{user.province}}" disabled 
+                            autocomplete="address-level1" maxlength="100">
+                    </div>
+                    <div class="form-group-input-form">
+                        <label class="label-input-form" for="district">Quận/Huyện</label>
+                        <input class="input-form-accountdetail" type="text" id="district" name="district"
+                            value="{{user.district}}" disabled 
+                            autocomplete="address-level2" maxlength="100">
+                    </div>
+                    <div class="form-group-input-form">
+                        <label class="label-input-form" for="ward">Phường/Xã</label>
+                        <input class="input-form-accountdetail" type="text" id="ward" name="ward"
+                            value="{{user.ward}}" disabled 
+                            autocomplete="address-level3" maxlength="100">
+                    </div>
+                    {{/if}}
+
+                    <div class="form-group-input-form">
+                        <label class="label-input-form" for="address">Địa chỉ chi tiết</label>
                         <input class="input-form-accountdetail" type="text" id="address" name="address"
-                            value="{{user.address}}" disabled required 
-                            autocomplete="address" maxlength="200" minlength="5">
+                            value="{{user.detailAddress}}" disabled required 
+                            autocomplete="street-address" maxlength="200" minlength="5">
                     </div>
                     <div class="button-group-input-form">
                         <button type="button" id="editBtn" class="btn-homedetail edit" 
@@ -330,8 +581,8 @@
         <div class="modal-homecare" id="logout-modal-homecare" style="z-index:99999;">
             <div class="modal-content-homecare">
                 <span class="close-btn-homecare">&times;</span>
-                <h2 class="modal-title-homecare"><i class="fas fa-sign-out-alt"></i> Thoát</h2>
-                <p class="modal-text-homecare">bạn có chắc chắn muốn thoát ra ngoài?</p>
+                <h2 class="modal-title-homecare"><i class="fas fa-sign-out-alt"></i> Đăng xuất</h2>
+                <p class="modal-text-homecare">Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?</p>
                 <button class="logout-btn-homecare">Xác nhận</button>
             </div>
         </div>
@@ -1300,10 +1551,27 @@
         const saveBtn = document.getElementById('saveBtn');
         const phoneInput = document.getElementById('phone');
 
+        // Get province and district dropdown elements
+        const provinceDropdown = document.querySelector('.wrapper-province-account');
+        const districtDropdown = document.querySelector('.wrapper-district-account');
+        const provinceBtn = document.querySelector('.wrapper-province__select-btn-account');
+        const districtBtn = document.querySelector('.wrapper-district__select-btn-account');
+        const provinceContent = document.querySelector('.wrapper-province__content-account');
+        const districtContent = document.querySelector('.wrapper-district__content-account');
+        const provinceInput = document.getElementById('province');
+        const districtInput = document.getElementById('district');
+        const provinceSelected = document.getElementById('province-selected');
+        const districtSelected = document.getElementById('district-selected');
+
         // Phone number validation
         phoneInput.addEventListener('input', function (e) {
             this.value = this.value.replace(/[^0-9]/g, '');
         });
+
+        // Initialize dropdowns if locations exist
+        {{#if locations}}
+        initializeDropdowns();
+        {{/if}}
 
         // Edit button click handler
         editBtn.addEventListener('click', function () {
@@ -1319,6 +1587,18 @@
                 }
             });
 
+            // Enable dropdowns if they exist
+            if (provinceBtn) {
+                provinceBtn.style.pointerEvents = 'auto';
+                provinceBtn.style.opacity = '1';
+                provinceBtn.removeAttribute('disabled');
+            }
+            if (districtBtn) {
+                districtBtn.style.pointerEvents = 'auto';
+                districtBtn.style.opacity = '1';
+                districtBtn.removeAttribute('disabled');
+            }
+
             // Switch button states
             editBtn.disabled = true;
             saveBtn.disabled = false;
@@ -1332,9 +1612,6 @@
             if (firstEditableInput) {
                 firstEditableInput.focus();
             }
-
-            // Show edit mode notification
-            showNotification('info', 'Chế độ chỉnh sửa đã được kích hoạt. Số điện thoại không thể thay đổi vì lý do bảo mật.');
         });
 
         // Save button click handler
@@ -1376,8 +1653,28 @@
             if (addressInput.value.trim().length < 5) {
                 isValid = false;
                 addressInput.style.borderColor = '#ff4444';
-                showError(addressInput, 'Địa chỉ phải có ít nhất 5 ký tự');
-                errorMessages.push('Địa chỉ quá ngắn');
+                showError(addressInput, 'Địa chỉ chi tiết phải có ít nhất 5 ký tự');
+                errorMessages.push('Địa chỉ chi tiết quá ngắn');
+            }
+
+            // Province validation
+            const provinceInputVal = document.getElementById('province');
+            if (!provinceInputVal.value.trim()) {
+                isValid = false;
+                if (provinceSelected) {
+                    provinceSelected.style.color = '#ff4444';
+                }
+                errorMessages.push('Vui lòng chọn tỉnh/thành phố');
+            }
+
+            // District validation  
+            const districtInputVal = document.getElementById('district');
+            if (!districtInputVal.value.trim()) {
+                isValid = false;
+                if (districtSelected) {
+                    districtSelected.style.color = '#ff4444';
+                }
+                errorMessages.push('Vui lòng chọn quận/huyện');
             }
 
             if (!isValid) {
@@ -1415,6 +1712,18 @@
                             input.disabled = true;
                         }
                     });
+
+                    // Disable dropdowns if they exist
+                    if (provinceBtn) {
+                        provinceBtn.style.pointerEvents = 'none';
+                        provinceBtn.style.opacity = '0.7';
+                        provinceBtn.setAttribute('disabled', 'true');
+                    }
+                    if (districtBtn) {
+                        districtBtn.style.pointerEvents = 'none';
+                        districtBtn.style.opacity = '0.7';
+                        districtBtn.setAttribute('disabled', 'true');
+                    }
 
                     editBtn.disabled = false;
                     saveBtn.disabled = true;
@@ -1469,11 +1778,38 @@
                         input.value = '{{user.fullName}}';
                         break;
                     case 'address':
-                        input.value = '{{user.address}}';
+                        input.value = '{{user.detailAddress}}';
+                        break;
+                    case 'province':
+                        input.value = '{{user.province}}';
+                        break;
+                    case 'district':
+                        input.value = '{{user.district}}';
+                        break;
+                    case 'ward':
+                        input.value = '{{user.ward}}';
                         break;
                     // Phone stays as is since it's readonly
                 }
             });
+
+            // Reset dropdowns if they exist
+            if (provinceSelected) {
+                provinceSelected.textContent = '{{#if user.province}}{{user.province}}{{else}}Chọn Tỉnh/Thành phố{{/if}}';
+            }
+            if (districtSelected) {
+                districtSelected.textContent = '{{#if user.district}}{{user.district}}{{else}}Chọn Quận/Huyện{{/if}}';
+            }
+            if (provinceBtn) {
+                provinceBtn.style.pointerEvents = 'none';
+                provinceBtn.style.opacity = '0.7';
+                provinceBtn.setAttribute('disabled', 'true');
+            }
+            if (districtBtn) {
+                districtBtn.style.pointerEvents = 'none';
+                districtBtn.style.opacity = '0.7';
+                districtBtn.setAttribute('disabled', 'true');
+            }
 
             // Reset button states
             editBtn.disabled = false;
@@ -1624,6 +1960,11 @@
                         clearError(this);
                         this.style.borderColor = '#28a745';
                     }
+                } else if (this.id === 'ward') {
+                    if (this.value.trim().length >= 2) {
+                        clearError(this);
+                        this.style.borderColor = '#28a745';
+                    }
                 }
             });
 
@@ -1641,11 +1982,232 @@
                     }
                 } else if (this.id === 'address' && this.value) {
                     if (this.value.trim().length < 5) {
-                        showError(this, 'Địa chỉ phải có ít nhất 5 ký tự');
+                        showError(this, 'Địa chỉ chi tiết phải có ít nhất 5 ký tự');
+                        this.style.borderColor = '#ff4444';
+                    }
+                } else if (this.id === 'ward' && this.value) {
+                    if (this.value.trim().length < 2) {
+                        showError(this, 'Phường/xã phải có ít nhất 2 ký tự');
                         this.style.borderColor = '#ff4444';
                     }
                 }
             });
+        });
+
+        // Initialize dropdown functionality
+        function initializeDropdowns() {
+            const locations = {{{json locations}}};
+            
+            // Initialize province dropdown
+            if (provinceBtn && locations && Array.isArray(locations)) {
+                initializeProvinceDropdown(locations);
+                
+                // If user already has province selected, initialize districts
+                const currentProvince = '{{user.province}}';
+                if (currentProvince) {
+                    initializeDistrictsForCurrentProvince(locations, currentProvince);
+                }
+            }
+
+            // Set initial disabled state for dropdowns
+            if (provinceBtn) {
+                provinceBtn.style.pointerEvents = 'none';
+                provinceBtn.style.opacity = '0.7';
+                provinceBtn.setAttribute('disabled', 'true');
+            }
+            if (districtBtn) {
+                districtBtn.style.pointerEvents = 'none';
+                districtBtn.style.opacity = '0.7';
+                districtBtn.setAttribute('disabled', 'true');
+            }
+        }
+        
+        // Initialize districts for the current user's province
+        function initializeDistrictsForCurrentProvince(locations, currentProvince) {
+            const foundLocation = locations.find(location => {
+                const provinceName = location.Name ? location.Name.replace(/(Tỉnh|Thành phố) /g, '') : '';
+                return provinceName === currentProvince;
+            });
+            
+            if (foundLocation && foundLocation.Districts) {
+                initializeDistrictDropdown(foundLocation.Districts);
+            }
+        }
+
+        function initializeProvinceDropdown(locations) {
+            const provinceOptions = document.querySelector('.wrapper-province__options-account');
+            const provinceSearchInput = document.querySelector('.wrapper-province__input-account');
+            
+            // Clear existing options
+            provinceOptions.innerHTML = '';
+            
+            // Populate province options
+            locations.forEach(location => {
+                const li = document.createElement('li');
+                const provinceName = location.Name ? location.Name.replace(/(Tỉnh|Thành phố) /g, '') : '';
+                li.textContent = provinceName;
+                li.setAttribute('data-value', provinceName);
+                li.setAttribute('data-districts', JSON.stringify(location.Districts || []));
+                provinceOptions.appendChild(li);
+                
+                // Add click event
+                li.addEventListener('click', function() {
+                    selectProvince(this);
+                });
+            });
+                
+                // Add click event
+                li.addEventListener('click', function() {
+                    selectProvince(this);
+                });
+            });
+
+            // Province dropdown toggle
+            provinceBtn.addEventListener('click', function(e) {
+                if (this.hasAttribute('disabled')) return;
+                e.stopPropagation();
+                provinceContent.classList.toggle('active');
+                this.classList.toggle('active');
+                
+                // Close district dropdown if open
+                if (districtContent) {
+                    districtContent.classList.remove('active');
+                    districtBtn.classList.remove('active');
+                }
+            });
+
+            // Province search functionality
+            if (provinceSearchInput) {
+                provinceSearchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    const options = provinceOptions.querySelectorAll('li');
+                    
+                    options.forEach(option => {
+                        const text = option.textContent.toLowerCase();
+                        option.style.display = text.includes(searchTerm) ? 'block' : 'none';
+                    });
+                });
+            }
+        }
+
+        function selectProvince(selectedOption) {
+            const provinceName = selectedOption.getAttribute('data-value');
+            const districts = JSON.parse(selectedOption.getAttribute('data-districts'));
+            
+            // Update UI
+            provinceSelected.textContent = provinceName;
+            provinceInput.value = provinceName;
+            
+            // Reset district
+            if (districtSelected) {
+                districtSelected.textContent = 'Chọn Quận/Huyện';
+                districtInput.value = '';
+            }
+            
+            // Close province dropdown
+            provinceContent.classList.remove('active');
+            provinceBtn.classList.remove('active');
+            
+            // Initialize district dropdown with province's districts
+            if (districtDropdown && districts && Array.isArray(districts)) {
+                initializeDistrictDropdown(districts);
+            }
+        }
+
+        function initializeDistrictDropdown(districts) {
+            const districtOptions = document.querySelector('.wrapper-district__options-account');
+            const districtSearchInput = document.querySelector('.wrapper-district__input-account');
+            
+            // Clear existing options
+            districtOptions.innerHTML = '';
+            
+            // Populate district options
+            // Skip first element (index 0) as it's usually empty, start from index 1
+            if (Array.isArray(districts)) {
+                for (let i = 1; i < districts.length; i++) {
+                    const district = districts[i];
+                    const li = document.createElement('li');
+                    const districtName = district.Name ? district.Name.replace(/(Huyện|Quận|Thành phố|Thị xã) /g, '') : '';
+                    li.textContent = districtName;
+                    li.setAttribute('data-value', districtName);
+                    districtOptions.appendChild(li);
+                    
+                    // Add click event
+                    li.addEventListener('click', function() {
+                        selectDistrict(this);
+                    });
+                }
+            }
+
+            // District dropdown toggle - need to get fresh reference
+            const currentDistrictBtn = document.querySelector('.wrapper-district__select-btn-account');
+            if (currentDistrictBtn) {
+                // Remove existing event listeners by cloning the element
+                const newDistrictBtn = currentDistrictBtn.cloneNode(true);
+                currentDistrictBtn.parentNode.replaceChild(newDistrictBtn, currentDistrictBtn);
+                
+                newDistrictBtn.addEventListener('click', function(e) {
+                    if (this.hasAttribute('disabled')) return;
+                    e.stopPropagation();
+                    
+                    const districtContentElement = document.querySelector('.wrapper-district__content-account');
+                    districtContentElement.classList.toggle('active');
+                    this.classList.toggle('active');
+                    
+                    // Close province dropdown if open
+                    if (provinceContent) {
+                        provinceContent.classList.remove('active');
+                        provinceBtn.classList.remove('active');
+                    }
+                });
+            }
+
+            // District search functionality
+            if (districtSearchInput) {
+                districtSearchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    const options = districtOptions.querySelectorAll('li');
+                    
+                    options.forEach(option => {
+                        const text = option.textContent.toLowerCase();
+                        option.style.display = text.includes(searchTerm) ? 'block' : 'none';
+                    });
+                });
+            }
+        }
+
+        function selectDistrict(selectedOption) {
+            const districtName = selectedOption.getAttribute('data-value');
+            
+            // Update UI
+            const currentDistrictSelected = document.getElementById('district-selected');
+            const currentDistrictInput = document.getElementById('district');
+            
+            if (currentDistrictSelected) currentDistrictSelected.textContent = districtName;
+            if (currentDistrictInput) currentDistrictInput.value = districtName;
+            
+            // Close district dropdown
+            const districtContentElement = document.querySelector('.wrapper-district__content-account');
+            const currentDistrictBtn = document.querySelector('.wrapper-district__select-btn-account');
+            
+            if (districtContentElement) districtContentElement.classList.remove('active');
+            if (currentDistrictBtn) currentDistrictBtn.classList.remove('active');
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.wrapper-province-account')) {
+                const currentProvinceContent = document.querySelector('.wrapper-province__content-account');
+                const currentProvinceBtn = document.querySelector('.wrapper-province__select-btn-account');
+                if (currentProvinceContent) currentProvinceContent.classList.remove('active');
+                if (currentProvinceBtn) currentProvinceBtn.classList.remove('active');
+            }
+            if (!e.target.closest('.wrapper-district-account')) {
+                const currentDistrictContent = document.querySelector('.wrapper-district__content-account');
+                const currentDistrictBtn = document.querySelector('.wrapper-district__select-btn-account');
+                if (currentDistrictContent) currentDistrictContent.classList.remove('active');
+                if (currentDistrictBtn) currentDistrictBtn.classList.remove('active');
+            }
         });
     });
 </script>
@@ -1801,8 +2363,22 @@
         const logoutBtn = document.querySelector('.logout-btn-homecare');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', () => {
-                alert('Logging out...');
+                // Prevent multiple clicks
+                if (logoutBtn.disabled) return;
+                
+                // Close modal
                 document.getElementById('logout-modal-homecare').classList.remove('active-detail-homecare');
+                
+                // Show loading state
+                const originalText = logoutBtn.innerHTML;
+                logoutBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang đăng xuất...';
+                logoutBtn.disabled = true;
+                
+                // Add a small delay to show the loading state
+                setTimeout(() => {
+                    // Redirect to logout endpoint
+                    window.location.href = '/account/logout';
+                }, 500);
             });
         }
     });

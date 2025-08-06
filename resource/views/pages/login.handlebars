@@ -307,6 +307,21 @@
             transform: translateY(-1px);
         }
 
+        .btn--primary.loading {
+            background-color: #7fb3d3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .btn--primary.loading .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         .btn--outline {
             background-color: var(--white);
             color: var(--dark);
@@ -567,7 +582,44 @@
 
     <!-- Scripts -->
     <script src="/js/app.js"></script>
+    <script src="/js/notification-toast.js"></script>
     <script>
+        // Show error notification if exists
+        {{#if error}}
+        document.addEventListener('DOMContentLoaded', function() {
+            window.notificationToast.error('{{error}}');
+        });
+        {{/if}}
+
+        // Show notification from URL params (for success messages)
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const type = urlParams.get('type');
+            const noti = urlParams.get('noti');
+            
+            if (type && noti) {
+                // Wait for notification-toast to be available
+                const checkToast = () => {
+                    if (window.notificationToast) {
+                        if (type === 'success') {
+                            window.notificationToast.success(decodeURIComponent(noti));
+                        } else if (type === 'error') {
+                            window.notificationToast.error(decodeURIComponent(noti));
+                        } else {
+                            window.notificationToast.info(decodeURIComponent(noti));
+                        }
+                        
+                        // Clean up URL without refreshing page
+                        const newUrl = window.location.origin + window.location.pathname;
+                        window.history.replaceState({}, document.title, newUrl);
+                    } else {
+                        setTimeout(checkToast, 100);
+                    }
+                };
+                checkToast();
+            }
+        });
+
         // Form validation
         validator({
             form: "#form-1",
@@ -580,6 +632,18 @@
                 validator.isMInPassword("#password", 6, "Mật khẩu phải có ít nhất 6 ký tự"),
             ],
             onsubmit: function (data) {
+                // Show loading state
+                const submitBtn = document.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang đăng nhập...';
+                submitBtn.disabled = true;
+                
+                // Form will submit naturally, but we add a timeout for error handling
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 10000); // Reset after 10 seconds if something goes wrong
+                
                 console.log(data);
             }
         });

@@ -56,7 +56,7 @@
                         <li class="header-menu__item"><a href="#contact">Liên hệ</a></li>
                         <li class="header-menu__item"><a href="/blog" target="_blank">Blog</a></li>
                         {{#if user}}
-                        <li class="header-menu__item"><a href="/account/detailed">{{username}}aaaaaaaa</a></li>
+                        <li class="header-menu__item"><a href="/account/detailed">{{user.fullName}}</a></li>
                         {{else}}
                         <li class="header-menu__item"><a href="/account">Đăng nhập</a></li>
                         <li class="header-menu__item"><a href="/account/register">Đăng kí</a></li>

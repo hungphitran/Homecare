@@ -20,6 +20,16 @@ module.exports = async (req, res, next) => {
         res.locals.services = services;
         res.locals.general = general;
         
+        // Load user info from session if available
+        if (req.session && req.session.phone && req.session.username) {
+            res.locals.user = {
+                phone: req.session.phone,
+                fullName: req.session.username
+            };
+        } else {
+            res.locals.user = null;
+        }
+        
         // Call next() to continue to the next middleware/controller
         next();
     } catch (error) {
@@ -27,6 +37,7 @@ module.exports = async (req, res, next) => {
         // Set default values and continue
         res.locals.services = [];
         res.locals.general = {};
+        res.locals.user = null;
         next();
     }
 }

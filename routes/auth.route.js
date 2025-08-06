@@ -14,6 +14,24 @@ router.get('/verify', authTokenMiddleware, (req, res) => {
     });
 });
 
+// Route để lấy thông tin user hiện tại (không cần auth middleware)
+router.get('/current-user', (req, res) => {
+    if (req.session && req.session.phone && req.session.username) {
+        res.json({
+            success: true,
+            user: {
+                phone: req.session.phone,
+                fullName: req.session.username
+            }
+        });
+    } else {
+        res.json({
+            success: false,
+            user: null
+        });
+    }
+});
+
 // Route để manually refresh token (cho client-side calls)
 router.post('/refresh', async (req, res) => {
     try {

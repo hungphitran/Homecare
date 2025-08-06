@@ -28,6 +28,12 @@ const hbs = handlebars.create({
         json: function (context) {
             return JSON.stringify(context);
         },
+        contains: function(str, searchStr) {
+            if (typeof str === 'string' && typeof searchStr === 'string') {
+                return str.toLowerCase().includes(searchStr.toLowerCase());
+            }
+            return false;
+        },
         showdate: function(date){
             return date.split('T')[0]
         },

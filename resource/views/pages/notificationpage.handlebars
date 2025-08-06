@@ -389,21 +389,64 @@
                 </div>
 
                 <div class="countdown">
-                    Tự động chuyển hướng sau <span id="countdown" class="countdown-number">3</span> giây
+                    Tự động chuyển hướng sau <span id="countdown" class="countdown-number">5</span> giây
                 </div>
             </div>
             <div class="notification-footer">
-                <a href="/" class="btn btn-primary">
+                {{#if type}}
+                {{#if (eq type "success")}}
+                    {{#if (contains noti "đăng nhập")}}
+                    <a href="/account/detailed" class="btn btn-primary" id="redirectBtn">
+                        <i class="fas fa-user"></i>
+                        <span>Vào tài khoản</span>
+                    </a>
+                    {{else if (contains noti "đăng ký")}}
+                    <a href="/account" class="btn btn-primary" id="redirectBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Đăng nhập ngay</span>
+                    </a>
+                    {{else}}
+                    <a href="/" class="btn btn-primary" id="redirectBtn">
+                        <i class="fas fa-home"></i>
+                        <span>Về trang chủ</span>
+                    </a>
+                    {{/if}}
+                {{else}}
+                <a href="/" class="btn btn-primary" id="redirectBtn">
                     <i class="fas fa-home"></i>
-                    <span>Về trang chủ ngay</span>
+                    <span>Về trang chủ</span>
                 </a>
+                {{/if}}
+                {{else}}
+                <a href="/" class="btn btn-primary" id="redirectBtn">
+                    <i class="fas fa-home"></i>
+                    <span>Về trang chủ</span>
+                </a>
+                {{/if}}
             </div>
         </div>
 
         <script>
             // Countdown timer
-            let seconds = 3;
+            let seconds = 5;
             const countdownElement = document.getElementById('countdown');
+
+            // Determine redirect URL based on message content and type
+            function getRedirectUrl() {
+                const message = "{{noti}}".toLowerCase();
+                const type = "{{type}}";
+
+                if (message.includes("đăng nhập thành công")) {
+                    return "/account/detailed";
+                } else if (message.includes("đăng ký") && message.includes("thành công")) {
+                    return "/account";
+                } else {
+                    return "/";
+                }
+            }
+
+            const redirectUrl = getRedirectUrl();
+            countdownElement.textContent = seconds;
 
             const countdownInterval = setInterval(() => {
                 seconds--;
@@ -411,15 +454,18 @@
 
                 if (seconds <= 0) {
                     clearInterval(countdownInterval);
-                    window.location.href = "/";
+                    window.location.href = redirectUrl;
                 }
             }, 1000);
 
-            // Handle redirect when clicking "Go Home" button
-            document.querySelector('.btn-primary').addEventListener('click', function (e) {
+            // Handle redirect when clicking redirect button
+            document.querySelector('#redirectBtn').addEventListener('click', function (e) {
                 e.preventDefault();
                 clearInterval(countdownInterval);
-                window.location.href = "/";
+                
+                // Get the href from the button
+                const redirectUrl = this.getAttribute('href');
+                window.location.href = redirectUrl;
             });
 
             // Determine the notification type based on message content

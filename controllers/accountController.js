@@ -2,6 +2,15 @@ require('dotenv').config()
 
 
 const accountController = {
+    //show notification page
+    showNotification: async (req, res, next) => {
+        const { type, noti } = req.query;
+        res.render('pages/notificationpage', {
+            layout: false,
+            type: type || 'info',
+            noti: noti || 'Thông báo hệ thống'
+        });
+    },
     //show login page
     showLogin: async (req, res, next) => { 
         if(req.session.phone){
@@ -16,8 +25,26 @@ const accountController = {
         if(req.session.phone){
             res.redirect('/account/detailed');
         }
+        
+        let locations = [];
+        try {
+            //call api to get locations
+            locations = await fetch(process.env.API_URL + '/location')
+                .then(data => data.json())
+                .then(data => data)
+                .catch(err => {
+                    console.error('Error fetching locations:', err);
+                    return [];
+                });
+        } catch (err) {
+            console.error(err);
+        }
+        
         //render register page
-        res.render('pages/register', { layout: false })
+        res.render('pages/register', { 
+            layout: false,
+            locations: locations 
+        })
     },
     //login and show account
     login: async (req, res, next) => {
@@ -49,7 +76,15 @@ const accountController = {
                 req.session.username = result.user.fullName;
                 req.session.accessToken = result.accessToken;
                 req.session.refreshToken = result.refreshToken;
-                res.redirect('/account/detailed');
+                
+                // Save session before redirect
+                req.session.save((err) => {
+                    if (err) {
+                        console.error('Session save error:', err);
+                    }
+                    // Redirect to home page with success notification and force refresh
+                    res.redirect('/?type=success&noti=' + encodeURIComponent('Đăng nhập thành công! Chào mừng bạn trở lại.') + '&refresh=1');
+                });
             } else {
                 console.log("Login failed with status:", response.status);
                 let errorData = await response.json();
@@ -76,6 +111,20 @@ const accountController = {
 
     //handle register
     register: async (req, res, next) => {
+        // Get locations for error cases
+        let locations = [];
+        try {
+            locations = await fetch(process.env.API_URL + '/location')
+                .then(data => data.json())
+                .then(data => data)
+                .catch(err => {
+                    console.error('Error fetching locations:', err);
+                    return [];
+                });
+        } catch (err) {
+            console.error(err);
+        }
+        
         //format register data according to API
         let registerData = {
             phone: req.body.phone,
@@ -103,23 +152,42 @@ const accountController = {
             
             if (response.ok) {
                 let result = await response.json();
-                // Registration successful, redirect to login
-                res.status(200).redirect('/account');
+                // Registration successful, redirect to login page with success notification
+                res.redirect('/account?type=success&noti=' + encodeURIComponent('Đăng ký tài khoản thành công! Bạn có thể đăng nhập ngay bây giờ.'));
             } else {
                 let error = await response.json();
                 console.error('Registration failed:', error);
                 res.render('pages/register', { 
                     layout: false, 
-                    err: error.message || "Đăng ký thất bại" 
+                    err: error.message || "Đăng ký thất bại",
+                    locations: locations
                 });
             }
         } catch (err) {
             console.error('Registration error:', err);
-            res.render('pages/register', { layout: false, err: "Đăng ký thất bại" });
+            res.render('pages/register', { 
+                layout: false, 
+                err: "Đăng ký thất bại",
+                locations: locations
+            });
         }
     },
     //show account page
     showDetailed: async (req,res,next)=>{
+        // Get locations for address dropdowns
+        let locations = [];
+        try {
+            locations = await fetch(process.env.API_URL + '/location')
+                .then(data => data.json())
+                .then(data => data)
+                .catch(err => {
+                    console.error('Error fetching locations:', err);
+                    return [];
+                });
+        } catch (err) {
+            console.error('Error fetching locations:', err);
+        }
+
         //GET call api to get user's information with authentication
         let headers = {
             'Content-Type': 'application/json'
@@ -165,8 +233,16 @@ const accountController = {
             if(user.addresses && user.addresses.length > 0){
                 let address = user.addresses[0] //get first address
                 user.address = address.detailAddress + " " + address.ward + " " + address.district + ' ' //format address
+                user.province = address.province || '';
+                user.district = address.district || '';
+                user.ward = address.ward || '';
+                user.detailAddress = address.detailAddress || '';
             } else {
                 user.address = '' // Set empty string if no address available
+                user.province = '';
+                user.district = '';
+                user.ward = '';
+                user.detailAddress = '';
             }
         }
         else if(user.points.length>0){
@@ -175,8 +251,16 @@ const accountController = {
             if(user.addresses && user.addresses.length > 0){
                 let address = user.addresses[0] //get first address
                 user.address = address.detailAddress + " " + address.ward + " " + address.district + ' ' //format address
+                user.province = address.province || '';
+                user.district = address.district || '';
+                user.ward = address.ward || '';
+                user.detailAddress = address.detailAddress || '';
             } else {
                 user.address = '' // Set empty string if no address available
+                user.province = '';
+                user.district = '';
+                user.ward = '';
+                user.detailAddress = '';
             }
             user.point=user.points[user.points.length-1].point;//format to display only latest point
         }
@@ -263,6 +347,7 @@ const accountController = {
             user:user,
             longTermRequests:longTermRequests,
             shortTermRequests:shortTermRequests,
+            locations: locations,
             layout:false
         });
         
@@ -376,6 +461,17 @@ const accountController = {
         if (account.phone) {
             account.phone = account.phone.trim();
         }
+        
+        // Sanitize address components
+        if (account.province) {
+            account.province = account.province.trim();
+        }
+        if (account.district) {
+            account.district = account.district.trim();
+        }
+        if (account.ward) {
+            account.ward = account.ward.trim();
+        }
 
         // Format data according to API spec
         let updateData = {
@@ -433,8 +529,14 @@ const accountController = {
     },
     //handle logout
     logout: async (req, res, next) => {
-        req.session.destroy();
-        res.redirect('/');
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Session destroy error:', err);
+                res.redirect('/?type=error&noti=' + encodeURIComponent('Có lỗi xảy ra khi đăng xuất'));
+            } else {
+                res.redirect('/?type=success&noti=' + encodeURIComponent('Đăng xuất thành công! Hẹn gặp lại bạn.') + '&refresh=1');
+            }
+        });
     }
 
 }

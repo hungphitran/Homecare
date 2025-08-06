@@ -8,6 +8,9 @@ const authRoute = require('./auth.route');
 const headerLoad = require('../middlewares/headerLoad')
 
 function route(app) {
+    // Apply headerLoad middleware globally to all routes
+    app.use(headerLoad);
+    
     app.use('/auth', authRoute)
     app.use('/blog',blogRoute)
     app.use('/helper', helperRoute)
@@ -15,8 +18,18 @@ function route(app) {
     app.use('/account', accountRoute)
     app.use('/contact', mailRoute)
     //dashboard
-    app.use('/Home', headerLoad,dashboardRoute)
-    app.use('/', headerLoad, dashboardRoute)
+    app.use('/Home', dashboardRoute)
+    app.use('/', dashboardRoute)
+    
+    // Route for pages like notification
+    app.get('/pages/notification', (req, res) => {
+        const { type, noti } = req.query;
+        res.render('pages/notificationpage', {
+            layout: false,
+            type: type || 'info',
+            noti: noti || 'Thông báo hệ thống'
+        });
+    });
 }
 
 module.exports = { route }

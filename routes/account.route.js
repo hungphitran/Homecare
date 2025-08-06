@@ -13,6 +13,8 @@ router.get('/changepassword', authTokenMiddleware, accountController.showChangeP
 router.get('/logout', accountController.logout)
 router.post('/', accountController.login)
 router.get('/', accountController.showLogin);
+// Route for notification page
+router.get('/notification', accountController.showNotification);
 
 
 module.exports =router;
