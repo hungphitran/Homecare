@@ -14,16 +14,16 @@ const accountController = {
     //show login page
     showLogin: async (req, res, next) => { 
         if(req.session.phone){
-            res.redirect('/account/detailed');
+            return res.redirect('/account/detailed');
         }
         //render login page
-        res.render('pages/login', { layout: false });
+        return res.render('pages/login', { layout: false });
 
     },
     //show login page
     showRegister: async (req, res, next) => {
         if(req.session.phone){
-            res.redirect('/account/detailed');
+            return res.redirect('/account/detailed');
         }
         
         let locations = [];
@@ -41,7 +41,7 @@ const accountController = {
         }
         
         //render register page
-        res.render('pages/register', { 
+        return res.render('pages/register', { 
             layout: false,
             locations: locations 
         })
@@ -49,7 +49,7 @@ const accountController = {
     //login and show account
     login: async (req, res, next) => {
         if(req.session.phone){//already logged in
-            res.redirect('/account/detailed');
+            return res.redirect('/account/detailed');
         }
 
         //call authentication API
@@ -83,19 +83,19 @@ const accountController = {
                         console.error('Session save error:', err);
                     }
                     // Redirect to home page with success notification and force refresh
-                    res.redirect('/?type=success&noti=' + encodeURIComponent('Đăng nhập thành công! Chào mừng bạn trở lại.') + '&refresh=1');
+                    return res.redirect('/?type=success&noti=' + encodeURIComponent('Đăng nhập thành công! Chào mừng bạn trở lại.') + '&refresh=1');
                 });
             } else {
                 console.log("Login failed with status:", response.status);
                 let errorData = await response.json();
-                res.render('pages/login', { 
+                return res.render('pages/login', { 
                     layout: false, 
                     error: errorData.message || "Thông tin đăng nhập không chính xác" 
                 });
             }
         } catch (err) {
             console.error('Login error:', err);
-            res.render('pages/login', { layout: false, error: "Đăng nhập thất bại" });
+            return res.render('pages/login', { layout: false, error: "Đăng nhập thất bại" });
         }
     },
     //show change password page
@@ -153,11 +153,11 @@ const accountController = {
             if (response.ok) {
                 let result = await response.json();
                 // Registration successful, redirect to login page with success notification
-                res.redirect('/account?type=success&noti=' + encodeURIComponent('Đăng ký tài khoản thành công! Bạn có thể đăng nhập ngay bây giờ.'));
+                return res.redirect('/account?type=success&noti=' + encodeURIComponent('Đăng ký tài khoản thành công! Bạn có thể đăng nhập ngay bây giờ.'));
             } else {
                 let error = await response.json();
                 console.error('Registration failed:', error);
-                res.render('pages/register', { 
+                return res.render('pages/register', { 
                     layout: false, 
                     err: error.message || "Đăng ký thất bại",
                     locations: locations
@@ -165,7 +165,7 @@ const accountController = {
             }
         } catch (err) {
             console.error('Registration error:', err);
-            res.render('pages/register', { 
+            return res.render('pages/register', { 
                 layout: false, 
                 err: "Đăng ký thất bại",
                 locations: locations
@@ -218,13 +218,12 @@ const accountController = {
             console.error('Error fetching user data:', err);
             if (err.message === 'Token expired') {
                 // Redirect to login if token expired
-                res.redirect('/account?message=' + encodeURIComponent('Phiên đăng nhập đã hết hạn'));
-                return;
+                return res.redirect('/account?message=' + encodeURIComponent('Phiên đăng nhập đã hết hạn'));
             }
-            res.redirect('/')
+            return res.redirect('/')
         })
         if(user==null){
-            res.redirect('/account');
+            return res.redirect('/account');
         }
         else if(user.points ==null || user.points.length==0){
             user.points=[{point:0},]//if there's no point, set it to 0;
@@ -343,7 +342,7 @@ const accountController = {
             return request.schedules.length === 1; // Single schedule = short term
         });
         
-        res.render('partials/detailedaccount',{
+    return res.render('partials/detailedaccount',{
             user:user,
             longTermRequests:longTermRequests,
             shortTermRequests:shortTermRequests,
@@ -357,7 +356,7 @@ const accountController = {
         console.log('Long term requests:', longTermRequests.length);
         console.log('Short term requests:', shortTermRequests.length);
         
-        if (Array.isArray(requests)) {
+    if (Array.isArray(requests)) {
             requests.forEach((request, index) => {
                 console.log(`Request ${index}:`, {
                     id: request._id,
@@ -416,30 +415,46 @@ const accountController = {
             
             if (response.ok) {
                 let result = await response.json();
-                res.redirect('/account?success=Đổi mật khẩu thành công');
+                return res.redirect('/account?success=Đổi mật khẩu thành công');
             } else {
                 let errorData = await response.json();
-                res.redirect('/account/changepassword?err=' + encodeURIComponent(errorData.message || 'Đổi mật khẩu thất bại'));
+                return res.redirect('/account/changepassword?err=' + encodeURIComponent(errorData.message || 'Đổi mật khẩu thất bại'));
             }
         } catch (err) {
             console.error('Change password error:', err);
-            res.redirect('/account/changepassword?err=' + encodeURIComponent('Đổi mật khẩu thất bại'));
+            return res.redirect('/account/changepassword?err=' + encodeURIComponent('Đổi mật khẩu thất bại'));
         }
     },
     updateAccount: async (req,res,next) =>{
         console.log("update");
-        let account = req.body;
+    let account = req.body;
         console.log(account)
 
         // Server-side validation
-        if (!account.name || !account.name.trim()) {
+    const fullName = (account.fullName || account.name || '').trim();
+    if (!fullName) {
             return res.status(400).json({
                 success: false,
                 message: "Họ tên không được để trống"
             });
         }
 
-        if (!account.address || !account.address.trim()) {
+        // Gather address parts from either flat fields or addresses object
+        const incomingAddresses = account.addresses;
+        let addrObj = {};
+        if (incomingAddresses && typeof incomingAddresses === 'object') {
+            // If array provided, use first; if object, use directly
+            if (Array.isArray(incomingAddresses)) {
+                addrObj = incomingAddresses[0] || {};
+            } else {
+                addrObj = incomingAddresses;
+            }
+        }
+        const detailAddress = ((account.detailAddress || addrObj.detailAddress || account.address) || '').trim();
+        const province = (account.province || addrObj.province || '').trim();
+        const district = (account.district || addrObj.district || '').trim();
+        const ward = (account.ward || addrObj.ward || '').trim();
+    if (!detailAddress) {
             return res.status(400).json({
                 success: false,
                 message: "Địa chỉ không được để trống"
@@ -456,31 +471,28 @@ const accountController = {
         }
 
         // Sanitize input data
-        account.name = account.name.trim();
-        account.address = account.address.trim();
+        account.fullName = fullName;
+        account.address = detailAddress; // normalize for internal usage
         if (account.phone) {
             account.phone = account.phone.trim();
         }
+        if (account.email) {
+            account.email = account.email.trim();
+        }
         
         // Sanitize address components
-        if (account.province) {
-            account.province = account.province.trim();
-        }
-        if (account.district) {
-            account.district = account.district.trim();
-        }
-        if (account.ward) {
-            account.ward = account.ward.trim();
-        }
+    account.province = province;
+    account.district = district;
+    account.ward = ward;
 
         // Format data according to API spec
         let updateData = {
-            fullName: account.name,
+            fullName: account.fullName,
             email: account.email || "",
             addresses: [
                 {
                     province: account.province || "",
-                    district: account.district || "",  
+                    district: account.district || "",
                     ward: account.ward || "",
                     detailAddress: account.address
                 }
@@ -532,9 +544,9 @@ const accountController = {
         req.session.destroy((err) => {
             if (err) {
                 console.error('Session destroy error:', err);
-                res.redirect('/?type=error&noti=' + encodeURIComponent('Có lỗi xảy ra khi đăng xuất'));
+                return res.redirect('/?type=error&noti=' + encodeURIComponent('Có lỗi xảy ra khi đăng xuất'));
             } else {
-                res.redirect('/?type=success&noti=' + encodeURIComponent('Đăng xuất thành công! Hẹn gặp lại bạn.') + '&refresh=1');
+                return res.redirect('/?type=success&noti=' + encodeURIComponent('Đăng xuất thành công! Hẹn gặp lại bạn.') + '&refresh=1');
             }
         });
     }

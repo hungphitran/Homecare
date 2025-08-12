@@ -38,12 +38,12 @@ const mailController={
             text: message,
           };
         transporter.sendMail(mailOptions,(err,infor)=>{
-            if(err==null){
-                res.status(200).render('partials/register',{account:""})
+            if(err==null){// if no error, redirect index page with message
+                res.redirect('/?type=success&noti=Gửi email thành công')
             }
             else{
                 console.log(err)
-                res.status(500).render('partials/register',{account:""});
+                res.redirect('/?type=error&noti=Gửi email thất bại')
             }
         })
     },
@@ -74,7 +74,6 @@ const mailController={
         //send email 
         transporter.sendMail(mailOptions,(err,infor)=>{
             if(err==null){
-                Message.
                 res.render('partials/register',{account:req.query.account})
             }
             else{

@@ -1703,7 +1703,8 @@
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const slider = document.querySelector('.slider-lastest_item--2');
+        // Fix selector typo to avoid null reference that would stop subsequent code
+        const slider = document.querySelector('.slider-lastest__item--2');
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1712,10 +1713,17 @@
                 }
             });
         });
-        observer.observe(slider);
+        if (slider) {
+            observer.observe(slider);
+        }
         
-        // Show notification if exists in URL params (same format as notification-toast.js)
+        // Show notification if exists in URL params
+        // Support both patterns:
+        // 1) ?type=success|error|warning|info&noti=Message
+        // 2) ?success=Message (or error/warning/info)
         const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get('type');
+        const noti = urlParams.get('noti');
         const success = urlParams.get('success');
         const error = urlParams.get('error');
         const warning = urlParams.get('warning');
@@ -1724,27 +1732,48 @@
         // Wait for notification-toast to be available
         const checkToast = () => {
             if (window.notificationToast) {
-                if (success) {
-                    window.notificationToast.success(decodeURIComponent(success));
-                    // Clean URL
-                    const newUrl = window.location.pathname;
-                    window.history.replaceState({}, '', newUrl);
+                let shown = false;
+
+                // Pattern 1: type + noti
+                if (type && noti) {
+                    const message = noti; // URLSearchParams already decodes
+                    switch ((type || '').toLowerCase()) {
+                        case 'success':
+                            window.notificationToast.success(message);
+                            break;
+                        case 'error':
+                            window.notificationToast.error(message);
+                            break;
+                        case 'warning':
+                            window.notificationToast.warning(message);
+                            break;
+                        default:
+                            window.notificationToast.info(message);
+                            break;
+                    }
+                    shown = true;
                 }
-                if (error) {
-                    window.notificationToast.error(decodeURIComponent(error));
-                    // Clean URL
-                    const newUrl = window.location.pathname;
-                    window.history.replaceState({}, '', newUrl);
+
+                // Pattern 2: direct keys
+                if (!shown && success) {
+                    window.notificationToast.success(success);
+                    shown = true;
                 }
-                if (warning) {
-                    window.notificationToast.warning(decodeURIComponent(warning));
-                    // Clean URL
-                    const newUrl = window.location.pathname;
-                    window.history.replaceState({}, '', newUrl);
+                if (!shown && error) {
+                    window.notificationToast.error(error);
+                    shown = true;
                 }
-                if (info) {
-                    window.notificationToast.info(decodeURIComponent(info));
-                    // Clean URL
+                if (!shown && warning) {
+                    window.notificationToast.warning(warning);
+                    shown = true;
+                }
+                if (!shown && info) {
+                    window.notificationToast.info(info);
+                    shown = true;
+                }
+
+                // Clean URL if we displayed something
+                if (shown) {
                     const newUrl = window.location.pathname;
                     window.history.replaceState({}, '', newUrl);
                 }
@@ -1754,7 +1783,7 @@
         };
         
         // Check for any notifications
-        if (success || error || warning || info) {
+        if ((type && noti) || success || error || warning || info) {
             checkToast();
         }
     });

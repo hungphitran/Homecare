@@ -470,12 +470,19 @@
                             autocomplete="name" maxlength="100" minlength="2">
                     </div>
 
+                    <div class="form-group-input-form">
+                        <label class="label-input-form" for="email">Email</label>
+                        <input class="input-form-accountdetail" type="email" id="email" name="email"
+                            value="{{user.email}}" disabled 
+                            autocomplete="email" maxlength="120" placeholder="you@example.com">
+                    </div>
+
                     <!-- Province dropdown -->
                     {{#if locations}}
                     <div class="form-group-input-form">
                         <label class="label-input-form" for="province">Tỉnh/Thành phố</label>
                         <div class="wrapper-province-account">
-                            <div class="wrapper-province__select-btn-account" style="padding: 10px 15px !important; font-size: 16px !important; height: auto !important; min-height: auto !important; line-height: 1.2 !important;">
+                            <div class="wrapper-province__select-btn-account" disabled style="padding: 10px 15px !important; font-size: 16px !important; height: auto !important; min-height: auto !important; line-height: 1.2 !important;">
                                 <span id="province-selected">{{#if user.province}}{{user.province}}{{else}}Chọn Tỉnh/Thành phố{{/if}}</span>
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
@@ -494,7 +501,7 @@
                     <div class="form-group-input-form">
                         <label class="label-input-form" for="district">Quận/Huyện</label>
                         <div class="wrapper-district-account">
-                            <div class="wrapper-district__select-btn-account" style="padding: 10px 15px !important; font-size: 16px !important; height: auto !important; min-height: auto !important; line-height: 1.2 !important;">
+                            <div class="wrapper-district__select-btn-account" disabled style="padding: 10px 15px !important; font-size: 16px !important; height: auto !important; min-height: auto !important; line-height: 1.2 !important;">
                                 <span id="district-selected">{{#if user.district}}{{user.district}}{{else}}Chọn Quận/Huyện{{/if}}</span>
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
@@ -1552,10 +1559,11 @@
         const phoneInput = document.getElementById('phone');
 
         // Get province and district dropdown elements
-        const provinceDropdown = document.querySelector('.wrapper-province-account');
-        const districtDropdown = document.querySelector('.wrapper-district-account');
-        const provinceBtn = document.querySelector('.wrapper-province__select-btn-account');
-        const districtBtn = document.querySelector('.wrapper-district__select-btn-account');
+    const provinceDropdown = document.querySelector('.wrapper-province-account');
+    const districtDropdown = document.querySelector('.wrapper-district-account');
+    // Note: these can be re-created (cloned) later, so prefer re-querying when mutating
+    let provinceBtn = document.querySelector('.wrapper-province__select-btn-account');
+    let districtBtn = document.querySelector('.wrapper-district__select-btn-account');
         const provinceContent = document.querySelector('.wrapper-province__content-account');
         const districtContent = document.querySelector('.wrapper-district__content-account');
         const provinceInput = document.getElementById('province');
@@ -1588,15 +1596,35 @@
             });
 
             // Enable dropdowns if they exist
+            // Re-query buttons in case district/province buttons were re-created
+            provinceBtn = document.querySelector('.wrapper-province__select-btn-account');
+            districtBtn = document.querySelector('.wrapper-district__select-btn-account');
+
             if (provinceBtn) {
                 provinceBtn.style.pointerEvents = 'auto';
                 provinceBtn.style.opacity = '1';
                 provinceBtn.removeAttribute('disabled');
             }
             if (districtBtn) {
-                districtBtn.style.pointerEvents = 'auto';
-                districtBtn.style.opacity = '1';
-                districtBtn.removeAttribute('disabled');
+                // Only enable district if a province is already selected
+                const hasProvince = (provinceInput && provinceInput.value && provinceInput.value.trim().length > 0);
+                if (hasProvince) {
+                    districtBtn.style.pointerEvents = 'auto';
+                    districtBtn.style.opacity = '1';
+                    districtBtn.removeAttribute('disabled');
+                } else {
+                    districtBtn.style.pointerEvents = 'none';
+                    districtBtn.style.opacity = '0.7';
+                    districtBtn.setAttribute('disabled', 'true');
+                }
+            }
+
+            // Also enable the hidden form inputs for province/district so they are included in FormData
+            if (provinceInput) {
+                provinceInput.disabled = false;
+            }
+            if (districtInput) {
+                districtInput.disabled = false;
             }
 
             // Switch button states
@@ -1695,6 +1723,40 @@
             // Manually add phone number since it's disabled and won't be included in FormData
             data.phone = phoneInput.value;
 
+            // Ensure province/district/ward/address are captured even if inputs are disabled or custom controls
+            if (provinceInput) {
+                data.province = provinceInput.value || '';
+            }
+            if (districtInput) {
+                data.district = districtInput.value || '';
+            }
+            const wardEl = document.getElementById('ward');
+            if (wardEl) {
+                data.ward = wardEl.value || '';
+            }
+            const addressEl = document.getElementById('address');
+            if (addressEl) {
+                data.address = addressEl.value || '';
+            }
+            const nameEl = document.getElementById('name');
+            if (nameEl) {
+                data.name = nameEl.value || '';
+            }
+            const emailEl = document.getElementById('email');
+            if (emailEl) {
+                data.email = emailEl.value || '';
+            }
+
+            // Provide API-aligned keys as well
+            data.fullName = data.name || '';
+            data.detailAddress = data.address || '';
+            data.addresses = {
+                province: data.province || '',
+                district: data.district || '',
+                ward: data.ward || '',
+                detailAddress: data.detailAddress || ''
+            };
+
             // Submit form via AJAX
             fetch('/account/update', {
                 method: 'POST',
@@ -1713,17 +1775,21 @@
                         }
                     });
 
-                    // Disable dropdowns if they exist
-                    if (provinceBtn) {
-                        provinceBtn.style.pointerEvents = 'none';
-                        provinceBtn.style.opacity = '0.7';
-                        provinceBtn.setAttribute('disabled', 'true');
+                    // Disable dropdowns if they exist (re-query to avoid stale references)
+                    const provinceBtnAfterSave = document.querySelector('.wrapper-province__select-btn-account');
+                    const districtBtnAfterSave = document.querySelector('.wrapper-district__select-btn-account');
+                    if (provinceBtnAfterSave) {
+                        provinceBtnAfterSave.style.pointerEvents = 'none';
+                        provinceBtnAfterSave.style.opacity = '0.7';
+                        provinceBtnAfterSave.setAttribute('disabled', 'true');
                     }
-                    if (districtBtn) {
-                        districtBtn.style.pointerEvents = 'none';
-                        districtBtn.style.opacity = '0.7';
-                        districtBtn.setAttribute('disabled', 'true');
+                    if (districtBtnAfterSave) {
+                        districtBtnAfterSave.style.pointerEvents = 'none';
+                        districtBtnAfterSave.style.opacity = '0.7';
+                        districtBtnAfterSave.setAttribute('disabled', 'true');
                     }
+                    if (provinceInput) provinceInput.disabled = true;
+                    if (districtInput) districtInput.disabled = true;
 
                     editBtn.disabled = false;
                     saveBtn.disabled = true;
@@ -1777,6 +1843,9 @@
                     case 'name':
                         input.value = '{{user.fullName}}';
                         break;
+                    case 'email':
+                        input.value = '{{user.email}}';
+                        break;
                     case 'address':
                         input.value = '{{user.detailAddress}}';
                         break;
@@ -1800,15 +1869,18 @@
             if (districtSelected) {
                 districtSelected.textContent = '{{#if user.district}}{{user.district}}{{else}}Chọn Quận/Huyện{{/if}}';
             }
-            if (provinceBtn) {
-                provinceBtn.style.pointerEvents = 'none';
-                provinceBtn.style.opacity = '0.7';
-                provinceBtn.setAttribute('disabled', 'true');
+            // Re-query buttons to ensure we target the current elements
+            const provinceBtnOnReset = document.querySelector('.wrapper-province__select-btn-account');
+            const districtBtnOnReset = document.querySelector('.wrapper-district__select-btn-account');
+            if (provinceBtnOnReset) {
+                provinceBtnOnReset.style.pointerEvents = 'none';
+                provinceBtnOnReset.style.opacity = '0.7';
+                provinceBtnOnReset.setAttribute('disabled', 'true');
             }
-            if (districtBtn) {
-                districtBtn.style.pointerEvents = 'none';
-                districtBtn.style.opacity = '0.7';
-                districtBtn.setAttribute('disabled', 'true');
+            if (districtBtnOnReset) {
+                districtBtnOnReset.style.pointerEvents = 'none';
+                districtBtnOnReset.style.opacity = '0.7';
+                districtBtnOnReset.setAttribute('disabled', 'true');
             }
 
             // Reset button states
@@ -1999,6 +2071,8 @@
             const locations = {{{json locations}}};
             
             // Initialize province dropdown
+            provinceBtn = document.querySelector('.wrapper-province__select-btn-account');
+            districtBtn = document.querySelector('.wrapper-district__select-btn-account');
             if (provinceBtn && locations && Array.isArray(locations)) {
                 initializeProvinceDropdown(locations);
                 
@@ -2010,15 +2084,17 @@
             }
 
             // Set initial disabled state for dropdowns
-            if (provinceBtn) {
-                provinceBtn.style.pointerEvents = 'none';
-                provinceBtn.style.opacity = '0.7';
-                provinceBtn.setAttribute('disabled', 'true');
+            const provinceBtnInit = document.querySelector('.wrapper-province__select-btn-account');
+            const districtBtnInit = document.querySelector('.wrapper-district__select-btn-account');
+            if (provinceBtnInit) {
+                provinceBtnInit.style.pointerEvents = 'none';
+                provinceBtnInit.style.opacity = '0.7';
+                provinceBtnInit.setAttribute('disabled', 'true');
             }
-            if (districtBtn) {
-                districtBtn.style.pointerEvents = 'none';
-                districtBtn.style.opacity = '0.7';
-                districtBtn.setAttribute('disabled', 'true');
+            if (districtBtnInit) {
+                districtBtnInit.style.pointerEvents = 'none';
+                districtBtnInit.style.opacity = '0.7';
+                districtBtnInit.setAttribute('disabled', 'true');
             }
         }
         
@@ -2049,15 +2125,9 @@
                 li.setAttribute('data-value', provinceName);
                 li.setAttribute('data-districts', JSON.stringify(location.Districts || []));
                 provinceOptions.appendChild(li);
-                
+
                 // Add click event
-                li.addEventListener('click', function() {
-                    selectProvince(this);
-                });
-            });
-                
-                // Add click event
-                li.addEventListener('click', function() {
+                li.addEventListener('click', function () {
                     selectProvince(this);
                 });
             });
@@ -2070,10 +2140,10 @@
                 this.classList.toggle('active');
                 
                 // Close district dropdown if open
-                if (districtContent) {
-                    districtContent.classList.remove('active');
-                    districtBtn.classList.remove('active');
-                }
+                const dc = document.querySelector('.wrapper-district__content-account');
+                const db = document.querySelector('.wrapper-district__select-btn-account');
+                if (dc) dc.classList.remove('active');
+                if (db) db.classList.remove('active');
             });
 
             // Province search functionality
@@ -2111,6 +2181,13 @@
             // Initialize district dropdown with province's districts
             if (districtDropdown && districts && Array.isArray(districts)) {
                 initializeDistrictDropdown(districts);
+                // Enable district button after province selected
+                const db = document.querySelector('.wrapper-district__select-btn-account');
+                if (db) {
+                    db.style.pointerEvents = 'auto';
+                    db.style.opacity = '1';
+                    db.removeAttribute('disabled');
+                }
             }
         }
 
@@ -2141,7 +2218,7 @@
 
             // District dropdown toggle - need to get fresh reference
             const currentDistrictBtn = document.querySelector('.wrapper-district__select-btn-account');
-            if (currentDistrictBtn) {
+        if (currentDistrictBtn) {
                 // Remove existing event listeners by cloning the element
                 const newDistrictBtn = currentDistrictBtn.cloneNode(true);
                 currentDistrictBtn.parentNode.replaceChild(newDistrictBtn, currentDistrictBtn);
@@ -2155,10 +2232,10 @@
                     this.classList.toggle('active');
                     
                     // Close province dropdown if open
-                    if (provinceContent) {
-                        provinceContent.classList.remove('active');
-                        provinceBtn.classList.remove('active');
-                    }
+            const pc = document.querySelector('.wrapper-province__content-account');
+            const pb = document.querySelector('.wrapper-province__select-btn-account');
+            if (pc) pc.classList.remove('active');
+            if (pb) pb.classList.remove('active');
                 });
             }
 
