@@ -74,13 +74,7 @@
                     <div class="home__row-2">
                         <div class="about-detail__content padd-15">
                             <div class="about-detail__text">
-                                <h3>Tôi tên là {{helper.fullName}} và <span>
-                                        người giúp việc
-                                    </span>
-                                </h3>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum repudiandae doloremque
-                                    ullam voluptate, omnis harum ratione ea incidunt magni placeat in! Eius nam illum
-                                    molestiae voluptates cum magnam laboriosam corporis?</p>
+                                <h3>Tôi tên là {{helper.fullName}} và là <span>người giúp việc</span></h3>
     
                             </div>
                         </div>
@@ -119,10 +113,10 @@
                                     <p>Chiều cao:<span>{{helper.height}} cm</span></p>
                                 </div>
                                 <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
-                                    <p>Chiều cao:<span>{{helper.weight}} kg</span></p>
+                                    <p>Cân nặng:<span>{{helper.weight}} kg</span></p>
                                 </div>
                                 <div class="about-detail__infor-item padd-15" style="padding-bottom:20px">
-                                    <p>Năm kim nghiệm:<span>{{helper.yearOfExperience}} năm</span></p>
+                                    <p>Năm kinh nghiệm:<span>{{helper.yearOfExperience}} năm</span></p>
                                 </div>
                             </div>
  <!--                           <div class="home__row-2">
@@ -478,16 +472,7 @@
             conjunction: " :: "
         });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"
-        integrity="sha512-+2pW8xXU/rNr7VS+H62aqapfRpqFwnSQh9ap6THjsm41AxgA0MhFRtfrABS+Lx2KHJn82UOrnBKhjZOXpom2LQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        var typed = new Typed(".home__my-profession-typing", {
-            strings: ["", "web Designer", "Web Developer", "Graphic Designer", "Youtube"],
-            typeSpeed: 100,
-            BackSpeed: 60,
-            loop: true
-        })
+    
         //aside
         const nav = document.querySelector(".aside__nav"),
             navList = nav.querySelectorAll(".aside__item"),
@@ -627,107 +612,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
-        <script>
-            // Sample data for unpaid bills
-                const unpaidBills = [
-                    {
-                        id: 1,
-                        customerName: "Alice Johnson",
-                        orderDate: "2025-03-10",
-                        orderTime: "09:00",
-                        startTime: "10:00",
-                        endTime: "12:00",
-                        helperName: "Sarah Smith",
-                        status: "Unpaid"
-                    },
-                    {
-                        id: 2,
-                        customerName: "Bob Wilson",
-                        orderDate: "2025-03-10",
-                        orderTime: "14:00",
-                        startTime: "15:00",
-                        endTime: "17:00",
-                        helperName: "Mary Davis",
-                        status: "Unpaid"
-                    },
-                    {
-                        id: 3,
-                        customerName: "Carol Brown",
-                        orderDate: "2025-03-11",
-                        orderTime: "10:00",
-                        startTime: "11:00",
-                        endTime: "13:00",
-                        helperName: "Jane Wilson",
-                        status: "Unpaid"
-                    }
-                ];
-
-                // Function to format date
-                function formatDate(dateString) {
-                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                    return new Date(dateString).toLocaleDateString(undefined, options);
-                }
-
-                // Function to create bill items
-                function createBillItems() {
-                    const billsList = document.getElementById('billsList');
-                    billsList.innerHTML = '';
-
-                    unpaidBills.forEach(bill => {
-                        const billItem = document.createElement('div');
-                        billItem.className = 'bill-item-history-homecare';
-                        billItem.innerHTML = `
-            <div class="bill-info-history-homecare">
-                <div class="customer-name-history-homecare">${bill.customerName}</div>
-                <div class="bill-date-history-homecare">${formatDate(bill.orderDate)}</div>
-            </div>
-        `;
-
-                        billItem.addEventListener('click', () => showBillDetails(bill));
-                        billsList.appendChild(billItem);
-                    });
-                }
-
-                // Function to show bill details in modal
-                function showBillDetails(bill) {
-                    const modal = document.getElementById('bill-details-modal');
-
-                    // Update modal content with bill details
-                    document.getElementById('customerName').textContent = bill.customerName;
-                    document.getElementById('orderDate').textContent = formatDate(bill.orderDate);
-                    document.getElementById('orderTime').textContent = bill.orderTime;
-                    document.getElementById('startTime').textContent = bill.startTime;
-                    document.getElementById('endTime').textContent = bill.endTime;
-                    document.getElementById('helperName').textContent = bill.helperName;
-                    document.getElementById('status').textContent = bill.status;
-
-                    // Show modal
-                    modal.classList.add('show-history-homecare');
-                }
-
-                // Close modal functionality
-                document.querySelectorAll('.close-btn-history-homecare').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const modal = btn.closest('.modal-history-homecare');
-                        modal.classList.remove('show-history-homecare');
-                    });
-                });
-
-                // Close modal when clicking outside
-                window.addEventListener('click', (event) => {
-                    const modals = document.querySelectorAll('.modal-history-homecare');
-                    modals.forEach(modal => {
-                        if (event.target === modal) {
-                            modal.classList.remove('show-history-homecare');
-                        }
-                    });
-                });
-
-                // Initialize the bills list
-                document.addEventListener('DOMContentLoaded', () => {
-                    createBillItems();
-                });
-        </script>
+        
     <script>
         window.dispatchEvent(new Event("template-loaded"));
     </script>

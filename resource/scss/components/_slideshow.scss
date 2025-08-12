@@ -1119,15 +1119,15 @@
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transform: scale(0.95);
-    transition: all 0.4s ease !important;
+    transform: translateY(0);
+    transition: transform 0.35s ease, box-shadow 0.35s ease !important;
     position: relative;
     background: #fff;
-    height: 300px;
+    height: 320px;
 }
 
 .helper__swiper-slide:hover {
-    transform: translateY(-10px) scale(0.97);
+    transform: translateY(-8px);
     // box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
@@ -1137,8 +1137,8 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 100px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    height: 110px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
     z-index: 2;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -1237,13 +1237,14 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(5px);
-    transform: translateY(100%);
-    transition: transform 0.4s ease;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(6px);
+    /* Reveal a small strip by default; full on hover */
+    transform: translateY(calc(100% - 52px));
+    transition: transform 0.35s ease;
     z-index: 5;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .helper__swiper-slide:hover .helper__infor {
@@ -1251,16 +1252,19 @@
 }
 
 .helper__infor-name {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: #333;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: #222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .helper__infor-time,
 .helper__infor-age {
-    font-size: 14px;
-    color: #666;
+    font-size: 13px;
+    color: #5a5a5a;
     margin-bottom: 4px;
     display: flex;
     align-items: center;
@@ -1275,6 +1279,34 @@
     background: #4a6cf7;
     border-radius: 50%;
     margin-right: 8px;
+}
+
+/* Touch devices: always show full info (no hover) */
+@media (hover: none) {
+    .helper__infor {
+        transform: translateY(0);
+    }
+    .helper__swiper-slide::after,
+    .helper__swiper-slide::before {
+        opacity: 0; /* avoid hover-only affordances on touch */
+    }
+}
+
+/* Responsive slide heights */
+@media (max-width: 575.98px) {
+    .helper__swiper-slide { height: 280px; }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .helper__swiper-slide { height: 300px; }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .helper__swiper-slide { height: 320px; }
+}
+
+@media (min-width: 992px) {
+    .helper__swiper-slide { height: 340px; }
 }
 
 /* Làm đẹp thanh pagination */
@@ -1401,10 +1433,6 @@
     &__swiper-slide{
         width:300px;
     height: 400px;
-    &:hover .helper__infor{
-        // height:30%;
-        // background-color: rgba(0, 0, 0, 0.5);
-    }
     &:hover .helper__infor-time{
         opacity: 1;
         visibility: visible;
@@ -1560,5 +1588,138 @@
     @include abstracts.screen(sm){
         flex-direction: column;
     }
+}
+
+/* ==============================
+     Helper section redesign (v2)
+     Overrides previous styles
+     ============================== */
+#helper {
+    padding: 56px 0;
+    background: linear-gradient(180deg, #ffffff, #f8fafc);
+}
+
+#helper .helper__mySwiper {
+    padding: 8px 0 40px;
+}
+
+#helper .helper__wrapper {
+    align-items: stretch;
+}
+
+#helper .helper__swiper-slide {
+    display: flex;
+    flex-direction: column;
+    height: 360px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    transform: translateY(0);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    overflow: hidden;
+}
+
+#helper .helper__swiper-slide:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.1);
+    border-color: rgba(74, 108, 247, 0.35);
+}
+
+/* Disable old hover affordances */
+#helper .helper__swiper-slide::before,
+#helper .helper__swiper-slide::after,
+#helper .helper__swiper-slide a::before,
+#helper .helper__swiper-slide a::after {
+    content: none !important;
+}
+
+/* Media area */
+#helper .helper__swiper-slide a {
+    flex: 1 1 auto;
+    height: auto;
+    position: relative;
+    display: block;
+}
+
+#helper .helper__swiper-slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+#helper .helper__swiper-slide:hover .helper__swiper-slide-img {
+    transform: scale(1.04);
+}
+
+/* Info area (static, no slide-up) */
+#helper .helper__infor {
+    position: static;
+    transform: none !important;
+    padding: 12px 14px;
+    background: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+#helper .helper__infor-name {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: #1f2937;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#helper .helper__infor-time,
+#helper .helper__infor-age {
+    font-size: 13px;
+    color: #4b5563;
+    margin: 0 0 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#helper .helper__infor-time::before,
+#helper .helper__infor-age::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: linear-gradient(90deg, #4a6cf7, #24c1e0);
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Neutralize global active scale for this section */
+#helper .swiper-slide-active {
+    scale: 1 !important;
+}
+
+/* Pagination modern look for this section */
+#helper .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: #cdd5df;
+    opacity: 1;
+}
+
+#helper .swiper-pagination-bullet-active {
+    width: 22px;
+    height: 8px;
+    background: linear-gradient(90deg, #4a6cf7, #24c1e0);
+    border-radius: 999px;
+}
+
+/* Responsive heights */
+@media (max-width: 575.98px) {
+    #helper .helper__swiper-slide { height: 320px; }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+    #helper .helper__swiper-slide { height: 340px; }
+}
+@media (min-width: 992px) {
+    #helper .helper__swiper-slide { height: 380px; }
 }
 
