@@ -602,7 +602,26 @@
                     </div>
                     {{/if}}
 
-                    <!-- Ward input -->
+                    <!-- Ward input / dropdown -->
+                    {{#if locations}}
+                    <div class="form__group">
+                        <div class="wrapper-ward-register">
+                            <div class="wrapper-ward__select-btn">
+                                <span>Chọn Phường/Xã</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="wrapper-ward__content">
+                                <div class="warapper-ward__search">
+                                    <input name="ward" class="wrapper-ward__input" spellcheck="false"
+                                        type="text" placeholder="Tìm kiếm phường/xã" required>
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                                <ul class="wrapper-ward__options"></ul>
+                            </div>
+                        </div>
+                        <p class="form__error"></p>
+                    </div>
+                    {{else}}
                     <div class="form__group">
                         <div class="form__text-input form-control">
                             <input id="ward-input" placeholder="Phường/Xã" type="text" class="form__input-register"
@@ -612,6 +631,7 @@
                         </div>
                         <p class="form__error"></p>
                     </div>
+                    {{/if}}
 
                     <!-- Address input -->
                     <div class="form__group">
@@ -716,11 +736,12 @@
                 {{#if locations}}
                 validator.isRequire(".wrapper-province__input", "Vui lòng chọn tỉnh/thành phố"),
                 validator.isRequire(".wrapper-district__input", "Vui lòng chọn quận/huyện"),
+                validator.isRequire(".wrapper-ward__input", "Vui lòng chọn phường/xã"),
                 {{else}}
                 validator.isRequire("#province-input", "Vui lòng nhập tỉnh/thành phố"),
                 validator.isRequire("#district-input", "Vui lòng nhập quận/huyện"),
-                {{/if}}
                 validator.isRequire("#ward-input", "Vui lòng nhập phường/xã"),
+                {{/if}}
                 validator.isRequire("#address-input", "Vui lòng nhập địa chỉ chi tiết"),
                 validator.isRequire("#tel-input", "Vui lòng nhập số điện thoại"),
                 validator.isPhone("#tel-input", "Vui lòng nhập đúng định dạng số điện thoại"),
@@ -783,12 +804,21 @@
         const provinceInput = provinceWrapper.querySelector('.wrapper-province__input');
         const provinceOptions = provinceWrapper.querySelector('.wrapper-province__options');
         
-        // District dropdown setup
+    // District dropdown setup
         const districtWrapper = document.querySelector('.wrapper-district-register');
         const districtBtn = districtWrapper.querySelector('.wrapper-district__select-btn');
         const districtContent = districtWrapper.querySelector('.wrapper-district__content');
         const districtInput = districtWrapper.querySelector('.wrapper-district__input');
         const districtOptions = districtWrapper.querySelector('.wrapper-district__options');
+
+    // Ward dropdown setup
+    const wardWrapper = document.querySelector('.wrapper-ward-register');
+    const wardBtn = wardWrapper.querySelector('.wrapper-ward__select-btn');
+    const wardContent = wardWrapper.querySelector('.wrapper-ward__content');
+    const wardInput = wardWrapper.querySelector('.wrapper-ward__input');
+    const wardOptions = wardWrapper.querySelector('.wrapper-ward__options');
+
+    let selectedProvinceIndex = null;
 
         // Initialize provinces
         function initProvinces() {
@@ -816,11 +846,19 @@
             
             // Load districts for selected province
             loadDistricts(index);
+            selectedProvinceIndex = index;
             
             // Reset district selection
             districtBtn.querySelector('span').textContent = 'Chọn Quận/Huyện';
             districtBtn.classList.remove('active');
             districtInput.value = '';
+
+            // Reset ward selection
+            wardBtn.querySelector('span').textContent = 'Chọn Phường/Xã';
+            wardBtn.classList.remove('active');
+            wardInput.value = '';
+            wardOptions.innerHTML = '';
+            wardContent.classList.remove('active');
         }
 
         // Load districts for selected province
@@ -848,6 +886,48 @@
             districtBtn.classList.add('active');
             districtInput.value = districtName;
             districtContent.classList.remove('active');
+
+            // Reset and load wards for selected district
+            wardBtn.querySelector('span').textContent = 'Chọn Phường/Xã';
+            wardBtn.classList.remove('active');
+            wardInput.value = '';
+            loadWards(districtName);
+        }
+
+        // Load wards for selected district
+        function loadWards(districtName) {
+            wardOptions.innerHTML = '';
+            if (selectedProvinceIndex === null) return;
+            const province = locations[selectedProvinceIndex];
+            if (!province || !province.Districts) return;
+
+            // Find the district object by sanitized name
+            let districtObj = null;
+            for (let i = 1; i < province.Districts.length; i++) {
+                const d = province.Districts[i];
+                const cleanName = d.Name.replace(/(Huyện|Quận|Thành phố|Thị xã) /g, '');
+                if (cleanName === districtName) {
+                    districtObj = d;
+                    break;
+                }
+            }
+            if (!districtObj || !districtObj.Wards) return;
+
+            districtObj.Wards.forEach(w => {
+                const wardName = w.Name.replace(/(Xã|Phường|Thị trấn) /g, '');
+                const li = document.createElement('li');
+                li.textContent = wardName;
+                li.addEventListener('click', () => selectWard(wardName));
+                wardOptions.appendChild(li);
+            });
+        }
+
+        // Select ward
+        function selectWard(wardName) {
+            wardBtn.querySelector('span').textContent = wardName;
+            wardBtn.classList.add('active');
+            wardInput.value = wardName;
+            wardContent.classList.remove('active');
         }
 
         // Province dropdown events
@@ -863,6 +943,16 @@
             if (provinceInput.value) {
                 districtContent.classList.toggle('active');
                 provinceContent.classList.remove('active');
+            }
+        });
+
+        // Ward dropdown events
+        wardBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (districtInput.value) {
+                wardContent.classList.toggle('active');
+                provinceContent.classList.remove('active');
+                districtContent.classList.remove('active');
             }
         });
 
@@ -888,10 +978,21 @@
             });
         });
 
+        // Search functionality for ward
+        wardInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const items = wardOptions.querySelectorAll('li');
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(searchTerm) ? 'block' : 'none';
+            });
+        });
+
         // Close dropdowns when clicking outside
         document.addEventListener('click', () => {
             provinceContent.classList.remove('active');
             districtContent.classList.remove('active');
+            wardContent.classList.remove('active');
         });
 
         // Initialize provinces on load

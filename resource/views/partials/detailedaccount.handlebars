@@ -231,7 +231,8 @@
 
     /* Province and District Dropdown Styles for Account Form */
     .wrapper-province-account,
-    .wrapper-district-account {
+    .wrapper-district-account,
+    .wrapper-ward-account {
         position: relative !important;
         width: 100% !important;
         margin-bottom: 5px !important;
@@ -239,7 +240,8 @@
     }
 
     .wrapper-province__select-btn-account,
-    .wrapper-district__select-btn-account {
+    .wrapper-district__select-btn-account,
+    .wrapper-ward__select-btn-account {
         display: flex !important;
         height: 40px !important;
         background: #fff !important;
@@ -259,18 +261,21 @@
     }
 
     .wrapper-province__select-btn-account:hover,
-    .wrapper-district__select-btn-account:hover {
+    .wrapper-district__select-btn-account:hover,
+    .wrapper-ward__select-btn-account:hover {
         border-color: #3498db;
     }
 
     .wrapper-province__select-btn-account.active,
-    .wrapper-district__select-btn-account.active {
+    .wrapper-district__select-btn-account.active,
+    .wrapper-ward__select-btn-account.active {
         border-color: #3498db;
         box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
     }
 
     .wrapper-province__select-btn-account span,
-    .wrapper-district__select-btn-account span {
+    .wrapper-district__select-btn-account span,
+    .wrapper-ward__select-btn-account span {
         flex: 1 !important;
         color: #333 !important;
         font-size: 14px !important;
@@ -281,7 +286,8 @@
     }
 
     .wrapper-province__select-btn-account i,
-    .wrapper-district__select-btn-account i {
+    .wrapper-district__select-btn-account i,
+    .wrapper-ward__select-btn-account i {
         font-size: 12px !important;
         color: #666 !important;
         margin-left: 8px !important;
@@ -289,7 +295,8 @@
     }
 
     .wrapper-province__select-btn-account[disabled],
-    .wrapper-district__select-btn-account[disabled] {
+    .wrapper-district__select-btn-account[disabled],
+    .wrapper-ward__select-btn-account[disabled] {
         background-color: #f8f9fa;
         cursor: not-allowed;
         opacity: 0.7;
@@ -297,13 +304,15 @@
     }
 
     .wrapper-province__select-btn-account[disabled] span,
-    .wrapper-district__select-btn-account[disabled] span {
+    .wrapper-district__select-btn-account[disabled] span,
+    .wrapper-ward__select-btn-account[disabled] span {
         color: #6c757d;
     }
 
     /* Force compact style for all dropdown elements */
     .form-group-input-form .wrapper-province-account .wrapper-province__select-btn-account,
-    .form-group-input-form .wrapper-district-account .wrapper-district__select-btn-account {
+    .form-group-input-form .wrapper-district-account .wrapper-district__select-btn-account,
+    .form-group-input-form .wrapper-ward-account .wrapper-ward__select-btn-account {
         height: auto !important;
         min-height: auto !important;
         max-height: none !important;
@@ -317,14 +326,16 @@
 
     /* Match input style exactly */
     .wrapper-province__select-btn-account,
-    .wrapper-district__select-btn-account {
+    .wrapper-district__select-btn-account,
+    .wrapper-ward__select-btn-account {
         appearance: none !important;
         -webkit-appearance: none !important;
         -moz-appearance: none !important;
     }
 
     .wrapper-province__content-account,
-    .wrapper-district__content-account {
+    .wrapper-district__content-account,
+    .wrapper-ward__content-account {
         position: absolute;
         top: 100%;
         left: 0;
@@ -340,20 +351,23 @@
     }
 
     .wrapper-province__content-account.active,
-    .wrapper-district__content-account.active {
+    .wrapper-district__content-account.active,
+    .wrapper-ward__content-account.active {
         max-height: 300px;
         overflow-y: auto;
     }
 
     .warapper-province__search-account,
-    .warapper-district__search-account {
+    .warapper-district__search-account,
+    .warapper-ward__search-account {
         position: relative;
         padding: 6px;
         border-bottom: 1px solid #e1e1e1;
     }
 
     .wrapper-province__input-account,
-    .wrapper-district__input-account {
+    .wrapper-district__input-account,
+    .wrapper-ward__input-account {
         width: 100%;
         padding: 6px 25px 6px 8px;
         border: 1px solid #e1e1e1;
@@ -363,12 +377,14 @@
     }
 
     .wrapper-province__input-account:focus,
-    .wrapper-district__input-account:focus {
+    .wrapper-district__input-account:focus,
+    .wrapper-ward__input-account:focus {
         border-color: #3498db;
     }
 
     .warapper-province__search-account i,
-    .warapper-district__search-account i {
+    .warapper-district__search-account i,
+    .warapper-ward__search-account i {
         position: absolute;
         right: 12px;
         top: 50%;
@@ -378,7 +394,8 @@
     }
 
     .wrapper-province__options-account,
-    .wrapper-district__options-account {
+    .wrapper-district__options-account,
+    .wrapper-ward__options-account {
         list-style: none;
         padding: 0;
         margin: 0;
@@ -387,7 +404,8 @@
     }
 
     .wrapper-province__options-account li,
-    .wrapper-district__options-account li {
+    .wrapper-district__options-account li,
+    .wrapper-ward__options-account li {
         padding: 8px 12px;
         cursor: pointer;
         border-bottom: 1px solid #f5f5f5;
@@ -396,18 +414,21 @@
     }
 
     .wrapper-province__options-account li:hover,
-    .wrapper-district__options-account li:hover {
+    .wrapper-district__options-account li:hover,
+    .wrapper-ward__options-account li:hover {
         background-color: #f8f9fa;
     }
 
     .wrapper-province__options-account li.selected,
-    .wrapper-district__options-account li.selected {
+    .wrapper-district__options-account li.selected,
+    .wrapper-ward__options-account li.selected {
         background-color: #3498db;
         color: white;
     }
 
     .wrapper-province__options-account li:last-child,
-    .wrapper-district__options-account li:last-child {
+    .wrapper-district__options-account li:last-child,
+    .wrapper-ward__options-account li:last-child {
         border-bottom: none;
     }
 </style>
@@ -516,12 +537,25 @@
                         </div>
                     </div>
 
-                    <!-- Ward input -->
+                    <!-- Ward dropdown -->
                     <div class="form-group-input-form">
                         <label class="label-input-form" for="ward">Phường/Xã</label>
-                        <input class="input-form-accountdetail" type="text" id="ward" name="ward"
-                            value="{{user.ward}}" disabled 
-                            autocomplete="address-level3" maxlength="100">
+                        <div class="wrapper-ward-account">
+                            <div class="wrapper-ward__select-btn-account" disabled style="padding: 10px 15px !important; font-size: 16px !important; height: auto !important; min-height: auto !important; line-height: 1.2 !important;">
+                                <span id="ward-selected">{{#if user.ward}}{{user.ward}}{{else}}Chọn Phường/Xã{{/if}}</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="wrapper-ward__content-account">
+                                <div class="warapper-ward__search-account">
+                                    <input id="ward-search" class="wrapper-ward__input-account" spellcheck="false"
+                                        type="text" placeholder="Tìm kiếm phường/xã" value="{{user.ward}}" disabled>
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                                <ul class="wrapper-ward__options-account"></ul>
+                            </div>
+                        </div>
+                        <!-- Hidden field to hold selected ward value for form submission -->
+                        <input type="hidden" id="ward" name="ward" value="{{user.ward}}">
                     </div>
                     {{else}}
                     <!-- Fallback: Text inputs if no locations data -->
@@ -1558,18 +1592,23 @@
         const saveBtn = document.getElementById('saveBtn');
         const phoneInput = document.getElementById('phone');
 
-        // Get province and district dropdown elements
+        // Get province, district and ward dropdown elements
     const provinceDropdown = document.querySelector('.wrapper-province-account');
     const districtDropdown = document.querySelector('.wrapper-district-account');
+    const wardDropdown = document.querySelector('.wrapper-ward-account');
     // Note: these can be re-created (cloned) later, so prefer re-querying when mutating
     let provinceBtn = document.querySelector('.wrapper-province__select-btn-account');
     let districtBtn = document.querySelector('.wrapper-district__select-btn-account');
+    let wardBtn = document.querySelector('.wrapper-ward__select-btn-account');
         const provinceContent = document.querySelector('.wrapper-province__content-account');
         const districtContent = document.querySelector('.wrapper-district__content-account');
+        const wardContent = document.querySelector('.wrapper-ward__content-account');
         const provinceInput = document.getElementById('province');
         const districtInput = document.getElementById('district');
+        const wardInput = document.getElementById('ward');
         const provinceSelected = document.getElementById('province-selected');
         const districtSelected = document.getElementById('district-selected');
+        const wardSelected = document.getElementById('ward-selected');
 
         // Phone number validation
         phoneInput.addEventListener('input', function (e) {
@@ -1599,6 +1638,7 @@
             // Re-query buttons in case district/province buttons were re-created
             provinceBtn = document.querySelector('.wrapper-province__select-btn-account');
             districtBtn = document.querySelector('.wrapper-district__select-btn-account');
+            wardBtn = document.querySelector('.wrapper-ward__select-btn-account');
 
             if (provinceBtn) {
                 provinceBtn.style.pointerEvents = 'auto';
@@ -1618,6 +1658,19 @@
                     districtBtn.setAttribute('disabled', 'true');
                 }
             }
+            if (wardBtn) {
+                // Only enable ward if a district is already selected
+                const hasDistrict = (districtInput && districtInput.value && districtInput.value.trim().length > 0);
+                if (hasDistrict) {
+                    wardBtn.style.pointerEvents = 'auto';
+                    wardBtn.style.opacity = '1';
+                    wardBtn.removeAttribute('disabled');
+                } else {
+                    wardBtn.style.pointerEvents = 'none';
+                    wardBtn.style.opacity = '0.7';
+                    wardBtn.setAttribute('disabled', 'true');
+                }
+            }
 
             // Also enable the hidden form inputs for province/district so they are included in FormData
             if (provinceInput) {
@@ -1625,6 +1678,9 @@
             }
             if (districtInput) {
                 districtInput.disabled = false;
+            }
+            if (wardInput) {
+                wardInput.disabled = false;
             }
 
             // Switch button states
@@ -1703,6 +1759,16 @@
                     districtSelected.style.color = '#ff4444';
                 }
                 errorMessages.push('Vui lòng chọn quận/huyện');
+            }
+
+            // Ward validation
+            const wardInputVal = document.getElementById('ward');
+            if (!wardInputVal.value.trim()) {
+                isValid = false;
+                if (wardSelected) {
+                    wardSelected.style.color = '#ff4444';
+                }
+                errorMessages.push('Vui lòng chọn phường/xã');
             }
 
             if (!isValid) {
@@ -1788,8 +1854,15 @@
                         districtBtnAfterSave.style.opacity = '0.7';
                         districtBtnAfterSave.setAttribute('disabled', 'true');
                     }
+                    const wardBtnAfterSave = document.querySelector('.wrapper-ward__select-btn-account');
+                    if (wardBtnAfterSave) {
+                        wardBtnAfterSave.style.pointerEvents = 'none';
+                        wardBtnAfterSave.style.opacity = '0.7';
+                        wardBtnAfterSave.setAttribute('disabled', 'true');
+                    }
                     if (provinceInput) provinceInput.disabled = true;
                     if (districtInput) districtInput.disabled = true;
+                    if (wardInput) wardInput.disabled = true;
 
                     editBtn.disabled = false;
                     saveBtn.disabled = true;
@@ -1869,6 +1942,9 @@
             if (districtSelected) {
                 districtSelected.textContent = '{{#if user.district}}{{user.district}}{{else}}Chọn Quận/Huyện{{/if}}';
             }
+            if (wardSelected) {
+                wardSelected.textContent = '{{#if user.ward}}{{user.ward}}{{else}}Chọn Phường/Xã{{/if}}';
+            }
             // Re-query buttons to ensure we target the current elements
             const provinceBtnOnReset = document.querySelector('.wrapper-province__select-btn-account');
             const districtBtnOnReset = document.querySelector('.wrapper-district__select-btn-account');
@@ -1881,6 +1957,12 @@
                 districtBtnOnReset.style.pointerEvents = 'none';
                 districtBtnOnReset.style.opacity = '0.7';
                 districtBtnOnReset.setAttribute('disabled', 'true');
+            }
+            const wardBtnOnReset = document.querySelector('.wrapper-ward__select-btn-account');
+            if (wardBtnOnReset) {
+                wardBtnOnReset.style.pointerEvents = 'none';
+                wardBtnOnReset.style.opacity = '0.7';
+                wardBtnOnReset.setAttribute('disabled', 'true');
             }
 
             // Reset button states
@@ -2086,6 +2168,7 @@
             // Set initial disabled state for dropdowns
             const provinceBtnInit = document.querySelector('.wrapper-province__select-btn-account');
             const districtBtnInit = document.querySelector('.wrapper-district__select-btn-account');
+            const wardBtnInit = document.querySelector('.wrapper-ward__select-btn-account');
             if (provinceBtnInit) {
                 provinceBtnInit.style.pointerEvents = 'none';
                 provinceBtnInit.style.opacity = '0.7';
@@ -2095,6 +2178,11 @@
                 districtBtnInit.style.pointerEvents = 'none';
                 districtBtnInit.style.opacity = '0.7';
                 districtBtnInit.setAttribute('disabled', 'true');
+            }
+            if (wardBtnInit) {
+                wardBtnInit.style.pointerEvents = 'none';
+                wardBtnInit.style.opacity = '0.7';
+                wardBtnInit.setAttribute('disabled', 'true');
             }
         }
         
@@ -2107,6 +2195,17 @@
             
             if (foundLocation && foundLocation.Districts) {
                 initializeDistrictDropdown(foundLocation.Districts);
+                // Also initialize wards if district exists
+                const currentDistrict = '{{user.district}}';
+                if (currentDistrict) {
+                    const foundDistrict = (foundLocation.Districts || []).find(d => {
+                        const districtName = d.Name ? d.Name.replace(/(Huyện|Quận|Thành phố|Thị xã) /g, '') : '';
+                        return districtName === currentDistrict;
+                    });
+                    if (foundDistrict && foundDistrict.Wards) {
+                        initializeWardDropdown(foundDistrict.Wards);
+                    }
+                }
             }
         }
 
@@ -2173,6 +2272,21 @@
                 districtSelected.textContent = 'Chọn Quận/Huyện';
                 districtInput.value = '';
             }
+            // Reset ward
+            if (wardSelected) {
+                wardSelected.textContent = 'Chọn Phường/Xã';
+                if (wardInput) wardInput.value = '';
+                const wardOptions = document.querySelector('.wrapper-ward__options-account');
+                if (wardOptions) wardOptions.innerHTML = '';
+                const wb = document.querySelector('.wrapper-ward__select-btn-account');
+                if (wb) {
+                    wb.style.pointerEvents = 'none';
+                    wb.style.opacity = '0.7';
+                    wb.setAttribute('disabled', 'true');
+                }
+                const wardSearch = document.getElementById('ward-search');
+                if (wardSearch) wardSearch.value = '';
+            }
             
             // Close province dropdown
             provinceContent.classList.remove('active');
@@ -2191,7 +2305,7 @@
             }
         }
 
-        function initializeDistrictDropdown(districts) {
+    function initializeDistrictDropdown(districts) {
             const districtOptions = document.querySelector('.wrapper-district__options-account');
             const districtSearchInput = document.querySelector('.wrapper-district__input-account');
             
@@ -2207,6 +2321,7 @@
                     const districtName = district.Name ? district.Name.replace(/(Huyện|Quận|Thành phố|Thị xã) /g, '') : '';
                     li.textContent = districtName;
                     li.setAttribute('data-value', districtName);
+                    li.setAttribute('data-wards', JSON.stringify(district.Wards || []));
                     districtOptions.appendChild(li);
                     
                     // Add click event
@@ -2255,6 +2370,7 @@
 
         function selectDistrict(selectedOption) {
             const districtName = selectedOption.getAttribute('data-value');
+            const wards = JSON.parse(selectedOption.getAttribute('data-wards') || '[]');
             
             // Update UI
             const currentDistrictSelected = document.getElementById('district-selected');
@@ -2262,6 +2378,20 @@
             
             if (currentDistrictSelected) currentDistrictSelected.textContent = districtName;
             if (currentDistrictInput) currentDistrictInput.value = districtName;
+            // Reset and init wards
+            if (wardSelected) wardSelected.textContent = 'Chọn Phường/Xã';
+            if (wardInput) wardInput.value = '';
+            const wardSearch = document.getElementById('ward-search');
+            if (wardSearch) wardSearch.value = '';
+            if (Array.isArray(wards)) {
+                initializeWardDropdown(wards);
+                const wb = document.querySelector('.wrapper-ward__select-btn-account');
+                if (wb) {
+                    wb.style.pointerEvents = 'auto';
+                    wb.style.opacity = '1';
+                    wb.removeAttribute('disabled');
+                }
+            }
             
             // Close district dropdown
             const districtContentElement = document.querySelector('.wrapper-district__content-account');
@@ -2269,6 +2399,67 @@
             
             if (districtContentElement) districtContentElement.classList.remove('active');
             if (currentDistrictBtn) currentDistrictBtn.classList.remove('active');
+        }
+
+        function initializeWardDropdown(wards) {
+            const wardOptions = document.querySelector('.wrapper-ward__options-account');
+            const wardSearchInput = document.querySelector('.wrapper-ward__input-account');
+
+            if (!wardOptions) return;
+
+            wardOptions.innerHTML = '';
+            if (wardSearchInput) wardSearchInput.value = '';
+            wards.forEach(w => {
+                const li = document.createElement('li');
+                const wardName = w.Name ? w.Name.replace(/(Phường|Xã|Thị trấn) /g, '') : '';
+                li.textContent = wardName;
+                li.setAttribute('data-value', wardName);
+                wardOptions.appendChild(li);
+                li.addEventListener('click', function() { selectWard(this); });
+            });
+
+            const currentWardBtn = document.querySelector('.wrapper-ward__select-btn-account');
+            if (currentWardBtn) {
+                const newWardBtn = currentWardBtn.cloneNode(true);
+                currentWardBtn.parentNode.replaceChild(newWardBtn, currentWardBtn);
+                newWardBtn.addEventListener('click', function(e) {
+                    if (this.hasAttribute('disabled')) return;
+                    e.stopPropagation();
+                    const wc = document.querySelector('.wrapper-ward__content-account');
+                    wc.classList.toggle('active');
+                    this.classList.toggle('active');
+                    // Close others
+                    const pc = document.querySelector('.wrapper-province__content-account');
+                    const pb = document.querySelector('.wrapper-province__select-btn-account');
+                    const dc = document.querySelector('.wrapper-district__content-account');
+                    const db = document.querySelector('.wrapper-district__select-btn-account');
+                    if (pc) pc.classList.remove('active');
+                    if (pb) pb.classList.remove('active');
+                    if (dc) dc.classList.remove('active');
+                    if (db) db.classList.remove('active');
+                });
+            }
+
+            if (wardSearchInput) {
+                wardSearchInput.addEventListener('input', function() {
+                    const q = this.value.toLowerCase();
+                    wardOptions.querySelectorAll('li').forEach(li => {
+                        li.style.display = li.textContent.toLowerCase().includes(q) ? 'block' : 'none';
+                    });
+                });
+            }
+        }
+
+        function selectWard(selectedOption) {
+            const name = selectedOption.getAttribute('data-value');
+            if (wardSelected) wardSelected.textContent = name;
+            if (wardInput) wardInput.value = name;
+            const wardSearch = document.getElementById('ward-search');
+            if (wardSearch) wardSearch.value = name;
+            const wc = document.querySelector('.wrapper-ward__content-account');
+            const wb = document.querySelector('.wrapper-ward__select-btn-account');
+            if (wc) wc.classList.remove('active');
+            if (wb) wb.classList.remove('active');
         }
 
         // Close dropdowns when clicking outside
@@ -2284,6 +2475,12 @@
                 const currentDistrictBtn = document.querySelector('.wrapper-district__select-btn-account');
                 if (currentDistrictContent) currentDistrictContent.classList.remove('active');
                 if (currentDistrictBtn) currentDistrictBtn.classList.remove('active');
+            }
+            if (!e.target.closest('.wrapper-ward-account')) {
+                const currentWardContent = document.querySelector('.wrapper-ward__content-account');
+                const currentWardBtn = document.querySelector('.wrapper-ward__select-btn-account');
+                if (currentWardContent) currentWardContent.classList.remove('active');
+                if (currentWardBtn) currentWardBtn.classList.remove('active');
             }
         });
     });

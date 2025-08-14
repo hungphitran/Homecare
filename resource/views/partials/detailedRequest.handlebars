@@ -42,12 +42,10 @@
                     </select>
                 </div>
     
-                {{!-- <div class="group-form-homecare">
+                <div class="group-form-homecare">
                     <label class="label-form-homecare" for="ward">Phường</label>
-                    <select class="select-form-homecare" id="ward" name="ward" required>
-                        <option value="">Chọn phường</option>
-                    </select>
-                </div> --}}
+                    <input class="input-form-homecare" type="text" id="ward" name="ward" value="{{request.ward}}" required>
+                </div>
     
                 <div class="group-form-homecare full-width-form-homecare">
                     <label class="label-form-homecare" for="address">Địa chỉ chi tiết</label>
@@ -175,8 +173,7 @@
             //document.getElementById('totalAmount').value = '300,000 VND';
 
             // Add event listeners
-            document.getElementById('city').addEventListener('change', updateDistricts);
-            document.getElementById('district').addEventListener('change', updateWards);
+            // If needed later, hook dynamic population here
            // document.getElementById('confirmationForm').addEventListener('submit', handleSubmit);
         });
 
@@ -270,7 +267,7 @@
             console.log('Form submission data:', formObject);
             
             // Validate required fields
-            const requiredFields = ['phone', 'fullname', 'province', 'district', 'address', 'startTime', 'endTime'];
+            const requiredFields = ['phone', 'fullname', 'province', 'district', 'ward', 'address', 'startTime', 'endTime'];
             let isValid = true;
             
             for (let field of requiredFields) {
