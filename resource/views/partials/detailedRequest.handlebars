@@ -98,7 +98,7 @@
                 <button type="submit" class="button-form-homecare confirm-form-homecare" id="submitBtn">Xác nhận</button>
             </div>
 
-            <input type="hidden" name="helperId" value="{{request.helperId}}">
+            <input type="hidden" name="helperId" value="{{#if request.helperId}}{{#unless (eq request.helperId 'default')}}{{request.helperId}}{{/unless}}{{/if}}">
         </form>
     </div>
     </div>
@@ -250,9 +250,8 @@
 
         // Navigate to home page
         function goToHomePage() {
-            // For demo purposes, we'll just redirect to index.html
-            // In a real application, you would redirect to your actual home page URL
-            window.location.href = 'index.html';
+            // Redirect to home page
+            window.location.href = '/';
         }
 
         document.getElementById('confirmationForm').addEventListener('submit', function(e) {

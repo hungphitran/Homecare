@@ -88,18 +88,38 @@ const requestController={
     //GET redirect to detail order page
     submit: async (req, res, next) => {
         // Validate that required parameters exist
-        if (!req.query.service || !req.query.helperId) {
+        if (!req.query.service) {
             return res.redirect('/?error=missing_parameters');
+        }
+        
+        // Set default helperId if not provided (skip helper selection)
+        if (!req.query.helperId) {
+            req.query.helperId = ''; // We'll handle this in the template
         }
         
         //format dates if ordertype is longterm
         if(req.query.requestType == 'Dài hạn'){
             let startDate = new Date(req.query.startDate);
             let endDate = new Date(req.query.endDate);
-            let dates = [];
-            for(let i=startDate;i<=endDate;i.setDate(i.getDate()+1)){
-                dates.push(i.toISOString().split('T')[0])
+            
+            // Validate dates
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                return res.redirect('/?error=invalid_dates');
             }
+            
+            if (startDate > endDate) {
+                return res.redirect('/?error=start_date_after_end_date');
+            }
+            
+            let dates = [];
+            let currentDate = new Date(startDate);
+            
+            // Safer date iteration
+            while(currentDate <= endDate){
+                dates.push(currentDate.toISOString().split('T')[0]);
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+            
             req.query.dates = dates;
         }
         else{
@@ -160,9 +180,9 @@ const requestController={
             };
         }
 
-
+        let idOrTitle = req.query.service;
         //get service information
-        let service = await fetch(process.env.API_URL + '/service/' + req.query.service)
+        let service = await fetch(process.env.API_URL + '/service/' + idOrTitle)
             .then(data => data.json())
             .catch(err=>{
                 console.error('Error fetching service:', err);
@@ -172,26 +192,43 @@ const requestController={
         console.log('Service data received:', service);
         console.log('Service ID from query:', req.query.service);
 
+        // Validate service data - if null, return error or use fallback
+        if (!service || !service._id) {
+            console.error('Service not found or invalid service data');
+            // Try to create a fallback service object
+            service = {
+                _id: req.query.service, // Use the service query param as fallback
+                title: req.query.service || 'Unknown Service',
+                cost: 0,
+                coefficient_id: null
+            };
+        }
+
         //get cost factors
-        let costFactorService = await fetch(process.env.API_URL + '/costfactor/service')
-        .then(data => data.json())
-        .then(data => {
-            // Check if data is array and has elements
-            if (Array.isArray(data) && data.length > 0) {
-                return data[0];
-            }
-            return null;
-        })
-        .then(data => {
-            if (data && data.coefficientList) {
-                return data.coefficientList.find(e => e._id === service.coefficient_id);
-            }
-            return null;
-        })
-        .catch(err => {
-            console.error('Error fetching cost factor service:', err);
-            return null;
-        })
+        let costFactorService = null;
+        if (service && service.coefficient_id) {
+            costFactorService = await fetch(process.env.API_URL + '/costfactor/service')
+            .then(data => data.json())
+            .then(data => {
+                // Check if data is array and has elements
+                if (Array.isArray(data) && data.length > 0) {
+                    return data[0];
+                }
+                return null;
+            })
+            .then(data => {
+                if (data && data.coefficientList) {
+                    return data.coefficientList.find(e => e._id === service.coefficient_id);
+                }
+                return null;
+            })
+            .catch(err => {
+                console.error('Error fetching cost factor service:', err);
+                return null;
+            });
+        } else {
+            console.log('Service has no coefficient_id, skipping cost factor fetch');
+        }
 
         let costFactorOther = await fetch(process.env.API_URL + '/costfactor/other')
         .then(data => data.json())
@@ -204,10 +241,11 @@ const requestController={
         let today= new Date()
         req.query.orderDate = today.getFullYear() + "-"+(today.getMonth()+1>9 ? today.getMonth()+1 : "0"+(today.getMonth()+1)  ) +"-"+today.getDate()
 
-        req.query.totalCost=0;
+        req.query.totalCost = 0;
         
-        for(let i=0;i<req.query.dates.length;i++){
-            // Handle time format - can be HH:MM, just HH, or full ISO string
+        // Improved cost calculation with better validation and batch processing
+        try {
+            // Handle time format processing once
             let startTime, endTime;
             
             if (req.query.startTime && req.query.startTime.includes('T')) {
@@ -216,8 +254,8 @@ const requestController={
                 let endDate = new Date(req.query.endTime);
                 
                 if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                    console.error('Invalid ISO datetime strings in cost calc:', req.query.startTime, req.query.endTime);
-                    continue;
+                    console.error('Invalid ISO datetime strings:', req.query.startTime, req.query.endTime);
+                    throw new Error('Invalid time format');
                 }
             
                 startTime = startDate.getUTCHours().toString().padStart(2, '0') + ':' + 
@@ -226,8 +264,8 @@ const requestController={
                          endDate.getUTCMinutes().toString().padStart(2, '0');
             } else {
                 // Simple time format
-                startTime = req.query.startTime ? req.query.startTime.toString() : '00:00';
-                endTime = req.query.endTime ? req.query.endTime.toString() : '00:00';
+                startTime = req.query.startTime ? req.query.startTime.toString() : '08:00';
+                endTime = req.query.endTime ? req.query.endTime.toString() : '17:00';
                 
                 // If time doesn't contain colon, assume it's just hours and add :00
                 if (!startTime.includes(':')) {
@@ -240,102 +278,131 @@ const requestController={
             
             // Validate time format (should be HH:MM)
             const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
-            if (!timeRegex.test(startTime)) {
-                console.error('Invalid startTime format:', req.query.startTime);
-                continue; // Skip this iteration
+            if (!timeRegex.test(startTime) || !timeRegex.test(endTime)) {
+                console.error('Invalid time format:', startTime, endTime);
+                throw new Error('Invalid time format');
             }
-            if (!timeRegex.test(endTime)) {
-                console.error('Invalid endTime format:', req.query.endTime);
-                continue; // Skip this iteration
-            }
-            
-            // Validate that the date is in proper format
-            let currentDate = req.query.dates[i];
-            if (!/^\d{4}-\d{2}-\d{2}$/.test(currentDate)) {
-                console.error('Invalid date format in cost calculation:', currentDate);
-                continue; // Skip this iteration
-            }
-            
-            let startTimeFormatted = startTime + ':00';
-            let endTimeFormatted = endTime + ':00';
-            
-            let startTimeString = currentDate + 'T' + startTimeFormatted;
-            let endTimeString = currentDate + 'T' + endTimeFormatted;
-            
-            // Validate the resulting datetime strings
-            let startDateTime = new Date(startTimeString);
-            let endDateTime = new Date(endTimeString);
-            
-            if (isNaN(startDateTime.getTime()) || isNaN(endDateTime.getTime())) {
-                console.error('Invalid datetime combination for cost calculation:', {
-                    date: currentDate,
-                    startTime: startTime,
-                    endTime: endTime,
-                    startTimeString: startTimeString,
-                    endTimeString: endTimeString
-                });
-                continue; // Skip this iteration
-            }
-            
-            // Convert to ISO strings for API compatibility
-            let startTimeISO = startDateTime.toISOString();
-            let endTimeISO = endDateTime.toISOString();
-            
-            let costData = {
-                serviceId: service._id,
-                startTime: startTimeISO,
-                endTime: endTimeISO,
-                workDate: currentDate, // Add workDate for API compatibility
-                location: {
-                    province: req.query.province,
-                    district: req.query.district,
-                    ward: req.query.ward
-                }
-            };
 
-            console.log('Sending cost calculation request:', costData);
-            console.log('Date validation check:', {
-                startTimeString: startTimeString,
-                endTimeString: endTimeString,
-                startTimeISO: startTimeISO,
-                endTimeISO: endTimeISO,
-                startTimeDate: startDateTime,
-                endTimeDate: endDateTime,
-                isValidStart: !isNaN(startDateTime.getTime()),
-                isValidEnd: !isNaN(endDateTime.getTime())
+            // Process all dates with validated times
+            let totalCost = 0;
+            const costPromises = req.query.dates.map(async (currentDate, index) => {
+                // Validate date format
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(currentDate)) {
+                    console.error('Invalid date format:', currentDate);
+                    return 0;
+                }
+                
+                let startTimeFormatted = startTime + ':00';
+                let endTimeFormatted = endTime + ':00';
+                
+                let startTimeString = currentDate + 'T' + startTimeFormatted;
+                let endTimeString = currentDate + 'T' + endTimeFormatted;
+                
+                // Validate the resulting datetime strings
+                let startDateTime = new Date(startTimeString);
+                let endDateTime = new Date(endTimeString);
+                
+                if (isNaN(startDateTime.getTime()) || isNaN(endDateTime.getTime())) {
+                    console.error('Invalid datetime for date:', currentDate);
+                    return 0;
+                }
+                
+                // Convert to ISO strings for API compatibility
+                let startTimeISO = startDateTime.toISOString();
+                let endTimeISO = endDateTime.toISOString();
+                
+                let costData = {
+                    serviceId: service ? service._id : req.query.service,
+                    startTime: startTimeISO,
+                    endTime: endTimeISO,
+                    workDate: currentDate,
+                    location: {
+                        province: req.query.province,
+                        district: req.query.district,
+                        ward: req.query.ward
+                    }
+                };
+
+                console.log(`Cost calc for date ${currentDate}:`, costData);
+
+                // Skip API call if no valid service ID
+                if (!costData.serviceId) {
+                    console.log('No valid service ID, skipping cost calculation for date:', currentDate);
+                    return 0;
+                }
+
+                try {
+                    let response = await fetch(process.env.API_URL + '/request/calculateCost', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(costData),
+                        timeout: 10000 // Add 10 second timeout
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`API returned ${response.status}`);
+                    }
+                    
+                    let result = await response.json();
+                    return result.totalCost || 0;
+                } catch (err) {
+                    console.error(`Error calculating cost for date ${currentDate}:`, err);
+                    // Return a basic fallback cost calculation if API fails
+                    console.log('Using fallback cost calculation...');
+                    return calculateFallbackCost(startDateTime, endDateTime, service);
+                }
             });
 
-            let response= await fetch(process.env.API_URL + '/request/calculateCost',{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(costData)
-            }).then(data=>data.json())
-            .catch(err=>{
-                console.error('Error calculating cost:', err);
-                return { totalCost: 0 }; // Return default cost on error
-            })
-            console.log('Cost calculation response:', response);
-            if (response && response.totalCost !== undefined) {
-                
-                req.query.totalCost += response.totalCost;
+            // Wait for all cost calculations and sum them up
+            const costs = await Promise.all(costPromises);
+            req.query.totalCost = costs.reduce((sum, cost) => sum + cost, 0);
+            
+            console.log('Total cost calculated:', req.query.totalCost);
+            
+        } catch (error) {
+            console.error('Error in cost calculation process:', error);
+            req.query.totalCost = calculateBasicFallbackCost(req.query.dates, service); // Fallback calculation
+        }
+
+        // Helper function for fallback cost calculation
+        function calculateFallbackCost(startDateTime, endDateTime, service) {
+            try {
+                const hours = (endDateTime - startDateTime) / (1000 * 60 * 60);
+                const baseCostPerHour = service && service.cost ? service.cost : 50000; // Default 50k VND per hour
+                return Math.round(hours * baseCostPerHour);
+            } catch (err) {
+                console.error('Error in fallback cost calculation:', err);
+                return 100000; // Default 100k VND per day
             }
+        }
+
+        // Helper function for basic fallback when all else fails
+        function calculateBasicFallbackCost(dates, service) {
+            const baseCostPerDay = service && service.cost ? service.cost : 100000; // Default 100k VND per day
+            return dates.length * baseCostPerDay;
         }
 
         
 
         //get helper information
-        let helper = await fetch(process.env.API_URL + '/helper/'+req.query.helperId)
-            .then(data => data.json())
-            .then(data => {
-                if (data.length > 1) {
+        let helper = {};
+        if (req.query.helperId && req.query.helperId !== 'default') {
+            helper = await fetch(process.env.API_URL + '/helper/'+req.query.helperId)
+                .then(data => data.json())
+                .then(data => {
+                    if (data.length > 1) {
+                        return {};
+                    }
+                    else return data;
+                })
+                .catch(err => {
+                    console.error(err);
                     return {};
-                }
-                else return data;
-            })
-            .catch(err=>console.error(err))
-
+                });
+        }
+        console.log("service in submit: ",service)
         res.render('partials/detailedRequest', {
             customer: user,
             request: req.query,

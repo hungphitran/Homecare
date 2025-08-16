@@ -18,7 +18,7 @@
                             hạn</button>
                     </div>
                     <div id="short-term">
-                        <form id="short-term-form" method='get' action="/request/shortterm" class="form__short-term">
+                        <form id="short-term-form" method='get' action="/request" class="form__short-term">
                             <div class="form-group slideshow__form-group slideshow__form-group--adjust">
 
 
@@ -115,12 +115,12 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <input type="hidden" name="requestType" value="Ngắn hạn">
                         </form>
                         <button id="submitForm1" class="btn btn-find btn-find-short-term" form="short-term-form">Tìm kiếm</button>
                     </div>
                     <div id="long-term">
-                        <form id="long-term-form" method="get" action="/request/longterm"
+                        <form id="long-term-form" method="get" action="/request"
                             class="form__long-term hide-form">
 
                             <div class="form-group slideshow__form-group slideshow__form-group--adjust">
@@ -227,7 +227,7 @@
 
                             </div>
 
-
+                            <input type="hidden" name="requestType" value="Dài hạn">
                         </form>
                         <button class="btn btn-find btn-long hide-form" id="submitForm2"
                             style="border-radius:10px;border: 1px solid #d4d4d4;" form="long-term-form">Tìm kiếm</button>

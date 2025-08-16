@@ -34,6 +34,9 @@ const hbs = handlebars.create({
             }
             return false;
         },
+        eq: function(a, b) {
+            return a === b;
+        },
         showdate: function(date){
             return date.split('T')[0]
         },
