@@ -294,9 +294,9 @@ const requestController={
                 
                 let startTimeFormatted = startTime + ':00';
                 let endTimeFormatted = endTime + ':00';
-                
-                let startTimeString = currentDate + 'T' + startTimeFormatted;
-                let endTimeString = currentDate + 'T' + endTimeFormatted;
+                // Thêm hậu tố 'Z' để chỉ định UTC
+                let startTimeString = currentDate + 'T' + startTimeFormatted + 'Z';
+                let endTimeString = currentDate + 'T' + endTimeFormatted + 'Z';
                 
                 // Validate the resulting datetime strings
                 let startDateTime = new Date(startTimeString);
@@ -402,7 +402,6 @@ const requestController={
                     return {};
                 });
         }
-        console.log("service in submit: ",service)
         res.render('partials/detailedRequest', {
             customer: user,
             request: req.query,
