@@ -3,7 +3,7 @@
     "builds": [
         {
             "src": "index.js",
-            "use": "@vercel/node@18"
+            "use": "@vercel/node"
         }
     ],
     "routes": [
@@ -11,8 +11,5 @@
             "src": "/(.*)",
             "dest": "index.js"
         }
-    ],
-    "env": {
-        "NODE_ENV": "production"
-    }
+    ]
 }
