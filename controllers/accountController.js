@@ -310,7 +310,7 @@ const accountController = {
                             
                             // Ensure all required fields exist
                             if (!schedule.status) {
-                                schedule.status = 'notDone';
+                                schedule.status = 'pending';
                             }
                             if (!schedule.cost) {
                                 schedule.cost = 0;

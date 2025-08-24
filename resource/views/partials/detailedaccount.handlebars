@@ -84,7 +84,7 @@
     /* Status indicators */
     .status-doneHistoryDetailHomeKare,
     .status-assignedHistoryDetailHomeKare,
-    .status-notDoneHistoryDetailHomeKare,
+    .status-pendingHistoryDetailHomeKare,
     .status-cancelHistoryDetailHomeKare,
     .status-wayPaymentHistoryDetailHomeKare,
     .status-processingHistoryDetailHomeKare {
@@ -109,7 +109,7 @@
         border-left: 3px solid #2196f3;
     }
 
-    .status-notDoneHistoryDetailHomeKare {
+    .status-pendingHistoryDetailHomeKare {
         background: #fff3e0;
         color: #e65100;
         border-left: 3px solid #ff9800;
@@ -647,7 +647,7 @@
                 </li>
                 <li class="aside__item">
                     <a href="#service-detail" class="aside__nav-active">
-                        <i class="fa fa-user"></i>Lịnh sử yêu cầu
+                        <i class="fa fa-user"></i>Đổi mật khẩu
                     </a>
                 </li>
 
@@ -799,20 +799,7 @@
                                                             <!-- Nút hành động ở cuối modal -->
                                                             <div class="actionButtonsHistoryDetailHomeKare">
                                                                 <!-- Nút thanh toán nếu có schedule nào đó cần thanh toán -->
-                                                                {{#if (hasWaitPaymentSchedules schedules)}}
-                                                                <div class="paymentSectionHistoryDetailHomeKare">
-                                                                    <div class="detailItemHistoryDetailHomeKare paymentInfo">
-                                                                        <span class="labelHistoryDetailHomeKare">Tổng tiền cần thanh toán:</span>
-                                                                        <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{#formatMoney (getTotalWaitPaymentCost schedules)}}{{/formatMoney}}</span>
-                                                                    </div>
-                                                                    <button class="btn btn-success itemPayButton" 
-                                                                        data-request-id="{{this._id}}"
-                                                                        data-type="long"
-                                                                        data-schedules="{{json schedules}}">
-                                                                        <i class="fas fa-money-bill-wave"></i> Thanh toán tất cả
-                                                                    </button>
-                                                                </div>
-                                                                {{/if}}
+                                                                {{!-- Removed bulk payment button as requested --}}
                                                                 
                                                                 <!-- Nút hủy đơn nếu có schedule nào đó chưa thực hiện -->
                                                                 {{#if (hasNotDoneSchedules schedules)}}
@@ -1024,24 +1011,10 @@
                                                                 <!-- Nút thanh toán nếu schedule cần thanh toán -->
                                                                 {{#each schedules}}
                                                                 {{#if @first}}
-                                                                {{#if (isWaitPayment status)}}
-                                                                <div class="paymentSectionHistoryDetailHomeKare">
-                                                                    <div class="detailItemHistoryDetailHomeKare paymentInfo">
-                                                                        <span class="labelHistoryDetailHomeKare">Số tiền cần thanh toán:</span>
-                                                                        <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">{{#formatMoney cost}}{{/formatMoney}}</span>
-                                                                    </div>
-                                                                    <button class="btn btn-success itemPayButton" 
-                                                                        data-schedule-id="{{_id}}"
-                                                                        data-request-id="{{../this._id}}" 
-                                                                        data-cost="{{cost}}" 
-                                                                        data-type="short">
-                                                                        <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
-                                                                    </button>
-                                                                </div>
-                                                                {{/if}}
+                                                                {{!-- Payment section removed as per request --}}
                                                                 
                                                                 <!-- Nút hủy đơn nếu schedule chưa thực hiện -->
-                                                                {{#if (eq status "notDone")}}
+                                                                {{#if (eq status "pending")}}
                                                                 <div class="cancelSectionHistoryDetailHomeKare">
                                                                     <button class="btn btn-danger cancelButton" 
                                                                         data-request-id="{{../this._id}}"
@@ -1175,7 +1148,7 @@
                 currentPaymentInfo.scheduleId = button.getAttribute('data-schedule-id');
                 currentPaymentInfo.requestId = button.getAttribute('data-request-id');
                 currentPaymentInfo.type = button.getAttribute('data-type');
-                currentPaymentInfo.schedules = button.getAttribute('data-schedules');
+                // Bulk schedules removed
 
                 // Lưu tham chiếu đến nút hiện tại
                 window.currentPaymentButton = button;
@@ -1196,16 +1169,10 @@
                 return;
             }
 
-            // Nếu có scheduleId cụ thể (ngắn hạn)
             if (currentPaymentInfo.scheduleId) {
                 processSinglePayment(currentPaymentInfo.scheduleId);
-            } 
-            // Nếu có schedules (dài hạn - thanh toán nhiều)
-            else if (currentPaymentInfo.schedules) {
-                processMultiplePayments(currentPaymentInfo.schedules);
-            } 
-            else {
-                alert('Thông tin thanh toán không hợp lệ!');
+            } else {
+                alert('Không xác định được lịch để thanh toán.');
             }
         });
 
@@ -1249,60 +1216,7 @@
             });
         }
 
-        // Xử lý thanh toán nhiều schedule
-        function processMultiplePayments(schedulesJson) {
-            try {
-                const schedules = JSON.parse(schedulesJson);
-                const waitPaymentSchedules = schedules.filter(s => s.status === 'waitPayment');
-                
-                if (waitPaymentSchedules.length === 0) {
-                    alert('Không có schedule nào cần thanh toán!');
-                    return;
-                }
-
-                // Đóng modal xác nhận
-                const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmPaymentModal'));
-                confirmModal.hide();
-
-                // Show loading
-                document.querySelector('.loading-overlay').classList.add('active');
-
-                // Thanh toán từng schedule một
-                const paymentPromises = waitPaymentSchedules.map(schedule => 
-                    fetch('/request/finishpayment', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            detailId: schedule._id
-                        })
-                    })
-                );
-
-                Promise.all(paymentPromises)
-                    .then(responses => {
-                        const allSuccessful = responses.every(response => response.ok);
-                        if (allSuccessful) {
-                            alert('Thanh toán tất cả thành công!');
-                            window.location.reload();
-                        } else {
-                            alert('Một số thanh toán thất bại!');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error processing multiple payments:', error);
-                        alert('Có lỗi xảy ra khi thanh toán!');
-                    })
-                    .finally(() => {
-                        // Hide loading
-                        document.querySelector('.loading-overlay').classList.remove('active');
-                    });
-            } catch (error) {
-                console.error('Error parsing schedules:', error);
-                alert('Có lỗi xảy ra khi xử lý thông tin thanh toán!');
-            }
-        }
+    // Bulk payment function removed
 
         // Xử lý gửi đánh giá
         document.getElementById('submitRatingBtn').addEventListener('click', function () {
@@ -1456,8 +1370,8 @@
                     icon: '<i class="fas fa-user-check"></i>',
                     text: 'Đã xác nhận'
                 },
-                'notDone': {
-                    class: 'status-notDoneHistoryDetailHomeKare',
+                'pending': {
+                    class: 'status-pendingHistoryDetailHomeKare',
                     icon: '<i class="fas fa-clock"></i>',
                     text: 'Chờ xác nhận'
                 },
@@ -1482,13 +1396,13 @@
             element.classList.remove(
                 'status-doneHistoryDetailHomeKare',
                 'status-assignedHistoryDetailHomeKare',
-                'status-notDoneHistoryDetailHomeKare',
+                'status-pendingHistoryDetailHomeKare',
                 'status-cancelHistoryDetailHomeKare',
                 'status-wayPaymentHistoryDetailHomeKare',
                 'status-processingHistoryDetailHomeKare'
             );
 
-            const statusInfo = statusMap[status] || statusMap.notDone;
+            const statusInfo = statusMap[status] || statusMap.pending;
             element.classList.add(statusInfo.class);
             element.innerHTML = `${statusInfo.icon} ${statusInfo.text}`;
         }
@@ -2766,8 +2680,8 @@
               }
   
               if (cancelButton) {
-                  // Chỉ hiển thị nút hủy đơn nếu trạng thái là notDone
-                  if (status === 'notDone') {
+                                  // Chỉ hiển thị nút hủy đơn nếu trạng thái là pending
+                if (status === 'pending') {
                       cancelButton.style.display = 'block';
                   } else {
                       cancelButton.style.display = 'none';
@@ -2865,143 +2779,9 @@
                 }
 
                 // Nếu trạng thái là chờ thanh toán, tạo phần UI thanh toán
-                if (status === 'waitPayment') {
-                    // Tạo phần thanh toán mới
-                    paymentSection = document.createElement('div');
-                    paymentSection.className = 'paymentSectionHistoryDetailHomeKare';
-
-
-                    // Lấy thông tin cần thiết
-                    const modal = statusEl.closest('.modalHistoryDetailHomeKare');
-                    const requestId = modal.getAttribute('data-request-id');
-                    const isLongTerm = modal.id === 'longTermModalHistoryDetailHomeKare';
-
-
-                    if (isLongTerm) {
-                        const totalCostEl = modal.querySelector('.totalCostHistoryDetailHomeKare .valueHistoryDetailHomeKare');
-                        if (totalCostEl) {
-                            price = totalCostEl.textContent;
-                        }
-                        // Đối với dài hạn, cần xác định scheduleId cụ thể
-                        const dayBill = container.closest('.dayBillHistoryDetailHomeKare');
-                        const index = Array.from(modal.querySelectorAll('.dayBillHistoryDetailHomeKare')).indexOf(dayBill);
-                        /*if (index > -1) {
-                            scheduleId = `schedule_${requestId}_${index}`;  // Tạo ID ảo nếu không có thật
-                        }*/
-                    } else {
-                        // Đối với ngắn hạn
-                        const priceEl = container.querySelector('.detailItemHistoryDetailHomeKare:nth-child(5) .valueHistoryDetailHomeKare');
-                        /*if (priceEl) {
-                            price = priceEl.textContent;
-                        }
-                        scheduleId = `schedule_${requestId}_0`; */ // Tạo ID ảo nếu không có thật
-                    }
-
-                    // Tạo HTML cho phần thanh toán
-                    paymentSection.innerHTML = `
-                <div class="detailItemHistoryDetailHomeKare paymentInfo">
-                    <span class="labelHistoryDetailHomeKare">Số tiền cần thanh toán:</span>
-                    <span class="valueHistoryDetailHomeKare paymentAmountHistoryDetailHomeKare">${price}</span>
-                </div>
-                <button class="btn btn-success itemPayButton" 
-                    data-cost="${price}"
-                    data-detail-id="${scheduleId}" 
-                    data-request-id="${requestId}"
-                    data-type="${isLongTerm ? 'long' : 'short'}">
-                    <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
-                </button>
-            `;
-
-                    // Thêm vào container
-                    container.appendChild(paymentSection);
-                }
+                // Payment UI generation removed
             });
         }
-        // Hàm đơn giản kiểm tra và cập nhật nút thanh toán khi mở modal
-       /* function setupPaymentButtons() {
-            // Xử lý cho tất cả các modal
-            document.querySelectorAll('.modalHistoryDetailHomeKare').forEach(modal => {
-                // Lấy nút thanh toán dựa vào ID modal
-                let payButton;
-                let cancelButton;
-
-                if (modal.id === 'shortTermModalHistoryDetailHomeKare') {
-                    payButton = modal.querySelector('#payButtonShort');
-
-                    // Tìm hoặc tạo nút hủy đơn
-                    cancelButton = modal.querySelector('#cancelButtonShort');
-                    if (!cancelButton) {
-                        cancelButton = document.createElement('button');
-                        cancelButton.id = 'cancelButtonShort';
-                        cancelButton.className = 'btn btn-danger';
-                        cancelButton.style.marginRight = 'auto';
-                        cancelButton.textContent = 'Hủy đơn';
-
-                        const billDetails = modal.querySelector('.billDetailsHistoryDetailHomeKare');
-                        if (billDetails) {
-                            billDetails.appendChild(cancelButton);
-                        }
-                    }
-                } else if (modal.id === 'longTermModalHistoryDetailHomeKare') {
-                    payButton = modal.querySelector('#payButton');
-
-                    // Tìm hoặc tạo nút hủy đơn
-                    cancelButton = modal.querySelector('#cancelButton');
-                    if (!cancelButton) {
-                        cancelButton = document.createElement('button');
-                        cancelButton.id = 'cancelButton';
-                        cancelButton.className = 'btn btn-danger';
-                        cancelButton.style.marginRight = '10px';
-                        cancelButton.textContent = 'Hủy đơn';
-
-                        const totalCost = modal.querySelector('.totalCostHistoryDetailHomeKare');
-                        if (totalCost) {
-                            totalCost.insertBefore(cancelButton, payButton);
-                        }
-                    }
-                }
-
-                // Ẩn nút thanh toán và hủy đơn mặc định
-                if (payButton) payButton.style.display = 'none';
-                if (cancelButton) cancelButton.style.display = 'none';
-
-                // Tìm tất cả các phần tử trạng thái trong modal
-                //tommy
-                const statusElements = modal.querySelectorAll('.status-completeHistoryDetailHomeKare');
-
-                const requestStatus = modal.getAttribute('data-request-status') ||
-                    modal.closest('tr')?.getAttribute('data-status');
-                console.log(payButton);
-
-                // Hiển thị nút thanh toán nếu trạng thái là đã hoàn thành
-                console.log("requestStatus", requestStatus);
-                if (requestStatus === 'waitPayment' && payButton) {
-
-                    payButton.style.display = 'block';
-
-
-                }
-                // Kiểm tra trạng thái của đơn hàng
-                statusElements.forEach(statusEl => {
-                    const status = statusEl.getAttribute('data-status');
-
-
-
-
-                    // Hiển thị nút hủy đơn nếu trạng thái là chờ xác nhận
-                    if (status === 'notDone' && cancelButton) {
-                        cancelButton.style.display = 'block';
-
-
-                        // Lưu trữ thông tin hàng cần xóa khi hủy
-                        cancelButton.setAttribute('data-row-id', statusEl.closest('tr')?.id || '');
-                        cancelButton.setAttribute('data-request-id', modal.getAttribute('data-request-id') || '');
-                    }
-                });
-            });
-        }*/
-
-
 
         // Thêm event listener cho các nút "Chi tiết"
         document.querySelectorAll('.btnHistoryDetailHomeKare').forEach(button => {
@@ -3051,7 +2831,7 @@
                 element.classList.remove(
                     'status-doneHistoryDetailHomeKare',
                     'status-assignedHistoryDetailHomeKare',
-                    'status-notDoneHistoryDetailHomeKare',
+                    'status-pendingHistoryDetailHomeKare',
                     'status-cancelHistoryDetailHomeKare',
                     'status-wayPaymentHistoryDetailHomeKare',
                     'status-processingHistoryDetailHomeKare'
@@ -3069,11 +2849,11 @@
                         icon: '<i class="fas fa-user-check"></i>',
                         text: 'Đã xác nhận'
                     },
-                    'notDone': {
-                        class: 'status-notDoneHistoryDetailHomeKare',
-                        icon: '<i class="fas fa-clock"></i>',
-                        text: 'Chờ xác nhận'
-                    },
+                                    'pending': {
+                    class: 'status-pendingHistoryDetailHomeKare',
+                    icon: '<i class="fas fa-clock"></i>',
+                    text: 'Chờ xác nhận'
+                },
                     'cancelled': {
                         class: 'status-cancelHistoryDetailHomeKare',
                         icon: '<i class="fas fa-times-circle"></i>',
@@ -3091,7 +2871,7 @@
                     }
                 };
 
-                const statusInfo = statusMap[status] || statusMap.notDone;
+                const statusInfo = statusMap[status] || statusMap.pending;
                 element.classList.add(statusInfo.class);
                 element.innerHTML = `${statusInfo.icon} ${statusInfo.text}`;
             });
@@ -3133,7 +2913,7 @@
             statusMap: {
                 'done': { class: 'status-doneHistoryDetailHomeKare', icon: '<i class="fas fa-check-circle"></i>', text: 'Đã hoàn thành' },
                 'assigned': { class: 'status-assignedHistoryDetailHomeKare', icon: '<i class="fas fa-user-check"></i>', text: 'Đã xác nhận' },
-                'notDone': { class: 'status-notDoneHistoryDetailHomeKare', icon: '<i class="fas fa-clock"></i>', text: 'Chờ xác nhận' },
+                'pending': { class: 'status-pendingHistoryDetailHomeKare', icon: '<i class="fas fa-clock"></i>', text: 'Chờ xác nhận' },
                 'cancelled': { class: 'status-cancelHistoryDetailHomeKare', icon: '<i class="fas fa-times-circle"></i>', text: 'Đã hủy' },
                 'waitPayment': { class: 'status-wayPaymentHistoryDetailHomeKare', icon: '<i class="fas fa-money-bill-wave"></i>', text: 'Chờ thanh toán' },
                 'processing': { class: 'status-processingHistoryDetailHomeKare', icon: '<i class="fas fa-spinner fa-spin"></i>', text: 'Đang thực hiện' }
@@ -3143,7 +2923,7 @@
                 const statusClasses = Object.values(this.statusMap).map(s => s.class);
                 element.classList.remove(...statusClasses);
                 
-                const statusInfo = this.statusMap[status] || this.statusMap.notDone;
+                const statusInfo = this.statusMap[status] || this.statusMap.pending;
                 element.classList.add(statusInfo.class);
                 element.innerHTML = `${statusInfo.icon} ${statusInfo.text}`;
             },
@@ -3179,56 +2959,7 @@
             });
         }
 
-        // Payment button handling
-        function setupPaymentButtons() {
-            document.querySelectorAll('.status-completeHistoryDetailHomeKare').forEach(statusEl => {
-                const status = statusEl.getAttribute('data-status');
-                const container = statusEl.closest('.billDetailsHistoryDetailHomeKare');
-                
-                if (!container) return;
-
-                // Remove existing payment sections
-                const existingPayment = container.querySelector('.paymentSectionHistoryDetailHomeKare');
-                if (existingPayment) existingPayment.remove();
-
-                // Add payment section if needed
-                if (status === 'waitPayment') {
-                    const modal = statusEl.closest('.modalHistoryDetailHomeKare');
-                    const requestId = modal?.getAttribute('data-request-id');
-                    const price = statusEl.getAttribute('data-cost');
-                    const scheduleId = statusEl.getAttribute('data-detail-id');
-
-                    if (price && requestId) {
-                        const paymentSection = document.createElement('div');
-                        paymentSection.className = 'paymentSectionHistoryDetailHomeKare';
-                        paymentSection.innerHTML = `
-                            <div class="detailItemHistoryDetailHomeKare paymentInfo">
-                                <span class="labelHistoryDetailHomeKare">Số tiền cần thanh toán:</span>
-                                <span class="valueHistoryDetailHomeKare">${price}</span>
-                            </div>
-                            <button class="btn btn-success itemPayButton" 
-                                data-cost="${price}"
-                                data-detail-id="${scheduleId}"
-                                data-request-id="${requestId}"
-                                data-type="${modal?.id === 'longTermModalHistoryDetailHomeKare' ? 'long' : 'short'}">
-                                <i class="fas fa-money-bill-wave"></i> Thanh toán ngay
-                            </button>
-                        `;
-                        container.appendChild(paymentSection);
-                    }
-                }
-            });
-        }
-
-        // Initialize payment buttons
-        setupPaymentButtons();
-
-        // Re-setup payment buttons when modals are shown
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('btnHistoryDetailHomeKare')) {
-                setTimeout(setupPaymentButtons, 100);
-            }
-        });
+    // Payment button logic removed
     });
 
     // Modal and utility functions

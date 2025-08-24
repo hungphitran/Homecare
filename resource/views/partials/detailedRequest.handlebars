@@ -20,7 +20,7 @@
             <div class="grid-form-homecare">
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="phone">Số điện thoại</label>
-                    <input class="input-form-homecare" type="tel" id="phone" name="phone" value="{{customer.phone}}" required>
+                    <input class="input-form-homecare" type="tel" id="phone" name="phone" value="{{customer.phone}}" required readonly style="background:#f2f2f2; pointer-events:none;">
                 </div>
     
                 <div class="group-form-homecare">
@@ -30,21 +30,35 @@
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="city">Thành phố</label>
-                    <select class="select-form-homecare" id="city" name="province" required>
+                    <select class="select-form-homecare" id="city" required disabled style="background:#f2f2f2; pointer-events:none;">
                         <option value="{{request.province}}">{{request.province}}</option>
                     </select>
+                    <!-- Hidden field retains province value for submission -->
+                    <input type="hidden" name="province" value="{{request.province}}">
                 </div>
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="district">Quận</label>
-                    <select class="select-form-homecare" id="district" name="district" required>
+                    <select class="select-form-homecare" id="district" required disabled style="background:#f2f2f2; pointer-events:none;">
                         <option value="{{request.district}}">{{request.district}}</option>
                     </select>
+                    <!-- Hidden field retains district value for submission -->
+                    <input type="hidden" name="district" value="{{request.district}}">
                 </div>
     
                 <div class="group-form-homecare">
-                    <label class="label-form-homecare" for="ward">Phường</label>
+                    <label class="label-form-homecare" for="ward">Phường/Xã</label>
+                    {{#if locations}}
+                    <select class="select-form-homecare" id="ward" name="ward" required>
+                        {{#if request.ward}}
+                        <option value="{{request.ward}}">{{request.ward}}</option>
+                        {{else}}
+                        <option value="">Chọn phường/xã</option>
+                        {{/if}}
+                    </select>
+                    {{else}}
                     <input class="input-form-homecare" type="text" id="ward" name="ward" value="{{request.ward}}" required>
+                    {{/if}}
                 </div>
     
                 <div class="group-form-homecare full-width-form-homecare">
@@ -55,20 +69,18 @@
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="date">Ngày thực hiện</label>
                     {{#each request.dates}}
-                    <input class="input-form-homecare" type="date" id="date" name="dates[]" value="{{this}}" required>
-
+                    <input class="input-form-homecare date-readonly" type="date" id="date" name="dates[]" value="{{this}}" required onfocus="this.blur();" style="background:#f2f2f2; pointer-events:none;">
                     {{/each}}
-
                 </div>
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="startTime">Giờ bắt đầu</label>
-                    <input class="input-form-homecare" type="time" id="startTime" name="startTime" value="{{formatTime request.startTime}}" required>
+                    <input class="input-form-homecare" type="time" id="startTime" name="startTime" value="{{formatTime request.startTime}}" required readonly style="background:#f2f2f2; pointer-events:none;">
                 </div>
     
                 <div class="group-form-homecare">
                     <label class="label-form-homecare" for="endTime">Giờ kết thúc</label>
-                    <input class="input-form-homecare" type="time" id="endTime" name="endTime" value="{{formatTime request.endTime}}" required>
+                    <input class="input-form-homecare" type="time" id="endTime" name="endTime" value="{{formatTime request.endTime}}" required readonly style="background:#f2f2f2; pointer-events:none;">
                 </div>
     
                 <div class="group-form-homecare full-width-form-homecare">
@@ -110,13 +122,40 @@
     const nameInput = document.querySelector('#fullname');
     const phoneInput = document.querySelector('#phone');
     const addressInput = document.querySelector('#address');
+    const wardField = document.getElementById('ward');
     console.log(submitBtn);
     console.log(customerInfo);
     console.log(nameInput);
     console.log(phoneInput);
     console.log(addressInput);
     
+    function updateSubmitState(){
+        if(!wardField){
+            submitBtn.removeAttribute('disabled');
+            return;
+        }
+        const val = wardField.value && wardField.value.trim();
+        if(!val){
+            submitBtn.setAttribute('disabled','true');
+            submitBtn.style.opacity = '0.6';
+            submitBtn.style.cursor = 'not-allowed';
+        } else {
+            submitBtn.removeAttribute('disabled');
+            submitBtn.style.opacity = '1';
+            submitBtn.style.cursor = 'pointer';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded',()=>{
+        updateSubmitState();
+        if(wardField){
+            wardField.addEventListener('change', updateSubmitState);
+            wardField.addEventListener('input', updateSubmitState);
+        }
+    });
+
     submitBtn.onclick = function () {
+        if(submitBtn.hasAttribute('disabled')) return false;
         // Validate service title
         const serviceInput = document.querySelector('input[name="service"]');
         if (!serviceInput.value || serviceInput.value.trim() === '') {
@@ -144,78 +183,49 @@
         // Set the formatted date back to the input
         startDateInput.value = formattedDate;
     });*/
-    // Sample data for districts and wards
-        const locationData = {
-            hanoi: {
-                districts: {
-                    'ba-dinh': ['Kim Mã', 'Liễu Giai', 'Ngọc Hà'],
-                    'hoan-kiem': ['Hàng Bạc', 'Hàng Bồ', 'Hàng Gai'],
-                    'hai-ba-trung': ['Bách Khoa', 'Bạch Mai', 'Đồng Nhân']
-                }
-            },
-            hcm: {
-                districts: {
-                    'quan-1': ['Bến Nghé', 'Bến Thành', 'Cầu Kho'],
-                    'quan-2': ['An Lợi Đông', 'Bình An', 'Cát Lái'],
-                    'quan-3': ['Võ Thị Sáu', 'Nguyễn Thái Bình', 'Phạm Ngũ Lão']
-                }
-            }
-        };
+    // Inject real locations data (provinces/districts/wards) from server
+    const locations = {{{ json locations }}} || [];
 
-        // Initialize form with sample data
-        document.addEventListener('DOMContentLoaded', () => {
-            // Set today as minimum date
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('date').min = today;
+    // Helper to normalize names (remove administrative prefixes)
+    function normalizeName(name) {
+        if (!name) return '';
+        return name.replace(/^(Tỉnh|Thành phố|Quận|Huyện|Thị xã|Thành Phố)\s+/i, '').trim();
+    }
 
-            // Set sample service and amount
-            //document.getElementById('service-confirm').value = 'Dịch vụ giúp việc theo giờ';
-            //document.getElementById('totalAmount').value = '300,000 VND';
+    // Populate ward select based on currently selected province & district (server provided values)
+    function populateWardSelect() {
+        const provinceValue = document.querySelector('[name="province"]').value || '{{request.province}}';
+        const districtValue = document.querySelector('[name="district"]').value || '{{request.district}}';
+        const wardSelect = document.getElementById('ward');
+        if (!wardSelect || !Array.isArray(locations) || locations.length === 0) return;
 
-            // Add event listeners
-            // If needed later, hook dynamic population here
-           // document.getElementById('confirmationForm').addEventListener('submit', handleSubmit);
+        const provinceObj = locations.find(l => normalizeName(l.Name) === normalizeName(provinceValue));
+        if (!provinceObj) return;
+        let districtObj;
+        if (provinceObj.Districts) {
+            districtObj = provinceObj.Districts.find(d => normalizeName(d.Name) === normalizeName(districtValue));
+        }
+        if (!districtObj || !districtObj.Wards) return;
+
+        const currentWard = '{{request.ward}}';
+        wardSelect.innerHTML = '<option value="">Chọn phường/xã</option>';
+        districtObj.Wards.forEach(w => {
+            const wardName = normalizeName(w.Name || w);
+            const opt = document.createElement('option');
+            opt.value = wardName;
+            opt.textContent = wardName;
+            if (currentWard && normalizeName(currentWard) === wardName) opt.selected = true;
+            wardSelect.appendChild(opt);
         });
+    }
 
-        // Update districts based on selected city
-        function updateDistricts() {
-            const city = document.getElementById('city').value;
-            const districtSelect = document.getElementById('district');
-            const wardSelect = document.getElementById('ward');
-
-            // Clear existing options
-            districtSelect.innerHTML = '<option value="">Chọn quận</option>';
-            wardSelect.innerHTML = '<option value="">Chọn phường</option>';
-
-            if (city && locationData[city]) {
-                const districts = Object.keys(locationData[city].districts);
-                districts.forEach(district => {
-                    const option = new Option(
-                        district.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-                        district
-                    );
-                    districtSelect.add(option);
-                });
-            }
-        }
-
-        // Update wards based on selected district
-        function updateWards() {
-            const city = document.getElementById('city').value;
-            const district = document.getElementById('district').value;
-            const wardSelect = document.getElementById('ward');
-
-            // Clear existing options
-            wardSelect.innerHTML = '<option value="">Chọn phường</option>';
-
-            if (city && district && locationData[city].districts[district]) {
-                const wards = locationData[city].districts[district];
-                wards.forEach(ward => {
-                    const option = new Option(ward, ward);
-                    wardSelect.add(option);
-                });
-            }
-        }
+    document.addEventListener('DOMContentLoaded', () => {
+        try { 
+            populateWardSelect(); 
+            // Re-evaluate submit state after wards populated (async safe via setTimeout)
+            setTimeout(updateSubmitState, 0);
+        } catch(e) { console.error('Populate ward error', e); }
+    });
 
         // Handle form submission
         function handleSubmit(e) {

@@ -378,17 +378,28 @@ const tabLine = $(".tab-item.active");
 const tabs = $$(".tab-item");
 const panes = $$(".tab-pane");
 const line = $(".tabs .line");
+
+// Only proceed if all required elements exist
+if (!tabLine || !tabs || !panes || !line) {
+    console.log("Tab elements not found, skipping tabUi initialization");
+    return;
+}
+
 line.style.left = tabLine.offsetLeft +'px';
 line.style.width = tabLine.offsetWidth + 'px';
 tabs.forEach(function (tab, index) {
     var pane = panes[index];
-    tab.onclick = function () {
-        line.style.left = this.offsetLeft +'px';
-        line.style.width = this.offsetWidth + 'px';
-        $(".tab-pane.active").classList.remove('active');
-        $(".tab-item.active").classList.remove('active');
-        pane.classList.add("active");
-        this.classList.add("active");
+    if (pane) {
+        tab.onclick = function () {
+            line.style.left = this.offsetLeft +'px';
+            line.style.width = this.offsetWidth + 'px';
+            const activePane = $(".tab-pane.active");
+            const activeTab = $(".tab-item.active");
+            if (activePane) activePane.classList.remove('active');
+            if (activeTab) activeTab.classList.remove('active');
+            pane.classList.add("active");
+            this.classList.add("active");
+        }
     }
 })
 }

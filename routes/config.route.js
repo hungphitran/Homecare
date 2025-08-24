@@ -5,6 +5,7 @@ const blogRoute = require('./blog.route')
 const mailRoute = require('./mail.route')
 const requestRoute = require('./request.route');
 const authRoute = require('./auth.route');
+const notificationRoute = require('./notification.route');
 const headerLoad = require('../middlewares/headerLoad')
 
 function route(app) {
@@ -17,19 +18,11 @@ function route(app) {
     app.use('/request', requestRoute)
     app.use('/account', accountRoute)
     app.use('/contact', mailRoute)
+    app.use('/notifications', notificationRoute)
     //dashboard
     app.use('/Home', dashboardRoute)
     app.use('/', dashboardRoute)
     
-    // Route for pages like notification
-    app.get('/pages/notification', (req, res) => {
-        const { type, noti } = req.query;
-        res.render('pages/notificationpage', {
-            layout: false,
-            type: type || 'info',
-            noti: noti || 'Thông báo hệ thống'
-        });
-    });
 }
 
 module.exports = { route }

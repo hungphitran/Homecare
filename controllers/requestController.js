@@ -402,11 +402,21 @@ const requestController={
                     return {};
                 });
         }
+        // Fetch locations list (provinces/districts/wards) for dynamic ward dropdown
+        let locations = [];
+        try {
+            locations = await fetch(process.env.API_URL + '/location')
+                .then(d => d.json());
+        } catch (e) {
+            console.error('Failed to fetch locations for detailedRequest page:', e);
+        }
+
         res.render('partials/detailedRequest', {
             customer: user,
             request: req.query,
             helper: helper,
             service: service || { title: '', _id: '', cost: 0 },
+            locations: locations || [],
             layout:false
         });
     },
@@ -656,8 +666,8 @@ const requestController={
                 coefficient_other: Number.parseFloat(serviceData.coefficient_other) || 1,
                 cost: serviceData.cost || 0
             },
-            startTime: startTimeLocal, // Try local format first
-            endTime: endTimeLocal, // Try local format first
+            startTime: startTimeLocal+'.000', // Try local format first
+            endTime: endTimeLocal+'.000', // Try local format first
             startDate: req.body.startDate, // Add startDate for API compatibility
             customerInfo: {
                 fullName: customerInfoData.fullName || '',

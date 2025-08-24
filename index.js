@@ -5,6 +5,8 @@ const handlebars = require('express-handlebars')//lib for template engine
 const session = require('express-session')//lib for modifying session
 const MongoStore = require('connect-mongo')//MongoDB session store
 const path = require('path')
+// Initialize Firebase service
+const firebaseService = require('./services/firebaseService')
 //mongodb-url 
 require('dotenv').config()
 // Trong file cấu hình handlebars (thường là app.js hoặc server.js)
@@ -138,7 +140,7 @@ const hbs = handlebars.create({
         getStatus: function(status){
             switch(status)
             {
-                case "notDone": return "Chờ xác nhận"// được hủy
+                case "pending": return "Chờ xác nhận"// được hủy
                 case "assigned": return "Đã xác nhận"
                 case "done": return "Đã hoàn thành"
                 case "cancelled" : return "Đã hủy"
@@ -175,7 +177,7 @@ const hbs = handlebars.create({
         // Helper để kiểm tra có schedule nào chưa thực hiện không
         hasNotDoneSchedules: function(schedules) {
             if (!schedules || !Array.isArray(schedules)) return false;
-            return schedules.some(schedule => schedule.status === 'notDone');
+            return schedules.some(schedule => schedule.status === 'pending');
         },
         // Helper để chuyển đổi object thành JSON string
         json: function(obj) {
@@ -193,15 +195,12 @@ const hbs = handlebars.create({
         sum: function(n1,n2){
             let num1 = Number.parseInt(n1)
             let num2 = Number.parseInt(n2)
-            console.log(n1,n2,num1,num2)
-
             return num1+num2
         },
         getButtonText: function(status){
-            console.log(status)
             switch(status)
             {
-                case "notDone": return "Hủy"
+                case "pending": return "Hủy"
                 case "assigned": return ""
                 case "done": return ""
                 case "cancelled" : return ""
@@ -234,6 +233,13 @@ app.use(session({//setting for session
 }));
 db.connect();
 
+// Initialize Firebase service
+try {
+    firebaseService.initialize();
+    console.log('Firebase notification service ready');
+} catch (error) {
+    console.warn('Firebase notification service not available:', error.message);
+}
 
 // config routes for app
 route(app);

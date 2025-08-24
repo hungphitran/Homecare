@@ -8639,7 +8639,7 @@ section {
   font-weight: 500;
 }
 
-.status-notDoneHistoryDetailHomeKare {
+.status-pendingHistoryDetailHomeKare {
   color: #7f8c8d;
   font-weight: 500;
 }
@@ -9263,6 +9263,38 @@ section {
 }
 .aside-longterm__detail.hide-2 {
   visibility: hidden;
+}
+
+/* Long-term form validation styles */
+.input-date.status.error {
+  border-color: #ff4444 !important;
+  box-shadow: 0 0 5px rgba(255, 68, 68, 0.3);
+}
+
+.input-date.status.error + .form__input-icon-error {
+  display: block;
+}
+
+.form__input-icon-error {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}
+
+/* Date validation error message */
+.date-validation-error {
+  color: #ff4444;
+  font-size: 12px;
+  margin-top: 5px;
+  display: none;
+}
+
+.date-validation-error.show {
+  display: block;
 }
 
 /*# sourceMappingURL=style.css.map */

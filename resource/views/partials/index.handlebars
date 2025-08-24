@@ -1,4 +1,3 @@
-
 <div class="slideshow">
     <div class="slideshow__inner">
         <section class="slider-lastest owl-carousel owl-theme">
@@ -1355,35 +1354,182 @@
         endTimeInput.style.opacity = '0.5';
         endTimeInput.style.pointerEvents = 'none';
 
+        // Show time validation message
+        function showTimeValidationMessage(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `time-validation-notification ${type}`;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                border-radius: 8px;
+                color: white;
+                font-weight: 500;
+                z-index: 10000;
+                max-width: 400px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                animation: slideInRight 0.3s ease-out;
+            `;
+            
+            // Set background color based on type
+            switch(type) {
+                case 'error':
+                    notification.style.backgroundColor = '#dc3545';
+                    break;
+                case 'warning':
+                    notification.style.backgroundColor = '#ffc107';
+                    notification.style.color = '#212529';
+                    break;
+                case 'success':
+                    notification.style.backgroundColor = '#28a745';
+                    break;
+                default:
+                    notification.style.backgroundColor = '#17a2b8';
+            }
+            
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideOutRight 0.3s ease-in';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }
+            }, 5000);
+            
+            // Add click to dismiss
+            notification.addEventListener('click', () => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            });
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Get current time and date
+        function getCurrentDateTime() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            const currentDate = now.toISOString().split('T')[0];
+            
+            return {
+                hour: currentHour + (currentMinute / 60),
+                date: currentDate,
+                isAfter15h: currentHour >= 15
+            };
+        }
+
         // Generate time options
         function generateTimeOptions(startHour, endHour) {
             const times = [];
-            for (let hour = startHour; hour <= endHour; hour++) {
+            // Convert to 30-minute intervals (0.5 hour increments)
+            const startInterval = Math.ceil(startHour * 2) / 2;
+            const endInterval = Math.floor(endHour * 2) / 2;
+            
+            for (let time = startInterval; time <= endInterval; time += 0.5) {
+                const hour = Math.floor(time);
+                const minute = (time % 1) === 0.5 ? 30 : 0;
                 const period = hour >= 12 ? 'PM' : 'AM';
                 const displayHour = hour > 12 ? hour - 12 : hour;
+                const displayMinute = minute === 0 ? '00' : '30';
 
-                // Add :00 option
                 times.push({
-                    display: `${displayHour}:00 ${period}`,
-                    value: `${hour.toString().padStart(2, '0')}:00`,
-                    hour: hour
+                    display: `${displayHour}:${displayMinute} ${period}`,
+                    value: `${hour.toString().padStart(2, '0')}:${displayMinute}`,
+                    hour: time
                 });
-
-                // Add :30 option if not the last hour
-                if (hour < endHour) {
-                    times.push({
-                        display: `${displayHour}:30 ${period}`,
-                        value: `${hour.toString().padStart(2, '0')}:30`,
-                        hour: hour + 0.5
-                    });
-                }
             }
             return times;
         }
 
+        // Generate start time options based on current time and selected date
+        function generateStartTimeOptions(selectedDate) {
+            const current = getCurrentDateTime();
+            const isToday = selectedDate === current.date;
+            
+            let minStartHour = 6; // Minimum start time is 6 AM
+            
+            if (isToday) {
+                // If today, start time must be at least 2 hours after current time
+                minStartHour = Math.max(6, Math.ceil(current.hour + 2));
+                
+                // If current time is after 15h (3 PM), no valid start times for today
+                if (current.isAfter15h) {
+                    return [];
+                }
+            }
+            
+            // Maximum start time is 18h (6 PM) to ensure at least 2 hours before 20h
+            const maxStartHour = 18;
+            
+            if (minStartHour > maxStartHour) {
+                return [];
+            }
+            
+            return generateTimeOptions(minStartHour, maxStartHour);
+        }
+
+        // Generate end time options based on start time
+        function generateEndTimeOptions(startHour) {
+            const minEndHour = startHour + 2; // At least 2 hours after start time
+            const maxEndHour = 20; // Maximum end time is 20h (8 PM)
+            
+            if (minEndHour > maxEndHour) {
+                return [];
+            }
+            
+            // Round up minEndHour to the next available time slot
+            const roundedMinEndHour = Math.ceil(minEndHour * 2) / 2;
+            
+            return generateTimeOptions(roundedMinEndHour, maxEndHour);
+        }
+
+        // Get tomorrow's date
+        function getTomorrowDate() {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            return tomorrow.toISOString().split('T')[0];
+        }
+
+        // Check if date should be automatically set to tomorrow
+        function shouldSetToTomorrow(selectedDate) {
+            const current = getCurrentDateTime();
+            return current.isAfter15h && selectedDate === current.date;
+        }
+
+        // Update date input if current time is after 15h
+        function updateDateIfNeeded(dateInput) {
+            if (shouldSetToTomorrow(dateInput.value)) {
+                dateInput.value = getTomorrowDate();
+                return true; // Date was updated
+            }
+            return false; // Date was not updated
+        }
+
         // Generate time options for both pickers
-        const startTimes = generateTimeOptions(6, 18); // 6 AM to 6 PM
-        const endTimes = generateTimeOptions(8, 20);   // 8 AM to 8 PM
+        let startTimes = [];
+        let endTimes = [];
 
         // Populate time lists
         function populateTimeList(timeList, times) {
@@ -1398,17 +1544,77 @@
             });
         }
 
-        populateTimeList(startTimeList, startTimes);
-        populateTimeList(endTimeList, endTimes);
+        // Initialize time pickers
+        function initializeTimePickers() {
+            const current = getCurrentDateTime();
+            const dateInput = document.querySelector('input[name="dates"]');
+            
+            if (dateInput) {
+                const selectedDate = dateInput.value || current.date;
+                
+                // If current time is after 15h and no date selected, set to tomorrow
+                if (current.isAfter15h && selectedDate === current.date) {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    dateInput.value = tomorrow.toISOString().split('T')[0];
+                }
+                
+                // Update start time options based on selected date
+                startTimes = generateStartTimeOptions(dateInput.value);
+                populateTimeList(startTimeList, startTimes);
+                
+                // Reset end time picker
+                endTimeInput.style.opacity = '0.5';
+                endTimeInput.style.pointerEvents = 'none';
+                endTimes = [];
+                populateTimeList(endTimeList, []);
+            }
+        }
+
+        // Initialize on page load
+        initializeTimePickers();
+
+        // Update time options when date changes
+        const dateInput = document.querySelector('input[name="dates"]');
+        if (dateInput) {
+            dateInput.addEventListener('change', function() {
+                startTimes = generateStartTimeOptions(this.value);
+                populateTimeList(startTimeList, startTimes);
+                
+                // Reset end time picker
+                endTimeInput.style.opacity = '0.5';
+                endTimeInput.style.pointerEvents = 'none';
+                endTimes = [];
+                populateTimeList(endTimeList, []);
+                
+                // Clear selected times
+                startTimeInput.querySelector('.selected-time-homecare').textContent = 'Giờ bắt đầu';
+                endTimeInput.querySelector('.selected-time-homecare').textContent = 'Giờ kết thúc';
+            });
+        }
 
         // Calculate end time options based on start time
         function updateEndTimeOptions(selectedStartHour) {
-            const twoHoursLater = selectedStartHour + 2;
-            const validEndTimes = endTimes.filter(time => time.hour >= twoHoursLater);
-            populateTimeList(endTimeList, validEndTimes);
+            endTimes = generateEndTimeOptions(selectedStartHour);
+            populateTimeList(endTimeList, endTimes);
 
-            // Auto-select the time that's 2 hours after start time
-            const autoSelectTime = validEndTimes.find(time => time.hour === twoHoursLater);
+            // Auto-select the time that's 2 hours after start time if available
+            const twoHoursLater = selectedStartHour + 2;
+            
+            // Find the closest time that's at least 2 hours after start time
+            let autoSelectTime = null;
+            let minDifference = Infinity;
+            
+            endTimes.forEach(time => {
+                if (time.hour >= twoHoursLater) {
+                    const difference = time.hour - twoHoursLater;
+                    if (difference < minDifference) {
+                        minDifference = difference;
+                        autoSelectTime = time;
+                    }
+                }
+            });
+            
             if (autoSelectTime) {
                 const endTimeOption = endTimeList.querySelector(`[data-value="${autoSelectTime.value}"]`);
                 if (endTimeOption) {
@@ -1554,32 +1760,88 @@
         endTimeInput.style.opacity = '0.5';
         endTimeInput.style.pointerEvents = 'none';
 
-        // Generate time options remains the same
+        // Get current time and date
+        function getCurrentDateTime() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
+            const currentDate = now.toISOString().split('T')[0];
+            
+            return {
+                hour: currentHour + (currentMinute / 60),
+                date: currentDate,
+                isAfter15h: currentHour >= 15
+            };
+        }
+
+        // Generate start time options based on current time and selected date
+        function generateStartTimeOptions(selectedDate) {
+            const current = getCurrentDateTime();
+            const isToday = selectedDate === current.date;
+            
+            let minStartHour = 6; // Minimum start time is 6 AM
+            
+            if (isToday) {
+                // If today, start time must be at least 2 hours after current time
+                minStartHour = Math.max(6, Math.ceil(current.hour + 2));
+                
+                // If current time is after 15h (3 PM), no valid start times for today
+                if (current.isAfter15h) {
+                    return [];
+                }
+            }
+            
+            // Maximum start time is 18h (6 PM) to ensure at least 2 hours before 20h
+            const maxStartHour = 18;
+            
+            if (minStartHour > maxStartHour) {
+                return [];
+            }
+            
+            return generateTimeOptions(minStartHour, maxStartHour);
+        }
+
+        // Generate end time options based on start time
+        function generateEndTimeOptions(startHour) {
+            const minEndHour = startHour + 2; // At least 2 hours after start time
+            const maxEndHour = 20; // Maximum end time is 20h (8 PM)
+            
+            if (minEndHour > maxEndHour) {
+                return [];
+            }
+            
+            // Round up minEndHour to the next available time slot
+            const roundedMinEndHour = Math.ceil(minEndHour * 2) / 2;
+            
+            return generateTimeOptions(roundedMinEndHour, maxEndHour);
+        }
+
+        // Generate time options
         function generateTimeOptions(startHour, endHour) {
             const times = [];
-            for (let hour = startHour; hour <= endHour; hour++) {
+            // Convert to 30-minute intervals (0.5 hour increments)
+            const startInterval = Math.ceil(startHour * 2) / 2;
+            const endInterval = Math.floor(endHour * 2) / 2;
+            
+            for (let time = startInterval; time <= endInterval; time += 0.5) {
+                const hour = Math.floor(time);
+                const minute = (time % 1) === 0.5 ? 30 : 0;
                 const period = hour >= 12 ? 'PM' : 'AM';
                 const displayHour = hour > 12 ? hour - 12 : hour;
+                const displayMinute = minute === 0 ? '00' : '30';
 
                 times.push({
-                    display: `${displayHour}:00 ${period}`,
-                    value: `${hour.toString().padStart(2, '0')}:00`,
-                    hour: hour
+                    display: `${displayHour}:${displayMinute} ${period}`,
+                    value: `${hour.toString().padStart(2, '0')}:${displayMinute}`,
+                    hour: time
                 });
-
-                if (hour < endHour) {
-                    times.push({
-                        display: `${displayHour}:30 ${period}`,
-                        value: `${hour.toString().padStart(2, '0')}:30`,
-                        hour: hour + 0.5
-                    });
-                }
             }
             return times;
         }
 
-        const startTimes = generateTimeOptions(6, 18);
-        const endTimes = generateTimeOptions(8, 20);
+        // Generate time options for both pickers
+        let startTimes = [];
+        let endTimes = [];
 
         // Update class names with long suffix
         function populateTimeList(timeList, times) {
@@ -1594,15 +1856,76 @@
             });
         }
 
-        populateTimeList(startTimeList, startTimes);
-        populateTimeList(endTimeList, endTimes);
+        // Initialize time pickers
+        function initializeTimePickers() {
+            const current = getCurrentDateTime();
+            const dateInput = document.querySelector('input[name="dates"]');
+            
+            if (dateInput) {
+                const selectedDate = dateInput.value || current.date;
+                
+                // If current time is after 15h and no date selected, set to tomorrow
+                if (current.isAfter15h && selectedDate === current.date) {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    dateInput.value = tomorrow.toISOString().split('T')[0];
+                }
+                
+                // Update start time options based on selected date
+                startTimes = generateStartTimeOptions(dateInput.value);
+                populateTimeList(startTimeList, startTimes);
+                
+                // Reset end time picker
+                endTimeInput.style.opacity = '0.5';
+                endTimeInput.style.pointerEvents = 'none';
+                endTimes = [];
+                populateTimeList(endTimeList, []);
+            }
+        }
+
+        // Initialize on page load
+        initializeTimePickers();
+
+        // Update time options when date changes
+        const dateInput = document.querySelector('input[name="dates"]');
+        if (dateInput) {
+            dateInput.addEventListener('change', function() {
+                startTimes = generateStartTimeOptions(this.value);
+                populateTimeList(startTimeList, startTimes);
+                
+                // Reset end time picker
+                endTimeInput.style.opacity = '0.5';
+                endTimeInput.style.pointerEvents = 'none';
+                endTimes = [];
+                populateTimeList(endTimeList, []);
+                
+                // Clear selected times
+                startTimeInput.querySelector('.selected-time-homecare-long').textContent = 'Giờ bắt đầu';
+                endTimeInput.querySelector('.selected-time-homecare-long').textContent = 'Giờ kết thúc';
+            });
+        }
 
         function updateEndTimeOptions(selectedStartHour) {
-            const twoHoursLater = selectedStartHour + 2;
-            const validEndTimes = endTimes.filter(time => time.hour >= twoHoursLater);
-            populateTimeList(endTimeList, validEndTimes);
+            endTimes = generateEndTimeOptions(selectedStartHour);
+            populateTimeList(endTimeList, endTimes);
 
-            const autoSelectTime = validEndTimes.find(time => time.hour === twoHoursLater);
+            // Auto-select the time that's 2 hours after start time if available
+            const twoHoursLater = selectedStartHour + 2;
+            
+            // Find the closest time that's at least 2 hours after start time
+            let autoSelectTime = null;
+            let minDifference = Infinity;
+            
+            endTimes.forEach(time => {
+                if (time.hour >= twoHoursLater) {
+                    const difference = time.hour - twoHoursLater;
+                    if (difference < minDifference) {
+                        minDifference = difference;
+                        autoSelectTime = time;
+                    }
+                }
+            });
+            
             if (autoSelectTime) {
                 const endTimeOption = endTimeList.querySelector(`[data-value="${autoSelectTime.value}"]`);
                 if (endTimeOption) {
@@ -1699,6 +2022,55 @@
                 });
             }
         });
+
+        // Initialize time pickers for long term
+        function initializeTimePickersLong() {
+            const current = getCurrentDateTime();
+            const dateInput = document.querySelector('input[name="dates"]');
+            
+            if (dateInput) {
+                const selectedDate = dateInput.value || current.date;
+                
+                // If current time is after 15h and no date selected, set to tomorrow
+                if (current.isAfter15h && selectedDate === current.date) {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    dateInput.value = tomorrow.toISOString().split('T')[0];
+                }
+                
+                // Update start time options based on selected date
+                startTimes = generateStartTimeOptions(dateInput.value);
+                populateTimeList(startTimeList, startTimes);
+                
+                // Reset end time picker
+                endTimeInput.style.opacity = '0.5';
+                endTimeInput.style.pointerEvents = 'none';
+                endTimes = [];
+                populateTimeList(endTimeList, []);
+            }
+        }
+
+        // Initialize on page load
+        initializeTimePickersLong();
+
+        // Update time options when date changes for long term
+        const dateInputLong = document.querySelector('input[name="dates"]');
+        if (dateInputLong) {
+            dateInputLong.addEventListener('change', function() {
+                startTimes = generateStartTimeOptions(this.value);
+                populateTimeList(startTimeList, startTimes);
+                
+                // Reset end time picker
+                endTimeInput.style.opacity = '0.5';
+                endTimeInput.style.pointerEvents = 'none';
+                endTimes = [];
+                populateTimeList(endTimeList, []);
+                
+                // Clear selected times
+                startTimeInput.querySelector('.selected-time-homecare-long').textContent = 'Giờ bắt đầu';
+                endTimeInput.querySelector('.selected-time-homecare-long').textContent = 'Giờ kết thúc';
+            });
+        }
     });
 </script>
 <script>
@@ -1785,6 +2157,96 @@
         // Check for any notifications
         if ((type && noti) || success || error || warning || info) {
             checkToast();
+        }
+    });
+</script>
+<script>
+    // Add form validation for long-term form
+    document.addEventListener("DOMContentLoaded", function () {
+        const longTermForm = document.getElementById('long-term-form');
+        const startDateInput = document.querySelector('input[name="startDate"]');
+        const endDateInput = document.querySelector('input[name="endDate"]');
+        const submitBtn = document.getElementById('submitForm2');
+
+        // Function to validate dates
+        function validateDates() {
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+            
+            // Reset error states
+            startDateInput.classList.remove('error');
+            endDateInput.classList.remove('error');
+            
+            // Check if dates are selected
+            if (!startDateInput.value || !endDateInput.value) {
+                return false;
+            }
+            
+            // Check if start date is not equal to end date
+            if (startDate.getTime() === endDate.getTime()) {
+                startDateInput.classList.add('error');
+                endDateInput.classList.add('error');
+                alert('Ngày bắt đầu không được trùng với ngày kết thúc!');
+                return false;
+            }
+            
+            // Check if start date is before end date
+            if (startDate >= endDate) {
+                startDateInput.classList.add('error');
+                endDateInput.classList.add('error');
+                alert('Ngày bắt đầu phải trước ngày kết thúc!');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Add validation on date change
+        if (startDateInput) {
+            startDateInput.addEventListener('change', validateDates);
+        }
+        if (endDateInput) {
+            endDateInput.addEventListener('change', validateDates);
+        }
+
+        // Add form submission validation
+        if (longTermForm) {
+            longTermForm.addEventListener('submit', function(e) {
+                if (!validateDates()) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Additional validation for time selection
+                const startTimeValue = document.getElementById('start-time-value-long').value;
+                const endTimeValue = document.getElementById('end-time-value-long').value;
+                
+                if (!startTimeValue || !endTimeValue) {
+                    alert('Vui lòng chọn giờ bắt đầu và giờ kết thúc!');
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        }
+
+        // Add click validation for submit button
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function(e) {
+                if (!validateDates()) {
+                    e.preventDefault();
+                    return false;
+                }
+                
+                // Additional validation for time selection
+                const startTimeValue = document.getElementById('start-time-value-long').value;
+                const endTimeValue = document.getElementById('end-time-value-long').value;
+                
+                if (!startTimeValue || !endTimeValue) {
+                    alert('Vui lòng chọn giờ bắt đầu và giờ kết thúc!');
+                    e.preventDefault();
+                    return false;
+                }
+            });
         }
     });
 </script>
