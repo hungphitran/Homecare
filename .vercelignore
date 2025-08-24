@@ -1,14 +1,45 @@
-node_modules
-.git
-.gitignore
-README.md
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Development files
+.vs/
+.idea/
 *.log
+
+# Environment files
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+
+# Build artifacts
+resource/scss/
+*.scss
+*.sass
+
+# Git
+.git/
+.gitignore
+
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+
+# IDE
+.vscode/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp

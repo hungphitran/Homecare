@@ -1,3 +1,10 @@
+// Module resolution patch for Vercel deployment
+try {
+    require('./module-patch');
+} catch (error) {
+    console.log('Module patch warning:', error.message);
+}
+
 const express = require('express')
 const db = require('./db/connect')
 const { route } = require('./routes/config.route')//file contains root-route
@@ -220,7 +227,7 @@ app.set('view engine', 'handlebars')//set handlebars is the default engine
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())//handle json data when POST and PUT
 app.use(session({//setting for session
-    secret:"secretkey",
+    secret: process.env.SESSION_SECRET || "secretkey",
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({

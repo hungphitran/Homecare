@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "sass --watch resource/scss/_main.scss public/css/style.css",
-    "build": "node vercel-build.js && npm install",
-    "vercel-build": "node vercel-build.js && npm install"
+    "watch": "sass --watch resource/scss/_main.scss public/css/style.css"
   },
   "repository": {
     "type": "git",

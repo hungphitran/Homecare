@@ -1,41 +1,18 @@
 {
-    "version": 2,
-    "builds": [
-        {
-            "src": "index.js",
-            "use": "@vercel/node@18",
-            "config": {
-                "includeFiles": [
-                    "public/**",
-                    "resource/**",
-                    "views/**",
-                    "db/**",
-                    "routes/**",
-                    "controllers/**",
-                    "middlewares/**",
-                    "models/**",
-                    "services/**",
-                    "helpers/**",
-                    "utils/**",
-                    "node_modules/gopd/**",
-                    "node_modules/get-intrinsic/**",
-                    "node_modules/side-channel/**",
-                    "node_modules/qs/**"
-                ],
-                "webpack": "vercel.webpack.config.js"
-            }
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "index.js"
-        }
-    ],
-    "functions": {
-        "index.js": {
-            "maxDuration": 30,
-            "runtime": "nodejs18.x"
-        }
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
