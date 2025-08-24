@@ -33,6 +33,7 @@
     "sass": "^1.78.0"
   },
   "devDependencies": {
+    "gopd": "^1.2.0",
     "nodemon": "^3.1.4"
   }
 }
