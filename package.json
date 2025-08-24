@@ -26,6 +26,7 @@
     "express-handlebars": "^8.0.1",
     "express-session": "^1.18.0",
     "firebase-admin": "^13.4.0",
+    "gopd": "^1.2.0",
     "http": "^0.0.1-security",
     "https": "^1.0.0",
     "mongoose": "^8.5.3",
@@ -33,7 +34,6 @@
     "sass": "^1.78.0"
   },
   "devDependencies": {
-    "gopd": "^1.2.0",
     "nodemon": "^3.1.4"
   }
 }
