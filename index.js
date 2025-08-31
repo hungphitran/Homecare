@@ -1,10 +1,3 @@
-// Module resolution patch for Vercel deployment
-try {
-    require('./module-patch');
-} catch (error) {
-    console.log('Module patch warning:', error.message);
-}
-
 const express = require('express')
 const db = require('./db/connect')
 const { route } = require('./routes/config.route')//file contains root-route
@@ -12,8 +5,6 @@ const handlebars = require('express-handlebars')//lib for template engine
 const session = require('express-session')//lib for modifying session
 const MongoStore = require('connect-mongo')//MongoDB session store
 const path = require('path')
-// Initialize Firebase service
-const firebaseService = require('./services/firebaseService')
 //mongodb-url 
 require('dotenv').config()
 // Trong file cấu hình handlebars (thường là app.js hoặc server.js)
@@ -239,14 +230,6 @@ app.use(session({//setting for session
     }
 }));
 db.connect();
-
-// Initialize Firebase service
-try {
-    firebaseService.initialize();
-    console.log('Firebase notification service ready');
-} catch (error) {
-    console.warn('Firebase notification service not available:', error.message);
-}
 
 // config routes for app
 route(app);
