@@ -140,7 +140,7 @@ const hbs = handlebars.create({
             {
                 case "pending": return "Chờ xác nhận"// được hủy
                 case "assigned": return "Đã xác nhận"
-                case "done": return "Đã hoàn thành"
+                case "completed": return "Đã hoàn thành"
                 case "cancelled" : return "Đã hủy"
                 case "waitPayment": return "Chờ thanh toán" // được thanh toán
                  

@@ -14,17 +14,92 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Tắt tất cả các hiệu ứng nhấp nháy trên toàn trang */
+        /* Comprehensive fix to prevent modal flashing */
         .modalHistoryDetailHomeKare, 
         .modalContentHistoryDetailHomeKare,
         .billDetailsHistoryDetailHomeKare,
-        .billDetailsHistoryDetailHomeKare * {
+        .billDetailsHistoryDetailHomeKare *,
+        .modalHistoryDetailHomeKare *,
+        .modalContentHistoryDetailHomeKare *,
+        *:hover,
+        *:focus,
+        *:active {
             animation: none !important;
             transition: none !important;
             transform: none !important;
             -webkit-animation: none !important;
             -webkit-transition: none !important;
             -webkit-transform: none !important;
+            backface-visibility: visible !important;
+            perspective: none !important;
+        }
+
+        /* Prevent any repaints or reflows that could cause flashing */
+        .modalHistoryDetailHomeKare,
+        .modalContentHistoryDetailHomeKare,
+        .billDetailsHistoryDetailHomeKare {
+            will-change: auto !important;
+            contain: layout style paint !important;
+        }
+
+        /* Force immediate visibility changes without transitions */
+        .modalHistoryDetailHomeKare {
+            display: none !important;
+            opacity: 1 !important;
+            visibility: hidden !important;
+            transform: translateZ(0) !important;  /* Force hardware acceleration */
+        }
+        
+        .modalHistoryDetailHomeKare.showModalHistoryDetailHomeKare {
+            display: block !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateZ(0) !important;  /* Force hardware acceleration */
+        }
+
+        /* Disable all hover effects that could cause flashing */
+        .btnHistoryDetailHomeKare:hover,
+        .detailItemHistoryDetailHomeKare:hover,
+        .dayBillHistoryDetailHomeKare:hover,
+        .closeModalHistoryDetailHomeKare:hover,
+        .modalContentHistoryDetailHomeKare *:hover {
+            background-color: inherit !important;
+            color: inherit !important;
+            border-color: inherit !important;
+            transform: none !important;
+            box-shadow: none !important;
+            transition: none !important;
+        }
+        
+        /* Disable any keyframe animations */
+        @keyframes fadeInHistoryDetailHomeKare { 
+            from { opacity: 1; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes modalFadeInHistoryDetailHomeKare { 
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes blinkHistoryDetailHomeKare {
+            0%, 50%, 100% { opacity: 1; }
+        }
+
+        /* Global override for any external CSS that might cause flashing */
+        .modalHistoryDetailHomeKare *,
+        .modalContentHistoryDetailHomeKare *,
+        .billDetailsHistoryDetailHomeKare * {
+            -webkit-animation-duration: 0s !important;
+            -webkit-animation-delay: 0s !important;
+            -webkit-animation-iteration-count: 1 !important;
+            -webkit-transition-duration: 0s !important;
+            -webkit-transition-delay: 0s !important;
+            animation-duration: 0s !important;
+            animation-delay: 0s !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0s !important;
+            transition-delay: 0s !important;
         }
     </style>
     {{!--
@@ -275,7 +350,10 @@
     .wrapper-province__select-btn-account:hover,
     .wrapper-district__select-btn-account:hover,
     .wrapper-ward__select-btn-account:hover {
-        border-color: #3498db;
+        border-color: inherit !important;
+        background-color: inherit !important;
+        box-shadow: none !important;
+        transition: none !important;
     }
 
     .wrapper-province__select-btn-account.active,
@@ -359,7 +437,7 @@
         z-index: 1000;
         max-height: 0;
         overflow: hidden;
-        transition: all 0.3s ease;
+        transition: none !important;
     }
 
     .wrapper-province__content-account.active,
@@ -475,7 +553,7 @@
                         Trợ giúp
                     </div>
                     <div class="dropdown-item-homecare" data-modal="logout">
-                        <a href="/account/logout">
+                        <a href="#" id="logout-link">
                             <i class="fas fa-sign-out-alt"></i>
                             Đăng xuất
                         </a>
@@ -2601,18 +2679,18 @@
 
         // Show selected bill type and highlight active button
         if (type === 'short') {
-            openModal('shortTermModalHistoryDetailHomeKare', index);
+            openModal('shortTermModalHistoryDetailHomeKare', index, status);
 
             // buttons[0].style.background = '#2980b9';
             btn.style.background = '#2980b9';
         } else {
-            openModal('longTermModalHistoryDetailHomeKare', index);
+            openModal('longTermModalHistoryDetailHomeKare', index, status);
             // buttons[1].style.background = '#2980b9';
             btn.style.background = '#2980b9';
         }
     }
 
-    function openModal(modalId, index) {
+    function openModal(modalId, index, status) {
         const buttons = document.querySelectorAll('.btnHistoryDetailHomeKare');
         const row = buttons[index].parentNode;
         console.log("open modal ", row)
@@ -2620,8 +2698,24 @@
 
         //const modal = row.getElementById(modalId);
         console.log("open modal ", modal)
+        
+        // Lưu trạng thái vào modal để sử dụng sau này
+        if (status) {
+            modal.setAttribute('data-request-status', status);
+        }
+        
+        // Prevent flashing by ensuring immediate display without transitions
+        modal.style.transition = 'none';
+        modal.style.animation = 'none';
         modal.classList.add('showModalHistoryDetailHomeKare');
         document.body.style.overflow = 'hidden';
+
+        // Cập nhật hiển thị nút thanh toán sau khi modal hiển thị
+        setTimeout(() => {
+            if (window.setupPaymentButtons) {
+                window.setupPaymentButtons();
+            }
+        }, 100);
 
         // Add click outside to close functionality
         modal.addEventListener('click', function (e) {
@@ -2702,7 +2796,10 @@
         const row = buttons[index].parentNode;
         console.log("open modal ", row)
         const modal = row.querySelector('#' + modalId)
-        //const modal = document.getElementById(modalId);
+        
+        // Prevent flashing by ensuring immediate hide without transitions
+        modal.style.transition = 'none';
+        modal.style.animation = 'none';
         modal.classList.remove('showModalHistoryDetailHomeKare');
         document.body.style.overflow = 'auto';
     }
@@ -2769,7 +2866,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Thay thế hoặc cập nhật hàm setupPaymentButtons hiện tại
-        function setupPaymentButtons() {
+        window.setupPaymentButtons = function setupPaymentButtons() {
             // Xử lý cho tất cả các phần tử có trạng thái
             document.querySelectorAll('.status-completeHistoryDetailHomeKare').forEach(statusEl => {
                 const status = statusEl.getAttribute('data-status');
@@ -2788,15 +2885,52 @@
                 }
 
                 // Nếu trạng thái là chờ thanh toán, tạo phần UI thanh toán
-                // Payment UI generation removed
+                if (status === 'waitPayment') {
+                    // Tạo phần thanh toán
+                    paymentSection = document.createElement('div');
+                    paymentSection.className = 'paymentSectionHistoryDetailHomeKare';
+                    paymentSection.style.marginTop = '15px';
+                    paymentSection.style.padding = '15px';
+                    paymentSection.style.border = '1px solid #e1e1e1';
+                    paymentSection.style.borderRadius = '8px';
+                    paymentSection.style.backgroundColor = '#f8f9fa';
+
+                    const paymentInfo = document.createElement('div');
+                    paymentInfo.style.marginBottom = '10px';
+                    paymentInfo.innerHTML = `
+                        <p style="margin: 0; font-weight: 500; color: #333;">
+                            <i class="fas fa-money-bill-wave" style="color: #28a745; margin-right: 8px;"></i>
+                            Cần thanh toán: <span style="color: #28a745; font-weight: bold;">${price ? parseInt(price).toLocaleString('vi-VN') : 'N/A'}đ</span>
+                        </p>
+                    `;
+
+                    const payButton = document.createElement('button');
+                    payButton.id = container.closest('.modalHistoryDetailHomeKare').id.includes('short') ? 'payButtonShort' : 'payButton';
+                    payButton.className = 'btn btn-success itemPayButton';
+                    payButton.style.width = '100%';
+                    payButton.style.padding = '10px';
+                    payButton.style.fontWeight = '500';
+                    payButton.innerHTML = '<i class="fas fa-credit-card"></i> Xác nhận thanh toán';
+                    
+                    // Lưu thông tin cần thiết để xử lý thanh toán
+                    payButton.setAttribute('data-schedule-id', scheduleId);
+                    payButton.setAttribute('data-cost', price);
+
+                    paymentSection.appendChild(paymentInfo);
+                    paymentSection.appendChild(payButton);
+                    container.appendChild(paymentSection);
+
+                    // Lưu reference để sử dụng khi thanh toán
+                    window.currentPaymentButton = payButton;
+                }
             });
-        }
+        };
 
         // Thêm event listener cho các nút "Chi tiết"
         document.querySelectorAll('.btnHistoryDetailHomeKare').forEach(button => {
             button.addEventListener('click', function () {
                 // Đợi một chút để modal hiển thị đầy đủ
-                setTimeout(setupPaymentButtons, 100);
+                setTimeout(window.setupPaymentButtons, 100);
             });
         });
 
@@ -2886,7 +3020,9 @@
             });
 
             // Sau khi cập nhật trạng thái, kiểm tra lại nút thanh toán
-            setupPaymentButtons();
+            if (window.setupPaymentButtons) {
+                window.setupPaymentButtons();
+            }
         }
 
         // Khởi tạo MutationObserver để theo dõi thay đổi
@@ -2977,6 +3113,9 @@
         const modal = row.querySelector(type === 'long' ? '#longTermModalHistoryDetailHomeKare' : '#shortTermModalHistoryDetailHomeKare');
         
         if (modal) {
+            // Prevent flashing by ensuring immediate display without transitions
+            modal.style.transition = 'none';
+            modal.style.animation = 'none';
             modal.classList.add('showModalHistoryDetailHomeKare');
             document.body.style.overflow = 'hidden';
             window.index = Array.from(document.querySelectorAll('.btnHistoryDetailHomeKare')).indexOf(button);
@@ -2990,6 +3129,9 @@
         if (row) {
             const modal = row.querySelector('#' + modalId);
             if (modal) {
+                // Prevent flashing by ensuring immediate hide without transitions
+                modal.style.transition = 'none';
+                modal.style.animation = 'none';
                 modal.classList.remove('showModalHistoryDetailHomeKare');
                 document.body.style.overflow = 'auto';
             }
@@ -3010,6 +3152,46 @@
                 }
             }
         });
+        
+        // Handle logout với FCM token
+        const logoutLink = document.getElementById('logout-link');
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async function(e) {
+                e.preventDefault();
+                
+                try {
+                    // Lấy FCM token từ localStorage
+                    const fcmToken = localStorage.getItem('fcm_token');
+                    const userPhone = document.querySelector('meta[name="user-phone"]')?.getAttribute('content');
+                    
+                    // Unregister FCM token trước khi logout
+                    if (fcmToken && userPhone && typeof window.unregisterFCMToken === 'function') {
+                        await window.unregisterFCMToken(userPhone, fcmToken);
+                    }
+                    
+                    // Tạo form để gửi FCM token
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/account/logout';
+                    
+                    if (fcmToken) {
+                        const tokenInput = document.createElement('input');
+                        tokenInput.type = 'hidden';
+                        tokenInput.name = 'fcm_token';
+                        tokenInput.value = fcmToken;
+                        form.appendChild(tokenInput);
+                    }
+                    
+                    document.body.appendChild(form);
+                    form.submit();
+                    
+                } catch (error) {
+                    console.error('Error during logout:', error);
+                    // Fallback: redirect trực tiếp
+                    window.location.href = '/account/logout';
+                }
+            });
+        }
     });
 </script>
 <script>
