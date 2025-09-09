@@ -35,8 +35,17 @@
                 return response;
             })
             .catch(error => {
-                // Log error for debugging
+                // Log error for debugging nhưng không làm crash app
                 console.error('Fetch error:', error);
+                
+                // Chỉ re-throw error nếu không phải network error
+                if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+                    // Network error - có thể do server offline hoặc CORS
+                    console.warn('Network connectivity issue detected, continuing without failing');
+                    // Return một rejected promise với thông tin chi tiết
+                    return Promise.reject(new Error('Network connectivity issue: ' + error.message));
+                }
+                
                 throw error;
             });
     };
