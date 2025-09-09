@@ -27,13 +27,7 @@
             -webkit-transform: none !important;
         }
     </style>
-    {{!--
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <script src="https://unpkg.com/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> --}}
+    
     <!-- Xóa các import trùng lặp và chỉ giữ lại bộ import này -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -443,6 +437,339 @@
     .wrapper-ward__options-account li:last-child {
         border-bottom: none;
     }
+    /* Filter Styles */
+    .filter-status-container {
+        margin: 20px 0;
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .filter-status-title {
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .filter-status-title i {
+        color: #3498db;
+    }
+
+    .filter-status-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .filter-status-btn {
+        background: #f8f9fa;
+        border: 1px solid #e1e1e1;
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .filter-status-btn:hover {
+        background: #f1f1f1;
+    }
+
+    .filter-status-btn.active {
+        background: #3498db;
+        color: white;
+        border-color: #2980b9;
+    }
+
+    /* Empty state */
+    .no-results {
+        padding: 20px;
+        text-align: center;
+        color: #666;
+        background: #f9f9f9;
+        border-radius: 8px;
+        margin: 15px 0;
+        display: none;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .filter-status-options {
+            overflow-x: auto;
+            padding-bottom: 8px;
+            flex-wrap: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .filter-status-btn {
+            flex: 0 0 auto;
+        }
+    }
+    /* Styles cho bảng có thể cuộn */
+    .table-scroll-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        position: relative;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Hiệu ứng shadow bên trái khi cuộn */
+    .table-scroll-wrapper.is-scrollable-left::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 10px;
+        height: 100%;
+        background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    /* Hiệu ứng shadow bên phải khi có thể cuộn */
+    .table-scroll-wrapper.is-scrollable-right::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 10px;
+        height: 100%;
+        background: linear-gradient(to left, rgba(0,0,0,0.1), transparent);
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .table-scroll-wrapper.is-scrollable-left::before,
+    .table-scroll-wrapper.is-scrollable-right::after {
+        opacity: 1;
+    }
+    
+    /* Đảm bảo bảng chiếm đủ chiều rộng */
+    .scrollable-table {
+        min-width: 100%;
+        width: auto;
+        margin-bottom: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    
+    /* Cố định header bảng khi cuộn (tùy chọn) */
+    .fixed-header .scrollable-table thead th {
+        position: sticky;
+        top: 0;
+        background-color: #f8f9fa;
+        z-index: 2;
+    }
+    
+    /* Style cho các hàng và ô trong bảng */
+    .scrollable-table th,
+    .scrollable-table td {
+        white-space: nowrap; /* Ngăn xuống dòng trong ô */
+        padding: 12px 15px;
+    }
+    
+    /* Tối ưu hóa hiển thị trên màn hình nhỏ */
+    @media (max-width: 768px) {
+        .table-scroll-wrapper {
+            margin-left: -15px;
+            margin-right: -15px;
+            width: calc(100% + 30px);
+            border-radius: 0;
+        }
+        
+        .scrollable-table th,
+        .scrollable-table td {
+            padding: 8px 10px;
+        }
+    }
+    
+</style>
+<style>
+    .modern-aside {
+        width: 250px;
+        min-height: 100vh;
+        background: #fff;
+        border-right: 1px solid #eaeaea;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+        transition: all 0.3s ease;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .modern-aside__brand {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        /* Changed from space-around to space-evenly */
+        padding: 24px 20px 16px 20px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .modern-aside__logo-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+
+    .modern-aside__logo {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        border-radius: 8px;
+        background: #f8f8f8;
+        box-shadow: 0 2px 8px rgba(52, 152, 219, 0.08);
+    }
+
+    .modern-aside__brand-name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #3498db;
+        letter-spacing: 1px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .modern-aside__toggle {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        color: #666;
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 6px;
+        transition: background 0.2s;
+        z-index: 200;
+        /* Ensure the button stays above other elements */
+    }
+
+    .modern-aside__toggle:hover {
+        background: #f0f4fa;
+    }
+
+    .modern-aside__nav {
+        flex: 1;
+        padding: 24px 0 0 0;
+    }
+
+    .modern-aside__nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .modern-aside__nav-link {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 12px 28px;
+        color: #333;
+        font-size: 1.5rem;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: 8px;
+        margin: 4px 12px;
+        transition: background 0.18s, color 0.18s;
+    }
+
+    .modern-aside__nav-link i {
+        font-size: 1.15em;
+        min-width: 22px;
+        text-align: center;
+    }
+
+    .modern-aside__nav-link:hover,
+    .modern-aside__nav-link.active,
+    .modern-aside__nav-link[aria-current="page"] {
+        background: #eaf6fd;
+        color: #3498db;
+    }
+
+    /* Add collapsed state CSS */
+    .modern-aside.collapsed {
+        width: 64px;
+    }
+
+    .modern-aside.collapsed .modern-aside__brand-name,
+    .modern-aside.collapsed .modern-aside__nav-link span {
+        display: none;
+    }
+
+    .modern-aside.collapsed .modern-aside__logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .modern-aside.collapsed .modern-aside__nav-link {
+        justify-content: center;
+        padding: 12px 0;
+    }
+
+    @media (max-width: 900px) {
+        .modern-aside:not(.open) {
+            width: 64px;
+        }
+
+        .modern-aside:not(.open) .modern-aside__brand-name,
+        .modern-aside:not(.open) .modern-aside__nav-link span {
+            display: none;
+        }
+
+        .modern-aside:not(.open) .modern-aside__logo {
+            width: 40px;
+            height: 40px;
+            margin-right: 0;
+        }
+
+        .modern-aside:not(.open) .modern-aside__nav-link {
+            justify-content: center;
+            padding: 12px 0;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .modern-aside {
+            position: fixed;
+            left: -250px;
+            width: 220px;
+            transition: left 0.25s;
+        }
+
+        .modern-aside.open {
+            left: 0;
+        }
+
+        /* Make sure the toggle button is visible on mobile even when menu is hidden */
+        .modern-aside__toggle {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .modern-aside.open .modern-aside__toggle {
+            position: static;
+            box-shadow: none;
+        }
+    }
 </style>
 </head>
 
@@ -640,7 +967,7 @@
             </div>
         </div>
         {{!-- aside start --}}
-        <div class="aside">
+        {{!-- <div class="aside">
             <div class="aside__nav-toggle">
                 <span></span>
             </div>
@@ -664,52 +991,92 @@
                 </li>
 
             </ul>
+        </div> --}}
+    <aside class="modern-aside">
+        <div class="modern-aside__brand">
+            <a href="/" class="modern-aside__logo-link" aria-label="Trang chủ">
+                <img src="/icon/logo-removeBg.png" alt="Homecare Logo" class="modern-aside__logo" />
+            </a>
+            <button class="modern-aside__toggle" aria-label="Thu gọn menu" id="asideToggleBtn" type="button">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
+        <nav class="modern-aside__nav">
+            <ul>
+                <li>
+                    <a href="/" class="modern-aside__nav-link">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#service-detail" class="modern-aside__nav-link">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Đổi mật khẩu</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/account" class="modern-aside__nav-link">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Tài khoản</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/orders" class="modern-aside__nav-link">
+                        <i class="fa-solid fa-list-check"></i>
+                        <span>Quản lý đơn</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout" class="modern-aside__nav-link">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
         {{!-- aside end --}}
         {{!-- main content start --}}
         <div class="main-content">
-            {{!-- home section start --}}
-            {{!-- <section class="home home-active section" id="home">
-                <div class="home__container-2" style="display:flex;align
-                content:center;justify-content:center;">
-
-                    <div class="container-input-form">
-                        <form id="userForm-input-form">
-                            <h2 class="title-input-form">Thông tin khách hàng</h2>
-                            <div class="form-group-input-form">
-                                <label class="label-input-form" for="phone">Số điện thoại</label>
-                                <input class="input-form-accountdetail" type="tel" id="phone" name="phone"
-                                    pattern="[0-9]+" disabled required>
-                            </div>
-                            <div class="form-group-input-form">
-                                <label class="label-input-form" for="name">Họ và tên</label>
-                                <input class="input-form-accountdetail" type="text" id="name" name="name" disabled
-                                    required>
-                            </div>
-                            <div class="form-group-input-form">
-                                <label class="label-input-form" for="address">Địa chỉ</label>
-                                <input class="input-form-accountdetail" type="text" id="address" name="address" disabled
-                                    required>
-                            </div>
-                            <div class="button-group-input-form">
-                                <button type="button" id="editBtn" class="btn-homedetail edit">chỉnh sửa thông
-                                    tin</button>
-                                <button type="button" id="saveBtn" class="btn-homedetail save" disabled>Lưu thay
-                                    đổi</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </section> --}}
+         
             {{!-- home section end --}}
             {{!-- about section start --}}
             <section class="about-detail section" id="service-detail">
                 <div class="home__container-2">
                     <div class="container-homedetail">
+                        <!-- Thêm bộ lọc trạng thái vào trên đầu mỗi bảng -->
+                        <div class="filter-status-container" id="long-filter-container">
+                            <div class="filter-status-title">
+                                <i class="fas fa-filter"></i> Lọc theo trạng thái:
+                            </div>
+                            <div class="filter-status-options">
+                                <button class="filter-status-btn active" data-filter="all">
+                                    <i class="fas fa-list"></i> Tất cả
+                                </button>
+                                <button class="filter-status-btn" data-filter="done">
+                                    <i class="fas fa-check-circle"></i> Đã hoàn thành
+                                </button>
+                                {{!-- <button class="filter-status-btn" data-filter="assigned">
+                                    <i class="fas fa-user-check"></i> Đã xác nhận
+                                </button> --}}
+                                <button class="filter-status-btn" data-filter="pending">
+                                    <i class="fas fa-clock"></i> Chờ xác nhận
+                                </button>
+                                <button class="filter-status-btn" data-filter="waitPayment">
+                                    <i class="fas fa-money-bill-wave"></i> Chờ thanh toán
+                                </button>
+                                <button class="filter-status-btn" data-filter="processing">
+                                    <i class="fas fa-spinner"></i> Đang thực hiện
+                                </button>
+                                <button class="filter-status-btn" data-filter="cancelled">
+                                    <i class="fas fa-times-circle"></i> Đã hủy
+                                </button>
+                            </div>
+                        </div>
                         <div class="table-section-homedetail">
                             <h2 class="title-homedetail">Dài hạn</h2>
-                            <div class="table-container-homedetail">
+                            <div class="table-container-homedetail" style="max-height: 400px; overflow-y: auto;">
                                 <table class="modern-table-homedetail">
                                     <thead>
                                         <tr id="row-{{@index}}" data-request-id="{{_id}}">
@@ -719,7 +1086,7 @@
                                             <th>Tổng tiền</th>
                                             <th>Giờ bắt đầu</th>
                                             <th>Giờ kết thúc</th>
-                                            <th>Trạng Thái</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody id="longTermTable-homedetail">
@@ -896,10 +1263,37 @@
                                 opacity: 1;
                             }
                         </style>
-
+                        <div class="filter-status-container" id="short-filter-container">
+                            <div class="filter-status-title">
+                                <i class="fas fa-filter"></i> Lọc theo trạng thái:
+                            </div>
+                            <div class="filter-status-options">
+                                <button class="filter-status-btn active" data-filter="all">
+                                    <i class="fas fa-list"></i> Tất cả
+                                </button>
+                                <button class="filter-status-btn" data-filter="done">
+                                    <i class="fas fa-check-circle"></i> Đã hoàn thành
+                                </button>
+                                {{!-- <button class="filter-status-btn" data-filter="assigned">
+                                    <i class="fas fa-user-check"></i> Đã xác nhận
+                                </button> --}}
+                                <button class="filter-status-btn" data-filter="pending">
+                                    <i class="fas fa-clock"></i> Chờ xác nhận
+                                </button>
+                                <button class="filter-status-btn" data-filter="waitPayment">
+                                    <i class="fas fa-money-bill-wave"></i> Chờ thanh toán
+                                </button>
+                                <button class="filter-status-btn" data-filter="processing">
+                                    <i class="fas fa-spinner"></i> Đang thực hiện
+                                </button>
+                                <button class="filter-status-btn" data-filter="cancelled">
+                                    <i class="fas fa-times-circle"></i> Đã hủy
+                                </button>
+                            </div>
+                        </div>
                         <div class="table-section-homedetail">
                             <h2 class="title-homedetail">Ngắn hạn</h2>
-                            <div class="table-container-homedetail">
+                            <div class="table-container-homedetail" style="max-height: 400px;overflow-y: auto;">
                                 <table class="modern-table-homedetail">
                                     <thead>
                                         <tr id="row-{{@index}}" data-request-id="{{_id}}">
@@ -909,7 +1303,7 @@
                                             <th>Tổng tiền</th>
                                             <th>Giờ bắt đầu</th>
                                             <th>Giờ kết thúc</th>
-                                            <th>Trạng Thái</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody id="shortTermTable-homedetail">
@@ -939,52 +1333,7 @@
                                                             <h2 class="modalTitleHistoryDetailHomeKare">Chi tiết hóa đơn
                                                                 ngắn hạn</h2>
                                                         </div>
-                                                        {{!-- <div class="billDetailsHistoryDetailHomeKare">
-                                                            <div class="detailItemHistoryDetailHomeKare">
-                                                                <span class="labelHistoryDetailHomeKare">Ngày:</span>
-                                                                <span
-                                                                    class="valueHistoryDetailHomeKare">{{orderDate}}</span>
-                                                            </div>
-                                                            <div class="detailItemHistoryDetailHomeKare">
-                                                                <span class="labelHistoryDetailHomeKare">Giờ bắt
-                                                                    đầu:</span>
-                                                                <span class="valueHistoryDetailHomeKare">{{#formatTime
-                                                                    startTime}}{{/formatTime}}</span>
-                                                            </div>
-                                                            <div class="detailItemHistoryDetailHomeKare">
-                                                                <span class="labelHistoryDetailHomeKare">Giờ kết
-                                                                    thúc:</span>
-                                                                <span class="valueHistoryDetailHomeKare">{{#formatTime
-                                                                    startTime}}{{/formatTime}}</span>
-                                                            </div>
-                                                            {{#each schedules}}
-                                                            {{#if @first}}
-                                                            <div class="detailItemHistoryDetailHomeKare">
-                                                                <span class="labelHistoryDetailHomeKare">Trạng
-                                                                    thái:</span>
-                                                                <span
-                                                                    class="valueHistoryDetailHomeKare status-completeHistoryDetailHomeKare"
-                                                                    data-status="{{status}}" data-detail-id="{{_id}}" data-cost="{{cost}}">{{#getStatus status}}{{/getStatus}}</span>
-                                                            </div>
-                                                                                                                        <div class="detailItemHistoryDetailHomeKare">
-                                                                <span class="labelHistoryDetailHomeKare">Chi phí:</span>
-                                                                <span
-                                                                    class="valueHistoryDetailHomeKare">{{cost}}</span>
-                                                            </div>
-                                                            {{/if}}
-
-                                                            {{/each}}
-
-                                                            <div class="detailItemHistoryDetailHomeKare">
-                                                                <span class="labelHistoryDetailHomeKare">Nhận
-                                                                    xét:</span>
-                                                                <p class="commentHistoryDetailHomeKare">{{comment}}</p>
-                                                            </div>
-                                                            <!-- Thêm nút thanh toán -->
-                                                            <button id="payButtonShort" class="btn btn-primary"
-                                                                style="margin-left:auto;">Thanh toán</button>
-                                                        </div> --}}
-                                                        {{!-- phần sửa --}}
+                                                       
                                                         <div class="billDetailsHistoryDetailHomeKare">
                                                             <div class="detailItemHistoryDetailHomeKare">
                                                                 <span class="labelHistoryDetailHomeKare">Ngày:</span>
@@ -1419,6 +1768,449 @@
             element.innerHTML = `${statusInfo.icon} ${statusInfo.text}`;
         }
     });
+</script>
+
+<script>
+    window.addEventListener('load', function () {
+        try {
+            console.log('Starting search box initialization...');
+
+            // Thêm thanh tìm kiếm cho cả hai bảng
+            addSearchBoxes();
+
+            function addSearchBoxes() {
+                console.log('Finding table sections...');
+                // Tìm các phần tử bảng
+                const tables = document.querySelectorAll('.table-section-homedetail');
+                console.log(`Found ${tables.length} table sections`);
+
+                // Kiểm tra và lấy bảng dài hạn (bảng đầu tiên)
+                if (tables.length > 0) {
+                    const longTermTable = tables[0];
+                    const title = longTermTable.querySelector('.title-homedetail');
+                    if (title) {
+                        console.log('Found title for long term table');
+                        const tableContainer = longTermTable.querySelector('.table-container-homedetail');
+                        addSearchBox(title, tableContainer, 'long');
+                    }
+                }
+
+                // Kiểm tra và lấy bảng ngắn hạn (bảng thứ hai)
+                if (tables.length > 1) {
+                    const shortTermTable = tables[1];
+                    const title = shortTermTable.querySelector('.title-homedetail');
+                    if (title) {
+                        console.log('Found title for short term table');
+                        const tableContainer = shortTermTable.querySelector('.table-container-homedetail');
+                        addSearchBox(title, tableContainer, 'short');
+                    }
+                }
+            }
+
+            function addSearchBox(titleElement, tableContainer, type) {
+                console.log(`Adding search box for ${type} term table`);
+                // Tạo container cho thanh tìm kiếm
+                const searchContainer = document.createElement('div');
+                searchContainer.className = 'search-container';
+                searchContainer.style.cssText = 'margin-top: 10px; margin-bottom: 20px; display: flex; align-items: center;';
+
+                // Tạo input tìm kiếm
+                const searchInput = document.createElement('input');
+                searchInput.type = 'text';
+                searchInput.id = `${type}-term-search`;
+                searchInput.className = 'search-input';
+                searchInput.placeholder = 'Tìm kiếm đơn hàng...';
+                searchInput.style.cssText = 'padding: 10px 15px; border: 1px solid #e1e1e1; border-radius: 8px; flex: 1; font-size: 14px; outline: none;';
+
+                // Tạo nút xóa tìm kiếm
+                const clearButton = document.createElement('button');
+                clearButton.type = 'button';
+                clearButton.className = 'clear-search-btn';
+                clearButton.innerHTML = '<i class="fas fa-times"></i>';
+                clearButton.style.cssText = 'background: none; border: none; margin-left: -30px; color: #999; cursor: pointer; visibility: hidden;';
+
+                // Tạo icon tìm kiếm
+                const searchIcon = document.createElement('div');
+                searchIcon.className = 'search-icon';
+                searchIcon.innerHTML = '<i class="fas fa-search"></i>';
+                searchIcon.style.cssText = 'margin-right: 10px; color: #666;';
+
+                // Thêm các phần tử vào container
+                searchContainer.appendChild(searchIcon);
+                searchContainer.appendChild(searchInput);
+                searchContainer.appendChild(clearButton);
+
+                // Thêm container vào sau tiêu đề
+                titleElement.parentNode.insertBefore(searchContainer, titleElement.nextSibling);
+                console.log(`Search box added for ${type} term table`);
+
+                // Xử lý sự kiện input
+                searchInput.addEventListener('input', function () {
+                    // Chuyển đổi giá trị tìm kiếm thành chữ thường và loại bỏ khoảng trắng đầu cuối
+                    const searchValue = this.value.toLowerCase().trim();
+                    clearButton.style.visibility = searchValue ? 'visible' : 'hidden';
+                    filterTableByContainer(tableContainer, searchValue, type);
+                });
+
+                // Xử lý sự kiện nút xóa
+                clearButton.addEventListener('click', function () {
+                    searchInput.value = '';
+                    clearButton.style.visibility = 'hidden';
+                    filterTableByContainer(tableContainer, '', type);
+                    searchInput.focus();
+                });
+
+                // Xử lý khi nhấn phím Esc
+                searchInput.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        searchInput.value = '';
+                        clearButton.style.visibility = 'hidden';
+                        filterTableByContainer(tableContainer, '', type);
+                    }
+                });
+            }
+
+            function filterTableByContainer(tableContainer, searchValue, type) {
+                console.log(`Filtering ${type} term table for: "${searchValue}"`);
+                // Kiểm tra tableContainer có tồn tại không
+                if (!tableContainer) {
+                    console.error(`Table container for ${type} term not found`);
+                    return;
+                }
+
+                // Tìm bảng trong container
+                const table = tableContainer.querySelector('table');
+                if (!table) {
+                    console.error(`Table element not found in ${type} term container`);
+                    return;
+                }
+
+                // Lọc theo hai loại hàng (dài hạn và ngắn hạn)
+                const rows = table.querySelectorAll(`.${type}-term-row`);
+                console.log(`Found ${rows.length} ${type}-term rows`);
+
+                let hasVisibleRows = false;
+
+                rows.forEach(row => {
+                    let found = false;
+
+                    // Tạo một chuỗi văn bản kết hợp từ tất cả các ô trong hàng
+                    let rowText = '';
+                    Array.from(row.cells).forEach(cell => {
+                        // Thêm nội dung từ mỗi ô vào chuỗi rowText
+                        rowText += cell.textContent + ' ';
+                    });
+
+                    // Chuyển đổi cả hai thành chữ thường để không phân biệt hoa thường
+                    rowText = rowText.toLowerCase();
+
+                    // Kiểm tra nếu chuỗi tìm kiếm nằm trong chuỗi văn bản của hàng
+                    if (rowText.includes(searchValue)) {
+                        found = true;
+                    }
+
+                    // Hiển thị hoặc ẩn hàng
+                    if (found || searchValue === '') {
+                        row.style.display = '';
+                        hasVisibleRows = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // Hiển thị thông báo nếu không có kết quả
+                let noResultsElement = tableContainer.nextElementSibling;
+                if (noResultsElement && !noResultsElement.classList.contains('no-results-message')) {
+                    noResultsElement = null;
+                }
+
+                if (!noResultsElement && !hasVisibleRows && searchValue) {
+                    createNoResultsMessage(tableContainer, type);
+                } else if (noResultsElement) {
+                    noResultsElement.style.display = (!hasVisibleRows && searchValue) ? 'block' : 'none';
+                }
+            }
+
+            function createNoResultsMessage(tableContainer, type) {
+                // Tạo thông báo không có kết quả
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results-message';
+                noResults.style.cssText = 'padding: 20px; text-align: center; color: #666; background: #f9f9f9; border-radius: 8px; margin: 15px 0; display: block;';
+                noResults.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-search" style="font-size: 24px; margin-bottom: 10px; color: #999;"></i>
+                        <p>Không tìm thấy đơn hàng nào phù hợp với tìm kiếm của bạn</p>
+                    </div>
+                `;
+
+                // Thêm thông báo sau bảng
+                tableContainer.parentNode.insertBefore(noResults, tableContainer.nextSibling);
+                console.log(`No results message created for ${type} term table`);
+            }
+
+            // Thêm style cho thanh tìm kiếm
+            const style = document.createElement('style');
+            style.textContent = `
+                .search-input:focus {
+                    border-color: #3498db !important;
+                    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2) !important;
+                }
+                
+                .search-container:hover .search-icon {
+                    color: #3498db !important;
+                }
+                
+                .clear-search-btn:hover {
+                    color: #666 !important;
+                }
+                
+                .no-results-message {
+                    padding: 20px;
+                    text-align: center;
+                    color: #666;
+                    background: #f9f9f9;
+                    border-radius: 8px;
+                    margin: 15px 0;
+                }
+                
+                @media (max-width: 768px) {
+                    .search-container {
+                        margin-bottom: 10px !important;
+                    }
+                    
+                    .search-input {
+                        font-size: 14px !important;
+                        padding: 8px 12px !important;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            console.log('Search box styles added');
+
+        } catch (error) {
+            console.error('Error in search box script:', error);
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Thêm bộ lọc trước bảng dài hạn và ngắn hạn
+        const longTermTable = document.querySelector('.table-section-homedetail:nth-child(1) .table-container-homedetail');
+        const shortTermTable = document.querySelector('.table-section-homedetail:nth-child(3) .table-container-homedetail');
+
+        // Tạo và thêm bộ lọc
+        const longTermFilter = createFilterElement('long-term-filter', 'long');
+        longTermFilter.dataset.type = 'long';
+        const shortTermFilter = createFilterElement('short-term-filter', 'short');
+        shortTermFilter.dataset.type = 'short';
+
+        if (longTermTable) {
+            longTermTable.parentNode.insertBefore(longTermFilter, longTermTable);
+        }
+
+        if (shortTermTable) {
+            shortTermTable.parentNode.insertBefore(shortTermFilter, shortTermTable);
+        }
+
+        // Tạo phần tử thông báo không có kết quả
+        const longTermNoResults = createNoResultsElement();
+        const shortTermNoResults = createNoResultsElement();
+
+        if (longTermTable) {
+            longTermTable.parentNode.insertBefore(longTermNoResults, longTermTable.nextSibling);
+        }
+
+        if (shortTermTable) {
+            shortTermTable.parentNode.insertBefore(shortTermNoResults, shortTermTable.nextSibling);
+        }
+
+        // Thêm sự kiện cho các nút lọc
+        document.querySelectorAll('.filter-status-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const filter = this.getAttribute('data-filter');
+                const filterContainer = this.closest('.filter-status-container');
+                console.log('Filter container:', filterContainer.id);
+
+                const tableType = filterContainer.id.includes('short-filter-container') ? 'short' : 'long';
+                console.log(`Filtering ${tableType} term rows by:`, filter);
+                // Cập nhật UI của nút
+                filterContainer.querySelectorAll('.filter-status-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+
+                // Lọc dữ liệu
+                filterRows(filter, tableType);
+            });
+        });
+
+        // Hàm tạo phần tử bộ lọc
+        function createFilterElement(id,type) {
+            console.log(type);
+            const filterContainer = document.createElement('div');
+            filterContainer.className = 'filter-status-container';
+            filterContainer.id = id;
+            filterContainer.dataset.type = type; // Thêm data attribute
+            filterContainer.innerHTML = `
+                <div class="filter-status-title">
+                    <i class="fas fa-filter"></i> Lọc theo trạng thái:
+                </div>
+                <div class="filter-status-options">
+                    <button class="filter-status-btn active" data-filter="all">
+                        <i class="fas fa-list"></i> Tất cả
+                    </button>
+                    <button class="filter-status-btn" data-filter="done">
+                        <i class="fas fa-check-circle"></i> Đã hoàn thành
+                    </button>
+                    <button class="filter-status-btn" data-filter="assigned">
+                        <i class="fas fa-user-check"></i> Đã xác nhận
+                    </button>
+                    <button class="filter-status-btn" data-filter="pending">
+                        <i class="fas fa-clock"></i> Chờ xác nhận
+                    </button>
+                    <button class="filter-status-btn" data-filter="waitPayment">
+                        <i class="fas fa-money-bill-wave"></i> Chờ thanh toán
+                    </button>
+                    <button class="filter-status-btn" data-filter="processing">
+                        <i class="fas fa-spinner"></i> Đang thực hiện
+                    </button>
+                    <button class="filter-status-btn" data-filter="cancelled">
+                        <i class="fas fa-times-circle"></i> Đã hủy
+                    </button>
+                </div>
+            `;
+            return filterContainer;
+        }
+
+        // Hàm tạo thông báo không có kết quả
+        function createNoResultsElement() {
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.innerHTML = `
+                <i class="fas fa-search"></i>
+                <p>Không tìm thấy đơn hàng nào với trạng thái đã chọn</p>
+            `;
+            return noResults;
+        }
+
+        // Hàm lọc dữ liệu
+        function filterRows(filter, tableType) {
+            console.log(`test Filtering ${tableType} term rows by:`, filter);
+            const rows = document.querySelectorAll(`.${tableType}-term-row`);
+            const noResultsElement = document.querySelector(`#${tableType}-term-filter + .table-container-homedetail + .no-results`);
+            let hasVisibleRows = false;
+
+            rows.forEach(row => {
+                const status = row.getAttribute('data-status');
+
+                if (filter === 'all' || status === filter) {
+                    row.style.display = '';
+                    hasVisibleRows = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Hiển thị thông báo nếu không có kết quả
+            if (noResultsElement) {
+                noResultsElement.style.display = hasVisibleRows ? 'none' : 'block';
+            }
+        }
+    });
+</script>
+<script>
+    // Hàm lọc kết hợp (tìm kiếm + trạng thái)
+    console.log('Initializing combined filter functionality...');
+        function applyAllFilters(tableId, searchValue, statusFilter) {
+            const tableRows = document.querySelectorAll(`#${tableId} tr`);
+            let hasVisibleRows = false;
+
+            tableRows.forEach(row => {
+                // Bỏ qua hàng tiêu đề
+                if (row.querySelector('th')) return;
+
+                const rowStatus = row.getAttribute('data-status');
+                const matchesStatus = statusFilter === 'all' || rowStatus === statusFilter;
+
+                let matchesSearch = false;
+
+                // Tìm kiếm trong tất cả các cột
+                if (searchValue === '') {
+                    matchesSearch = true;
+                } else {
+                    Array.from(row.cells).forEach(cell => {
+                        if (cell.textContent.toLowerCase().includes(searchValue)) {
+                            matchesSearch = true;
+                        }
+                    });
+                }
+
+                // Hiển thị hoặc ẩn hàng
+                if (matchesSearch && matchesStatus) {
+                    row.style.display = '';
+                    hasVisibleRows = true;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            // Hiển thị thông báo nếu không có kết quả
+            updateNoResultsMessage(tableId, hasVisibleRows, searchValue || statusFilter !== 'all');
+        }
+
+        function updateNoResultsMessage(tableId, hasVisibleRows, hasFilters) {
+            const noResultsElement = document.querySelector(`#${tableId}-no-results`);
+
+            if (!hasVisibleRows && hasFilters) {
+                if (!noResultsElement) {
+                    createNoResultsMessage(tableId);
+                } else {
+                    noResultsElement.style.display = 'block';
+                }
+            } else if (noResultsElement) {
+                noResultsElement.style.display = 'none';
+            }
+        }
+
+        // Cập nhật các event listener để kích hoạt lọc kết hợp
+        function updateFilterEvents() {
+            // Cập nhật event listener cho ô tìm kiếm
+            document.querySelectorAll('.search-input').forEach(input => {
+                const tableId = input.id.includes('long') ? 'longTermTable-homedetail' : 'shortTermTable-homedetail';
+                const tableType = input.id.includes('long') ? 'long' : 'short';
+
+                input.addEventListener('input', function () {
+                    const searchValue = this.value.toLowerCase().trim();
+                    const statusFilter = document.querySelector(`#${tableType}-term-filter .filter-status-btn.active`).getAttribute('data-filter');
+                    applyAllFilters(tableId, searchValue, statusFilter);
+                });
+            });
+
+            // Cập nhật event listener cho nút lọc trạng thái
+            document.querySelectorAll('.filter-status-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const filter = this.getAttribute('data-filter');
+                    const filterContainer = this.closest('.filter-status-container');
+                    const tableType = filterContainer.id.includes('long') ? 'long' : 'short';
+                    const tableId = `${tableType}TermTable-homedetail`;
+
+                    // Cập nhật UI của nút
+                    filterContainer.querySelectorAll('.filter-status-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+
+                    // Lấy giá trị tìm kiếm hiện tại
+                    const searchValue = document.getElementById(`${tableType}-term-search`).value.toLowerCase().trim();
+
+                    // Áp dụng cả hai bộ lọc
+                    applyAllFilters(tableId, searchValue, filter);
+                });
+            });
+        }
+
+        // Gọi hàm cập nhật sau khi tất cả các phần tử đã được tạo
+        setTimeout(updateFilterEvents, 500);
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -3010,6 +3802,69 @@
                 }
             }
         });
+    });
+</script>
+<script>
+    // Make sure this script is placed at the end of the body
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log("Sidebar toggle script loaded");
+
+        setTimeout(function () {
+            const toggleBtn = document.getElementById('asideToggleBtn');
+            const aside = document.querySelector('.modern-aside');
+
+            if (toggleBtn && aside) {
+                console.log("Found toggle button and aside");
+
+                // Remove any existing listeners first to avoid duplicates
+                const newToggleBtn = toggleBtn.cloneNode(true);
+                toggleBtn.parentNode.replaceChild(newToggleBtn, toggleBtn);
+
+                newToggleBtn.addEventListener('click', function (e) {
+                    console.log("Toggle button clicked");
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Toggle appropriate classes based on screen size
+                    if (window.innerWidth <= 600) {
+                        aside.classList.toggle('open');
+                    } else {
+                        aside.classList.toggle('collapsed');
+                    }
+
+                    // Update icon
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        const isOpen = window.innerWidth <= 600 ?
+                            aside.classList.contains('open') :
+                            !aside.classList.contains('collapsed');
+
+                        icon.className = isOpen ?
+                            'fa-solid fa-xmark' :
+                            'fa-solid fa-bars';
+                    }
+
+                    console.log("Toggled sidebar state");
+                });
+
+                // Set initial state based on screen size
+                if (window.innerWidth <= 900 && window.innerWidth > 600) {
+                    aside.classList.add('collapsed');
+                }
+
+                // For debugging, let's add a global function to toggle the sidebar
+                window.toggleSidebar = function () {
+                    newToggleBtn.click();
+                };
+
+                console.log("Sidebar toggle setup complete");
+            } else {
+                console.error("Toggle button or aside not found", {
+                    toggleBtn: toggleBtn ? "found" : "not found",
+                    aside: aside ? "found" : "not found"
+                });
+            }
+        }, 500); // Small delay to ensure DOM is fully loaded
     });
 </script>
 <script>
