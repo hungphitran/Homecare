@@ -680,7 +680,7 @@ const requestController={
                 district: req.body.district || '',
                 ward: req.body.ward || ''
             },
-            requestType: req.body.requestType || "regular",
+            requestType: req.body.requestType || "Ngắn hạn",
             totalCost: req.body.totalCost,
             helperId: req.body.helperId || req.body.helper_id || "" // Add helperId for API compatibility
         };
@@ -917,7 +917,12 @@ const requestController={
             // Ensure proper format according to API spec
             let reviewData = {
                 detailId: req.body.detailId,
-                comment: req.body.comment || req.body.review || ""
+                comment: {
+                    review : req.body.review || "",
+                    lostThings : req.body.lostThings || "",
+                    breakThings : req.body.breakThings || ""
+                },
+                rating: req.body.rating || 5
             };
             
             let headers = {

@@ -26,8 +26,10 @@ module.exports = async (req, res, next) => {
                 phone: req.session.phone,
                 fullName: req.session.username
             };
+            res.locals.phone = req.session.phone; // Add phone to locals for meta tag
         } else {
             res.locals.user = null;
+            res.locals.phone = null;
         }
         
         // Call next() to continue to the next middleware/controller

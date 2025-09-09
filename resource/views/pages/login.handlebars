@@ -13,6 +13,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
     <!-- Link CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <style>
@@ -519,6 +522,9 @@
                 
 
                 <form id="form-1" method="post" action="/account" class="form auth__form">
+                    <!-- Hidden input for FCM token -->
+                    <input type="hidden" name="fcm_token" id="fcm_token" value="">
+                    
                     <!-- Phone input -->
                     <div class="form__group">
                         <div class="form__text-input form-control">
@@ -682,6 +688,69 @@
 
         // Notify template loaded
         window.dispatchEvent(new Event("template-loaded"));
+
+        // Initialize Firebase
+        const firebaseConfig = {
+          apiKey: "AIzaSyDvqnWS371a_O-gdNFzBbOYeHrkRaTULAM",
+          authDomain: "homecare-a46a5.firebaseapp.com",
+          projectId: "homecare-a46a5",
+          storageBucket: "homecare-a46a5.firebasestorage.app",
+          messagingSenderId: "18882475992",
+          appId: "1:18882475992:web:1a398a7348ba785c3da4ad"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+
+        // VAPID key
+        const vapidKey = "BIQ-2exfnxQa9SSmd-xyHXjjhCkLG6FlLARrok0IbGDYWhgB0BgnLArdCbtBvpU15jvnluRVld1G0Nucn1_Npw0";
+
+        // Đăng ký service worker
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/firebase-messaging-sw.js')
+            .then((registration) => {
+              console.log('Service Worker đã được đăng ký:', registration);
+              messaging.useServiceWorker(registration);
+            })
+            .catch((error) => {
+              console.error('Lỗi đăng ký Service Worker:', error);
+            });
+        }
+
+        // Chuẩn bị FCM token khi form được submit
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('form-1');
+            const fcmTokenInput = document.getElementById('fcm_token');
+            
+            if (form && fcmTokenInput) {
+                form.addEventListener('submit', async function(e) {
+                    try {
+                        // Yêu cầu quyền thông báo nếu chưa có
+                        if ('Notification' in window && Notification.permission === 'default') {
+                            await Notification.requestPermission();
+                        }
+                        
+                        // Lấy FCM token
+                        if (Notification.permission === 'granted') {
+                            const currentToken = await messaging.getToken({ vapidKey });
+                            if (currentToken) {
+                                fcmTokenInput.value = currentToken;
+                                localStorage.setItem('fcm_token', currentToken);
+                            }
+                        }
+                        
+                        // Nếu không có token mới, dùng token từ localStorage
+                        const savedToken = localStorage.getItem('fcm_token');
+                        if (savedToken && !fcmTokenInput.value) {
+                            fcmTokenInput.value = savedToken;
+                        }
+                    } catch (error) {
+                        console.error('Lỗi khi lấy FCM token:', error);
+                        // Vẫn cho phép submit form ngay cả khi không có token
+                    }
+                });
+            }
+        });
     </script>
 </body>
 

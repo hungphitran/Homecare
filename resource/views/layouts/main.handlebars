@@ -4,6 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{#if phone}}
+    <meta name="user-phone" content="{{phone}}">
+    {{/if}}
     <title>
         Homecare
     </title>
@@ -29,9 +32,43 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <link rel="preload" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css">
+
+    <!--cấu hình thông báo-->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js"></script>
+    <script src="/js/firebase-messaging.js"></script>
+
     <!-- link css -->
     <link rel="stylesheet" href="/css/style.css">
-    
+    <style>
+    .toast-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      min-width: 300px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 9999;
+    }
+    .toast-header {
+      padding: 10px 15px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .toast-body {
+      padding: 10px 15px;
+    }
+    .close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    </style>
     <!-- script -->
     <script src="/js/scripts.js"></script>
     <script src="/js/time-picker-logic.js"></script>
@@ -378,6 +415,22 @@
         crossorigin="anonymous"></script>
     <script>
         window.dispatchEvent(new Event("template-loaded"));
+        
+        // Check for logout flag và clear localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('logout') === '1') {
+                // Clear user data after logout
+                if (typeof window.clearUserDataOnLogout === 'function') {
+                    window.clearUserDataOnLogout();
+                }
+                
+                // Remove logout flag from URL
+                urlParams.delete('logout');
+                const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+                window.history.replaceState({}, '', newUrl);
+            }
+        });
     </script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <script src="/js/notification-toast.js"></script>

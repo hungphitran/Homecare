@@ -77,6 +77,32 @@ const accountController = {
                 req.session.accessToken = result.accessToken;
                 req.session.refreshToken = result.refreshToken;
                 
+                // Đăng ký FCM token nếu có
+                if (req.body.fcm_token) {
+                    option = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            phone: req.session.phone,
+                            token: req.body.fcm_token,
+                            deviceType: 'web' 
+                        })
+                    }
+
+                    try {
+                        await fetch(process.env.API_URL + '/notification/register', option)
+                            .then(data => data.json())
+                            .then(data => {
+                                console.log('FCM token registered successfully:', data);
+                            });
+                    } catch (err) {
+                        console.error('Error registering FCM token:', err);
+                        // Không fail login nếu đăng ký token thất bại
+                    }
+                }
+                
                 // Save session before redirect
                 req.session.save((err) => {
                     if (err) {
@@ -349,24 +375,6 @@ const accountController = {
             locations: locations,
             layout:false
         });
-        
-        // Debug logging
-        console.log('=== DEBUG: Request Classification ===');
-        console.log('Total requests:', requests ? requests.length : 0);
-        console.log('Long term requests:', longTermRequests.length);
-        console.log('Short term requests:', shortTermRequests.length);
-        
-    if (Array.isArray(requests)) {
-            requests.forEach((request, index) => {
-                console.log(`Request ${index}:`, {
-                    id: request._id,
-                    requestType: request.requestType,
-                    schedulesCount: request.schedules ? request.schedules.length : 0,
-                    isLongTerm: request.schedules && request.schedules.length > 1,
-                    isShortTerm: request.schedules && request.schedules.length === 1
-                });
-            });
-        }
     },
     sendotp: async(req,res,next)=>{
         if(req.body.phone){
@@ -426,13 +434,12 @@ const accountController = {
         }
     },
     updateAccount: async (req,res,next) =>{
-        console.log("update");
-    let account = req.body;
+        let account = req.body;
         console.log(account)
 
         // Server-side validation
-    const fullName = (account.fullName || account.name || '').trim();
-    if (!fullName) {
+        const fullName = (account.fullName || account.name || '').trim();
+        if (!fullName) {
             return res.status(400).json({
                 success: false,
                 message: "Họ tên không được để trống"
@@ -454,7 +461,7 @@ const accountController = {
         const province = (account.province || addrObj.province || '').trim();
         const district = (account.district || addrObj.district || '').trim();
         const ward = (account.ward || addrObj.ward || '').trim();
-    if (!detailAddress) {
+        if (!detailAddress) {
             return res.status(400).json({
                 success: false,
                 message: "Địa chỉ không được để trống"
@@ -481,9 +488,9 @@ const accountController = {
         }
         
         // Sanitize address components
-    account.province = province;
-    account.district = district;
-    account.ward = ward;
+        account.province = province;
+        account.district = district;
+        account.ward = ward;
 
         // Format data according to API spec
         let updateData = {
@@ -541,12 +548,38 @@ const accountController = {
     },
     //handle logout
     logout: async (req, res, next) => {
+        // Lấy thông tin FCM token trước khi destroy session
+        const userPhone = req.session.phone;
+        const fcmToken = req.body.fcm_token || req.query.fcm_token;
+        
+        // Unregister FCM token from server nếu có
+        // if (userPhone && fcmToken) {
+        //     try {
+        //         await fetch(process.env.API_URL + '/notification/unregister', {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             body: JSON.stringify({
+        //                 phone: userPhone,
+        //                 token: fcmToken,
+        //                 deviceType: 'web'
+        //             })
+        //         });
+        //         console.log('FCM token unregistered successfully');
+        //     } catch (err) {
+        //         console.error('Error unregistering FCM token:', err);
+        //         // Không fail logout nếu unregister token thất bại
+        //     }
+        // }
+        
         req.session.destroy((err) => {
             if (err) {
                 console.error('Session destroy error:', err);
                 return res.redirect('/?type=error&noti=' + encodeURIComponent('Có lỗi xảy ra khi đăng xuất'));
             } else {
-                return res.redirect('/?type=success&noti=' + encodeURIComponent('Đăng xuất thành công! Hẹn gặp lại bạn.') + '&refresh=1');
+                // Redirect với flag để clear localStorage
+                return res.redirect('/?type=success&noti=' + encodeURIComponent('Đăng xuất thành công! Hẹn gặp lại bạn.') + '&refresh=1&logout=1');
             }
         });
     }
