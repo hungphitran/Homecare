@@ -6,6 +6,7 @@ const mailRoute = require('./mail.route')
 const requestRoute = require('./request.route');
 const authRoute = require('./auth.route');
 const headerLoad = require('../middlewares/headerLoad')
+const notificationRoute = require('./notification.route');
 
 function route(app) {
     // Apply headerLoad middleware globally to all routes
@@ -17,6 +18,7 @@ function route(app) {
     app.use('/request', requestRoute)
     app.use('/account', accountRoute)
     app.use('/contact', mailRoute)
+    app.use('/notification', notificationRoute);
     //dashboard
     app.use('/Home', dashboardRoute)
     app.use('/', dashboardRoute)

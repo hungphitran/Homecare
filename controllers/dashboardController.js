@@ -40,7 +40,6 @@ const dashboardController = {
             locations = await fetch(process.env.API_URL + '/location')
                 .then(data => data.json())
                 .then(data => data)
-
         }
         catch (err) {
             console.error(err);

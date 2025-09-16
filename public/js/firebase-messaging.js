@@ -28,7 +28,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// Cấu hình API endpoint local thay vì external
+// Cấu hình API endpoint local 
 const API_BASE_URL = '/'; // Sử dụng API local
 
 // Hàm yêu cầu quyền và lấy token
@@ -74,8 +74,6 @@ async function requestPermissionAndGetToken() {
     throw error;
   }
 }
-// Bạn có thể gọi hàm này khi người dùng nhấn vào một nút nào đó,
-// ví dụ: <button onclick="requestPermissionAndGetToken()">Nhận thông báo</button>
 
 
 // Sửa lại hàm gửi token về server
@@ -88,7 +86,7 @@ async function sendTokenToServer(token) {
       return; // Không throw error, chỉ return
     }
 
-    const response = await fetch(`${API_BASE_URL}/notification/register`, {
+    const response = await fetch(`/notification/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -133,13 +131,14 @@ function getCurrentUserPhone() {
   if (phoneFromSession) return phoneFromSession;
   
   // Không prompt user nữa, return null nếu không tìm thấy
+  console.log('Không tìm thấy số điện thoại người dùng');
   return null;
 }
 
 // Thêm hàm kiểm tra trạng thái token
 async function checkTokenStatus(phone) {
   try {
-    const response = await fetch(`${API_BASE_URL}/notification/check/${phone}`);
+    const response = await fetch(`/notification/check/${phone}`);
     
     if (!response.ok) {
       throw new Error('Không thể kiểm tra trạng thái token');
@@ -158,7 +157,7 @@ async function checkTokenStatus(phone) {
 // Thêm hàm test notification
 async function sendTestNotification(phone, title = 'Test', body = 'This is a test notification') {
   try {
-    const response = await fetch(`${API_BASE_URL}/notification/test`, {
+    const response = await fetch(`/notification/test`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -188,31 +187,52 @@ async function sendTestNotification(phone, title = 'Test', body = 'This is a tes
 messaging.onMessage((payload) => {
   console.log('Message received. ', payload);
   
-  // Hiển thị thông báo custom hoặc toast
-  showInAppNotification(payload);
+  // Kiểm tra xem có notification từ URL parameters không
+  const urlParams = new URLSearchParams(window.location.search);
+  const hasUrlNotification = urlParams.get('success') || urlParams.get('error') || 
+                             urlParams.get('warning') || urlParams.get('info') ||
+                             (urlParams.get('type') && urlParams.get('noti'));
+  
+  // Chỉ hiển thị notification từ Firebase nếu không có notification từ URL
+  if (!hasUrlNotification) {
+    showInAppNotification(payload);
+  } else {
+    console.log('URL notification detected, skipping Firebase notification display');
+  }
 });
 
 // Hàm hiển thị thông báo trong app
 function showInAppNotification(payload) {
-  // Tạo toast notification hoặc modal
-  const notification = document.createElement('div');
-  notification.className = 'toast-notification';
-  notification.innerHTML = `
-    <div class="toast-header">
-      <strong>${payload.notification?.title || 'Thông báo'}</strong>
-      <button type="button" class="close" onclick="this.parentElement.parentElement.remove()">×</button>
-    </div>
-    <div class="toast-body">
-      ${payload.notification?.body || 'Bạn có tin nhắn mới'}
-    </div>
-  `;
+  console.log('Hiển thị thông báo từ Firebase:', payload);
   
-  document.body.appendChild(notification);
-  
-  // Tự động ẩn sau 5 giây
-  setTimeout(() => {
-    notification.remove();
-  }, 5000);
+  // Sử dụng hệ thống notification-toast thay vì tự tạo
+  if (window.notificationToast) {
+    const title = payload.notification?.title || 'Thông báo';
+    const body = payload.notification?.body || 'Bạn có tin nhắn mới';
+    
+    // Sử dụng notification-toast system
+    window.notificationToast.info(`${title}: ${body}`);
+  } else {
+    // Fallback nếu notification-toast chưa sẵn sàng
+    const notification = document.createElement('div');
+    notification.className = 'toast-notification';
+    notification.innerHTML = `
+      <div class="toast-header">
+        <strong>${payload.notification?.title || 'Thông báo'}</strong>
+        <button type="button" class="close" onclick="this.parentElement.parentElement.remove()">×</button>
+      </div>
+      <div class="toast-body">
+        ${payload.notification?.body || 'Bạn có tin nhắn mới'}
+      </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Tự động ẩn sau 5 giây
+    setTimeout(() => {
+      notification.remove();
+    }, 5000);
+  }
 }
 
 

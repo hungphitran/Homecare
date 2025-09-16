@@ -29,7 +29,7 @@
                 </div>
     
                 <div class="group-form-homecare">
-                    <label class="label-form-homecare" for="city">Thành phố</label>
+                    <label class="label-form-homecare" for="city">Tỉnh/Thành phố</label>
                     <select class="select-form-homecare" id="city" required disabled style="background:#f2f2f2; pointer-events:none;">
                         <option value="{{request.province}}">{{request.province}}</option>
                     </select>
@@ -38,28 +38,14 @@
                 </div>
     
                 <div class="group-form-homecare">
-                    <label class="label-form-homecare" for="district">Quận</label>
-                    <select class="select-form-homecare" id="district" required disabled style="background:#f2f2f2; pointer-events:none;">
-                        <option value="{{request.district}}">{{request.district}}</option>
+                    <label class="label-form-homecare" for="ward">Phường/Xã</label>
+                    <select class="select-form-homecare" id="ward" required disabled style="background:#f2f2f2; pointer-events:none;">
+                        <option value="{{request.ward}}">{{request.ward}}</option>
                     </select>
                     <!-- Hidden field retains district value for submission -->
-                    <input type="hidden" name="district" value="{{request.district}}">
+                    <input type="hidden" name="ward" value="{{request.ward}}">
                 </div>
     
-                <div class="group-form-homecare">
-                    <label class="label-form-homecare" for="ward">Phường/Xã</label>
-                    {{#if locations}}
-                    <select class="select-form-homecare" id="ward" name="ward" required>
-                        {{#if request.ward}}
-                        <option value="{{request.ward}}">{{request.ward}}</option>
-                        {{else}}
-                        <option value="">Chọn phường/xã</option>
-                        {{/if}}
-                    </select>
-                    {{else}}
-                    <input class="input-form-homecare" type="text" id="ward" name="ward" value="{{request.ward}}" required>
-                    {{/if}}
-                </div>
     
                 <div class="group-form-homecare full-width-form-homecare">
                     <label class="label-form-homecare" for="address">Địa chỉ chi tiết</label>
@@ -276,7 +262,7 @@
             console.log('Form submission data:', formObject);
             
             // Validate required fields
-            const requiredFields = ['phone', 'fullname', 'province', 'district', 'ward', 'address', 'startTime', 'endTime'];
+            const requiredFields = ['phone', 'fullname', 'province', 'ward', 'address', 'startTime', 'endTime'];
             let isValid = true;
             
             for (let field of requiredFields) {
