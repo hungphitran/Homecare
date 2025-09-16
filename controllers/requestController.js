@@ -88,6 +88,7 @@ const requestController={
     //GET redirect to detail order page
     submit: async (req, res, next) => {
         // Validate that required parameters exist
+        console.log("req.query in submit: ",req.query)
         if (!req.query.service) {
             return res.redirect('/?error=missing_parameters');
         }
@@ -318,8 +319,7 @@ const requestController={
                     workDate: currentDate,
                     location: {
                         province: req.query.province,
-                        district: req.query.district,
-                        ward: req.query.ward
+                        ward: req.query.district
                     }
                 };
 
@@ -410,6 +410,7 @@ const requestController={
         } catch (e) {
             console.error('Failed to fetch locations for detailedRequest page:', e);
         }
+        req.query.ward = req.query.district || '';
 
         res.render('partials/detailedRequest', {
             customer: user,
@@ -518,7 +519,6 @@ const requestController={
                 title: req.body.service,
                 _id: req.body.service_id || '',
                 coefficient_service: 1,
-                coefficient_other: 1,
                 cost: 0
             };
         } else if (typeof req.body.service === 'object') {
@@ -568,7 +568,6 @@ const requestController={
         if (!req.body.location) {
             req.body.location = { 
                 province: req.body.province || '', 
-                district: req.body.district || '', 
                 ward: req.body.ward || '' 
             };
         }
@@ -677,7 +676,6 @@ const requestController={
             },
             location: {
                 province: req.body.province || '',
-                district: req.body.district || '',
                 ward: req.body.ward || ''
             },
             requestType: req.body.requestType || "Ngắn hạn",

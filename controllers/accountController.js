@@ -137,6 +137,7 @@ const accountController = {
 
     //handle register
     register: async (req, res, next) => {
+        console.log("Register data received:", req.body);
         // Get locations for error cases
         let locations = [];
         try {
@@ -159,7 +160,6 @@ const accountController = {
             email: req.body.email,
             address: {
                 province: req.body.province,
-                district: req.body.district,
                 ward: req.body.ward,
                 detailAddress: req.body.address
             }
@@ -549,29 +549,9 @@ const accountController = {
     //handle logout
     logout: async (req, res, next) => {
         // Lấy thông tin FCM token trước khi destroy session
-        const userPhone = req.session.phone;
-        const fcmToken = req.body.fcm_token || req.query.fcm_token;
+        // const userPhone = req.session.phone;
+        // const fcmToken = req.body.fcm_token || req.query.fcm_token;
         
-        // Unregister FCM token from server nếu có
-        // if (userPhone && fcmToken) {
-        //     try {
-        //         await fetch(process.env.API_URL + '/notification/unregister', {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             body: JSON.stringify({
-        //                 phone: userPhone,
-        //                 token: fcmToken,
-        //                 deviceType: 'web'
-        //             })
-        //         });
-        //         console.log('FCM token unregistered successfully');
-        //     } catch (err) {
-        //         console.error('Error unregistering FCM token:', err);
-        //         // Không fail logout nếu unregister token thất bại
-        //     }
-        // }
         
         req.session.destroy((err) => {
             if (err) {

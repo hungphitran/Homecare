@@ -543,99 +543,6 @@
         </div>
     </div>
 </section>
-{{!-- <section id="faq" class="faq-section py-5">
-    <div class="container">
-        <!-- Header -->
-        <div class="row mb-5">
-            <div class="col-lg-7 mx-auto text-center">
-                <h2 class="section-heading">Câu hỏi thường gặp</h2>
-                <p class="section-subtitle">Giải đáp những thắc mắc phổ biến về dịch vụ của Pro Cleaner</p>
-                <div class="section-divider"></div>
-            </div>
-        </div>
-
-        <!-- Search Box -->
-        <div class="row mb-4">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="faq-search">
-                    <div class="input-group">
-                        <span class="input-group-text bg-transparent border-end-0">
-                            <i class="fas fa-search"></i>
-                        </span>
-                        <input type="text" id="faq-search-input" class="form-control border-start-0 ps-0"
-                            placeholder="Tìm kiếm câu hỏi..." aria-label="Tìm kiếm câu hỏi">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ Categories -->
-        <div class="row mb-4">
-            <div class="col-lg-10 mx-auto">
-                <div class="faq-categories">
-                    <button class="btn btn-category active" data-filter="all">Tất cả</button>
-                    <button class="btn btn-category" data-filter="service">Dịch vụ</button>
-                    <button class="btn btn-category" data-filter="booking">Đặt lịch</button>
-                    <button class="btn btn-category" data-filter="payment">Thanh toán</button>
-                    <button class="btn btn-category" data-filter="other">Khác</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ List -->
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <div class="accordion faq-accordion" id="faqAccordion">
-                    {{#each questions}}
-                    <div class="accordion-item faq-item" data-category="{{category}}">
-                        <h2 class="accordion-header" id="heading{{@index}}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse{{@index}}" aria-expanded="false"
-                                aria-controls="collapse{{@index}}">
-                                <span class="faq-question-text">{{question}}</span>
-                            </button>
-                        </h2>
-                        <div id="collapse{{@index}}" class="accordion-collapse collapse"
-                            aria-labelledby="heading{{@index}}" data-bs-parent="#faqAccordion">
-                            <div class="accordion-body">
-                                {{#if answers.length}}
-                                <ul class="faq-answer-list">
-                                    {{#each answers}}
-                                    <li>{{this}}</li>
-                                    {{/each}}
-                                </ul>
-                                {{else}}
-                                <p class="faq-answer-text">{{answer}}</p>
-                                {{/if}}
-                            </div>
-                        </div>
-                    </div>
-                    {{/each}}
-                </div>
-            </div>
-        </div>
-
-        <!-- Contact Support -->
-        <div class="row mt-5">
-            <div class="col-lg-10 mx-auto">
-                <div class="faq-support-card">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h3>Vẫn còn thắc mắc?</h3>
-                            <p>Liên hệ với đội ngũ hỗ trợ của chúng tôi để được giải đáp nhanh chóng</p>
-                        </div>
-                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                            <a href="/contact" class="btn btn-primary">
-                                <i class="fas fa-headset me-2"></i> Liên hệ hỗ trợ
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
-
 
 <section class="partnership">
     <div class="container">
@@ -703,7 +610,6 @@
     function updateName_service(selectedLi) {
         console.log("updataName service is running")
         let idService = 0;
-        console.log(selectedLi);
         for (let i = 0; i < services.length; i++) {
             if (selectedLi.innerText == services[i].title) {
                 idService = services[i].id;
@@ -813,7 +719,7 @@
             }
 
 
-            let countries = {{{ json locations }}}.map(location => { return location.Name.replace(/(Tỉnh|Thành phố) /g, '') });
+            let countries = {{{ json locations }}}.map(location => { return location.name.replace(/(Tỉnh|Thành phố) /g, '') });
     console.log(countries);
 
 
@@ -836,11 +742,9 @@
         // give the district selections with index
         districts = [];
 
-        for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+        for (let i = 1; i < locations[selectedIndex].wards.length; i++) {
             let districtName;
-            console.log(districtName);
-
-            districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
+            districts.push(locations[selectedIndex].wards.name.replace(/(Huyện) /g, ''));
         }
         console.log(districts);
         makeWrapperDistrict(districts, selectedLi);
@@ -886,7 +790,7 @@
         }
 
 
-        let countries = {{{ json locations }}}.map(location => { return location.Name.replace(/(Tỉnh|Thành phố) /g, '') });
+        let countries = {{{ json locations }}}.map(location => { return location.name.replace(/(Tỉnh|Thành phố) /g, '') });
     console.log(countries);
 
     function addCountry(selectedCountry) {
@@ -909,10 +813,9 @@
         // give the district selections with index
         districts = [];
 
-        for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+        for (let i = 1; i < locations[selectedIndex].wards.length; i++) {
             let districtName;
-            console.log(districtName);
-            districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
+            districts.push(locations[selectedIndex].wards[i].name.replace(/(Huyện) /g, ''));
         }
         console.log(districts);
         makeWrapperDistrict(districts, selectedLi);
@@ -956,7 +859,7 @@
             return;
         }
 
-        let countries = locations.map(location => { return location.Name.replace(/(Tỉnh|Thành phố) /g, '') });
+        let countries = locations.map(location => { return location.name.replace(/(Tỉnh|Thành phố) /g, '') });
 
         function addCountry_long(selectedCountry) {
             options_long.innerHTML = "";
@@ -979,10 +882,10 @@
             // give the district selections with index
             districts = [];
 
-            for (let i = 1; i < locations[selectedIndex].Districts.length; i++) {
+            for (let i = 1; i < locations[selectedIndex].wards.length; i++) {
                 let districtName;
                 console.log(districtName);
-                districts.push(locations[selectedIndex].Districts[i].Name.replace(/(Huyện) /g, ''));
+                districts.push(locations[selectedIndex].wards[i].name.replace(/(Huyện) /g, ''));
             }
             console.log(districts);
             makeWrapperDistrictLong(districts, selectedLi);
