@@ -137,7 +137,7 @@ const accountController = {
 
     //handle register
     register: async (req, res, next) => {
-        console.log("Register data received:", req.body);
+        console.log("Register request body:", req.body);
         // Get locations for error cases
         let locations = [];
         try {
@@ -151,7 +151,7 @@ const accountController = {
         } catch (err) {
             console.error(err);
         }
-        
+
         //format register data according to API
         let registerData = {
             phone: req.body.phone,
@@ -164,6 +164,7 @@ const accountController = {
                 detailAddress: req.body.address
             }
         };
+        console.log("Register data:", registerData);
 
         let option = {
             method: 'POST',
@@ -201,6 +202,7 @@ const accountController = {
     //show account page
     showDetailed: async (req,res,next)=>{
         // Get locations for address dropdowns
+        
         let locations = [];
         try {
             locations = await fetch(process.env.API_URL + '/location')
@@ -253,41 +255,6 @@ const accountController = {
         }
         else if(user.points ==null || user.points.length==0){
             user.points=[{point:0},]//if there's no point, set it to 0;
-            
-            // Check if addresses exist and have at least one element
-            if(user.addresses && user.addresses.length > 0){
-                let address = user.addresses[0] //get first address
-                user.address = address.detailAddress + " " + address.ward + " " + address.district + ' ' //format address
-                user.province = address.province || '';
-                user.district = address.district || '';
-                user.ward = address.ward || '';
-                user.detailAddress = address.detailAddress || '';
-            } else {
-                user.address = '' // Set empty string if no address available
-                user.province = '';
-                user.district = '';
-                user.ward = '';
-                user.detailAddress = '';
-            }
-        }
-        else if(user.points.length>0){
-            
-            // Check if addresses exist and have at least one element
-            if(user.addresses && user.addresses.length > 0){
-                let address = user.addresses[0] //get first address
-                user.address = address.detailAddress + " " + address.ward + " " + address.district + ' ' //format address
-                user.province = address.province || '';
-                user.district = address.district || '';
-                user.ward = address.ward || '';
-                user.detailAddress = address.detailAddress || '';
-            } else {
-                user.address = '' // Set empty string if no address available
-                user.province = '';
-                user.district = '';
-                user.ward = '';
-                user.detailAddress = '';
-            }
-            user.point=user.points[user.points.length-1].point;//format to display only latest point
         }
 
         //GET call api getting all requests which were created by current user
@@ -308,7 +275,6 @@ const accountController = {
             console.error(err);
             return [];
         });
-
         // Process requests data - API already returns schedules array
         if (Array.isArray(requests)) {
             for(let i = 0; i < requests.length; i++) {
@@ -364,11 +330,15 @@ const accountController = {
         });
         
         let shortTermRequests = requests.filter(request => {
+            if(request.status=="waitPayment" && request.totalCost==540000){
+                console.log("waitPayment request:",request);
+            }
             if (!request || !Array.isArray(request.schedules)) return false;
             return request.schedules.length === 1; // Single schedule = short term
+
         });
-        
-    return res.render('partials/detailedaccount',{
+        user.address = user.addresses[0]
+        return res.render('partials/detailedaccount',{
             user:user,
             longTermRequests:longTermRequests,
             shortTermRequests:shortTermRequests,
@@ -423,19 +393,28 @@ const accountController = {
             
             if (response.ok) {
                 let result = await response.json();
-                return res.redirect('/account?success=Đổi mật khẩu thành công');
+                return res.status(200).json({
+                    success: true,
+                    message: "Đổi mật khẩu thành công"
+                });
             } else {
                 let errorData = await response.json();
-                return res.redirect('/account/changepassword?err=' + encodeURIComponent(errorData.message || 'Đổi mật khẩu thất bại'));
+                return res.status(response.status).json({
+                    success: false,
+                    message: errorData.message || "Đổi mật khẩu thất bại"
+                });
             }
         } catch (err) {
             console.error('Change password error:', err);
-            return res.redirect('/account/changepassword?err=' + encodeURIComponent('Đổi mật khẩu thất bại'));
+            return res.status(500).json({
+                success: false,
+                message: "Lỗi server, vui lòng thử lại sau"
+            });
         }
     },
     updateAccount: async (req,res,next) =>{
         let account = req.body;
-        console.log(account)
+        console.log("datasend",account)
 
         // Server-side validation
         const fullName = (account.fullName || account.name || '').trim();
@@ -457,10 +436,9 @@ const accountController = {
                 addrObj = incomingAddresses;
             }
         }
-        const detailAddress = ((account.detailAddress || addrObj.detailAddress || account.address) || '').trim();
-        const province = (account.province || addrObj.province || '').trim();
-        const district = (account.district || addrObj.district || '').trim();
-        const ward = (account.ward || addrObj.ward || '').trim();
+        const detailAddress = account.addresses[0].detailAddress.trim();
+        const province = account.addresses[0].province 
+        const ward = account.addresses[0].ward
         if (!detailAddress) {
             return res.status(400).json({
                 success: false,
@@ -489,7 +467,6 @@ const accountController = {
         
         // Sanitize address components
         account.province = province;
-        account.district = district;
         account.ward = ward;
 
         // Format data according to API spec
@@ -499,7 +476,6 @@ const accountController = {
             addresses: [
                 {
                     province: account.province || "",
-                    district: account.district || "",
                     ward: account.ward || "",
                     detailAddress: account.address
                 }

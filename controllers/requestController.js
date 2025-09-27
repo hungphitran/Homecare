@@ -853,9 +853,9 @@ const requestController={
     finishPayment: async (req, res, next) => {
         try {
             console.log("req.body in finish payment: ",req.body)
-            let detailId = req.body.detailId;
-            if(!detailId){
-                res.status(400).json({ message: "Missing detailId" });
+            let orderId = req.body.orderId;
+            if(!orderId){
+                res.status(400).json({ message: "Missing Id" });
             }
 
             let headers = {
@@ -870,36 +870,26 @@ const requestController={
             let option = {
                 method: 'POST',
                 headers: headers,
-                body: JSON.stringify({ detailId: detailId })
+                body: JSON.stringify({ id: orderId })
             };
             await fetch(process.env.API_URL + '/request/finishpayment', option)
                 .then(data => {
                     if (data.status === 200) {
-                        return data.text()
-                        .then(responseText => {
-                            // API trả về "Success" string
-                            if (responseText === "Success") {
-                                res.status(200).json({ message: "Payment finished successfully" });
-                            } else {
-                                try {
-                                    const jsonResponse = JSON.parse(responseText);
-                                    res.status(200).json({ message: jsonResponse.message || "Payment finished successfully" });
-                                } catch (e) {
-                                    res.status(200).json({ message: "Payment finished successfully" });
-                                }
-                            }
-                        })
+                        res.status(200).json({ 
+                            success: true,
+                            message: "Payment successful" });
                     }
                     else {
-                        return data.text()
-                        .then(errorText => {
-                            res.status(data.status).json({ message: errorText || "Payment failed" });
-                        })
+                        res.status(data.status).json({
+                            success: false,
+                            message: "Payment failed" });
                     }
                 })
                 .catch(fetchErr => {
                     console.error('Fetch error:', fetchErr);
-                    res.status(500).json({ message: "Payment failed: " + fetchErr.message });
+                    res.status(500).json({
+                        success: false, 
+                        message: "Payment failed: " + fetchErr.message });
                 })
         }
         catch (err) {
@@ -909,20 +899,18 @@ const requestController={
     },
     //POST submit review for detail order
     submitReview: async (req, res, next) => {
-        try{
-            console.log("req.body in review: ",req.body)
-            
+        try{            
             // Ensure proper format according to API spec
             let reviewData = {
                 detailId: req.body.detailId,
                 comment: {
-                    review : req.body.review || "",
-                    lostThings : req.body.lostThings || "",
-                    breakThings : req.body.breakThings || ""
+                    review : req.body.review,
+                    loseThings : req.body.loseThings,
+                    breakThings : req.body.breakThings
                 },
                 rating: req.body.rating || 5
             };
-            
+            console.log("Formatted review data: ", reviewData);
             let headers = {
                 'Content-Type': 'application/json'
             };
@@ -940,25 +928,14 @@ const requestController={
             await fetch(process.env.API_URL + '/requestDetail/review', option)
                 .then(data => {
                     if(data.status === 200){
-                        return data.text()
-                        .then(responseText => {
-                            // API trả về "success" string
-                            if (responseText === "success") {
-                                res.status(200).json({message:"Đánh giá thành công"})
-                            } else {
-                                try {
-                                    const jsonResponse = JSON.parse(responseText);
-                                    res.status(200).json({message: jsonResponse.message || "Đánh giá thành công"})
-                                } catch (e) {
-                                    res.status(200).json({message:"Đánh giá thành công"})
-                                }
-                            }
-                        })
+                        res.status(200).json({
+                            success: true,
+                            message:"Đánh giá thành công"})
                     }
                     else {
-                        return data.text()
-                        .then(errorText => {
-                            res.status(data.status).json({message: errorText || "Đánh giá thất bại"})
+                        res.status(data.status).json({
+                            success: false,
+                            message:"Đánh giá thất bại"
                         })
                     }
                 })
@@ -970,6 +947,44 @@ const requestController={
         catch (err) {
             console.error(err);
             res.status(500).json({ message: "Error in submit review: " + err.message });
+        }
+    },
+    createPaymentUrl: async (req, res, next) => {
+        try {
+            let orderId = req.body.orderId;
+            let host = req.body.host || req.get('host');
+            if(!orderId){
+                res.status(400).json({ message: "Missing Id" });
+            }
+
+            let headers = {
+                'Content-Type': 'application/json'
+            };
+            // Add authorization header if token exists
+            if (req.session.accessToken) {
+                headers['Authorization'] = `Bearer ${req.session.accessToken}`;
+            }  
+            let option = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({ requestId: orderId,
+                description:req.body.description || "Thanh toán đơn hàng",
+                fe_host: host 
+            })
+            };
+            const response = await fetch(process.env.API_URL + '/payment/create-payment-link', option)
+            if(response.status === 200){
+                const data = await response.json();
+                console.log("Payment URL data: ",data)
+                res.status(200).json({ 
+                    success: true,
+                    paymentData: data,
+                    message: "Create payment URL successful" });
+            }
+        }
+        catch (err) {
+            console.error(err);
+            res.status(500).json({ message: "Error in create payment URL: " + err.message });
         }
     }
 }
