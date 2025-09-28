@@ -2934,6 +2934,9 @@
         function processPayment(orderId) {
             const orderIndex = mockOrders.findIndex(order => order.id === orderId);
             if (orderIndex !== -1) {
+                // Hiển thị loading
+                showToast('Đang tạo link thanh toán...', 'info');
+                
                 // Tạo payment link với PayOS
                 fetch(`/request/createpayment`, {
                     method: 'POST',
@@ -2947,37 +2950,49 @@
                         host: window.location.origin
                     })
                 })
-                .then(response => response.json())
+                .then(response => {
+                    // Kiểm tra response status
+                    if (response.status === 401) {
+                        throw new Error('Session hết hạn, vui lòng đăng nhập lại');
+                    }
+                    if (response.status === 500) {
+                        throw new Error('Lỗi server, vui lòng thử lại sau');
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if(data.success && data.paymentData){
                         showPaymentModal(data.paymentData, orderId);
                     } else {
-                        showToast('Không thể tạo link thanh toán', 'error');
+                        throw new Error(data.message || 'Không thể tạo link thanh toán');
                     }
                 })
                 .catch(error => {
                     console.error('Error creating payment link:', error);
-                    // Fallback với dữ liệu mẫu để test
-                    const mockPaymentData = {
-                        bin: "970422",
-                        accountNumber: "VQRQAEMAF2069",
-                        accountName: "TRAN PHI HUNG",
-                        amount: mockOrders[orderIndex].totalAmount,
-                        description: `Thanh toán đơn hàng ${mockOrders[orderIndex].id}`,
-                        orderCode: Math.floor(Math.random() * 1000000000),
-                        currency: "VND",
-                        paymentLinkId: "test-payment-link-id",
-                        status: "PENDING",
-                        checkoutUrl: "https://pay.payos.vn/web/test-checkout-url",
-                        qrCode: "00020101021238570010A000000727012700069704220113VQRQAEMAF20690208QRIBFTTA53037045405100005802VN62060802da630480B2"
-                    };
-                    showPaymentModal(mockPaymentData, orderId);
+                    if (error.message.includes('Session hết hạn')) {
+                        showToast('❌ ' + error.message, 'error');
+                        // Redirect to login after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = '/account/login';
+                        }, 2000);
+                    } else {
+                        showToast('❌ ' + error.message, 'error');
+                    }
                 });
             }
         }
 
         // Payment Modal Functions
         function showPaymentModal(paymentData, orderId) {
+            // Dừng tất cả polling cũ trước khi bắt đầu
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+                window.paymentPollingInterval = null;
+            }
+            
+            // Reset modal về trạng thái ban đầu trước khi hiển thị
+            resetPaymentModal();
+            
             // Populate payment information
             document.getElementById('paymentOrderCode').textContent = paymentData.orderCode;
             document.getElementById('paymentAccountName').textContent = paymentData.accountName;
@@ -2989,8 +3004,10 @@
             // Set checkout URL
             document.getElementById('checkoutUrlBtn').href = paymentData.checkoutUrl;
             
-            // Generate QR Code
-            generateQRCode(paymentData.qrCode);
+            // Generate QR Code với retry logic
+            setTimeout(() => {
+                generateQRCode(paymentData.qrCode);
+            }, 100); // Delay nhỏ để đảm bảo DOM đã sẵn sàng
             
             // Show modal
             document.getElementById('paymentModal').classList.add('show');
@@ -2998,18 +3015,257 @@
             // Store payment data for later use
             window.currentPaymentData = paymentData;
             window.currentPaymentOrderId = orderId;
+            
+            // Bắt đầu polling kiểm tra trạng thái thanh toán
+            startPaymentStatusPolling(paymentData.orderCode);
+        }
+
+        // Polling để kiểm tra trạng thái thanh toán
+        function startPaymentStatusPolling(orderCode) {
+            // Dừng polling cũ nếu có
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+            }
+            
+            console.log('Bắt đầu kiểm tra trạng thái thanh toán ');
+            
+            window.paymentPollingInterval = setInterval(() => {
+                checkPaymentStatus(orderCode);
+            }, 3000); // Kiểm tra mỗi 3 giây
+            
+            // Dừng polling sau 10 phút (600 seconds)
+            setTimeout(() => {
+                if (window.paymentPollingInterval) {
+                    clearInterval(window.paymentPollingInterval);
+                    console.log('Dừng polling thanh toán sau 10 phút');
+                }
+            }, 600000);
+        }
+
+        // Kiểm tra trạng thái thanh toán
+        function checkPaymentStatus(orderCode) {
+            fetch(`/request/checkpaymentstatus`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    orderCode: orderCode
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    let orderId = window.currentPaymentOrderId
+                    console.log('Trạng thái thanh toán hiện tại:', data.paymentStatus.status);
+                    if (data.paymentStatus.status === 'PAID' || data.paymentStatus.status === 'paid') {
+                        // Thanh toán thành công
+                        handlePaymentSuccess(orderId);
+                    } else if (data.paymentStatus.status === 'CANCELLED' || data.paymentStatus.status === 'cancelled') {
+                        // Thanh toán bị hủy
+                        handlePaymentCancelled(orderId);
+                    }
+                    // Nếu status vẫn là PENDING thì tiếp tục polling
+                }
+            })
+            .catch(error => {
+                console.error('Error checking payment status:', error);
+            });
+        }
+
+        // Xử lý khi thanh toán thành công
+        function handlePaymentSuccess(orderId) {
+            console.log('Thanh toán thành công cho đơn hàng:', orderId);
+            
+            // Dừng polling
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+            }
+            
+            // Cập nhật UI
+            showPaymentSuccessAnimation();
+            
+            // Cập nhật trạng thái đơn hàng trong danh sách
+            const orderIndex = mockOrders.findIndex(order => order.id === orderId);
+            if (orderIndex !== -1) {
+                mockOrders[orderIndex].status = 'completed';
+                applyFilters(); // Refresh danh sách
+            }
+            
+            // Đóng modal sau 3 giây
+            setTimeout(() => {
+                closePaymentModal();
+                closeDetailModal();
+                showToast('✅ Thanh toán thành công! Đơn hàng đã hoàn thành.', 'success');
+            }, 3000);
+        }
+
+        // Xử lý khi thanh toán bị hủy
+        function handlePaymentCancelled(orderId) {
+            console.log('Thanh toán bị hủy cho đơn hàng:', orderId);
+            
+            // Dừng polling
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+            }
+            
+            // Hiển thị thông báo
+            showToast('❌ Thanh toán đã bị hủy', 'error');
+            
+            // Có thể giữ modal mở để người dùng thử lại
+        }
+
+        // Animation thanh toán thành công
+        function showPaymentSuccessAnimation() {
+            const modal = document.getElementById('paymentModal');
+            const qrSection = modal.querySelector('.qr-section');
+            const qrCodeContainer = modal.querySelector('.qr-code-container');
+            const qrInstructions = modal.querySelector('.qr-instructions');
+            const paymentActions = modal.querySelector('.payment-actions');
+            
+            if (!qrSection) {
+                console.error('QR section not found');
+                return;
+            }
+            
+            // Ẩn QR code container và instructions
+            if (qrCodeContainer) {
+                qrCodeContainer.style.display = 'none';
+            }
+            if (qrInstructions) {
+                qrInstructions.style.display = 'none';
+            }
+            
+            // Kiểm tra xem đã có success animation chưa
+            let successAnimation = qrSection.querySelector('.payment-success-animation');
+            if (!successAnimation) {
+                // Tạo success animation element
+                successAnimation = document.createElement('div');
+                successAnimation.className = 'payment-success-animation';
+                successAnimation.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <div style="font-size: 60px; color: #2ecc71; margin-bottom: 20px;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 style="color: #2ecc71; margin-bottom: 10px;">Thanh toán thành công!</h3>
+                        <p style="color: #666;">Đơn hàng của bạn đã được xử lý</p>
+                        <div style="margin-top: 20px;">
+                            <div class="spinner" style="border: 3px solid #f3f3f3; border-top: 3px solid #2ecc71; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                            <p style="margin-top: 10px; font-size: 14px; color: #999;">Đang cập nhật...</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Thêm success animation vào QR section (không thay thế)
+                qrSection.appendChild(successAnimation);
+            } else {
+                // Nếu đã có, chỉ hiển thị lại
+                successAnimation.style.display = 'block';
+            }
+            
+            // Ẩn các nút action
+            if (paymentActions) {
+                paymentActions.style.display = 'none';
+            }
         }
 
         function closePaymentModal() {
+            // Dừng tất cả polling
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+                window.paymentPollingInterval = null;
+                console.log('Đã dừng polling thanh toán');
+            }
+            
+            // Ẩn modal
             document.getElementById('paymentModal').classList.remove('show');
+            
+            // Reset modal về trạng thái ban đầu với delay
+            setTimeout(() => {
+                resetPaymentModal();
+            }, 300); // Chờ animation đóng modal xong
+        }
+
+        // Reset payment modal về trạng thái ban đầu
+        function resetPaymentModal() {
+            // Dừng tất cả polling intervals
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+                window.paymentPollingInterval = null;
+            }
+            
+            // Xóa dữ liệu payment hiện tại
+            window.currentPaymentData = null;
+            window.currentPaymentOrderId = null;
+            
+            // Reset UI elements về trạng thái ban đầu
+            const modal = document.getElementById('paymentModal');
+            if (!modal) return;
+            
+            const qrSection = modal.querySelector('.qr-section');
+            const qrCodeContainer = modal.querySelector('.qr-code-container');
+            const qrInstructions = modal.querySelector('.qr-instructions');
+            const paymentActions = modal.querySelector('.payment-actions');
+            const successAnimation = modal.querySelector('.payment-success-animation');
+            
+            // Hiển thị lại QR code container và instructions
+            if (qrCodeContainer) {
+                qrCodeContainer.style.display = 'inline-block';
+            }
+            if (qrInstructions) {
+                qrInstructions.style.display = 'block';
+            }
+            
+            // Ẩn success animation nếu có
+            if (successAnimation) {
+                successAnimation.style.display = 'none';
+            }
+            
+            // Hiển thị lại payment actions
+            if (paymentActions) {
+                paymentActions.style.display = 'flex';
+            }
+            
+            // Reset QR section opacity
+            if (qrSection) {
+                qrSection.style.opacity = '1';
+                qrSection.style.transition = '';
+            }
+            
+            // CẢI THIỆN: Clear canvas kỹ lưỡng hơn
+            const canvas = modal.querySelector('#qrCodeCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                // Clear toàn bộ canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // Reset canvas size để đảm bảo
+                canvas.width = 200;
+                canvas.height = 200;
+                canvas.style.display = 'block';
+            }
+            
+            // CẢI THIỆN: Xóa tất cả img backup QR nếu có
+            const qrBackupImgs = modal.querySelectorAll('.qr-backup-img');
+            qrBackupImgs.forEach(img => img.remove());
+            
+            // Reset checkout URL
+            const checkoutBtn = modal.querySelector('#checkoutUrlBtn');
+            if (checkoutBtn) {
+                checkoutBtn.href = '#';
+            }
         }
 
         function generateQRCode(qrData) {
             const canvas = document.getElementById('qrCodeCanvas');
             
+            // Đảm bảo canvas hiển thị và được clear
+            canvas.style.display = 'block';
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, 200, 200);
+            
             // Kiểm tra xem thư viện QRCode đã được load chưa
             if (typeof QRCode === 'undefined') {
-                console.error('QRCode library is not loaded, using alternative method');
+                console.warn('QRCode library is not loaded, using alternative method');
                 generateQRCodeAlternative(qrData);
                 return;
             }
@@ -3017,6 +3273,7 @@
             try {
                 QRCode.toCanvas(canvas, qrData, {
                     width: 200,
+                    height: 200,
                     margin: 2,
                     color: {
                         dark: '#2c3e50',
@@ -3447,6 +3704,32 @@
                 }
             });
         });
+
+        // Debug function để kiểm tra trạng thái modal
+        function debugPaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            const qrSection = modal.querySelector('.qr-section');
+            const qrCodeContainer = modal.querySelector('.qr-code-container');
+            const successAnimation = modal.querySelector('.payment-success-animation');
+            const canvas = modal.querySelector('#qrCodeCanvas');
+            const backupImg = modal.querySelector('.qr-backup-img');
+            
+            console.log('=== Payment Modal Debug ===');
+            console.log('Modal exists:', !!modal);
+            console.log('QR Section exists:', !!qrSection);
+            console.log('QR Container exists:', !!qrCodeContainer);
+            console.log('QR Container display:', qrCodeContainer?.style.display || 'default');
+            console.log('Success Animation exists:', !!successAnimation);
+            console.log('Success Animation display:', successAnimation?.style.display || 'default');
+            console.log('Canvas exists:', !!canvas);
+            console.log('Backup Image exists:', !!backupImg);
+            console.log('Current Payment Data:', window.currentPaymentData);
+            console.log('Current Payment Order ID:', window.currentPaymentOrderId);
+            console.log('==========================');
+        }
+
+        // Expose debug function to global scope for testing
+        window.debugPaymentModal = debugPaymentModal;
     </script>
 
 </body>

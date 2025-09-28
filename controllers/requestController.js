@@ -986,6 +986,59 @@ const requestController={
             console.error(err);
             res.status(500).json({ message: "Error in create payment URL: " + err.message });
         }
+    },
+    checkPaymentStatus: async (req, res, next) => {
+        try {
+            let orderCode = req.body.orderCode;
+            if(!orderCode){
+                res.status(400).json({ message: "Missing Id" });
+            }
+            let headers = {
+                'Content-Type': 'application/json'
+            };
+            // Add authorization header if token exists
+            if (req.session.accessToken) {
+                headers['Authorization'] = `Bearer ${req.session.accessToken}`;
+            }
+            let option = {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify({ orderCode: orderCode })
+            };
+            const response = await fetch(process.env.API_URL + '/payment/checkpayment', option)
+            if(response.status === 200){
+                const data = await response.json();
+                console.log("Payment status data: ",data)
+                res.status(200).json({ 
+                    success: true,
+                    paymentStatus: data,
+                    message: "Check payment status successful" });
+            }
+        }
+        catch (err) {
+            console.error(err);
+            res.status(500).json({ message: "Error in check payment status: " + err.message });
+        }
+    },
+    // Thêm endpoint để kiểm tra session validity
+    checkSession: async (req, res, next) => {
+        try {
+            if (req.session && req.session.accessToken) {
+                res.status(200).json({ 
+                    success: true,
+                    message: "Session is valid" 
+                });
+            } else {
+                res.status(401).json({ 
+                    success: false,
+                    message: "Session expired or invalid" 
+                });
+            }
+        }
+        catch (err) {
+            console.error(err);
+            res.status(500).json({ message: "Error checking session: " + err.message });
+        }
     }
 }
 module.exports = requestController;
