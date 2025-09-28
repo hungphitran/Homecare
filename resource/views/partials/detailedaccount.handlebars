@@ -2263,8 +2263,8 @@
                     total: formatCurrency(request.totalCost) || '0',
                     helper: getHelperFromSchedules(request.schedules),
                     service: request.service?.title || request.requestType || 'Dịch vụ dài hạn',
-                    startTime: formatTimeFromDateTime(request.startTime) || '00:00',
-                    endTime: formatTimeFromDateTime(request.endTime) || '00:00',
+                    startTime: request.startTime.toString().split('T')[1].slice(0,8) || '00:00',
+                    endTime: (request.endTime).toString().split('T')[1].slice(0,8) || '00:00',
                     duration: calculateDuration(request.startTime, request.endTime, 'long'),
                     note: request.note || '',
                     rawData: request, // Keep original data for reference
@@ -2283,8 +2283,8 @@
                     total: formatCurrency(request.totalCost) || '0',
                     helper: getHelperFromSchedules(request.schedules),
                     service: request.service?.title || request.requestType || 'Dịch vụ ngắn hạn',
-                    startTime: formatTimeFromDateTime(request.startTime) || '00:00',
-                    endTime: formatTimeFromDateTime(request.endTime) || '00:00',
+                    startTime: request.startTime.toString().split('T')[1].slice(0,8) || '00:00',
+                    endTime: request.endTime.toString().split('T')[1].slice(0,8) || '00:00',
                     duration: calculateDuration(request.startTime, request.endTime, 'short'),
                     note: request.note || '',
                     rawData: request, // Keep original data for reference
@@ -2370,8 +2370,8 @@
                 return {
                     id: schedule._id || `SUB${parentRequest._id}_${index + 1}`,
                     date: formatDateFromString(schedule.workingDate) || 'N/A',
-                    startTime: formatTimeFromDateTime(schedule.startTime) || '00:00',
-                    endTime: formatTimeFromDateTime(schedule.endTime) || '00:00',
+                    startTime: schedule.startTime.toString().split('T')[1].slice(0,5) || '00:00',
+                    endTime: schedule.endTime.toString().split('T')[1].slice(0,5) || '00:00',
                     status: schedule.status || 'pending',
                     cost: formatCurrency(schedule.cost) || '0',
                     feedback: schedule.note || schedule.feedback || '',
