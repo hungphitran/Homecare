@@ -9,7 +9,7 @@ router.get('/detailed', authTokenMiddleware, accountController.showDetailed)
 router.post('/register', accountController.register)
 router.get('/register', accountController.showRegister)
 router.post('/changepassword', authTokenMiddleware, accountController.changePassword)
-router.get('/changepassword', authTokenMiddleware, accountController.showChangePassword)
+// router.get('/changepassword', authTokenMiddleware, accountController.showChangePassword)
 router.get('/logout', accountController.logout)
 router.post('/', accountController.login)
 router.get('/', accountController.showLogin);

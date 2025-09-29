@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <!-- QR Code Library -->
+    <script async src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 
     <style>
         :root {
@@ -641,6 +644,40 @@
             border-color: var(--gray);
         }
 
+        .form-group select:disabled {
+            background: var(--light);
+            color: #7f8c8d;
+            border-color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        .form-note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+            padding: 8px 12px;
+            background: rgba(46, 204, 113, 0.05);
+            border-left: 3px solid var(--primary);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .form-buttons .btn {
+            min-width: 140px;
+            padding: 12px 20px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
         /* Modals */
         .modal,
         .detail-modal,
@@ -1082,6 +1119,233 @@
                 flex-wrap: wrap;
             }
         }
+
+        /* Payment Modal Styles */
+        .payment-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .payment-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .payment-modal-content {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .payment-modal.show .payment-modal-content {
+            transform: scale(1);
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--gray);
+        }
+
+        .payment-header h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .payment-header .order-code {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .payment-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .payment-details {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .payment-details h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .amount-value {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .qr-section {
+            text-align: center;
+        }
+
+        .qr-section h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .qr-code-container {
+            background: var(--white);
+            border: 2px solid var(--gray);
+            border-radius: 12px;
+            padding: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .qr-code-image {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .qr-instructions {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .payment-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .payment-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+            justify-content: center;
+        }
+
+        .payment-btn.primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+        }
+
+        .payment-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-primary);
+        }
+
+        .payment-btn.secondary {
+            background: var(--gray);
+            color: var(--dark);
+        }
+
+        .payment-btn.secondary:hover {
+            background: #d5d5d5;
+            transform: translateY(-2px);
+        }
+
+        .status-pending {
+            color: var(--warning);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-pending i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mobile responsive for payment modal */
+        @media (max-width: 768px) {
+            .payment-modal-content {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .payment-info {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .qr-code-image {
+                width: 150px;
+                height: 150px;
+            }
+
+            .payment-actions {
+                flex-direction: column;
+            }
+
+            .payment-btn {
+                width: 100%;
+            }
+        }
     </style>
     <style>
         /* Custom Checkbox Styles */
@@ -1159,9 +1423,9 @@
             <i class="fas fa-bars"></i>
         </div>
         <div class="user-dropdown">
-            <div class="user-avatar" onclick="toggleUserDropdown()">
+            <!--<div class="user-avatar" onclick="toggleUserDropdown()">
                 KH
-            </div>
+            </div>-->
             <div class="dropdown-menu" id="userDropdown">
                 <div class="dropdown-item" onclick="showSection('account')">
                     <i class="fas fa-user"></i> Thông tin
@@ -1346,52 +1610,60 @@
             <form id="accountForm">
                 <div class="form-group">
                     <label>Số điện thoại</label>
-                    <input type="tel" value="0987654321" disabled>
-                    <div class="form-note">Số điện thoại không thể thay đổi vì lý do bảo mật</div>
+                    <input type="tel" value="{{user.phone}}" disabled>
+                    <div class="form-note" style="font-size: 12px; color: #666; margin-top: 5px; font-style: italic;">
+                        <i class="fas fa-lock" style="margin-right: 5px;"></i>
+                        Số điện thoại không thể thay đổi vì lý do bảo mật
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Họ và tên</label>
-                    <input type="text" id="fullName" value="Nguyễn Văn Khách" disabled>
+                    <input type="text" id="fullName" value="{{user.fullName}}" disabled>
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input type="email" id="email" value="customer1@gmail.com" disabled>
+                    <input type="email" id="email" value="{{user.email}}" disabled>
                 </div>
                 <div class="form-group">
-                    <label>Tỉnh/Thành phố</label>
+                    <label>
+                        <i class="fas fa-map-marker-alt" style="margin-right: 8px; color: var(--primary);"></i>
+                        Tỉnh/Thành phố
+                    </label>
                     <select id="province" disabled>
-                        <option value="68Cc291a225bed453129ca64">Hà Nội</option>
-                        <option value="68Cc291a225bed453129ca65">TP. Hồ Chí Minh</option>
-                        <option value="68Cc291a225bed453129ca66">Đà Nẵng</option>
-                        <option value="68Cc291a225bed453129ca67">Hải Phòng</option>
+                        <option value="">-- Chọn tỉnh/thành phố --</option>
+                        <!-- Dynamic options will be loaded here -->
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Quận/Huyện</label>
-                    <select id="district" disabled>
-                        <option value="district1">Quận Ba Đình</option>
-                        <option value="district2">Quận Hoàn Kiếm</option>
-                        <option value="district3">Quận Cầu Giấy</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Phường/Xã</label>
+                    <label>
+                        <i class="fas fa-building" style="margin-right: 8px; color: var(--primary);"></i>
+                        Phường/Xã
+                    </label>
                     <select id="ward" disabled>
-                        <option value="ward1">Phường Điện Biên</option>
-                        <option value="ward2">Phường Đội Cấn</option>
-                        <option value="ward3">Phường Giảng Võ</option>
+                        <option value="">-- Chọn phường/xã --</option>
+                        <!-- Dynamic options will be loaded here -->
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Địa chỉ chi tiết</label>
-                    <input type="text" id="address" value="abc/xyz" disabled>
+                    <label>
+                        <i class="fas fa-home" style="margin-right: 8px; color: var(--primary);"></i>
+                        Địa chỉ chi tiết
+                    </label>
+                    <input type="text" id="address" value="{{user.address.detailAddress}}" disabled 
+                           placeholder="Nhập số nhà, tên đường...">
                 </div>
-                <div class="form-buttons">
-                    <button type="button" class="btn btn-danger" id="editBtn" onclick="toggleEdit()">
+                <div class="form-buttons" style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
+                    <button type="button" class="btn btn-primary" id="editBtn" onclick="toggleEdit()">
+                        <i class="fas fa-edit" style="margin-right: 8px;"></i>
                         Chỉnh sửa thông tin
                     </button>
                     <button type="submit" class="btn btn-success" id="saveBtn" style="display: none;">
+                        <i class="fas fa-save" style="margin-right: 8px;"></i>
                         Lưu thay đổi
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn" style="display: none;" onclick="cancelEdit()">
+                        <i class="fas fa-times" style="margin-right: 8px;"></i>
+                        Hủy bỏ
                     </button>
                 </div>
             </form>
@@ -1567,6 +1839,68 @@
             <div class="confirm-modal-buttons">
                 <button class="btn btn-secondary" onclick="closeConfirmModal()">Hủy bỏ</button>
                 <button class="btn btn-primary" id="confirmButton" onclick="confirmAction()">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="payment-modal">
+        <div class="payment-modal-content">
+            <div class="payment-header">
+                <h2><i class="fas fa-credit-card"></i> Thanh toán đơn hàng</h2>
+                <div class="order-code">Mã đơn: <span id="paymentOrderCode"></span></div>
+            </div>
+            
+            <div class="payment-info">
+                <div class="payment-details">
+                    <h3><i class="fas fa-info-circle"></i> Thông tin thanh toán</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Tài khoản:</span>
+                        <span class="detail-value" id="paymentAccountName"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Số tài khoản:</span>
+                        <span class="detail-value" id="paymentAccountNumber"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Ngân hàng:</span>
+                        <span class="detail-value" id="paymentBankName"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Số tiền:</span>
+                        <span class="detail-value amount-value" id="paymentAmount"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Nội dung:</span>
+                        <span class="detail-value" id="paymentDescription"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Trạng thái:</span>
+                        <span class="detail-value status-pending" id="paymentStatus">
+                            <i class="fas fa-clock"></i> Chờ thanh toán
+                        </span>
+                    </div>
+                </div>
+
+                <div class="qr-section">
+                    <h3><i class="fas fa-qrcode"></i> Quét mã QR</h3>
+                    <div class="qr-code-container">
+                        <canvas id="qrCodeCanvas" class="qr-code-image"></canvas>
+                    </div>
+                    <div class="qr-instructions">
+                        Sử dụng ứng dụng ngân hàng để quét mã QR<br>
+                        hoặc chuyển khoản thủ công theo thông tin bên trái
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-actions">
+                <a id="checkoutUrlBtn" href="#" target="_blank" class="payment-btn primary">
+                    <i class="fas fa-external-link-alt"></i> Thanh toán trực tuyến
+                </a>
+                <button type="button" class="payment-btn secondary" onclick="closePaymentModal()">
+                    <i class="fas fa-times"></i> Đóng
+                </button>
             </div>
         </div>
     </div>
@@ -1833,6 +2167,88 @@
         const realShortTermRequests = {{{ json shortTermRequests }}} || [];
         const userData = {{{ json user }}} || {};
 
+       
+
+        // Initialize province and ward data
+        let selectedProvince = null;
+        let selectedWard = null;
+
+        // Store original form values for cancel functionality
+        let originalFormData = {};
+
+        // Initialize form with location data
+        function initializeLocationData() {
+            const provinceSelect = document.getElementById('province');
+            const wardSelect = document.getElementById('ward');
+
+            // Clear existing options except the first one
+            provinceSelect.innerHTML = '<option value="">-- Chọn tỉnh/thành phố --</option>';
+            wardSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+
+            // Populate provinces
+            locationData.forEach((province, index) => {
+                if (province.status === 'active') {
+                    const option = document.createElement('option');
+                    option.value = index; // Use array index as value
+                    option.textContent = province.name;
+                    provinceSelect.appendChild(option);
+                }
+            });
+
+            // Set current user's province and ward if available
+            if (userData.address && userData.address.province && userData.address.province.name) {
+                // Find matching province
+                const provinceIndex = locationData.findIndex(p => p.name === userData.address.province.name);
+                if (provinceIndex !== -1) {
+                    provinceSelect.value = provinceIndex;
+                    selectedProvince = provinceIndex;
+                    loadWards(provinceIndex);
+                    
+                    // Set ward if available
+                    if (userData.address.ward && userData.address.ward.name) {
+                        setTimeout(() => {
+                            const wardOption = Array.from(wardSelect.options).find(option => 
+                                option.textContent === userData.address.ward.name
+                            );
+                            if (wardOption) {
+                                wardOption.selected = true;
+                                selectedWard = wardOption.value;
+                            }
+                        }, 100);
+                    }
+                }
+            }
+
+            // Store original form data
+            storeOriginalFormData();
+        }
+
+        // Load wards based on selected province
+        function loadWards(provinceIndex) {
+            const wardSelect = document.getElementById('ward');
+            wardSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+
+            if (provinceIndex !== '' && locationData[provinceIndex] && locationData[provinceIndex].wards) {
+                locationData[provinceIndex].wards.forEach((ward, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = ward.name;
+                    wardSelect.appendChild(option);
+                });
+            }
+        }
+
+        // Store original form data for cancel functionality
+        function storeOriginalFormData() {
+            originalFormData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                province: document.getElementById('province').value,
+                ward: document.getElementById('ward').value,
+                address: document.getElementById('address').value
+            };
+        }
+
         // Convert real data to format compatible with existing UI
         function convertRealDataToUIFormat() {
             const allOrders = [];
@@ -1847,8 +2263,8 @@
                     total: formatCurrency(request.totalCost) || '0',
                     helper: getHelperFromSchedules(request.schedules),
                     service: request.service?.title || request.requestType || 'Dịch vụ dài hạn',
-                    startTime: formatTimeFromDateTime(request.startTime) || '00:00',
-                    endTime: formatTimeFromDateTime(request.endTime) || '00:00',
+                    startTime: request.startTime.toString().split('T')[1].slice(0,8) || '00:00',
+                    endTime: (request.endTime).toString().split('T')[1].slice(0,8) || '00:00',
                     duration: calculateDuration(request.startTime, request.endTime, 'long'),
                     note: request.note || '',
                     rawData: request, // Keep original data for reference
@@ -1867,8 +2283,8 @@
                     total: formatCurrency(request.totalCost) || '0',
                     helper: getHelperFromSchedules(request.schedules),
                     service: request.service?.title || request.requestType || 'Dịch vụ ngắn hạn',
-                    startTime: formatTimeFromDateTime(request.startTime) || '00:00',
-                    endTime: formatTimeFromDateTime(request.endTime) || '00:00',
+                    startTime: request.startTime.toString().split('T')[1].slice(0,8) || '00:00',
+                    endTime: request.endTime.toString().split('T')[1].slice(0,8) || '00:00',
                     duration: calculateDuration(request.startTime, request.endTime, 'short'),
                     note: request.note || '',
                     rawData: request, // Keep original data for reference
@@ -1954,8 +2370,8 @@
                 return {
                     id: schedule._id || `SUB${parentRequest._id}_${index + 1}`,
                     date: formatDateFromString(schedule.workingDate) || 'N/A',
-                    startTime: formatTimeFromDateTime(schedule.startTime) || '00:00',
-                    endTime: formatTimeFromDateTime(schedule.endTime) || '00:00',
+                    startTime: schedule.startTime.toString().split('T')[1].slice(0,5) || '00:00',
+                    endTime: schedule.endTime.toString().split('T')[1].slice(0,5) || '00:00',
                     status: schedule.status || 'pending',
                     cost: formatCurrency(schedule.cost) || '0',
                     feedback: schedule.note || schedule.feedback || '',
@@ -1975,11 +2391,9 @@
                 'pending': 'pending',
                 'confirmed': 'inProgress',
                 'assigned': 'inProgress',
-                'in_progress': 'inProgress',
-                'completed': 'waitPayment',
-                'paid': 'completed',
+                'inProgress': 'inProgress',
+                'completed': 'completed',
                 'cancelled': 'cancelled',
-                'rejected': 'cancelled'
             };
 
             return statusMap[apiStatus] || apiStatus;
@@ -1987,6 +2401,12 @@
 
         // Enhanced status determination for real data
         function determineOrderStatus(order) {
+            // Ưu tiên lấy status từ order chính trước
+            // Nếu order có status là 'waitPayment', thì trả về trực tiếp
+            if (order.status === 'waitPayment') {
+                return 'waitPayment';
+            }
+
             if (!order.subOrders || order.subOrders.length === 0) {
                 return mapApiStatusToUIStatus(order.status);
             }
@@ -1995,6 +2415,10 @@
 
             // For short-term orders (single schedule)
             if (order.type === 'short') {
+                // Nếu order chính đã có status rõ ràng, ưu tiên sử dụng
+                if (['waitPayment', 'cancelled', 'pending'].includes(order.status)) {
+                    return order.status;
+                }
                 const subOrder = order.subOrders[0];
                 return mapApiStatusToUIStatus(subOrder.status);
             }
@@ -2150,7 +2574,7 @@
                             <div><strong>💰 Chi phí:</strong> ${subOrder.cost} VNĐ</div>
                             <div><strong>👨‍💼 Người thực hiện:</strong> ${subOrder.helper || 'Chưa phân công'}</div>
                             <div><strong>📝 Ghi chú:</strong> ${subOrder.feedback || 'Không có'}</div>
-                            ${subOrder.review ? `<div><strong>⭐ Đánh giá:</strong> ${subOrder.review} (${subOrder.rating}/5 sao)</div>` : ''}
+                            ${subOrder.review ? `<div><strong>⭐ Đánh giá:</strong> ${subOrder.review}</div>` : ''}
                             
                             <div class="sub-order-actions" 
                             style="display: flex; justify-content: center; align-items: center;">
@@ -2456,7 +2880,7 @@
 
             // Update the sub-order with rating
             const orderIndex = mockOrders.findIndex(order => order.id === currentOrderForRating);
-            if (orderIndex !== -1) {
+      /*     if (orderIndex !== -1) {
                 const subOrderIndex = mockOrders[orderIndex].subOrders.findIndex(sub => sub.id === currentSubOrderForRating);
                 if (subOrderIndex !== -1) {
                     mockOrders[orderIndex].subOrders[subOrderIndex].review = reviewText;
@@ -2464,9 +2888,40 @@
                     mockOrders[orderIndex].subOrders[subOrderIndex].isBreak = isBreak;
                     mockOrders[orderIndex].subOrders[subOrderIndex].isLose = isLose;
                 }
-            }
-
-            showToast(`Đã gửi đánh giá ${currentRating} sao`, 'success');
+            }*/
+            fetch(`/request/review`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    detailId: mockOrders[orderIndex].subOrders.find(sub => sub.id === currentSubOrderForRating).rawSchedule._id,
+                    rating: currentRating,
+                    review: reviewText,
+                    loseThings : isBreak,
+                    breakThings:  isLose
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success){
+                    // Update local data to reflect rating
+                    if (orderIndex !== -1) {
+                        const subOrderIndex = mockOrders[orderIndex].subOrders.findIndex(sub => sub.id === currentSubOrderForRating);
+                        if (subOrderIndex !== -1) {
+                            mockOrders[orderIndex].subOrders[subOrderIndex].review = reviewText;
+                            mockOrders[orderIndex].subOrders[subOrderIndex].rating = currentRating;
+                            mockOrders[orderIndex].subOrders[subOrderIndex].isBreak = isBreak;
+                            mockOrders[orderIndex].subOrders[subOrderIndex].isLose = isLose;
+                        }
+                    }
+                    applyFilters();
+                    showToast(`Đã gửi đánh giá ${currentRating} sao`, 'success');
+                    afterSuccessfulRating();
+                } else {
+                    showToast('Không thể gửi đánh giá', 'error');
+                }
+            })
             closeRatingModal();
 
             // Refresh the detail view
@@ -2477,33 +2932,473 @@
 
         // Process Payment Function
         function processPayment(orderId) {
-            showConfirmModal('payment', orderId, function (id) {
-                const orderIndex = mockOrders.findIndex(order => order.id === id);
-                if (orderIndex !== -1) {
-                    mockOrders[orderIndex].status = 'completed';
-                    applyFilters();
-                    closeDetailModal();
-                    showToast('Thanh toán thành công! Đơn hàng đã hoàn thành.', 'success');
+            const orderIndex = mockOrders.findIndex(order => order.id === orderId);
+            if (orderIndex !== -1) {
+                // Hiển thị loading
+                showToast('Đang tạo link thanh toán...', 'info');
+                
+                // Tạo payment link với PayOS
+                fetch(`/request/createpayment`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        orderId: mockOrders[orderIndex].rawData._id,
+                        amount: mockOrders[orderIndex].totalAmount,
+                        description: `Thanh toán đơn hàng ${mockOrders[orderIndex].id}`,
+                        host: window.location.origin
+                    })
+                })
+                .then(response => {
+                    // Kiểm tra response status
+                    if (response.status === 401) {
+                        throw new Error('Session hết hạn, vui lòng đăng nhập lại');
+                    }
+                    if (response.status === 500) {
+                        throw new Error('Lỗi server, vui lòng thử lại sau');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if(data.success && data.paymentData){
+                        showPaymentModal(data.paymentData, orderId);
+                    } else {
+                        throw new Error(data.message || 'Không thể tạo link thanh toán');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error creating payment link:', error);
+                    if (error.message.includes('Session hết hạn')) {
+                        showToast('❌ ' + error.message, 'error');
+                        // Redirect to login after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = '/account/login';
+                        }, 2000);
+                    } else {
+                        showToast('❌ ' + error.message, 'error');
+                    }
+                });
+            }
+        }
+
+        // Payment Modal Functions
+        function showPaymentModal(paymentData, orderId) {
+            // Dừng tất cả polling cũ trước khi bắt đầu
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+                window.paymentPollingInterval = null;
+            }
+            
+            // Reset modal về trạng thái ban đầu trước khi hiển thị
+            resetPaymentModal();
+            
+            // Populate payment information
+            document.getElementById('paymentOrderCode').textContent = paymentData.orderCode;
+            document.getElementById('paymentAccountName').textContent = paymentData.accountName;
+            document.getElementById('paymentAccountNumber').textContent = paymentData.accountNumber;
+            document.getElementById('paymentBankName').textContent = getBankName(paymentData.bin);
+            document.getElementById('paymentAmount').textContent = formatCurrency(paymentData.amount) + ' ' + paymentData.currency;
+            document.getElementById('paymentDescription').textContent = paymentData.description;
+            
+            // Set checkout URL
+            document.getElementById('checkoutUrlBtn').href = paymentData.checkoutUrl;
+            
+            // Generate QR Code với retry logic
+            setTimeout(() => {
+                generateQRCode(paymentData.qrCode);
+            }, 100); // Delay nhỏ để đảm bảo DOM đã sẵn sàng
+            
+            // Show modal
+            document.getElementById('paymentModal').classList.add('show');
+            
+            // Store payment data for later use
+            window.currentPaymentData = paymentData;
+            window.currentPaymentOrderId = orderId;
+            
+            // Bắt đầu polling kiểm tra trạng thái thanh toán
+            startPaymentStatusPolling(paymentData.orderCode);
+        }
+
+        // Polling để kiểm tra trạng thái thanh toán
+        function startPaymentStatusPolling(orderCode) {
+            // Dừng polling cũ nếu có
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+            }
+            
+            console.log('Bắt đầu kiểm tra trạng thái thanh toán ');
+            
+            window.paymentPollingInterval = setInterval(() => {
+                checkPaymentStatus(orderCode);
+            }, 3000); // Kiểm tra mỗi 3 giây
+            
+            // Dừng polling sau 10 phút (600 seconds)
+            setTimeout(() => {
+                if (window.paymentPollingInterval) {
+                    clearInterval(window.paymentPollingInterval);
+                    console.log('Dừng polling thanh toán sau 10 phút');
                 }
+            }, 600000);
+        }
+
+        // Kiểm tra trạng thái thanh toán
+        function checkPaymentStatus(orderCode) {
+            fetch(`/request/checkpaymentstatus`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 
+                    orderCode: orderCode
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    let orderId = window.currentPaymentOrderId
+                    console.log('Trạng thái thanh toán hiện tại:', data.paymentStatus.status);
+                    if (data.paymentStatus.status === 'PAID' || data.paymentStatus.status === 'paid') {
+                        // Thanh toán thành công
+                        handlePaymentSuccess(orderId);
+                    } else if (data.paymentStatus.status === 'CANCELLED' || data.paymentStatus.status === 'cancelled') {
+                        // Thanh toán bị hủy
+                        handlePaymentCancelled(orderId);
+                    }
+                    // Nếu status vẫn là PENDING thì tiếp tục polling
+                }
+            })
+            .catch(error => {
+                console.error('Error checking payment status:', error);
             });
         }
+
+        // Xử lý khi thanh toán thành công
+        function handlePaymentSuccess(orderId) {
+            console.log('Thanh toán thành công cho đơn hàng:', orderId);
+            
+            // Dừng polling
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+            }
+            
+            // Cập nhật UI
+            showPaymentSuccessAnimation();
+            
+            // Cập nhật trạng thái đơn hàng trong danh sách
+            const orderIndex = mockOrders.findIndex(order => order.id === orderId);
+            if (orderIndex !== -1) {
+                mockOrders[orderIndex].status = 'completed';
+                applyFilters(); // Refresh danh sách
+            }
+            
+            // Đóng modal sau 3 giây
+            setTimeout(() => {
+                closePaymentModal();
+                closeDetailModal();
+                showToast('✅ Thanh toán thành công! Đơn hàng đã hoàn thành.', 'success');
+            }, 3000);
+        }
+
+        // Xử lý khi thanh toán bị hủy
+        function handlePaymentCancelled(orderId) {
+            console.log('Thanh toán bị hủy cho đơn hàng:', orderId);
+            
+            // Dừng polling
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+            }
+            
+            // Hiển thị thông báo
+            showToast('❌ Thanh toán đã bị hủy', 'error');
+            
+            // Có thể giữ modal mở để người dùng thử lại
+        }
+
+        // Animation thanh toán thành công
+        function showPaymentSuccessAnimation() {
+            const modal = document.getElementById('paymentModal');
+            const qrSection = modal.querySelector('.qr-section');
+            const qrCodeContainer = modal.querySelector('.qr-code-container');
+            const qrInstructions = modal.querySelector('.qr-instructions');
+            const paymentActions = modal.querySelector('.payment-actions');
+            
+            if (!qrSection) {
+                console.error('QR section not found');
+                return;
+            }
+            
+            // Ẩn QR code container và instructions
+            if (qrCodeContainer) {
+                qrCodeContainer.style.display = 'none';
+            }
+            if (qrInstructions) {
+                qrInstructions.style.display = 'none';
+            }
+            
+            // Kiểm tra xem đã có success animation chưa
+            let successAnimation = qrSection.querySelector('.payment-success-animation');
+            if (!successAnimation) {
+                // Tạo success animation element
+                successAnimation = document.createElement('div');
+                successAnimation.className = 'payment-success-animation';
+                successAnimation.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <div style="font-size: 60px; color: #2ecc71; margin-bottom: 20px;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 style="color: #2ecc71; margin-bottom: 10px;">Thanh toán thành công!</h3>
+                        <p style="color: #666;">Đơn hàng của bạn đã được xử lý</p>
+                        <div style="margin-top: 20px;">
+                            <div class="spinner" style="border: 3px solid #f3f3f3; border-top: 3px solid #2ecc71; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                            <p style="margin-top: 10px; font-size: 14px; color: #999;">Đang cập nhật...</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Thêm success animation vào QR section (không thay thế)
+                qrSection.appendChild(successAnimation);
+            } else {
+                // Nếu đã có, chỉ hiển thị lại
+                successAnimation.style.display = 'block';
+            }
+            
+            // Ẩn các nút action
+            if (paymentActions) {
+                paymentActions.style.display = 'none';
+            }
+        }
+
+        function closePaymentModal() {
+            // Dừng tất cả polling
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+                window.paymentPollingInterval = null;
+                console.log('Đã dừng polling thanh toán');
+            }
+            
+            // Ẩn modal
+            document.getElementById('paymentModal').classList.remove('show');
+            
+            // Reset modal về trạng thái ban đầu với delay
+            setTimeout(() => {
+                resetPaymentModal();
+            }, 300); // Chờ animation đóng modal xong
+        }
+
+        // Reset payment modal về trạng thái ban đầu
+        function resetPaymentModal() {
+            // Dừng tất cả polling intervals
+            if (window.paymentPollingInterval) {
+                clearInterval(window.paymentPollingInterval);
+                window.paymentPollingInterval = null;
+            }
+            
+            // Xóa dữ liệu payment hiện tại
+            window.currentPaymentData = null;
+            window.currentPaymentOrderId = null;
+            
+            // Reset UI elements về trạng thái ban đầu
+            const modal = document.getElementById('paymentModal');
+            if (!modal) return;
+            
+            const qrSection = modal.querySelector('.qr-section');
+            const qrCodeContainer = modal.querySelector('.qr-code-container');
+            const qrInstructions = modal.querySelector('.qr-instructions');
+            const paymentActions = modal.querySelector('.payment-actions');
+            const successAnimation = modal.querySelector('.payment-success-animation');
+            
+            // Hiển thị lại QR code container và instructions
+            if (qrCodeContainer) {
+                qrCodeContainer.style.display = 'inline-block';
+            }
+            if (qrInstructions) {
+                qrInstructions.style.display = 'block';
+            }
+            
+            // Ẩn success animation nếu có
+            if (successAnimation) {
+                successAnimation.style.display = 'none';
+            }
+            
+            // Hiển thị lại payment actions
+            if (paymentActions) {
+                paymentActions.style.display = 'flex';
+            }
+            
+            // Reset QR section opacity
+            if (qrSection) {
+                qrSection.style.opacity = '1';
+                qrSection.style.transition = '';
+            }
+            
+            // CẢI THIỆN: Clear canvas kỹ lưỡng hơn
+            const canvas = modal.querySelector('#qrCodeCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                // Clear toàn bộ canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // Reset canvas size để đảm bảo
+                canvas.width = 200;
+                canvas.height = 200;
+                canvas.style.display = 'block';
+            }
+            
+            // CẢI THIỆN: Xóa tất cả img backup QR nếu có
+            const qrBackupImgs = modal.querySelectorAll('.qr-backup-img');
+            qrBackupImgs.forEach(img => img.remove());
+            
+            // Reset checkout URL
+            const checkoutBtn = modal.querySelector('#checkoutUrlBtn');
+            if (checkoutBtn) {
+                checkoutBtn.href = '#';
+            }
+        }
+
+        function generateQRCode(qrData) {
+            const canvas = document.getElementById('qrCodeCanvas');
+            
+            // Đảm bảo canvas hiển thị và được clear
+            canvas.style.display = 'block';
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, 200, 200);
+            
+            // Kiểm tra xem thư viện QRCode đã được load chưa
+            if (typeof QRCode === 'undefined') {
+                console.warn('QRCode library is not loaded, using alternative method');
+                generateQRCodeAlternative(qrData);
+                return;
+            }
+            
+            try {
+                QRCode.toCanvas(canvas, qrData, {
+                    width: 200,
+                    height: 200,
+                    margin: 2,
+                    color: {
+                        dark: '#2c3e50',
+                        light: '#ffffff'
+                    }
+                }, function (error) {
+                    if (error) {
+                        console.error('Error generating QR code:', error);
+                        generateQRCodeAlternative(qrData);
+                    } else {
+                        console.log('QR code generated successfully');
+                    }
+                });
+            } catch (error) {
+                console.error('QRCode library error:', error);
+                generateQRCodeAlternative(qrData);
+            }
+        }
+
+        function generateQRCodeAlternative(qrData) {
+            const canvas = document.getElementById('qrCodeCanvas');
+            const qrContainer = canvas.parentElement;
+            
+            // Xóa canvas và tạo img element
+            canvas.style.display = 'none';
+            
+            // Kiểm tra xem đã có img backup chưa
+            let qrImg = qrContainer.querySelector('.qr-backup-img');
+            if (!qrImg) {
+                qrImg = document.createElement('img');
+                qrImg.className = 'qr-backup-img qr-code-image';
+                qrContainer.appendChild(qrImg);
+            }
+            
+            // Sử dụng QR API service
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
+            
+            qrImg.src = qrApiUrl;
+            qrImg.style.display = 'block';
+            qrImg.onload = function() {
+                console.log('QR code loaded via API successfully');
+            };
+            qrImg.onerror = function() {
+                console.error('Failed to load QR code from API');
+                // Hiển thị thông báo cuối cùng
+                qrImg.style.display = 'none';
+                canvas.style.display = 'block';
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, 200, 200);
+                ctx.fillStyle = '#e74c3c';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Không thể tạo QR', 100, 90);
+                ctx.fillText('Vui lòng chuyển khoản thủ công', 100, 110);
+            };
+        }
+
+        function getBankName(bin) {
+            const bankMap = {
+                '970422': 'MB Bank (Military Bank)',
+                '970415': 'Vietinbank',
+                '970436': 'Vietcombank',
+                '970418': 'BIDV',
+                '970403': 'Sacombank',
+                '970407': 'Techcombank',
+                '970432': 'VPBank',
+                '970423': 'TPBank',
+                '970448': 'OCB',
+                '970429': 'SCB'
+            };
+            return bankMap[bin] || `Ngân hàng (${bin})`;
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN').format(amount);
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.id === 'paymentModal') {
+                closePaymentModal();
+            }
+        });
 
         // Cancel Order Function
         function cancelOrder(orderId) {
             showConfirmModal('cancel', orderId, function (id) {
                 const orderIndex = mockOrders.findIndex(order => order.id === id);
                 if (orderIndex !== -1) {
-                    mockOrders[orderIndex].status = 'cancelled';
+        /*            mockOrders[orderIndex].status = 'cancelled';
                     mockOrders[orderIndex].subOrders.forEach(subOrder => {
                         if (subOrder.status === 'pending' || subOrder.status === 'assigned') {
                             subOrder.status = 'cancelled';
                             subOrder.feedback = 'Đã hủy';
+                        }s
+                    });*/
+                    fetch(`/request/cancel`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ orderId: mockOrders[orderIndex].rawData._id })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.success){
+                            // Update local data to reflect cancellation
+                            mockOrders[orderIndex].status = 'cancelled';
+                            mockOrders[orderIndex].subOrders.forEach(subOrder => {
+                                if (subOrder.status === 'pending' || subOrder.status === 'assigned') {
+                                    subOrder.status = 'cancelled';
+                                    subOrder.feedback = 'Đã hủy';
+                                }
+                            });
+                            applyFilters();
+                            closeDetailModal();
+                            showToast('Đơn hàng đã được hủy thành công', 'success');
+                        } else {
+                            showToast('Không thể hủy đơn hàng này', 'error');
                         }
+                    })
+                    .catch(error => {
+                        console.error('Error cancelling order:', error);
+                        showToast('Đã xảy ra lỗi khi hủy đơn hàng', 'error');
                     });
-
-                    applyFilters();
-                    closeDetailModal();
-                    showToast('Đơn hàng đã được hủy thành công', 'success');
                 }
             });
         }
@@ -2558,27 +3453,145 @@
             isEditing = !isEditing;
             const editBtn = document.getElementById('editBtn');
             const saveBtn = document.getElementById('saveBtn');
+            const cancelBtn = document.getElementById('cancelBtn');
             const inputs = document.querySelectorAll('#accountForm input:not([type="tel"]), #accountForm select');
 
             if (isEditing) {
                 inputs.forEach(input => input.disabled = false);
                 editBtn.style.display = 'none';
                 saveBtn.style.display = 'inline-block';
+                cancelBtn.style.display = 'inline-block';
+                
+                // Setup province change event
+                document.getElementById('province').addEventListener('change', function() {
+                    const selectedIndex = this.value;
+                    selectedProvince = selectedIndex;
+                    loadWards(selectedIndex);
+                    selectedWard = null; // Reset ward selection
+                });
+                
+                // Setup ward change event
+                document.getElementById('ward').addEventListener('change', function() {
+                    selectedWard = this.value;
+                });
             } else {
                 inputs.forEach(input => input.disabled = true);
                 editBtn.style.display = 'inline-block';
                 saveBtn.style.display = 'none';
+                cancelBtn.style.display = 'none';
             }
         }
 
-        // Setup forms
+        // Cancel edit function
+        function cancelEdit() {
+            // Restore original values
+            document.getElementById('fullName').value = originalFormData.fullName;
+            document.getElementById('email').value = originalFormData.email;
+            document.getElementById('province').value = originalFormData.province;
+            document.getElementById('ward').value = originalFormData.ward;
+            document.getElementById('address').value = originalFormData.address;
+            
+            // Load wards for the original province
+            if (originalFormData.province !== '') {
+                loadWards(originalFormData.province);
+                setTimeout(() => {
+                    document.getElementById('ward').value = originalFormData.ward;
+                }, 100);
+            }
+            
+            toggleEdit(); // Exit edit mode
+            showToast('Đã hủy thay đổi', 'info');
+        }
+
+        // Setup forms with enhanced location handling
         function setupForms() {
+            // Initialize location data
+            initializeLocationData();
+            
             document.getElementById('accountForm').addEventListener('submit', function (e) {
                 e.preventDefault();
-                showToast('Thông tin đã được cập nhật thành công', 'success');
-                toggleEdit();
+                
+                // Validate form
+                const fullName = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const provinceIndex = document.getElementById('province').value;
+                const wardIndex = document.getElementById('ward').value;
+                const address = document.getElementById('address').value.trim();
+                
+                if (!fullName) {
+                    showToast('Vui lòng nhập họ và tên', 'error');
+                    return;
+                }
+                
+                if (!email) {
+                    showToast('Vui lòng nhập email', 'error');
+                    return;
+                }
+                
+                if (!provinceIndex) {
+                    showToast('Vui lòng chọn tỉnh/thành phố', 'error');
+                    return;
+                }
+                
+                if (!wardIndex) {
+                    showToast('Vui lòng chọn phường/xã', 'error');
+                    return;
+                }
+                
+                if (!address) {
+                    showToast('Vui lòng nhập địa chỉ chi tiết', 'error');
+                    return;
+                }
+                
+                // Prepare data for submission
+                const updateData = {
+                    fullName: fullName,
+                    email: email,
+                    addresses: [{
+                        province: locationData[provinceIndex].name,
+                        ward: locationData[provinceIndex].wards[wardIndex].name,
+                        detailAddress: address
+                    }]
+                };
+                
+                // Show loading state
+                const saveBtn = document.getElementById('saveBtn');
+                const originalText = saveBtn.innerHTML;
+                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i>Đang lưu...';
+                saveBtn.disabled = true;
+                
+                fetch('/account/update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Reset button state
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.disabled = false;
+                    
+                    if (data.success) {
+                        // Update stored original data
+                        storeOriginalFormData();
+                        toggleEdit(); // Exit edit mode
+                        showToast('Cập nhật thông tin thành công!', 'success');
+                    } else {
+                        showToast(data.message || 'Có lỗi xảy ra khi cập nhật thông tin', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Reset button state
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.disabled = false;
+                    showToast('Có lỗi xảy ra khi cập nhật thông tin', 'error');
+                });
             });
 
+            // Password form handling
             document.getElementById('passwordForm').addEventListener('submit', function (e) {
                 e.preventDefault();
                 const currentPassword = document.getElementById('currentPassword').value;
@@ -2595,7 +3608,44 @@
                     return;
                 }
 
-                showToast('Mật khẩu đã được thay đổi thành công', 'success');
+                // Show loading state
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i>Đang xử lý...';
+                submitBtn.disabled = true;
+
+                fetch('/account/changepassword', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        currentPassword: currentPassword,
+                        newPassword: newPassword
+                    })
+                })
+                .then(response => response.json())
+                .then(data=> {
+                    // Reset button state
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+
+                    if (data.success) {
+                        showToast('Đổi mật khẩu thành công!', 'success');
+                        // Clear form
+                        document.getElementById('passwordForm').reset();
+                    } else {
+                        showToast(data.message || 'Có lỗi xảy ra khi đổi mật khẩu', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Reset button state
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    showToast('Có lỗi xảy ra khi đổi mật khẩu', 'error');
+                });
+          //      showToast('Mật khẩu đã được thay đổi thành công', 'success');
                 this.reset();
             });
         }
@@ -2621,7 +3671,7 @@
             if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
                 showToast('Đăng xuất thành công', 'success');
                 setTimeout(() => {
-                    window.location.href = '/';
+                    window.location.href = '/account/logout';
                 }, 1000);
             }
         }
@@ -2654,6 +3704,32 @@
                 }
             });
         });
+
+        // Debug function để kiểm tra trạng thái modal
+        function debugPaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            const qrSection = modal.querySelector('.qr-section');
+            const qrCodeContainer = modal.querySelector('.qr-code-container');
+            const successAnimation = modal.querySelector('.payment-success-animation');
+            const canvas = modal.querySelector('#qrCodeCanvas');
+            const backupImg = modal.querySelector('.qr-backup-img');
+            
+            console.log('=== Payment Modal Debug ===');
+            console.log('Modal exists:', !!modal);
+            console.log('QR Section exists:', !!qrSection);
+            console.log('QR Container exists:', !!qrCodeContainer);
+            console.log('QR Container display:', qrCodeContainer?.style.display || 'default');
+            console.log('Success Animation exists:', !!successAnimation);
+            console.log('Success Animation display:', successAnimation?.style.display || 'default');
+            console.log('Canvas exists:', !!canvas);
+            console.log('Backup Image exists:', !!backupImg);
+            console.log('Current Payment Data:', window.currentPaymentData);
+            console.log('Current Payment Order ID:', window.currentPaymentOrderId);
+            console.log('==========================');
+        }
+
+        // Expose debug function to global scope for testing
+        window.debugPaymentModal = debugPaymentModal;
     </script>
 
 </body>
