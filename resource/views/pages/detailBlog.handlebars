@@ -1,175 +1,3 @@
-{{!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>blog Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
-<style>
-  /* public/css/style.css */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
-
-main {
-    padding: 2rem 6rem 6rem 6rem;
-}
-
-.blog{
-  width: 100%;
-  height: 150px;
-  background-color: #ffffff;
-}
-
-.blog .btn__blog{ padding: 8px 14px;
-    text-transform: uppercase;
-    font-weight: 500;
-    border-radius: 4px;
-    background: greenyellow;
-}
-
-.blog .blog__nav{
-        display:flex;
-        align-items: center;
-        justify-content: space-between;
-        padding:10px;
-}
-
-.blog .blog__logo{
-  width: 50px;
-  height: 50px;
-}
-
-.blog-article {
-    background-color: #fff;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-.blog-header{
-  display: flex;
-  justify-content: space-between;
-}
-
-.blog-date{
-    font-style: italic;
-}
-
-.blog-title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.blog-type{
-  color: chartreuse;
-}
-.blog-author{
-    line-height: 100%;
-}
-
-.blog-image {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-    width: 50%;
-    margin-left: 25%;
-}
-
-.blog-content {
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-.blog__list{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, auto));
-  justify-content: center;
-  gap: 10px;
-}
-
-.blog__list .blog-card{
-    background: var(--bg-color);
-    box-shadow: 0 4px 14px hsl(35deg 25% 15% / 10%);
-    border-radius: 0.5rem;
-}
-.blog__list .blog-card *{
-    text-decoration: none;
-    color: black;
-    padding: 5px;
-}
-
-.blog__list .blog-card img{
-  width: 80%;
-  height: auto;
-  margin-left: 10%;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-</style>
-<body>
-      <header class="blog">
-        <div class="blog__nav blog__container">
-            <a href="/" class="blog__logo">
-                <div class="logo">
-                    <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo __img-header" width="100px" height="100px">
-                </div>
-            </a> 
-            <form action="/blog" method="get">
-              <button type="submit" class="btn__blog">Quay lại trang blog</button>
-            </form>
-        </div>
-    </header>
-    <main>
-        <article class="blog-article">
-          <div class="blog-header">
-            <p class="blog-type">{{blog.type}}</p>
-            <p class="blog-date">{{blog.date}}</p>
-          </div>
-            <h2 class="blog-title">{{blog.title}}</h2>
-            <div class="blog-author"><img src="https://i.pinimg.com/474x/30/6f/d0/306fd0fb64f67ff40f81d8e37f8bf674.jpg" width="30px" height="30px" alt="">{{blog.author}}</div>
-            <h3 class="blog-description">{{blog.description}}</h3>
-            <img src="{{blog.img}}" alt="blog Image" class="blog-image">
-            <p class="blog-content">{{{blog.content}}}</p>
-        </article>
-
-        <article class="blog-article">
-          <h2>Bài viết cùng loại</h2>
-          <div class="blog__list">
-            {{#each blogs}}
-                <div class="blog-card">
-                  <a href="/blog/{{_id}}">
-                  <img src="{{img}}" alt="">
-                  <div class="blog-content">
-                    <p >{{title}}</p>
-                  </div>
-                  </a>
-                </div>
-            {{/each}}
-          </div>
-        </article>
-    </main>
-        <footer>
-        <p>&copy; 2025 News Page</p>
-    </footer>
-</body>
-</html> --}}
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -184,13 +12,19 @@ footer {
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap">
   <style>
     :root {
-      --primary: #4caf50;
-      --secondary: #2ecc71;
+      --primary: #2ecc71;
+      --secondary: #2980b9;
+      --primary-light: #58d68d;
+      --secondary-light: #5dade2;
+      --primary-dark: #27ae60;
+      --secondary-dark: #1f618d;
       --dark: #2c3e50;
       --light: #f8f9fa;
       --gray: #6c757d;
       --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       --text-body: #4a4a4a;
+      --gradient-primary: linear-gradient(135deg, #2ecc71, #2980b9);
+      --gradient-light: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(41, 128, 185, 0.1));
     }
 
     body {
@@ -204,8 +38,8 @@ footer {
 
     /* Header Styles */
     .blog-header {
-      background-color: white;
-      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    background-color: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -227,27 +61,29 @@ footer {
     }
 
     .logo img {
-      height: 80px;
+      height: 100px;
       width: auto;
     }
 
     .btn-back {
-      background-color: var(--primary);
+      background: var(--gradient-primary);
       color: white;
-      border: none;
-      padding: 10px -1px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 20px;
       border-radius: 30px;
       font-weight: 500;
-      font-size: 10px;
+      font-size: 14px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       transition: all 0.3s;
-      box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
+      backdrop-filter: blur(10px);
     }
 
     .btn-back:hover {
-      background-color: #2980b9;
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     /* Main Content Area */
@@ -310,14 +146,15 @@ footer {
     }
 
     .blog-category {
-      background-color: #e8f7f0;
-      color: var(--secondary);
+      background: var(--gradient-light);
+      color: var(--primary);
       font-weight: 600;
       padding: 6px 15px;
       border-radius: 20px;
       font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      border: 1px solid rgba(46, 204, 113, 0.2);
     }
 
     .blog-date {
@@ -458,6 +295,9 @@ footer {
       margin: 30px 0;
       font-style: italic;
       color: #555;
+      background: var(--gradient-light);
+      padding: 20px 20px 20px 24px;
+      border-radius: 8px;
     }
 
     /* Social Sharing */
@@ -497,19 +337,19 @@ footer {
     }
 
     .share-facebook {
-      background-color: #3b5998;
+      background: var(--gradient-primary);
     }
 
     .share-twitter {
-      background-color: #1da1f2;
+      background: var(--gradient-primary);
     }
 
     .share-linkedin {
-      background-color: #0077b5;
+      background: var(--gradient-primary);
     }
 
     .share-pinterest {
-      background-color: #bd081c;
+      background: var(--gradient-primary);
     }
 
     /* Related Articles Section */
@@ -529,7 +369,7 @@ footer {
       left: 0;
       width: 60px;
       height: 3px;
-      background-color: var(--primary);
+      background: var(--gradient-primary);
     }
 
     .blog-grid {
@@ -578,11 +418,12 @@ footer {
     .card-tag {
       display: inline-block;
       font-size: 12px;
-      background-color: #e8f7f0;
-      color: var(--secondary);
+      background: var(--gradient-light);
+      color: var(--primary);
       padding: 4px 10px;
       border-radius: 15px;
       margin-bottom: 10px;
+      border: 1px solid rgba(46, 204, 113, 0.2);
     }
 
     .card-title {
@@ -620,12 +461,11 @@ footer {
 
     /* Newsletter Section */
     .newsletter {
-      background-color: var(--dark);
+      background: var(--gradient-primary);
       border-radius: 10px;
       padding: 40px;
       margin-top: 40px;
       color: white;
-      background-image: linear-gradient(120deg, #2c3e50, #3498db);
     }
 
     .newsletter h3 {
@@ -653,23 +493,25 @@ footer {
     }
 
     .newsletter-button {
-      background-color: var(--secondary);
+      background: rgba(255, 255, 255, 0.2);
       color: white;
-      border: none;
+      border: 1px solid rgba(255, 255, 255, 0.3);
       padding: 0 25px;
       border-radius: 0 30px 30px 0;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s;
+      backdrop-filter: blur(10px);
     }
 
     .newsletter-button:hover {
-      background-color: #27ae60;
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
     }
 
     /* Footer Styles */
     .blog-footer {
-      background-color: #2c3e50;
+      background: linear-gradient(135deg, #2c3e50, #34495e);
       color: white;
       padding: 60px 0 30px;
       margin-top: 60px;
@@ -698,7 +540,7 @@ footer {
       left: 0;
       width: 40px;
       height: 2px;
-      background-color: var(--primary);
+      background: var(--gradient-primary);
     }
 
     .footer-links {
@@ -798,23 +640,23 @@ footer {
 }
 
 .show-more-btn {
-  background-color: #f8f9fa;
-  border: 1px solid #e0e0e0;
+  background: var(--gradient-primary);
+  border: none;
   border-radius: 30px;
   padding: 12px 30px;
   display: flex;
   align-items: center;
   gap: 10px;
   font-weight: 500;
-  color: var(--dark);
+  color: white;
   cursor: pointer;
   transition: all 0.3s;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .show-more-btn:hover {
-  background-color: #f1f1f1;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  background: linear-gradient(135deg, #27ae60, #1f618d);
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
   transform: translateY(-2px);
 }
 
@@ -849,9 +691,9 @@ footer {
 }
 
 .show-more-btn.all-loaded {
-  background-color: #e8f7f0;
-  border-color: #d1f2e8;
-  color: var(--secondary);
+  background: rgba(46, 204, 113, 0.2);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  color: var(--primary);
   pointer-events: none;
 }
   </style>
@@ -861,7 +703,7 @@ footer {
   <header class="blog-header">
     <div class="blog-nav">
       <a href="/" class="logo">
-        <img src="/icon/logo-removeBg.png" alt="HomeCare" class="logo-img">
+        <img src="/icon/logo-text ngang.png" alt="HomeCare" class="logo-img">
       </a>
       <form action="/blog" method="get">
         <button type="submit" class="btn-back">
@@ -877,13 +719,17 @@ footer {
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
         <li class="breadcrumb-item"><a href="/blog">Blog</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{blog.title}}</li>
+        <li class="breadcrumb-item active" aria-current="page">
+          {{#if blog}}{{blog.title}}{{else}}5 Bí Quyết Dọn Dẹp Nhà Cửa Hiệu Quả{{/if}}
+        </li>
       </ol>
     </nav>
 
     <!-- Main Article -->
     <article class="blog-article">
       <div class="article-container">
+        {{#if blog}}
+        <!-- Real Blog Data from Database -->
         <div class="blog-meta">
           <span class="blog-category">{{blog.type}}</span>
           <div class="blog-date">
@@ -904,8 +750,7 @@ footer {
         <h2 class="blog-subtitle">{{blog.description}}</h2>
 
         <div class="blog-author">
-          <img src="https://i.pinimg.com/474x/30/6f/d0/306fd0fb64f67ff40f81d8e37f8bf674.jpg" class="author-image"
-            alt="Author">
+          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" class="author-image" alt="{{blog.author}}">
           <div class="author-info">
             <span class="author-name">{{blog.author}}</span>
             <span class="author-title">Chuyên gia dịch vụ nhà cửa</span>
@@ -919,6 +764,192 @@ footer {
         <div class="blog-content">
           {{{blog.content}}}
         </div>
+        {{else}}
+        <!-- Mock Blog Data for Testing -->
+        <div class="blog-meta">
+          <span class="blog-category">Mẹo hay</span>
+          <div class="blog-date">
+            <i class="far fa-calendar-alt"></i>
+            15/01/2025
+            <span class="ms-3">
+              <i class="far fa-eye ms-3 me-1"></i>
+              1,234 lượt xem
+            </span>
+            <span class="ms-3">
+              <i class="far fa-clock ms-3 me-1"></i>
+              8 phút đọc
+            </span>
+          </div>
+        </div>
+
+        <h1 class="blog-title">5 Bí Quyết Dọn Dẹp Nhà Cửa Hiệu Quả Cho Gia Đình Bận Rộn</h1>
+        <h2 class="blog-subtitle">Khám phá những phương pháp dọn dẹp thông minh giúp bạn tiết kiệm thời gian và công sức, đồng thời giữ cho ngôi nhà luôn gọn gàng và sạch sẽ.</h2>
+
+        <div class="blog-author">
+          <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" class="author-image" alt="Nguyễn Thị Lan">
+          <div class="author-info">
+            <span class="author-name">Nguyễn Thị Lan</span>
+            <span class="author-title">Chuyên gia dịch vụ nhà cửa</span>
+          </div>
+        </div>
+
+        <div class="blog-image-container">
+          <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&h=400&fit=crop" alt="5 Bí Quyết Dọn Dẹp Nhà Cửa Hiệu Quả" class="blog-image">
+        </div>
+
+        <div class="blog-content">
+          <p>Trong cuộc sống hiện đại, việc dọn dẹp nhà cửa thường trở thành một gánh nặng đối với nhiều gia đình bận rộn. Tuy nhiên, với những bí quyết đúng đắn, bạn hoàn toàn có thể duy trì một không gian sống sạch sẽ, gọn gàng mà không tốn quá nhiều thời gian và công sức.</p>
+
+          <p>Theo nghiên cứu của Viện Tâm lý học Ứng dụng, một không gian sống gọn gàng không chỉ giúp cải thiện tâm trạng mà còn tăng cường hiệu suất làm việc lên đến 25%. Điều này đặc biệt quan trọng trong bối cảnh làm việc từ xa ngày càng phổ biến.</p>
+
+          <h2>1. Quy tắc 15 phút mỗi ngày - Phương pháp Pomodoro cho việc nhà</h2>
+          
+          <p>Thay vì để việc dọn dẹp tích tụ thành một công việc lớn vào cuối tuần, hãy dành 15 phút mỗi ngày để dọn dẹp một khu vực nhỏ trong nhà. Phương pháp này được gọi là "Micro-cleaning" và đã được chứng minh hiệu quả bởi nhiều chuyên gia tổ chức không gian.</p>
+
+          <h3>Lịch trình 15 phút theo tuần:</h3>
+          <ul>
+            <li><strong>Thứ 2:</strong> Dọn dẹp bàn làm việc và khu vực học tập</li>
+            <li><strong>Thứ 3:</strong> Sắp xếp phòng bếp và rửa chén</li>
+            <li><strong>Thứ 4:</strong> Dọn phòng khách và khu vực giải trí</li>
+            <li><strong>Thứ 5:</strong> Sắp xếp phòng ngủ và tủ quần áo</li>
+            <li><strong>Thứ 6:</strong> Dọn phòng tắm và vệ sinh cá nhân</li>
+            <li><strong>Thứ 7:</strong> Sắp xếp khu vực lưu trữ và tầng hầm</li>
+            <li><strong>Chủ nhật:</strong> Tổng kết và lên kế hoạch tuần mới</li>
+          </ul>
+
+          <blockquote>
+            "Thành công trong việc dọn dẹp không nằm ở việc làm nhiều, mà nằm ở việc làm đều đặn. Một thói quen nhỏ mỗi ngày sẽ tạo nên sự khác biệt lớn về lâu dài." - Marie Kondo, chuyên gia tổ chức không gian hàng đầu thế giới
+          </blockquote>
+
+          <h2>2. Nguyên tắc "Một vào, một ra" - Kiểm soát tài sản hiệu quả</h2>
+          
+          <p>Mỗi khi mua một món đồ mới, hãy loại bỏ một món đồ cũ tương tự. Điều này giúp kiểm soát lượng đồ đạc trong nhà và tránh tình trạng quá tải. Nguyên tắc này đặc biệt hữu ích cho những gia đình sống trong không gian nhỏ hẹp.</p>
+
+          <h3>Lợi ích của nguyên tắc này:</h3>
+          <ul>
+            <li><strong>Giảm thiểu tình trạng lộn xộn:</strong> Duy trì số lượng đồ vật ở mức cân bằng</li>
+            <li><strong>Tiết kiệm không gian lưu trữ:</strong> Tối ưu hóa diện tích sử dụng</li>
+            <li><strong>Dễ dàng tìm kiếm đồ đạc:</strong> Ít đồ hơn = tìm thấy nhanh hơn</li>
+            <li><strong>Tiết kiệm thời gian dọn dẹp:</strong> Ít vật dụng cần sắp xếp</li>
+            <li><strong>Tiết kiệm chi phí:</strong> Tránh mua những thứ không cần thiết</li>
+          </ul>
+
+          <p><em>Mẹo pro:</em> Trước khi mua bất kỳ thứ gì mới, hãy tự hỏi bản thân: "Tôi sẽ loại bỏ món đồ nào để thay thế?" Nếu không có câu trả lời rõ ràng, hãy cân nhắc lại việc mua sắm đó.</p>
+
+          <h2>3. Hệ thống phân loại thông minh - Nguyên tắc 4 hộp</h2>
+          
+          <p>Tạo ra các khu vực riêng biệt cho từng loại đồ vật và gắn nhãn rõ ràng. Điều này không chỉ giúp bạn dễ dàng tìm thấy đồ mà còn khuyến khích tất cả thành viên trong gia đình duy trì thói quen sắp xếp.</p>
+
+          <h3>Hệ thống mã màu cho từng khu vực:</h3>
+          <ul>
+            <li><span style="color: #2ecc71;"><strong>Xanh lá:</strong></span> Đồ dùng hàng ngày (bàn chải đánh răng, khăn mặt, chìa khóa)</li>
+            <li><span style="color: #2980b9;"><strong>Xanh dương:</strong></span> Đồ dùng học tập/làm việc (sách, bút, máy tính)</li>
+            <li><span style="color: #e74c3c;"><strong>Đỏ:</strong></span> Đồ dùng khẩn cấp (thuốc men, đèn pin, hộp cứu thương)</li>
+            <li><span style="color: #f39c12;"><strong>Cam:</strong></span> Đồ giải trí (đồ chơi, sách báo, game)</li>
+          </ul>
+
+          <h2>4. Dọn dẹp theo chiều kim đồng hồ - Phương pháp có hệ thống</h2>
+          
+          <p>Khi dọn dẹp một căn phòng, hãy bắt đầu từ cửa ra vào và di chuyển theo chiều kim đồng hồ. Phương pháp này đảm bảo bạn không bỏ sót khu vực nào và làm việc một cách có hệ thống, tránh việc dọn đi dọn lại một chỗ nhiều lần.</p>
+
+          <h3>Quy trình chi tiết từng bước:</h3>
+          <ol>
+            <li><strong>Quan sát tổng thể:</strong> Đứng ở cửa ra vào, nhìn quanh phòng và lên kế hoạch</li>
+            <li><strong>Thu gom rác:</strong> Bắt đầu từ góc phải cửa, thu gom tất cả rác thải</li>
+            <li><strong>Sắp xếp đồ vật:</strong> Đặt mọi thứ về đúng vị trí của chúng</li>
+            <li><strong>Lau chùi bề mặt:</strong> Lau bụi, vệ sinh các bề mặt theo thứ tự</li>
+            <li><strong>Hút bụi/lau sàn:</strong> Kết thúc bằng việc vệ sinh sàn nhà</li>
+          </ol>
+
+          <h2>5. Kỹ thuật "Basket Method" - Phân loại thông minh</h2>
+          
+          <p>Chuẩn bị 4 cái giỏ hoặc hộp với các nhãn rõ ràng. Đây là phương pháp được nhiều chuyên gia tổ chức không gian khuyên dùng vì tính hiệu quả và dễ thực hiện.</p>
+
+          <h3>4 loại phân loại cơ bản:</h3>
+          <ol>
+            <li><strong>Giữ lại (Keep):</strong> Những vật dụng cần thiết và được sử dụng thường xuyên trong 6 tháng gần đây</li>
+            <li><strong>Tặng/Bán (Donate/Sell):</strong> Đồ vật còn tốt nhưng không cần thiết, có thể mang lại giá trị cho người khác</li>
+            <li><strong>Vứt bỏ (Trash):</strong> Những vật dụng hư hỏng, lỗi thời, không thể sử dụng hoặc sửa chữa</li>
+            <li><strong>Lưu trữ (Store):</strong> Đồ vật có giá trị tình cảm hoặc dùng theo mùa (đồ Giáng sinh, quần áo mùa đông)</li>
+          </ol>
+
+          <h3>Mẹo áp dụng Basket Method hiệu quả:</h3>
+          <ul>
+            <li>Đặt thời gian giới hạn cho mỗi phiên phân loại (30-45 phút)</li>
+            <li>Không suy nghĩ quá lâu về từng món đồ (quy tắc 5 giây)</li>
+            <li>Bắt đầu với những khu vực nhỏ trước (một ngăn kéo, một kệ sách)</li>
+            <li>Mời thêm thành viên gia đình tham gia để tăng động lực</li>
+          </ul>
+
+          <h2>6. Bí quyết bổ sung - Tăng cường hiệu quả dọn dẹp</h2>
+
+          <h3>Nguyên tắc 2 phút:</h3>
+          <p>Nếu một việc có thể hoàn thành trong vòng 2 phút (như rửa ly, gấp khăn, đặt giày vào chỗ), hãy làm ngay lập tức thay vì để dành sau. Điều này giúp ngăn ngừa sự tích tụ của các công việc nhỏ.</p>
+
+          <h3>Chế độ "Reset" cuối ngày:</h3>
+          <p>Dành 10 phút cuối mỗi ngày để "reset" nhà cửa về trạng thái ban đầu. Đây là thời gian để đặt mọi thứ về đúng vị trí, chuẩn bị cho ngày mới.</p>
+
+          <h3>Danh sách kiểm tra Reset cuối ngày:</h3>
+          <ul>
+            <li>✓ Rửa chén bát và để vào chỗ</li>
+            <li>✓ Gấp và cất quần áo</li>
+            <li>✓ Sắp xếp giày dép gọn gàng</li>
+            <li>✓ Thu gom rác và đổ vào thùng</li>
+            <li>✓ Chuẩn bị đồ dùng cho ngày mai</li>
+          </ul>
+
+          <h2>7. Công nghệ hỗ trợ dọn dẹp</h2>
+          
+          <p>Trong thời đại 4.0, việc áp dụng công nghệ vào công việc nhà cũng mang lại nhiều tiện ích:</p>
+
+          <h3>Ứng dụng di động hữu ích:</h3>
+          <ul>
+            <li><strong>Timer apps:</strong> Để đặt thời gian cho các phiên dọn dẹp</li>
+            <li><strong>Checklist apps:</strong> Tạo danh sách công việc và theo dõi tiến độ</li>
+            <li><strong>Photo organizer:</strong> Chụp ảnh "trước và sau" để tạo động lực</li>
+            <li><strong>Music streaming:</strong> Tạo playlist năng động để tăng hứng thú</li>
+          </ul>
+
+          <h3>Thiết bị thông minh:</h3>
+          <ul>
+            <li>Robot hút bụi tự động</li>
+            <li>Máy lọc không khí với cảm biến thông minh</li>
+            <li>Hệ thống nhắc nhở qua loa thông minh</li>
+            <li>Cân thông minh để theo dõi lượng đồ đạc</li>
+          </ul>
+
+          <h2>8. Tạo động lực và duy trì thói quen</h2>
+
+          <h3>Hệ thống phần thưởng:</h3>
+          <p>Tạo ra hệ thống phần thưởng cho bản thân và gia đình khi hoàn thành mục tiêu dọn dẹp:</p>
+          <ul>
+            <li>Hoàn thành 1 tuần: Xem phim yêu thích</li>
+            <li>Hoàn thành 1 tháng: Đi ăn ở nhà hàng ngon</li>
+            <li>Hoàn thành 3 tháng: Mua một món đồ nội thất đẹp</li>
+            <li>Hoàn thành 1 năm: Đi du lịch gia đình</li>
+          </ul>
+
+          <h3>Chia sẻ tiến độ:</h3>
+          <p>Chia sẻ hành trình dọn dẹp của bạn trên mạng xã hội hoặc với bạn bè. Điều này tạo ra trách nhiệm và động lực để duy trì thói quen.</p>
+
+          <h2>Kết luận</h2>
+          
+          <p>Việc dọn dẹp nhà cửa không cần phải là một công việc căng thẳng nếu bạn áp dụng đúng phương pháp. Hãy bắt đầu từ những bước nhỏ và duy trì thói quen tốt. Nhớ rằng, một ngôi nhà sạch sẽ không chỉ mang lại cảm giác thoải mái mà còn tích cực ảnh hưởng đến tinh thần và sức khỏe của cả gia đình.</p>
+
+          <p>Theo nghiên cứu của Đại học California, những người sống trong không gian gọn gàng có mức độ căng thẳng thấp hơn 23% và chất lượng giấc ngủ tốt hơn 31% so với những người sống trong không gian lộn xộn.</p>
+
+          <h3>Lời khuyên cuối cùng:</h3>
+          <p>Đừng cố gắng thay đổi tất cả trong một ngày. Hãy chọn một hoặc hai phương pháp để bắt đầu, áp dụng trong 21 ngày (thời gian cần thiết để hình thành thói quen), sau đó mới bổ sung thêm các kỹ thuật khác.</p>
+
+          <p><strong>Hãy nhớ:</strong> Mục tiêu không phải là có một ngôi nhà hoàn hảo, mà là tạo ra một không gian sống phù hợp với lối sống và mang lại hạnh phúc cho gia đình bạn.</p>
+
+          <hr style="margin: 40px 0; border: none; border-top: 2px solid #f0f0f0;">
+
+          <p><em>Nếu bạn cần hỗ trợ chuyên nghiệp, đội ngũ HomeCare luôn sẵn sàng giúp đỡ với dịch vụ dọn dẹp nhà cửa chất lượng cao. Chúng tôi cung cấp dịch vụ dọn dẹp định kỳ, dọn dẹp tổng thể và tư vấn tổ chức không gian sống theo phong cách tối giản hiện đại.</em></p>
+
+          <p><strong>Liên hệ ngay:</strong> Hotline 0123.456.789 hoặc đặt lịch trực tuyến tại website của chúng tôi để nhận tư vấn miễn phí.</p>
+        </div>
+        {{/if}}
 
         <div class="social-share">
           <div class="share-label">Chia sẻ bài viết:</div>
@@ -932,39 +963,197 @@ footer {
       </div>
     </article>
 
-<!-- Related Articles Section -->
-<section class="blog-article">
-  <div class="article-container">
-    <h3 class="related-title">Bài viết cùng loại</h3>
-    <div class="blog-grid" id="related-posts-grid">
-      {{#each blogs}}
-      {{#ifCond @index "<" 3}} <div class="blog-card related-post">
-        {{else}}
-        <div class="blog-card related-post hidden-post">
-          {{/ifCond}}
-          <a href="/blog/{{_id}}">
-            <div class="card-image-wrap">
-              <img src="{{img}}" alt="{{title}}" {{#ifCond @index ">=" 3}}loading="lazy" {{/ifCond}}>
-            </div>
-            <div class="card-content">
-              <span class="card-tag">{{type}}</span>
-              <h3 class="card-title">{{title}}</h3>
-              <div class="card-meta">
-                <div class="card-date">
-                  <i class="far fa-calendar-alt"></i>
-                  {{formatDate date}}
-                </div>
-                <div class="card-views">
-                  <i class="far fa-eye"></i>
-                  {{views}} lượt xem
+    <!-- Related Articles Section -->
+    <section class="blog-article">
+      <div class="article-container">
+        <h3 class="related-title">Bài viết cùng loại</h3>
+        <div class="blog-grid" id="related-posts-grid">
+          {{#if blogs}}
+          {{#each blogs}}
+          {{#ifCond @index "<" 3}}
+          <div class="blog-card related-post">
+            <a href="/blog/{{_id}}">
+              <div class="card-image-wrap">
+                <img src="{{img}}" alt="{{title}}">
+              </div>
+              <div class="card-content">
+                <span class="card-tag">{{type}}</span>
+                <h3 class="card-title">{{title}}</h3>
+                <div class="card-meta">
+                  <div class="card-date">
+                    <i class="far fa-calendar-alt"></i>
+                    {{formatDate date}}
+                  </div>
+                  <div class="card-views">
+                    <i class="far fa-eye"></i>
+                    {{views}} lượt xem
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-        </div>
-        {{/each}}
-    </div>
+            </a>
+          </div>
+          {{else}}
+          <div class="blog-card related-post hidden-post">
+            <a href="/blog/{{_id}}">
+              <div class="card-image-wrap">
+                <img src="{{img}}" alt="{{title}}" loading="lazy">
+              </div>
+              <div class="card-content">
+                <span class="card-tag">{{type}}</span>
+                <h3 class="card-title">{{title}}</h3>
+                <div class="card-meta">
+                  <div class="card-date">
+                    <i class="far fa-calendar-alt"></i>
+                    {{formatDate date}}
+                  </div>
+                  <div class="card-views">
+                    <i class="far fa-eye"></i>
+                    {{views}} lượt xem
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          {{/ifCond}}
+          {{/each}}
+          {{else}}
+          <!-- Mock Related Articles when no database data -->
+          <div class="blog-card related-post">
+            <a href="/blog/mock-2">
+              <div class="card-image-wrap">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&h=250&fit=crop" alt="Hướng Dẫn Chăm Sóc Người Già">
+              </div>
+              <div class="card-content">
+                <span class="card-tag">Chăm sóc</span>
+                <h3 class="card-title">Hướng Dẫn Chăm Sóc Người Già Tại Nhà An Toàn</h3>
+                <div class="card-meta">
+                  <div class="card-date">
+                    <i class="far fa-calendar-alt"></i>
+                    12/01/2025
+                  </div>
+                  <div class="card-views">
+                    <i class="far fa-eye"></i>
+                    890 lượt xem
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
 
+          <div class="blog-card related-post">
+            <a href="/blog/mock-3">
+              <div class="card-image-wrap">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=250&fit=crop" alt="Top 10 Món Ăn Healthy">
+              </div>
+              <div class="card-content">
+                <span class="card-tag">Nấu ăn</span>
+                <h3 class="card-title">Top 10 Món Ăn Healthy Dễ Làm Cho Cả Gia Đình</h3>
+                <div class="card-meta">
+                  <div class="card-date">
+                    <i class="far fa-calendar-alt"></i>
+                    10/01/2025
+                  </div>
+                  <div class="card-views">
+                    <i class="far fa-eye"></i>
+                    1,156 lượt xem
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="blog-card related-post">
+            <a href="/blog/mock-4">
+              <div class="card-image-wrap">
+                <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&h=250&fit=crop" alt="Checklist An Toàn Cho Trẻ Em">
+              </div>
+              <div class="card-content">
+                <span class="card-tag">An toàn</span>
+                <h3 class="card-title">Checklist An Toàn Cho Trẻ Em Trong Gia Đình</h3>
+                <div class="card-meta">
+                  <div class="card-date">
+                    <i class="far fa-calendar-alt"></i>
+                    08/01/2025
+                  </div>
+                  <div class="card-views">
+                    <i class="far fa-eye"></i>
+                    723 lượt xem
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Hidden mock posts -->
+          <div class="blog-card related-post hidden-post">
+            <a href="/blog/mock-5">
+              <div class="card-image-wrap">
+                <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=400&h=250&fit=crop" alt="Xu Hướng Dịch Vụ 2025" loading="lazy">
+              </div>
+              <div class="card-content">
+                <span class="card-tag">Xu hướng</span>
+                <h3 class="card-title">Xu Hướng Dịch Vụ Gia Đình Thông Minh Năm 2025</h3>
+                <div class="card-meta">
+                  <div class="card-date">
+                    <i class="far fa-calendar-alt"></i>
+                    05/01/2025
+                  </div>
+                  <div class="card-views">
+                    <i class="far fa-eye"></i>
+                    654 lượt xem
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="blog-card related-post hidden-post">
+            <a href="/blog/mock-6">
+              <div class="card-image-wrap">
+                <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=250&fit=crop" alt="Tổ Chức Không Gian Sống" loading="lazy">
+              </div>
+              <div class="card-content">
+                <span class="card-tag">Tổ chức</span>
+                <h3 class="card-title">Nghệ Thuật Tổ Chức Không Gian Sống Tối Ưu</h3>
+                <div class="card-meta">
+                  <div class="card-date">
+                    <i class="far fa-calendar-alt"></i>
+                    03/01/2025
+                  </div>
+                  <div class="card-views">
+                    <i class="far fa-eye"></i>
+                    987 lượt xem
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div class="blog-card related-post hidden-post">
+            <a href="/blog/mock-7">
+              <div class="card-image-wrap">
+                <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=400&h=250&fit=crop" alt="Bảo Trì Nhà Cửa" loading="lazy">
+              </div>
+              <div class="card-content">
+                <span class="card-tag">Bảo trì</span>
+                <h3 class="card-title">Lịch Bảo Trì Nhà Cửa Định Kỳ Cho Năm Mới</h3>
+                <div class="card-meta">
+                  <div class="card-date">
+                    <i class="far fa-calendar-alt"></i>
+                    01/01/2025
+                  </div>
+                  <div class="card-views">
+                    <i class="far fa-eye"></i>
+                    432 lượt xem
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          {{/if}}
+        </div>
+
+    {{#if blogs}}
     {{#ifCond blogs.length ">" 3}}
     <div class="show-more-container">
       <button id="show-more-btn" class="show-more-btn">
@@ -973,6 +1162,15 @@ footer {
       </button>
     </div>
     {{/ifCond}}
+    {{else}}
+    <!-- Mock show more button -->
+    <div class="show-more-container">
+      <button id="show-more-btn" class="show-more-btn">
+        <span>Xem thêm</span>
+        <i class="fas fa-chevron-down"></i>
+      </button>
+    </div>
+    {{/if}}
   </div>
 </section>
     <!-- Newsletter Section -->

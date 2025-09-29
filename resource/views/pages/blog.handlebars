@@ -1,168 +1,35 @@
-{{!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    {{!-- box icon --}}
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/css/style.css">
-
-</head>
-<body>
-    <header class="blog">
-        <div class="blog__nav blog__container">
-            
-            <a href="/" class="blog__logo">
-                <div class="logo">
-                    <img src="/icon/logo-removeBg.png" alt="grocerymart" class="logo__img logo __img-header">
-                </div>
-            </a>
-            <a href="/account/register" class="blog__login">Đăng Kí</a>
-        </div>
-    </header>
-   
-   <section class="blog__about blog__container" id="blog-about">
-            {{#each blogs}}
-            {{#if @first}}
-    <div class="blog__contentBx">
-
-                <h2 class="blog__titleText">{{title}}</h2>
-                <p class="blog__title-text">{{description}}
-        </p>
-        <a href="#" class="blog__btn2">Đọc thêm</a>
-
-    </div>
-    <div class="blog__imgbx">
-        <img src="/img/about.png" alt="" class="blog__imgbx-fitBg">
-    </div>
-                {{/if}}
-        {{/each}}
-   </section>
-   <section>
-    <form action="" class="blog__search-bar" style="margin-top:15px">
-        <input type="text" placeholder="tìm kiếm bất cứ điều gì trong HomeCare" name="q" onkeyup="search()"
-            id="search-item">
-        <button type="submit"><i class="fa-solid fa-magnifying-glass" style="font-size:3rem;"></i></button>
-    </form>
-   </section>
-   <div class="blog__post-filter blog__container">
-    <span class="blog__filter-item active-filter" data-filter="all">
-        Tất Cả
-    </span>
-    {{#each tags}}
-        <span class="blog__filter-item" data-filter="{{this}}">{{this}}</span>   
-    {{/each}}
-   </div>
-<div class="blog__post container" id="product-list">
-    <!-- Post 1 -->
-    {{#each blogs}}
-    <div class="blog__post-box tech" data-type="{{type}}">
-        <img src="{{img}}" alt="" class="blog__post-img">
-        <h2 class="blog__category">{{type}}</h2>
-        <a href="/blog/{{_id}}" class="blog__post-title">{{title}}</a>
-        <span class="blog__post-date">{{date}}</span>
-        <p class="blog__post-description">{{description}}</p>
-        <div class="blog__profile">
-            <img src="/img/testi1.jpg" alt="" class="blog__profile-img">
-            <span class="blog__profile-name">{{author}}</span>
-        </div>
-    </div>
-    {{/each}}
-</div>
-
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
- //nav background
- let header= document.querySelector(".blog")
- window.addEventListener("scroll",()=>{
-    header.classList.toggle("shadow",window.scrollY>0)
- })
-
- //Filter
- $(document).ready(function () {
-    $(".blog__filter-item").click(function () {
-        const value = $(this).attr("data-filter");
-        console.log("value :",value)
-        if (value == "all") {
-            $(".blog__post-box").show("1000")
-        } else {
-            $(".blog__post-box").each(function() {
-                const postType = $(this).attr("data-type");
-                if (postType === value) {
-                    console.log(postType)
-                    $(this).show("1000");
-                } else {
-                    $(this).hide("1000");
-                }
-            });
-        }
-    });
-    $(".blog__filter-item").click(function () {
-        $(this).addClass("active-filter").siblings().removeClass("active-filter")
-    });
- });
-    
-  const search =()=>{
-    const searchbox =document.getElementById("search-item").value.toUpperCase();
-    const storeitems= document.getElementById("product-list");
-    const product = document.querySelectorAll(".blog__post-box");
-    const ptitle= document.querySelectorAll(".blog__post-title");
-    for( var i=0; i < ptitle.length;i++){
-        let match =product[i].getElementsByClassName("blog__post-title")[0];
-        if(match){
-            let textvalue= match.textContent || match.innerHTML;
-            if(textvalue.toUpperCase().indexOf(searchbox)>-1){
-                product[i].style.display="";
-            }else{
-                product[i].style.display="none";
-            }
-        }
-    }
-  }
-
-</script>
-</body>
-</html> --}}
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomeCare Blog - Những Mẹo Hữu Ích Trong Cuộc Sống</title>
-    <meta name="description"
-        content="Khám phá những bài viết hữu ích về dọn dẹp, chăm sóc nhà cửa và dịch vụ giúp việc">
+    <title>Thông Cáo Báo Chí - HomeCare</title>
+    <meta name="description" content="Tin tức và thông báo chính thức từ HomeCare">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <style>
         :root {
-            --primary: #4CAF50;;
-            --primary-light: #4FC5BD;
-            --primary-dark: #006C65;
-            --primary-very-light: #E6F7F6;
-            --accent: #FFA500;
-            --dark: #333333;
-            --light: #FFFFFF;
-            --gray: #6c757d;
-            --gray-light: #f8f9fa;
-            --gray-dark: #343a40;
-            --border: #e0e0e0;
-            --shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            --card-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            --primary: #2ecc71;
+            --primary-light: #58d68d;
+            --primary-dark: #27ae60;
+            --secondary: #2980b9;
+            --secondary-light: #5dade2;
+            --secondary-dark: #1f618d;
+            --text-dark: #2c3e50;
+            --text-gray: #6C757D;
+            --text-light: #8E9AAF;
+            --bg-light: #f8f9fa;
+            --bg-white: #FFFFFF;
+            --border-light: #E8ECEF;
+            --shadow-light: 0 2px 8px rgba(46, 52, 64, 0.08);
+            --shadow-medium: 0 4px 24px rgba(46, 52, 64, 0.12);
+            --gradient-primary: linear-gradient(135deg, #2ecc71, #2980b9);
+            --gradient-light: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(41, 128, 185, 0.1));
         }
 
         * {
@@ -172,10 +39,11 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f9f9f9;
-            color: var(--dark);
-            line-height: 1.7;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-size: 16px;
         }
 
         a {
@@ -185,452 +53,589 @@
 
         img {
             max-width: 100%;
+            height: auto;
         }
 
         .container {
-            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
         /* Header */
-        .blog-header {
-            background: var(--light);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            position: fixed;
-            width: 100%;
+        .header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-light);
+            position: sticky;
             top: 0;
-            left: 0;
             z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .blog-header.shadow {
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid transparent;
+            border-image: var(--gradient-primary) 1;
         }
 
         .header-container {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            justify-content: space-between;
+            padding: 16px 24px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
         .logo img {
-            height: 80px;
-            width: 120px;
+            height: 100px;
+            width: auto;
         }
 
-        .blog-nav {
+        .nav {
             display: flex;
             align-items: center;
+            gap: 40px;
         }
 
-        .nav-menu {
+        .nav-links {
             display: flex;
             list-style: none;
-            margin-right: 30px;
-        }
-
-        .nav-item {
-            margin: 0 15px;
-            position: relative;
+            gap: 32px;
+            margin: 0;
         }
 
         .nav-link {
-            color: var(--dark);
+            color: var(--text-dark);
             font-weight: 500;
             font-size: 15px;
-            transition: all 0.3s;
-            padding: 5px 0;
+            transition: color 0.2s ease;
             position: relative;
-        }
-
-        .nav-link:before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
         }
 
         .nav-link:hover {
             color: var(--primary);
         }
 
-        .nav-link:hover:before {
-            width: 100%;
-        }
-
         .nav-link.active {
             color: var(--primary);
         }
 
-        .nav-link.active:before {
-            width: 100%;
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
         }
 
-        .blog-login {
-            display: inline-block;
-            background: var(--primary);
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-register {
+            background: var(--gradient-primary);
             color: white;
-            padding: 10px 25px;
-            border-radius: 50px;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 14px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(0, 166, 156, 0.2);
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
         }
 
-        .blog-login:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
+        .btn-register:hover {
+            background: linear-gradient(135deg, #27ae60, #1f618d);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
         }
 
-        .mobile-menu-toggle {
+        .mobile-toggle {
             display: none;
             background: none;
             border: none;
-            color: var(--dark);
-            font-size: 24px;
+            color: var(--text-dark);
+            font-size: 20px;
             cursor: pointer;
         }
 
-        /* Featured Blog */
-        .blog-featured {
-            padding: 140px 0 60px;
-            background: var(--primary-very-light);
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
         }
 
-        .featured-container {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .featured-content {
-            flex: 1;
-        }
-
-        .featured-title {
-            font-size: 2.5rem;
+        .hero h1 {
+            font-size: 48px;
             font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-
-        .featured-text {
-            color: var(--gray-dark);
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-        .featured-button {
-            display: inline-block;
-            background: var(--primary);
             color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 166, 156, 0.25);
+            margin-bottom: 16px;
+            line-height: 1.2;
         }
 
-        .featured-button:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-        }
-
-        .featured-image {
-            flex: 1;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-        }
-
-        .featured-image img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .featured-image:hover img {
-            transform: scale(1.03);
-        }
-
-        /* Search Bar */
-        .search-section {
-            background: white;
-            padding: 40px 0;
-        }
-
-        .search-container {
-            max-width: 700px;
+        .hero p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0;
+            max-width: 600px;
             margin: 0 auto;
-            padding: 0 20px;
         }
 
-        .blog-search-bar {
-            display: flex;
-            border-radius: 50px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+        /* Main Content */
+        .main-content {
+            padding: 80px 0;
         }
 
-        .blog-search-bar input {
-            flex: 1;
-            border: none;
-            padding: 16px 25px;
-            font-size: 16px;
-            outline: none;
-            font-family: 'Montserrat', sans-serif;
+        /* Blog List Section */
+        .blog-list-section {
+            display: block;
         }
 
-        .blog-search-bar button {
-            background: var(--primary);
-            border: none;
-            padding: 0 30px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .blog-search-bar button:hover {
-            background: var(--primary-dark);
-        }
-
-        .blog-search-bar button i {
-            color: white;
-            font-size: 18px !important;
-        }
-
-        /* Filter Section */
-        .filter-section {
-            background: white;
-            padding: 0 0 40px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .filter-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .blog-filter-item {
-            padding: 8px 20px;
-            border-radius: 50px;
-            background: var(--gray-light);
-            color: var(--gray-dark);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .blog-filter-item:hover {
-            background: #eeeeee;
-        }
-
-        .blog-filter-item.active-filter {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Blog Posts */
-        .blog-posts-section {
-            padding: 60px 0;
+        .blog-list-section.hidden {
+            display: none;
         }
 
         .blog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+            margin-bottom: 64px;
         }
 
-        .blog-post-card {
-            background: white;
-            border-radius: 10px;
+        .blog-card {
+            background: var(--bg-white);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-light);
+            position: relative;
+            cursor: pointer;
         }
 
-        .blog-post-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .post-image {
-            height: 220px;
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .blog-card:hover::before {
+            opacity: 1;
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 240px;
             overflow: hidden;
+            position: relative;
         }
 
-        .post-image img {
+        .blog-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.3s ease;
         }
 
-        .blog-post-card:hover .post-image img {
+        .blog-card:hover .blog-image img {
             transform: scale(1.05);
         }
 
-        .post-content {
-            padding: 25px;
+        .blog-content {
+            padding: 32px;
         }
 
-        .post-category {
-            display: inline-block;
-            padding: 5px 15px;
-            background: var(--primary-very-light);
-            color: var(--primary);
-            border-radius: 50px;
-            font-size: 12px;
+        .blog-date {
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blog-title {
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .post-title {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 15px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
             line-height: 1.4;
-            color: var(--dark);
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        .post-title:hover {
+        .blog-title:hover {
             color: var(--primary);
         }
 
-        .post-date {
-            display: block;
-            color: var(--gray);
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .post-description {
-            color: var(--gray-dark);
-            font-size: 14px;
+        .blog-excerpt {
+            color: var(--text-gray);
+            font-size: 15px;
+            line-height: 1.6;
             margin-bottom: 20px;
-            line-height: 1.7;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        .post-author {
+        .blog-meta {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             padding-top: 20px;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid var(--border-light);
         }
 
-        .author-img {
-            width: 40px;
-            height: 40px;
+        .blog-author {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .author-avatar {
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
-            margin-right: 15px;
             object-fit: cover;
         }
 
         .author-name {
             font-size: 14px;
-            font-weight: 600;
-            color: var(--dark);
+            font-weight: 500;
+            color: var(--text-dark);
         }
 
-        /* Footer */
-        .blog-footer {
-            background: var(--primary-dark);
-            color: white;
-            padding: 70px 0 30px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--primary);
-        }
-
-        .footer-description {
-            margin-bottom: 20px;
-            line-height: 1.8;
+        .read-more {
+            color: var(--primary);
             font-size: 14px;
-            opacity: 0.8;
-        }
-
-        .social-icons {
+            font-weight: 600;
             display: flex;
-            gap: 15px;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.2s ease;
         }
 
-        .social-icon {
+        .read-more:hover {
+            gap: 8px;
+            color: var(--primary-dark);
+        }
+
+        /* Blog Detail Section */
+        .blog-detail-section {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .blog-detail-section.show {
+            display: block;
+        }
+
+        .detail-header {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-light);
+        }
+
+        .breadcrumb {
+            display: flex;
+            padding: 0;
+            margin-bottom: 30px;
+            list-style: none;
+            background: none;
+            font-size: 14px;
+        }
+
+        .breadcrumb-item {
+            color: var(--text-gray);
+        }
+
+        .breadcrumb-item a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item+.breadcrumb-item::before {
+            content: "›";
+            padding: 0 8px;
+            color: var(--text-gray);
+        }
+
+        .back-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, #27ae60, #1f618d);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .detail-category {
+            background: var(--gradient-light);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(46, 204, 113, 0.2);
+        }
+
+        .detail-date {
+            color: var(--text-gray);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .detail-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .detail-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .detail-author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-author-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-author-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .detail-author-title {
+            color: var(--text-gray);
+            font-size: 13px;
+        }
+
+        .detail-image-container {
+            margin: 0 -40px 30px;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .detail-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .detail-content {
+            font-family: 'Merriweather', serif;
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-dark);
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--shadow-light);
+            margin-bottom: 30px;
+        }
+
+        .detail-content h2,
+        .detail-content h3 {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .detail-content h2 {
+            font-size: 1.75rem;
+        }
+
+        .detail-content h3 {
+            font-size: 1.4rem;
+        }
+
+        .detail-content p {
+            margin-bottom: 25px;
+        }
+
+        .detail-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #555;
+            background: var(--gradient-light);
+            padding: 20px 20px 20px 24px;
+            border-radius: 8px;
+        }
+
+        .detail-content ul,
+        .detail-content ol {
+            margin: 20px 0;
+            padding-left: 20px;
+        }
+
+        .detail-content li {
+            margin-bottom: 10px;
+        }
+
+        .social-share {
+            display: flex;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .share-label {
+            margin-right: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .share-button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
             color: white;
-            font-size: 16px;
+            background: var(--gradient-primary);
             transition: all 0.3s;
         }
 
-        .social-icon:hover {
-            background: var(--primary);
+        .share-button:hover {
             transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 64px;
+        }
+
+        .btn-load-more {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-load-more:hover {
+            background: linear-gradient(135deg, #27ae60, #1f618d);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        .btn-load-more:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 64px 0 32px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         .footer-links {
@@ -643,624 +648,1000 @@
 
         .footer-links a {
             color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            transition: all 0.3s;
+            font-size: 15px;
+            transition: color 0.2s ease;
         }
 
         .footer-links a:hover {
             color: white;
-            padding-left: 5px;
         }
 
-        .contact-info {
-            list-style: none;
-        }
-
-        .contact-info li {
+        .social-links {
             display: flex;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .contact-info i {
-            margin-right: 15px;
-            margin-top: 5px;
-        }
-
-        .newsletter-form {
-            display: flex;
+            gap: 16px;
             margin-top: 20px;
         }
 
-        .newsletter-form input {
-            flex: 1;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 50px 0 0 50px;
-            outline: none;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 14px;
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.8);
+            transition: all 0.2s ease;
         }
 
-        .newsletter-form button {
-            background: var(--primary);
-            border: none;
+        .social-link:hover {
+            background: var(--gradient-primary);
             color: white;
-            padding: 0 20px;
-            border-radius: 0 50px 50px 0;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .newsletter-form button:hover {
-            background: var(--accent);
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 30px;
-            margin-top: 30px;
+            padding-top: 32px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
             font-size: 14px;
-            opacity: 0.8;
         }
 
-        /* No Results */
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            margin: 40px auto;
-            max-width: 500px;
-        }
-
-        .no-results i {
-            font-size: 50px;
-            color: #ccc;
-            margin-bottom: 20px;
-        }
-
-        .no-results h3 {
-            margin-bottom: 15px;
-            font-size: 24px;
-            color: var(--gray-dark);
-        }
-
-        .no-results p {
-            color: var(--gray);
+        /* Hidden posts for load more functionality */
+        .hidden-post {
+            display: none;
         }
 
         /* Responsive */
-        @media screen and (max-width: 992px) {
-            .featured-container {
-                flex-direction: column;
-                text-align: center;
-                padding: 0 20px;
-            }
-
-            .featured-title {
-                font-size: 2rem;
-            }
-
-            .featured-image img {
-                height: 350px;
-            }
-
-            .blog-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .header-container {
-                padding: 15px;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: white;
-                flex-direction: column;
-                align-items: center;
-                padding: 40px 0;
-                transition: all 0.4s;
-                z-index: 999;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .nav-item {
-                margin: 10px 0;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .blog-login {
+        @media (max-width: 768px) {
+            .nav-links {
                 display: none;
             }
 
-            .featured-title {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .blog-content {
+                padding: 24px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .header-container {
+                padding: 16px;
+            }
+
+            .main-content {
+                padding: 48px 0;
+            }
+
+            .detail-header {
+                padding: 20px;
+            }
+
+            .detail-content {
+                padding: 20px;
+            }
+
+            .detail-title {
                 font-size: 1.75rem;
             }
 
-            .featured-image img {
-                height: 300px;
+            .detail-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
             }
 
-            .blog-search-bar input {
-                padding: 14px 20px;
-                font-size: 14px;
-            }
-
-            .blog-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .detail-image-container {
+                margin: 0 -20px 20px;
             }
         }
 
-        @media screen and (max-width: 576px) {
-            .featured-title {
-                font-size: 1.5rem;
-            }
-
-            .featured-text {
-                font-size: 14px;
-            }
-
-            .featured-image img {
-                height: 250px;
-            }
-
+        @media (max-width: 480px) {
             .blog-grid {
                 grid-template-columns: 1fr;
             }
 
-            .footer-container {
-                grid-template-columns: 1fr;
+            .blog-card {
+                border-radius: 12px;
+            }
+
+            .blog-content {
+                padding: 20px;
+            }
+
+            .hero {
+                padding: 48px 0;
+            }
+
+            .hero h1 {
+                font-size: 28px;
             }
         }
-        /* Thêm vào phần style */
-.hidden-post {
-    display: none;
-}
-
-.show-more-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-}
-
-.show-more-btn {
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 14px 35px;
-    font-size: 16px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    transition: all 0.3s;
-    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
-}
-
-.show-more-btn:hover {
-    background-color: #3d8b40;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
-}
-
-.show-more-btn i {
-    transition: transform 0.3s;
-}
-
-.show-more-btn:hover i {
-    transform: translateY(3px);
-}
-
-.show-more-btn.loading {
-    pointer-events: none;
-    opacity: 0.8;
-}
-
-.show-more-btn.loading i {
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.show-more-btn.all-loaded {
-    background-color: #e8f5e9;
-    color: var(--primary);
-    border: 1px solid var(--primary);
-    pointer-events: none;
-}
     </style>
 </head>
 
 <body>
     <!-- Header -->
-    <header class="blog-header" id="blog-header">
+    <header class="header">
         <div class="header-container">
             <a href="/" class="logo">
-                <img src="/icon/logo-removeBg.png" alt="HomeCare">
+                <img src="/icon/logo-text ngang.png" alt="HomeCare">
             </a>
 
-            <div class="blog-nav">
-                <ul class="nav-menu" id="nav-menu">
-                    <li class="nav-item"><a href="/" class="nav-link">Trang chủ</a></li>
-                    
-                    <li class="nav-item"><a href="/blog" class="nav-link active">Blog</a></li>
-                    
+            <nav class="nav">
+                <ul class="nav-links">
+                    <li><a href="/" class="nav-link">Trang chủ</a></li>
+                    <li><a href="/blog" class="nav-link active">Thông cáo báo chí</a></li>
                 </ul>
 
-                <a href="/account/register" class="blog-login">Đăng ký</a>
-                <button class="mobile-menu-toggle" id="mobile-menu-toggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
+                <div class="nav-actions">
+                    <a href="/account/register" class="btn-register">Đăng ký</a>
+                    <button class="mobile-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
         </div>
     </header>
 
-    <!-- Featured Blog -->
-    <section class="blog-featured">
-        <div class="featured-container">
-            {{#each blogs}}
-            {{#if @first}}
-            <div class="featured-content">
-                <h1 class="featured-title">{{title}}</h1>
-                <p class="featured-text">{{description}}</p>
-                <a href="/blog/{{_id}}" class="featured-button">Đọc ngay</a>
-            </div>
-            <div class="featured-image">
-                <img src="{{img}}" alt="{{title}}">
-            </div>
-            {{/if}}
-            {{/each}}
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Thông Cáo Báo Chí</h1>
+            <p>Cập nhật những tin tức mới nhất và thông báo chính thức từ HomeCare</p>
         </div>
     </section>
 
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="search-container">
-            <form class="blog-search-bar">
-                <input type="text" placeholder="Tìm kiếm bài viết, mẹo dọn dẹp, chăm sóc nhà cửa..." id="search-item">
-                <button type="button"><i class="fas fa-search"></i></button>
-            </form>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <!-- Blog List Section -->
+            <div class="blog-list-section" id="blog-list">
+                <div class="blog-grid">
+                    {{#if blogs}}
+                    {{#each blogs}}
+                    {{#ifCond @index "<" 6}} <article class="blog-card" data-blog-id="{{_id}}"
+                        onclick="showBlogDetail('{{_id}}', '{{title}}', '{{description}}', '{{img}}', '{{author}}', '{{formatDate date}}', `{{{content}}}`, '{{type}}')">
+                        <div class="blog-image">
+                            <img src="{{img}}" alt="{{title}}" loading="lazy">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-date">
+                                <i class="far fa-calendar-alt"></i>
+                                {{formatDate date}}
+                            </div>
+                            <h2 class="blog-title">{{title}}</h2>
+                            <p class="blog-excerpt">{{description}}</p>
+                            <div class="blog-meta">
+                                <div class="blog-author">
+                                    <img src="/img/testi1.jpg" alt="{{author}}" class="author-avatar">
+                                    <span class="author-name">{{author}}</span>
+                                </div>
+                                <span class="read-more">
+                                    Đọc thêm
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                            </div>
+                        </div>
+                        </article>
+                        {{else}}
+                        <article class="blog-card hidden-post" data-blog-id="{{_id}}"
+                            onclick="showBlogDetail('{{_id}}', '{{title}}', '{{description}}', '{{img}}', '{{author}}', '{{formatDate date}}', `{{{content}}}`, '{{type}}')">
+                            <div class="blog-image">
+                                <img src="{{img}}" alt="{{title}}" loading="lazy">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    {{formatDate date}}
+                                </div>
+                                <h2 class="blog-title">{{title}}</h2>
+                                <p class="blog-excerpt">{{description}}</p>
+                                <div class="blog-meta">
+                                    <div class="blog-author">
+                                        <img src="/img/testi1.jpg" alt="{{author}}" class="author-avatar">
+                                        <span class="author-name">{{author}}</span>
+                                    </div>
+                                    <span class="read-more">
+                                        Đọc thêm
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+                        {{/ifCond}}
+                        {{/each}}
+                        {{else}}
+                        <!-- Mock Data for Testing -->
+                        <article class="blog-card" onclick="showMockBlogDetail('cleaning-tips')">
+                            <div class="blog-image">
+                                <img src="https://images.pexels.com/photos/4239083/pexels-photo-4239083.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop"
+                                    alt="5 Bí Quyết Dọn Dẹp Nhà Cửa Hiệu Quả" loading="lazy">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    15/01/2025
+                                </div>
+                                <h2 class="blog-title">5 Bí Quyết Dọn Dẹp Nhà Cửa Hiệu Quả Cho Gia Đình Bận Rộn</h2>
+                                <p class="blog-excerpt">Khám phá những phương pháp dọn dẹp thông minh giúp bạn tiết kiệm
+                                    thời gian và công sức, đồng thời giữ cho ngôi nhà luôn gọn gàng và sạch sẽ.</p>
+                                <div class="blog-meta">
+                                    <div class="blog-author">
+                                        <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+                                            alt="Nguyễn Thị Lan" class="author-avatar">
+                                        <span class="author-name">Nguyễn Thị Lan</span>
+                                    </div>
+                                    <span class="read-more">
+                                        Đọc thêm
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
 
-    <!-- Filter Section -->
-    <section class="filter-section">
-        <div class="filter-container">
-            <div class="blog-filter-item active-filter" data-filter="all">
-                Tất cả
-            </div>
-            {{#each tags}}
-            <div class="blog-filter-item" data-filter="{{this}}">{{this}}</div>
-            {{/each}}
-        </div>
-    </section>
+                        <article class="blog-card" onclick="showMockBlogDetail('elderly-care')">
+                            <div class="blog-image">
+                                <img src="https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop"
+                                    alt="Cách Chăm Sóc Người Già Tại Nhà" loading="lazy">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    12/01/2025
+                                </div>
+                                <h2 class="blog-title">Hướng Dẫn Chăm Sóc Người Già Tại Nhà An Toàn và Chu Đáo</h2>
+                                <p class="blog-excerpt">Những lời khuyên chuyên nghiệp từ đội ngũ y tế về cách chăm sóc
+                                    người cao tuổi tại nhà, đảm bảo sức khỏe và tinh thần tốt nhất.</p>
+                                <div class="blog-meta">
+                                    <div class="blog-author">
+                                        <img src="https://images.pexels.com/photos/5407206/pexels-photo-5407206.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+                                            alt="BS. Trần Minh Khang" class="author-avatar">
+                                        <span class="author-name">BS. Trần Minh Khang</span>
+                                    </div>
+                                    <span class="read-more">
+                                        Đọc thêm
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
 
-    <!-- Blog Posts -->
-<!-- Blog Posts -->
-<section class="blog-posts-section">
-    <div class="blog-grid" id="product-list">
-        {{#each blogs}}
-        {{#ifCond @index "<" 9}} <div class="blog-post-card" data-type="{{type}}">
-            <div class="post-image">
-                <a href="/blog/{{_id}}">
-                    <img src="{{img}}" alt="{{title}}">
-                </a>
+                        <article class="blog-card" onclick="showMockBlogDetail('healthy-cooking')">
+                            <div class="blog-image">
+                                <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop"
+                                    alt="Mẹo Nấu Ăn Healthy" loading="lazy">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    10/01/2025
+                                </div>
+                                <h2 class="blog-title">Top 10 Món Ăn Healthy Dễ Làm Cho Cả Gia Đình</h2>
+                                <p class="blog-excerpt">Bộ sưu tập những công thức nấu ăn đơn giản, bổ dưỡng và phù hợp
+                                    với mọi lứa tuổi trong gia đình bạn.</p>
+                                <div class="blog-meta">
+                                    <div class="blog-author">
+                                        <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+                                            alt="Chef Lê Minh Tuấn" class="author-avatar">
+                                        <span class="author-name">Chef Lê Minh Tuấn</span>
+                                    </div>
+                                    <span class="read-more">
+                                        Đọc thêm
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="blog-card" onclick="showMockBlogDetail('child-safety')">
+                            <div class="blog-image">
+                                <img src="https://images.pexels.com/photos/1648377/pexels-photo-1648377.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop"
+                                    alt="An Toàn Trẻ Em Trong Nhà" loading="lazy">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    08/01/2025
+                                </div>
+                                <h2 class="blog-title">Checklist An Toàn Cho Trẻ Em Trong Môi Trường Gia Đình</h2>
+                                <p class="blog-excerpt">Danh sách kiểm tra toàn diện để đảm bảo ngôi nhà của bạn là môi
+                                    trường an toàn nhất cho trẻ em phát triển.</p>
+                                <div class="blog-meta">
+                                    <div class="blog-author">
+                                        <img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+                                            alt="Phạm Thu Hà" class="author-avatar">
+                                        <span class="author-name">Phạm Thu Hà</span>
+                                    </div>
+                                    <span class="read-more">
+                                        Đọc thêm
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="blog-card" onclick="showMockBlogDetail('smart-trends')">
+                            <div class="blog-image">
+                                <img src="https://images.pexels.com/photos/1571458/pexels-photo-1571458.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop"
+                                    alt="Xu Hướng Dịch Vụ Gia Đình 2025" loading="lazy">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    05/01/2025
+                                </div>
+                                <h2 class="blog-title">Xu Hướng Dịch Vụ Gia Đình Thông Minh Năm 2025</h2>
+                                <p class="blog-excerpt">Khám phá những công nghệ và dịch vụ mới nhất trong lĩnh vực chăm
+                                    sóc gia đình, giúp cuộc sống trở nên tiện lợi hơn.</p>
+                                <div class="blog-meta">
+                                    <div class="blog-author">
+                                        <img src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+                                            alt="Nguyễn Văn Nam" class="author-avatar">
+                                        <span class="author-name">Nguyễn Văn Nam</span>
+                                    </div>
+                                    <span class="read-more">
+                                        Đọc thêm
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="blog-card" onclick="showMockBlogDetail('space-organization')">
+                            <div class="blog-image">
+                                <img src="https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop"
+                                    alt="Tổ Chức Không Gian Sống" loading="lazy">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    03/01/2025
+                                </div>
+                                <h2 class="blog-title">Nghệ Thuật Tổ Chức Không Gian Sống Tối Ưu</h2>
+                                <p class="blog-excerpt">Hướng dẫn chi tiết cách sắp xếp và tổ chức đồ đạc trong nhà một
+                                    cách khoa học, tạo không gian sống thoải mái.</p>
+                                <div class="blog-meta">
+                                    <div class="blog-author">
+                                        <img src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+                                            alt="Lê Thị Mai" class="author-avatar">
+                                        <span class="author-name">Lê Thị Mai</span>
+                                    </div>
+                                    <span class="read-more">
+                                        Đọc thêm
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- Hidden mock posts for load more functionality -->
+                        <article class="blog-card hidden-post" onclick="showMockBlogDetail('home-maintenance')">
+                            <div class="blog-image">
+                                <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop"
+                                    alt="Bảo Trì Nhà Cửa Định Kỳ" loading="lazy">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    01/01/2025
+                                </div>
+                                <h2 class="blog-title">Lịch Bảo Trì Nhà Cửa Định Kỳ Cho Năm Mới</h2>
+                                <p class="blog-excerpt">Kế hoạch bảo trì toàn diện giúp ngôi nhà của bạn luôn trong tình
+                                    trạng tốt nhất và tăng tuổi thọ các thiết bị.</p>
+                                <div class="blog-meta">
+                                    <div class="blog-author">
+                                        <img src="https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+                                            alt="Hoàng Minh Đức" class="author-avatar">
+                                        <span class="author-name">Hoàng Minh Đức</span>
+                                    </div>
+                                    <span class="read-more">
+                                        Đọc thêm
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="blog-card hidden-post" onclick="showMockBlogDetail('hiring-guide')">
+                            <div class="blog-image">
+                                <img src="https://images.pexels.com/photos/5699456/pexels-photo-5699456.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop"
+                                    alt="Kinh Nghiệm Thuê Giúp Việc" loading="lazy">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    28/12/2024
+                                </div>
+                                <h2 class="blog-title">Kinh Nghiệm Chọn và Thuê Người Giúp Việc Uy Tín</h2>
+                                <p class="blog-excerpt">Những lưu ý quan trọng khi lựa chọn người giúp việc phù hợp với
+                                    gia đình, đảm bảo chất lượng dịch vụ tốt nhất.</p>
+                                <div class="blog-meta">
+                                    <div class="blog-author">
+                                        <img src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+                                            alt="Võ Thị Hương" class="author-avatar">
+                                        <span class="author-name">Võ Thị Hương</span>
+                                    </div>
+                                    <span class="read-more">
+                                        Đọc thêm
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="blog-card hidden-post" onclick="showMockBlogDetail('laundry-tips')">
+                            <div class="blog-image">
+                                <img src="https://images.pexels.com/photos/5591663/pexels-photo-5591663.jpeg?auto=compress&cs=tinysrgb&w=500&h=300&fit=crop"
+                                    alt="Bí Quyết Giặt Ủi Chuyên Nghiệp" loading="lazy">
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    25/12/2024
+                                </div>
+                                <h2 class="blog-title">Bí Quyết Giặt Ủi Chuyên Nghiệp Tại Nhà</h2>
+                                <p class="blog-excerpt">Hướng dẫn chi tiết về các kỹ thuật giặt ủi hiệu quả, giúp quần
+                                    áo luôn như mới và bền đẹp theo thời gian.</p>
+                                <div class="blog-meta">
+                                    <div class="blog-author">
+                                        <img src="https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+                                            alt="Nguyễn Thị Hoa" class="author-avatar">
+                                        <span class="author-name">Nguyễn Thị Hoa</span>
+                                    </div>
+                                    <span class="read-more">
+                                        Đọc thêm
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+                        {{/if}}
+                </div>
+
+                {{#if blogs}}
+                {{#ifCond blogs.length ">" 6}}
+                <div class="pagination">
+                    <button id="load-more-btn" class="btn-load-more">
+                        <span>Xem thêm bài viết</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                {{/ifCond}}
+                {{else}}
+                <!-- Mock pagination for testing -->
+                <div class="pagination">
+                    <button id="load-more-btn" class="btn-load-more">
+                        <span>Xem thêm bài viết</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                {{/if}}
             </div>
-            <div class="post-content">
-                <span class="post-category">{{type}}</span>
-                <a href="/blog/{{_id}}">
-                    <h3 class="post-title">{{title}}</h3>
-                </a>
-                <span class="post-date">
-                    <i class="far fa-calendar-alt"></i> {{formatDate date}}
-                </span>
-                <p class="post-description">{{description}}</p>
-                <div class="post-author">
-                    <img src="/img/testi1.jpg" alt="{{author}}" class="author-img">
-                    <span class="author-name">{{author}}</span>
+
+            <!-- Blog Detail Section -->
+            <div class="blog-detail-section" id="blog-detail">
+                <button class="back-btn" onclick="showBlogList()">
+                    <i class="fas fa-arrow-left me-2"></i> Quay lại danh sách
+                </button>
+
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="#" onclick="showBlogList()">Blog</a></li>
+                        <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-title">Chi tiết bài viết
+                        </li>
+                    </ol>
+                </nav>
+
+                <div class="detail-header">
+                    <div class="detail-meta">
+                        <span class="detail-category" id="detail-category">Mẹo hay</span>
+                        <div class="detail-date">
+                            <i class="far fa-calendar-alt"></i>
+                            <span id="detail-date">15/01/2025</span>
+                            <span class="ms-3">
+                                <i class="far fa-eye ms-3 me-1"></i>
+                                <span id="detail-views">1,234</span> lượt xem
+                            </span>
+                            <span class="ms-3">
+                                <i class="far fa-clock ms-3 me-1"></i>
+                                8 phút đọc
+                            </span>
+                        </div>
+                    </div>
+
+                    <h1 class="detail-title" id="detail-title">Tiêu đề bài viết</h1>
+                    <h2 class="detail-subtitle" id="detail-subtitle">Mô tả bài viết</h2>
+
+                    <div class="detail-author">
+                        <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop"
+                            class="detail-author-image" id="detail-author-image" alt="Author">
+                        <div class="detail-author-info">
+                            <span class="detail-author-name" id="detail-author-name">Tên tác giả</span>
+                            <span class="detail-author-title">Chuyên gia dịch vụ nhà cửa</span>
+                        </div>
+                    </div>
+
+                    <div class="detail-image-container">
+                        <img src="" alt="" class="detail-image" id="detail-image">
+                    </div>
+                </div>
+
+                <div class="detail-content" id="detail-content">
+                    <!-- Content will be loaded here -->
+                </div>
+
+                <div class="detail-header">
+                    <div class="social-share">
+                        <div class="share-label">Chia sẻ bài viết:</div>
+                        <div class="share-buttons">
+                            <a href="#" class="share-button share-facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="share-button share-twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="share-button share-linkedin"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="share-button share-pinterest"><i class="fab fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-    </div>
-    {{else}}
-    <div class="blog-post-card hidden-post" data-type="{{type}}">
-        <div class="post-image">
-            <a href="/blog/{{_id}}">
-                <img src="{{img}}" alt="{{title}}" loading="lazy">
-            </a>
         </div>
-        <div class="post-content">
-            <span class="post-category">{{type}}</span>
-            <a href="/blog/{{_id}}">
-                <h3 class="post-title">{{title}}</h3>
-            </a>
-            <span class="post-date">
-                <i class="far fa-calendar-alt"></i> {{formatDate date}}
-            </span>
-            <p class="post-description">{{description}}</p>
-            <div class="post-author">
-                <img src="/img/testi1.jpg" alt="{{author}}" class="author-img">
-                <span class="author-name">{{author}}</span>
-            </div>
-        </div>
-    </div>
-    {{/ifCond}}
-    {{/each}}
-    </div>
-
-    {{#ifCond blogs.length ">" 9}}
-    <div class="show-more-container">
-        <button id="show-more-btn" class="show-more-btn">
-            <span>Xem thêm bài viết</span>
-            <i class="fas fa-chevron-down"></i>
-        </button>
-    </div>
-    {{/ifCond}}
-
-    <div class="no-results" id="no-results" style="display: none;">
-        <i class="fas fa-search"></i>
-        <h3>Không tìm thấy kết quả</h3>
-        <p>Vui lòng thử lại với từ khóa khác</p>
-    </div>
-</section>
+    </section>
 
     <!-- Footer -->
-    <footer class="blog-footer">
-        <div class="footer-container">
-            <div class="footer-column">
-                <h3>HomeCare</h3>
-                <p class="footer-description">
-                    Cung cấp dịch vụ giúp việc chất lượng cao, đáng tin cậy với đội ngũ nhân viên được đào tạo chuyên
-                    nghiệp.
-                </p>
-                <div class="social-icons">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HomeCare</h3>
+                    <p>Cung cấp dịch vụ giúp việc chất lượng cao, đáng tin cậy với đội ngũ nhân viên được đào tạo chuyên
+                        nghiệp.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Liên kết nhanh</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/services">Dịch vụ</a></li>
+                        <li><a href="/blog">Thông cáo báo chí</a></li>
+                        <li><a href="/about">Về chúng tôi</a></li>
+                        <li><a href="/contact">Liên hệ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Liên hệ</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</li>
+                        <li><i class="fas fa-phone"></i> +84 123 456 789</li>
+                        <li><i class="fas fa-envelope"></i> info@homecare.com</li>
+                        <li><i class="fas fa-clock"></i> Thứ 2 - Thứ 6: 8:00 - 17:00</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Theo dõi chúng tôi</h3>
+                    <p>Nhận thông báo về các dịch vụ mới và tin tức từ HomeCare</p>
                 </div>
             </div>
 
-            <div class="footer-column">
-                <h3>Liên kết</h3>
-                <ul class="footer-links">
-                    <li><a href="/">Trang chủ</a></li>
-                    <li><a href="/services">Dịch vụ</a></li>
-                    <li><a href="/blog">Blog</a></li>
-                    <li><a href="/about">Về chúng tôi</a></li>
-                    <li><a href="/contact">Liên hệ</a></li>
-                    <li><a href="/account/login">Đăng nhập</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HomeCare. Tất cả các quyền được bảo lưu.</p>
             </div>
-
-            <div class="footer-column">
-                <h3>Liên hệ</h3>
-                <ul class="contact-info">
-                    <li>
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>123 Đường ABC, Quận 1, TP.HCM</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-phone"></i>
-                        <span>+84 123 456 789</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-envelope"></i>
-                        <span>info@homecare.com</span>
-                    </li>
-                    <li>
-                        <i class="fas fa-clock"></i>
-                        <span>Thứ 2 - Thứ 6: 8:00 - 17:00</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3>Đăng ký nhận tin</h3>
-                <p class="footer-description">
-                    Nhận thông báo về các dịch vụ mới và bài viết hữu ích từ chúng tôi.
-                </p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Email của bạn" required>
-                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                </form>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2025 HomeCare. Tất cả các quyền được bảo lưu.</p>
         </div>
     </footer>
 
-    <!-- Thay thế hai script block trùng lặp bằng một script block duy nhất ở cuối file -->
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        // Header Scroll Effect
-        const headers = document.querySelector("#blog-header");
-        window.addEventListener("scroll", () => {
-            headers.classList.toggle("shadow", window.scrollY > 0);
-        });
+        // Mock data for different blog posts
+        const mockBlogData = {
+            'cleaning-tips': {
+                id: 'cleaning-tips',
+                title: '5 Bí Quyết Dọn Dẹp Nhà Cửa Hiệu Quả Cho Gia Đình Bận Rộn',
+                description: 'Khám phá những phương pháp dọn dẹp thông minh giúp bạn tiết kiệm thời gian và công sức, đồng thời giữ cho ngôi nhà luôn gọn gàng và sạch sẽ.',
+                image: 'https://images.pexels.com/photos/4239083/pexels-photo-4239083.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
+                author: 'Nguyễn Thị Lan',
+                authorImage: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                date: '15/01/2025',
+                category: 'Mẹo hay',
+                views: '1,234',
+                content: `
+                    <p>Trong cuộc sống hiện đại, việc dọn dẹp nhà cửa thường trở thành một gánh nặng đối với nhiều gia đình bận rộn. Tuy nhiên, với những bí quyết đúng đắn, bạn hoàn toàn có thể duy trì một không gian sống sạch sẽ, gọn gàng mà không tốn quá nhiều thời gian và công sức.</p>
 
-        // Mobile Menu Toggle
-        const navMenu = document.getElementById('nav-menu');
-        const navToggle = document.getElementById('mobile-menu-toggle');
+                    <p>Theo nghiên cứu của Viện Tâm lý học Ứng dụng, một không gian sống gọn gàng không chỉ giúp cải thiện tâm trạng mà còn tăng cường hiệu suất làm việc lên đến 25%. Điều này đặc biệt quan trọng trong bối cảnh làm việc từ xa ngày càng phổ biến.</p>
 
-        if (navToggle) {
-            navToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
+                    <h2>1. Quy tắc 15 phút mỗi ngày - Phương pháp Pomodoro cho việc nhà</h2>
+                    
+                    <p>Thay vì để việc dọn dẹp tích tụ thành một công việc lớn vào cuối tuần, hãy dành 15 phút mỗi ngày để dọn dẹp một khu vực nhỏ trong nhà. Phương pháp này được gọi là "Micro-cleaning" và đã được chứng minh hiệu quả bởi nhiều chuyên gia tổ chức không gian.</p>
 
-                // Change icon based on menu state
-                const icon = navToggle.querySelector('i');
-                if (navMenu.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-        }
+                    <h3>Lịch trình 15 phút theo tuần:</h3>
+                    <ul>
+                        <li><strong>Thứ 2:</strong> Dọn dẹp bàn làm việc và khu vực học tập</li>
+                        <li><strong>Thứ 3:</strong> Sắp xếp phòng bếp và rửa chén</li>
+                        <li><strong>Thứ 4:</strong> Dọn phòng khách và khu vực giải trí</li>
+                        <li><strong>Thứ 5:</strong> Sắp xếp phòng ngủ và tủ quần áo</li>
+                        <li><strong>Thứ 6:</strong> Dọn phòng tắm và vệ sinh cá nhân</li>
+                        <li><strong>Thứ 7:</strong> Sắp xếp khu vực lưu trữ và tầng hầm</li>
+                        <li><strong>Chủ nhật:</strong> Tổng kết và lên kế hoạch tuần mới</li>
+                    </ul>
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (navToggle && !navToggle.contains(e.target) && !navMenu.contains(e.target) && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                const icon = navToggle.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+                    <blockquote>
+                        "Thành công trong việc dọn dẹp không nằm ở việc làm nhiều, mà nằm ở việc làm đều đặn. Một thói quen nhỏ mỗi ngày sẽ tạo nên sự khác biệt lớn về lâu dài." - Marie Kondo, chuyên gia tổ chức không gian hàng đầu thế giới
+                    </blockquote>
+
+                    <h2>2. Nguyên tắc "Một vào, một ra" - Kiểm soát tài sản hiệu quả</h2>
+                    
+                    <p>Mỗi khi mua một món đồ mới, hãy loại bỏ một món đồ cũ tương tự. Điều này giúp kiểm soát lượng đồ đạc trong nhà và tránh tình trạng quá tải. Nguyên tắc này đặc biệt hữu ích cho những gia đình sống trong không gian nhỏ hẹp.</p>
+
+                    <p><em>Nếu bạn cần hỗ trợ chuyên nghiệp, đội ngũ HomeCare luôn sẵn sàng giúp đỡ với dịch vụ dọn dẹp nhà cửa chất lượng cao. Liên hệ ngay: 0123.456.789</em></p>
+                `
+            },
+            'elderly-care': {
+                id: 'elderly-care',
+                title: 'Hướng Dẫn Chăm Sóc Người Già Tại Nhà An Toàn và Chu Đáo',
+                description: 'Những lời khuyên chuyên nghiệp từ đội ngũ y tế về cách chăm sóc người cao tuổi tại nhà, đảm bảo sức khỏe và tinh thần tốt nhất.',
+                image: 'https://images.pexels.com/photos/3768131/pexels-photo-3768131.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
+                author: 'BS. Trần Minh Khang',
+                authorImage: 'https://images.pexels.com/photos/5407206/pexels-photo-5407206.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                date: '12/01/2025',
+                category: 'Chăm sóc',
+                views: '890',
+                content: `
+                    <p>Chăm sóc người già tại nhà là một trách nhiệm quan trọng đòi hỏi sự kiên nhẫn, tình yêu thương và kiến thức chuyên môn. Bài viết này sẽ chia sẻ những hướng dẫn thiết thực giúp bạn chăm sóc người thân lớn tuổi một cách an toàn và hiệu quả.</p>
+
+                    <h2>1. Tạo môi trường sống an toàn</h2>
+                    <p>Đảm bảo ngôi nhà được thiết kế phù hợp với người cao tuổi, loại bỏ các nguy cơ tai nạn như thảm trơn, bậc thang cao, đồ vật cản trở lối đi.</p>
+
+                    <h2>2. Chế độ dinh dưỡng hợp lý</h2>
+                    <p>Xây dựng thực đơn cân bằng dinh dưỡng, phù hợp với tình trạng sức khỏe và sở thích của người cao tuổi. Đảm bảo đủ chất xơ, vitamin và khoáng chất cần thiết.</p>
+
+                    <h2>3. Theo dõi sức khỏe định kỳ</h2>
+                    <p>Thường xuyên kiểm tra các chỉ số sức khỏe cơ bản như huyết áp, đường huyết, cân nặng. Đưa đi khám bác sĩ định kỳ và tuân thủ đơn thuốc.</p>
+
+                    <blockquote>
+                        "Chăm sóc người già không chỉ là trách nhiệm mà còn là nghệ thuật thể hiện tình yêu thương và sự tôn trọng dành cho những người đã cống hiến cả đời cho gia đình và xã hội."
+                    </blockquote>
+
+                    <p><em>HomeCare cung cấp dịch vụ chăm sóc người cao tuổi chuyên nghiệp với đội ngũ điều dưỡng có kinh nghiệm. Liên hệ: 0123.456.789</em></p>
+                `
+            },
+            'healthy-cooking': {
+                id: 'healthy-cooking',
+                title: 'Top 10 Món Ăn Healthy Dễ Làm Cho Cả Gia Đình',
+                description: 'Bộ sưu tập những công thức nấu ăn đơn giản, bổ dưỡng và phù hợp với mọi lứa tuổi trong gia đình bạn.',
+                image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
+                author: 'Chef Lê Minh Tuấn',
+                authorImage: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                date: '10/01/2025',
+                category: 'Nấu ăn',
+                views: '1,156',
+                content: `
+                    <p>Nấu ăn healthy không có nghĩa là phải hy sinh hương vị. Với những công thức đơn giản dưới đây, bạn có thể tạo ra những bữa ăn vừa ngon miệng vừa bổ dưỡng cho cả gia đình.</p>
+
+                    <h2>1. Salad cá hồi nướng với quinoa</h2>
+                    <p>Món ăn giàu protein và omega-3, kết hợp với quinoa cung cấp carbohydrate phức hợp tốt cho sức khỏe.</p>
+
+                    <h2>2. Súp bí đỏ với hạt chia</h2>
+                    <p>Giàu vitamin A và chất xơ, giúp tăng cường miễn dịch và hỗ trợ tiêu hóa.</p>
+
+                    <h2>3. Bánh mì nguyên cám với bơ và trứng</h2>
+                    <p>Bữa sáng lý tưởng cung cấp năng lượng bền vững cho cả ngày dài.</p>
+
+                    <h3>Nguyên tắc nấu ăn healthy:</h3>
+                    <ul>
+                        <li>Ưu tiên thực phẩm tươi, tự nhiên</li>
+                        <li>Hạn chế dầu mỡ và đường tinh luyện</li>
+                        <li>Tăng cường rau xanh và trái cây</li>
+                        <li>Sử dụng phương pháp nấu ít dầu</li>
+                    </ul>
+
+                    <p><em>HomeCare cung cấp dịch vụ nấu ăn tại nhà với menu healthy được dinh dưỡng gia tư vấn. Liên hệ: 0123.456.789</em></p>
+                `
+            },
+            'child-safety': {
+                id: 'child-safety',
+                title: 'Checklist An Toàn Cho Trẻ Em Trong Môi Trường Gia Đình',
+                description: 'Danh sách kiểm tra toàn diện để đảm bảo ngôi nhà của bạn là môi trường an toàn nhất cho trẻ em phát triển.',
+                image: 'https://images.pexels.com/photos/1648377/pexels-photo-1648377.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
+                author: 'Phạm Thu Hà',
+                authorImage: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                date: '08/01/2025',
+                category: 'An toàn',
+                views: '723',
+                content: `
+                    <p>An toàn trẻ em trong gia đình là ưu tiên hàng đầu của mọi bậc phụ huynh. Checklist dưới đây sẽ giúp bạn tạo ra một môi trường sống an toàn và phát triển tốt nhất cho con em mình.</p>
+
+                    <h2>Checklist An Toàn Theo Phòng</h2>
+
+                    <h3>Phòng Khách:</h3>
+                    <ul>
+                        <li>✓ Lắp đặt nắp che ổ cắm điện</li>
+                        <li>✓ Bọc góc cạnh đồ nội thất</li>
+                        <li>✓ Cố định tivi và tủ kệ cao vào tường</li>
+                        <li>✓ Giữ dây điện xa tầm với của trẻ</li>
+                    </ul>
+
+                    <h3>Phòng Bếp:</h3>
+                    <ul>
+                        <li>✓ Lắp khóa an toàn cho tủ kệ</li>
+                        <li>✓ Sử dụng nắp che bếp gas</li>
+                        <li>✓ Cất dao kéo và dụng cụ sắc nhọn</li>
+                        <li>✓ Lắp đặt rào chắn bếp</li>
+                    </ul>
+
+                    <h3>Phòng Tắm:</h3>
+                    <ul>
+                        <li>✓ Thảm chống trượt trong bồn tắm</li>
+                        <li>✓ Khóa an toàn cho tủ thuốc</li>
+                        <li>✓ Điều chỉnh nhiệt độ nước phù hợp</li>
+                        <li>✓ Cất tất cả mỹ phẩm và hóa chất</li>
+                    </ul>
+
+                    <blockquote>
+                        "Một ngôi nhà an toàn không chỉ bảo vệ trẻ em khỏi tai nạn mà còn tạo không gian để các em tự do khám phá và phát triển một cách tự nhiên."
+                    </blockquote>
+
+                    <p><em>HomeCare cung cấp dịch vụ tư vấn an toàn gia đình và chăm sóc trẻ em chuyên nghiệp. Liên hệ: 0123.456.789</em></p>
+                `
+            },
+            'smart-trends': {
+                id: 'smart-trends',
+                title: 'Xu Hướng Dịch Vụ Gia Đình Thông Minh Năm 2025',
+                description: 'Khám phá những công nghệ và dịch vụ mới nhất trong lĩnh vực chăm sóc gia đình, giúp cuộc sống trở nên tiện lợi hơn.',
+                image: 'https://images.pexels.com/photos/1571458/pexels-photo-1571458.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
+                author: 'Nguyễn Văn Nam',
+                authorImage: 'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                date: '05/01/2025',
+                category: 'Xu hướng',
+                views: '654',
+                content: `
+                    <p>Năm 2025 đánh dấu bước tiến mới trong lĩnh vực dịch vụ gia đình với sự ứng dụng mạnh mẽ của công nghệ AI, IoT và automation. Hãy cùng khám phá những xu hướng đang thay đổi cách chúng ta quản lý và chăm sóc ngôi nhà.</p>
+
+                    <h2>1. AI-Powered Home Management</h2>
+                    <p>Hệ thống quản lý nhà thông minh sử dụng AI để học hỏi thói quen sinh hoạt của gia đình và tự động điều chỉnh các thiết bị để tối ưu hóa tiện nghi và tiết kiệm năng lượng.</p>
+
+                    <h2>2. Dịch Vụ On-Demand Booking</h2>
+                    <p>Ứng dụng đặt dịch vụ gia đình theo yêu cầu với khả năng theo dõi real-time, đánh giá chất lượng và thanh toán không tiền mặt.</p>
+
+                    <h2>3. Green Cleaning Solutions</h2>
+                    <p>Xu hướng sử dụng sản phẩm làm sạch thân thiện với môi trường, không độc hại cho sức khỏe con người và thú cưng.</p>
+
+                    <h3>Những công nghệ nổi bật:</h3>
+                    <ul>
+                        <li>Robot dọn dẹp tích hợp AI mapping</li>
+                        <li>Hệ thống giặt ủi tự động</li>
+                        <li>Thiết bị theo dõi chất lượng không khí</li>
+                        <li>Ứng dụng quản lý lịch trình gia đình</li>
+                    </ul>
+
+                    <blockquote>
+                        "Tương lai của dịch vụ gia đình nằm ở sự kết hợp hoàn hảo giữa công nghệ tiên tiến và sự chăm sóc tận tâm của con người."
+                    </blockquote>
+
+                    <p><em>HomeCare tiên phong áp dụng công nghệ mới nhất vào dịch vụ chăm sóc gia đình. Trải nghiệm ngay: 0123.456.789</em></p>
+                `
+            },
+            'space-organization': {
+                id: 'space-organization',
+                title: 'Nghệ Thuật Tổ Chức Không Gian Sống Tối Ưu',
+                description: 'Hướng dẫn chi tiết cách sắp xếp và tổ chức đồ đạc trong nhà một cách khoa học, tạo không gian sống thoải mái.',
+                image: 'https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
+                author: 'Lê Thị Mai',
+                authorImage: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+                date: '03/01/2025',
+                category: 'Tổ chức',
+                views: '987',
+                content: `
+                    <p>Tổ chức không gian sống không chỉ là việc sắp xếp đồ đạc gọn gàng mà còn là nghệ thuật tạo ra một môi trường sống hài hòa, thúc đẩy sự sáng tạo và mang lại cảm giác bình yên cho tâm hồn.</p>
+
+                    <h2>Nguyên Tắc Cơ Bản</h2>
+
+                    <h3>1. Quy tắc 80/20</h3>
+                    <p>80% thời gian chúng ta chỉ sử dụng 20% đồ đạc. Hãy ưu tiên sắp xếp những vật dụng thường xuyên sử dụng ở vị trí dễ tiếp cận nhất.</p>
+
+                    <h3>2. Phân vùng chức năng</h3>
+                    <p>Mỗi khu vực trong nhà nên có chức năng riêng biệt và được tổ chức theo logic sử dụng:</p>
+                    <ul>
+                        <li><strong>Vùng làm việc:</strong> Yên tĩnh, đầy đủ ánh sáng</li>
+                        <li><strong>Vùng nghỉ ngơi:</strong> Thoải mái, ấm cúng</li>
+                        <li><strong>Vùng lưu trữ:</strong> Gọn gàng, dễ tìm kiếm</li>
+                        <li><strong>Vùng sinh hoạt chung:</strong> Rộng rãi, thông thoáng</li>
+                    </ul>
+
+                    <h2>Kỹ Thuật Tổ Chức Hiệu Quả</h2>
+
+                    <h3>Phương pháp KonMari</h3>
+                    <p>Chỉ giữ lại những vật dụng "spark joy" - mang lại niềm vui và có ý nghĩa trong cuộc sống.</p>
+
+                    <h3>Hệ thống One Touch</h3>
+                    <p>Mỗi vật dụng chỉ cần một thao tác để lấy ra và một thao tác để cất vào chỗ.</p>
+
+                    <blockquote>
+                        "Không gian sống được tổ chức tốt phản ánh tâm trí có trật tự và góp phần tạo nên cuộc sống hạnh phúc, thành công."
+                    </blockquote>
+
+                    <p><em>HomeCare cung cấp dịch vụ tư vấn và tổ chức không gian sống theo phong cách minimalism. Liên hệ: 0123.456.789</em></p>
+                `
             }
-        });
+        };
 
-        // Filter Functionality
-        $(document).ready(function () {
-            $(".blog-filter-item").click(function () {
-                const value = $(this).attr("data-filter");
+        // Related posts suggestions for each blog
+        const relatedPosts = {
+            'cleaning-tips': ['space-organization', 'smart-trends', 'healthy-cooking'],
+            'elderly-care': ['child-safety', 'healthy-cooking', 'cleaning-tips'],
+            'healthy-cooking': ['elderly-care', 'child-safety', 'space-organization'],
+            'child-safety': ['cleaning-tips', 'space-organization', 'smart-trends'],
+            'smart-trends': ['cleaning-tips', 'space-organization', 'elderly-care'],
+            'space-organization': ['cleaning-tips', 'smart-trends', 'healthy-cooking']
+        };
 
-                if (value == "all") {
-                    $(".blog-post-card").show("500");
-                } else {
-                    $(".blog-post-card").each(function () {
-                        const postType = $(this).attr("data-type");
-                        if (postType === value) {
-                            $(this).show("500");
-                        } else {
-                            $(this).hide("500");
-                        }
-                    });
-                }
+        // Blog Detail Functions
+        function showBlogDetail(id, title, description, img, author, date, content, type) {
+            // Hide blog list
+            document.getElementById('blog-list').classList.add('hidden');
 
-                // Active class handling
-                $(this).addClass("active-filter").siblings().removeClass("active-filter");
+            // Show blog detail
+            document.getElementById('blog-detail').classList.add('show');
 
-                // Hide no results message
-                document.getElementById("no-results").style.display = "none";
+            // Update content
+            document.getElementById('breadcrumb-title').textContent = title;
+            document.getElementById('detail-category').textContent = type || 'Blog';
+            document.getElementById('detail-date').textContent = date;
+            document.getElementById('detail-title').textContent = title;
+            document.getElementById('detail-subtitle').textContent = description;
+            document.getElementById('detail-author-name').textContent = author;
+            document.getElementById('detail-image').src = img;
+            document.getElementById('detail-image').alt = title;
+            document.getElementById('detail-content').innerHTML = content || '<p>Nội dung đang được cập nhật...</p>';
 
-                // Check if any posts are visible
-                setTimeout(() => {
-                    const visiblePosts = $(".blog-post-card:visible").length;
-                    if (visiblePosts === 0) {
-                        document.getElementById("no-results").style.display = "block";
-                    }
-                }, 510);
-            });
-        });
+            // Load related posts
+            loadRelatedPosts(id);
 
-        // Get search item element
-        const searchItem = document.getElementById("search-item");
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
 
-        // Search Functionality
-        if (searchItem) {
-            searchItem.addEventListener("keyup", function () {
-                const searchValue = this.value.toUpperCase();
-                const blogPosts = document.querySelectorAll(".blog-post-card");
-                const noResults = document.getElementById("no-results");
+        function showMockBlogDetail(blogId) {
+            const blogData = mockBlogData[blogId];
+            if (!blogData) {
+                console.error('Blog data not found for ID:', blogId);
+                return;
+            }
 
-                // Hiển thị tất cả bài viết khi tìm kiếm
-                const hiddenPosts = document.querySelectorAll('.hidden-post');
-                hiddenPosts.forEach(post => {
-                    post.classList.remove('hidden-post');
-                });
+            showBlogDetail(
+                blogData.id,
+                blogData.title,
+                blogData.description,
+                blogData.image,
+                blogData.author,
+                blogData.date,
+                blogData.content,
+                blogData.category
+            );
 
-                // Ẩn nút "Xem thêm" khi đang tìm kiếm
-                const showMoreBtn = document.getElementById('show-more-btn');
-                if (showMoreBtn) showMoreBtn.style.display = 'none';
+            // Update author image
+            document.getElementById('detail-author-image').src = blogData.authorImage;
+            document.getElementById('detail-views').textContent = blogData.views;
+        }
 
-                let hasResults = false;
+        function loadRelatedPosts(currentBlogId) {
+            const relatedPostsContainer = document.getElementById('related-posts-container');
+            if (!relatedPostsContainer) {
+                // Create related posts container if it doesn't exist
+                const relatedSection = document.createElement('section');
+                relatedSection.className = 'blog-article';
+                relatedSection.innerHTML = `
+                    <div class="detail-header">
+                        <h3 class="related-title">Bài viết liên quan</h3>
+                        <div class="blog-grid" id="related-posts-container">
+                        </div>
+                    </div>
+                `;
 
-                blogPosts.forEach(post => {
-                    const title = post.querySelector(".post-title").textContent.toUpperCase();
-                    const description = post.querySelector(".post-description").textContent.toUpperCase();
+                // Insert before social share section
+                const socialShareSection = document.querySelector('.blog-detail-section .detail-header:last-child');
+                socialShareSection.parentNode.insertBefore(relatedSection, socialShareSection);
+            }
 
-                    if (title.includes(searchValue) || description.includes(searchValue)) {
-                        post.style.display = "";
-                        hasResults = true;
-                    } else {
-                        post.style.display = "none";
-                    }
-                });
+            const container = document.getElementById('related-posts-container') || relatedPostsContainer;
+            const related = relatedPosts[currentBlogId] || ['cleaning-tips', 'elderly-care', 'healthy-cooking'];
 
-                // Show "No Results" message if needed
-                if (!hasResults && searchValue !== "") {
-                    if (noResults) noResults.style.display = "block";
-                } else {
-                    if (noResults) noResults.style.display = "none";
-                }
+            container.innerHTML = '';
 
-                // Reset active filter
-                if (searchValue !== "") {
-                    document.querySelectorAll(".blog-filter-item").forEach(item => {
-                        item.classList.remove("active-filter");
-                    });
-                } else {
-                    document.querySelector('[data-filter="all"]').classList.add("active-filter");
-                    resetPostDisplay();
+            related.forEach(postId => {
+                const postData = mockBlogData[postId];
+                if (postData && postData.id !== currentBlogId) {
+                    const cardElement = document.createElement('div');
+                    cardElement.className = 'blog-card related-post';
+                    cardElement.innerHTML = `
+                        <div class="card-image-wrap" onclick="showMockBlogDetail('${postData.id}')">
+                            <img src="${postData.image}" alt="${postData.title}" loading="lazy">
+                        </div>
+                        <div class="card-content" onclick="showMockBlogDetail('${postData.id}')">
+                            <span class="card-tag">${postData.category}</span>
+                            <h3 class="card-title">${postData.title}</h3>
+                            <div class="card-meta">
+                                <div class="card-date">
+                                    <i class="far fa-calendar-alt"></i>
+                                    ${postData.date}
+                                </div>
+                                <div class="card-views">
+                                    <i class="far fa-eye"></i>
+                                    ${postData.views} lượt xem
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    cardElement.style.cursor = 'pointer';
+                    container.appendChild(cardElement);
                 }
             });
         }
 
-        // Form Submit Prevention
-        document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', (e) => {
-                if (!form.classList.contains('needs-validation')) {
-                    e.preventDefault();
-                }
-            });
-        });
+        function showBlogList() {
+            // Hide blog detail
+            document.getElementById('blog-detail').classList.remove('show');
 
-        // Hàm khôi phục trạng thái hiển thị ban đầu
-        function resetPostDisplay() {
-            // Hiển thị lại nút "Xem thêm"
-            const showMoreBtn = document.getElementById('show-more-btn');
-            if (showMoreBtn) showMoreBtn.style.display = 'flex';
+            // Show blog list
+            document.getElementById('blog-list').classList.remove('hidden');
 
-            // Ẩn lại các bài viết sau 9 bài đầu tiên
-            const allPosts = document.querySelectorAll(".blog-post-card");
-            allPosts.forEach((post, index) => {
-                if (index >= 9) {
-                    post.classList.add('hidden-post');
-                } else {
-                    post.classList.remove('hidden-post');
-                }
-            });
+            // Scroll to top
+            window.scrollTo(0, 0);
         }
 
-        // Show More Functionality
+        // Handle image loading errors
+        function handleImageError(img) {
+            img.onerror = null; // Prevent infinite loop
+            img.src = 'https://images.pexels.com/photos/4239083/pexels-photo-4239083.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop'; // Fallback image
+        }
+
+        // Add error handling to all images
         document.addEventListener('DOMContentLoaded', function () {
-            const showMoreBtn = document.getElementById('show-more-btn');
-            if (showMoreBtn) {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', () => handleImageError(img));
+            });
+        });
+
+        // Load More Functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const loadMoreBtn = document.getElementById('load-more-btn');
+            if (loadMoreBtn) {
                 const hiddenPosts = Array.from(document.querySelectorAll('.hidden-post'));
-                const postsPerLoad = 6; // Hiển thị thêm 6 bài mỗi lần nhấn
+                const postsPerLoad = 6;
 
-                showMoreBtn.addEventListener('click', function () {
-                    // Hiệu ứng loading
-                    this.classList.add('loading');
+                loadMoreBtn.addEventListener('click', function () {
+                    // Show loading state
                     this.querySelector('span').textContent = 'Đang tải...';
-                    this.querySelector('i').className = 'fas fa-spinner';
+                    this.querySelector('i').className = 'fas fa-spinner fa-spin';
+                    this.disabled = true;
 
-                    // Giả lập thời gian tải
+                    // Simulate loading delay
                     setTimeout(() => {
-                        // Lấy các bài viết ẩn cần hiển thị
                         const postsToShow = hiddenPosts.splice(0, postsPerLoad);
 
-                        // Hiển thị từng bài với hiệu ứng fade
                         postsToShow.forEach((post, index) => {
                             setTimeout(() => {
                                 post.classList.remove('hidden-post');
@@ -1272,32 +1653,508 @@
                                     post.style.opacity = '1';
                                     post.style.transform = 'translateY(0)';
                                 }, 50);
-                            }, index * 150);
+                            }, index * 100);
                         });
 
-                        // Quay lại trạng thái ban đầu của nút
-                        this.classList.remove('loading');
+                        // Reset button
                         this.querySelector('span').textContent = 'Xem thêm bài viết';
                         this.querySelector('i').className = 'fas fa-chevron-down';
+                        this.disabled = false;
 
-                        // Nếu không còn bài viết ẩn
+                        // Hide button if no more posts
                         if (hiddenPosts.length === 0) {
-                            this.classList.add('all-loaded');
-                            this.querySelector('span').textContent = 'Đã hiển thị tất cả';
-                            this.querySelector('i').className = 'fas fa-check';
-
-                            // Ẩn nút sau 2 giây
                             setTimeout(() => {
                                 this.style.opacity = '0';
                                 setTimeout(() => {
                                     this.style.display = 'none';
-                                }, 500);
-                            }, 2000);
+                                }, 300);
+                            }, 1000);
                         }
                     }, 800);
                 });
             }
+
+            // Social share functionality
+            document.querySelectorAll('.share-button').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const url = window.location.href;
+                    const title = document.getElementById('detail-title').textContent || 'HomeCare Blog';
+
+                    if (this.classList.contains('share-facebook')) {
+                        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, 'facebook-share', 'width=580,height=296');
+                    } else if (this.classList.contains('share-twitter')) {
+                        window.open(`http://twitter.com/share?text=${title}&url=${url}`, 'twitter-share', 'width=550,height=235');
+                    } else if (this.classList.contains('share-linkedin')) {
+                        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}`, 'linkedin-share', 'width=490,height=530');
+                    } else if (this.classList.contains('share-pinterest')) {
+                        const image = document.getElementById('detail-image')?.src || '';
+                        window.open(`https://pinterest.com/pin/create/button/?url=${url}&media=${image}&description=${title}`, 'pinterest-share', 'width=750,height=330');
+                    }
+                });
+            });
         });
+
+        // Mobile menu toggle (basic implementation)
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            });
+        }
+
+        // ...existing code...
+        // Add additional mock blog data for the remaining posts
+        const additionalMockData = {
+            'home-maintenance': {
+                id: 'home-maintenance',
+                title: 'Lịch Bảo Trì Nhà Cửa Định Kỳ Cho Năm Mới',
+                description: 'Kế hoạch bảo trì toàn diện giúp ngôi nhà của bạn luôn trong tình trạng tốt nhất và tăng tuổi thọ các thiết bị.',
+                image: 'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop',
+                author: 'Hoàng Minh Đức',
+                authorImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+                date: '01/01/2025',
+                category: 'Bảo trì',
+                views: '432',
+                content: `
+                    <p>Bảo trì nhà cửa định kỳ là yếu tố quan trọng để duy trì giá trị tài sản và đảm bảo an toàn cho gia đình. Với kế hoạch bảo trì khoa học, bạn có thể ngăn ngừa hư hỏng nghiêm trọng và tiết kiệm chi phí sửa chữa lớn.</p>
+
+                    <h2>Kế Hoạch Bảo Trì Theo Mùa</h2>
+
+                    <h3>Mùa Xuân (Tháng 3-5):</h3>
+                    <ul>
+                        <li>Kiểm tra và thay thế pin detector khói</li>
+                        <li>Làm sạch máy điều hòa trước mùa hè</li>
+                        <li>Kiểm tra hệ thống thoát nước mưa</li>
+                        <li>Sơn lại các bề mặt bị bong tróc</li>
+                    </ul>
+
+                    <h3>Mùa Hè (Tháng 6-8):</h3>
+                    <ul>
+                        <li>Kiểm tra và bảo dưỡng hệ thống điều hòa</li>
+                        <li>Làm sạch và kiểm tra quạt trần</li>
+                        <li>Kiểm tra cách nhiệt mái nhà</li>
+                        <li>Bảo dưỡng thiết bị ngoại thất</li>
+                    </ul>
+
+                    <h3>Mùa Thu (Tháng 9-11):</h3>
+                    <ul>
+                        <li>Làm sạch máy sưởi trước mùa đông</li>
+                        <li>Kiểm tra cửa sổ và kín khí</li>
+                        <li>Dọn lá khô trong máng xối</li>
+                        <li>Bảo trì hệ thống ống nước</li>
+                    </ul>
+
+                    <h3>Mùa Đông (Tháng 12-2):</h3>
+                    <ul>
+                        <li>Kiểm tra hệ thống sưởi ấm</li>
+                        <li>Bảo vệ ống nước khỏi đóng băng</li>
+                        <li>Kiểm tra mái nhà và hệ thống thoát nước</li>
+                        <li>Lập kế hoạch sửa chữa cho năm tiếp theo</li>
+                    </ul>
+
+                    <blockquote>
+                        "Bảo trì định kỳ không chỉ giúp tiết kiệm chi phí mà còn đảm bảo ngôi nhà luôn là nơi an toàn và thoải mái nhất cho gia đình."
+                    </blockquote>
+
+                    <p><em>HomeCare cung cấp dịch vụ bảo trì nhà cửa định kỳ với đội ngũ kỹ thuật viên chuyên nghiệp. Liên hệ: 0123.456.789</em></p>
+                `
+            },
+            'hiring-guide': {
+                id: 'hiring-guide',
+                title: 'Kinh Nghiệm Chọn và Thuê Người Giúp Việc Uy Tín',
+                description: 'Những lưu ý quan trọng khi lựa chọn người giúp việc phù hợp với gia đình, đảm bảo chất lượng dịch vụ tốt nhất.',
+                image: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=400&fit=crop',
+                author: 'Võ Thị Hương',
+                authorImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
+                date: '28/12/2024',
+                category: 'Hướng dẫn',
+                views: '865',
+                content: `
+                    <p>Việc lựa chọn người giúp việc phù hợp là quyết định quan trọng ảnh hưởng đến chất lượng cuộc sống và sự an toàn của gia đình. Bài viết này sẽ chia sẻ những kinh nghiệm quý báu giúp bạn tìm được người giúp việc đáng tin cậy.</p>
+
+                    <h2>Các Tiêu Chí Lựa Chọn Quan Trọng</h2>
+
+                    <h3>1. Kinh nghiệm và kỹ năng chuyên môn</h3>
+                    <p>Ưu tiên những người có kinh nghiệm làm việc tại các gia đình khác, có khả năng thực hiện đa dạng công việc nhà như nấu ăn, dọn dẹp, chăm sóc trẻ em hoặc người cao tuổi.</p>
+
+                    <h3>2. Tính cách và thái độ làm việc</h3>
+                    <p>Tìm hiểu về tính cách, sự tận tâm và trách nhiệm trong công việc. Một người giúp việc tốt cần có thái độ tích cực, kiên nhẫn và có khả năng giao tiếp tốt.</p>
+
+                    <h3>3. Sức khỏe và độ tin cậy</h3>
+                    <p>Yêu cầu giấy khám sức khỏe định kỳ và kiểm tra lý lịch để đảm bảo an toàn cho gia đình.</p>
+
+                    <h2>Quy Trình Tuyển Chọn Hiệu Quả</h2>
+
+                    <h3>Bước 1: Xác định nhu cầu cụ thể</h3>
+                    <ul>
+                        <li>Liệt kê các công việc cần hỗ trợ</li>
+                        <li>Xác định thời gian làm việc (toàn thời gian/bán thời gian)</li>
+                        <li>Đặt ra ngân sách phù hợp</li>
+                    </ul>
+
+                    <h3>Bước 2: Tìm kiếm ứng viên</h3>
+                    <ul>
+                        <li>Liên hệ các công ty dịch vụ uy tín</li>
+                        <li>Nhờ người quen giới thiệu</li>
+                        <li>Đăng tin tuyển dụng trên các website tin cậy</li>
+                    </ul>
+
+                    <h3>Bước 3: Phỏng vấn và thử việc</h3>
+                    <ul>
+                        <li>Phỏng vấn trực tiếp tại nhà</li>
+                        <li>Cho thử việc trong 1-2 ngày</li>
+                        <li>Đánh giá kỹ năng và thái độ làm việc</li>
+                    </ul>
+
+                    <h2>Những Lưu Ý Quan Trọng</h2>
+
+                    <h3>Về hợp đồng lao động:</h3>
+                    <ul>
+                        <li>Ký hợp đồng rõ ràng về công việc và lương thưởng</li>
+                        <li>Quy định rõ giờ giấc làm việc và nghỉ phép</li>
+                        <li>Thỏa thuận về bảo hiểm và chế độ đãi ngộ</li>
+                    </ul>
+
+                    <h3>Về quản lý và giám sát:</h3>
+                    <ul>
+                        <li>Thiết lập quy trình làm việc chuẩn</li>
+                        <li>Đánh giá định kỳ chất lượng công việc</li>
+                        <li>Tạo môi trường làm việc tích cực</li>
+                    </ul>
+
+                    <blockquote>
+                        "Một người giúp việc tốt không chỉ là người làm công việc nhà mà còn là người bạn đồng hành đáng tin cậy trong cuộc sống gia đình."
+                    </blockquote>
+
+                    <p><em>HomeCare cung cấp dịch vụ tuyển chọn và quản lý người giúp việc chuyên nghiệp với quy trình kiểm tra nghiêm ngặt. Liên hệ: 0123.456.789</em></p>
+                `
+            },
+            'laundry-tips': {
+                id: 'laundry-tips',
+                title: 'Bí Quyết Giặt Ủi Chuyên Nghiệp Tại Nhà',
+                description: 'Hướng dẫn chi tiết về các kỹ thuật giặt ủi hiệu quả, giúp quần áo luôn như mới và bền đẹp theo thời gian.',
+                image: 'https://images.unsplash.com/photo-1545262537-073b83e57d43?w=800&h=400&fit=crop',
+                author: 'Nguyễn Thị Hoa',
+                authorImage: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face',
+                date: '25/12/2024',
+                category: 'Mẹo hay',
+                views: '1,098',
+                content: `
+                    <p>Giặt ủi đúng cách không chỉ giúp quần áo sạch sẽ mà còn duy trì được độ bền và vẻ đẹp của vải. Những bí quyết dưới đây sẽ giúp bạn trở thành chuyên gia giặt ủi tại chính ngôi nhà của mình.</p>
+
+                    <h2>Nguyên Tắc Phân Loại Quần Áo</h2>
+
+                    <h3>Theo màu sắc:</h3>
+                    <ul>
+                        <li><strong>Màu trắng:</strong> Giặt riêng để tránh lem màu</li>
+                        <li><strong>Màu tối:</strong> Giặt chung để màu không bị phai</li>
+                        <li><strong>Màu sáng:</strong> Nhóm riêng để giữ được độ tươi sáng</li>
+                    </ul>
+
+                    <h3>Theo chất liệu:</h3>
+                    <ul>
+                        <li><strong>Cotton:</strong> Có thể giặt ở nhiệt độ cao</li>
+                        <li><strong>Lụa, len:</strong> Cần chế độ giặt nhẹ nhàng</li>
+                        <li><strong>Synthetic:</strong> Giặt ở nhiệt độ trung bình</li>
+                        <li><strong>Denim:</strong> Giặt riêng và lộn ngược</li>
+                    </ul>
+
+                    <h2>Kỹ Thuật Giặt Hiệu Quả</h2>
+
+                    <h3>1. Chuẩn bị trước khi giặt</h3>
+                    <ul>
+                        <li>Kiểm tra túi áo trước khi cho vào máy</li>
+                        <li>Xử lý vết bẩn đặc biệt trước</li>
+                        <li>Đóng khóa kéo và cài nút</li>
+                        <li>Lộn ngược áo có hình in</li>
+                    </ul>
+
+                    <h3>2. Lựa chọn chế độ giặt phù hợp</h3>
+                    <ul>
+                        <li><strong>Giặt thường:</strong> Cho đồ cotton và poly</li>
+                        <li><strong>Giặt nhẹ:</strong> Cho đồ lụa, len, ren</li>
+                        <li><strong>Giặt nhanh:</strong> Cho đồ ít bẩn hoặc vội vàng</li>
+                        <li><strong>Giặt kỹ:</strong> Cho đồ trẻ em hoặc da nhạy cảm</li>
+                    </ul>
+
+                    <h2>Bí Quyết Ủi Đồ Chuyên Nghiệp</h2>
+
+                    <h3>Nhiệt độ ủi theo chất liệu:</h3>
+                    <ul>
+                        <li><strong>Lụa:</strong> Nhiệt độ thấp (100-120°C)</li>
+                        <li><strong>Len:</strong> Nhiệt độ trung bình (130-165°C)</li>
+                        <li><strong>Cotton:</strong> Nhiệt độ cao (165-210°C)</li>
+                        <li><strong>Linen:</strong> Nhiệt độ rất cao (210-230°C)</li>
+                    </ul>
+
+                    <h3>Thứ tự ủi hiệu quả:</h3>
+                    <ol>
+                        <li>Bắt đầu với áo sơ mi: cổ áo → tay áo → thân áo</li>
+                        <li>Ủi quần: túi → ống quần → eo quần</li>
+                        <li>Ủi đầm/váy: từ trên xuống dưới</li>
+                        <li>Ủi đồ lót và tất cuối cùng</li>
+                    </ol>
+
+                    <h2>Mẹo Hay Bảo Quản Quần Áo</h2>
+
+                    <h3>Cách treo và gấp đúng cách:</h3>
+                    <ul>
+                        <li>Treo áo vest, đầm dài trên móc có vai rộng</li>
+                        <li>Gấp áo thun, quần jean theo đúng nếp gấp</li>
+                        <li>Cuộn tất và đồ lót để tiết kiệm không gian</li>
+                        <li>Sử dụng túi chống thấm cho đồ mùa</li>
+                    </ul>
+
+                    <h3>Xử lý mùi hôi và vết bẩn cứng đầu:</h3>
+                    <ul>
+                        <li><strong>Mùi mồ hôi:</strong> Giấm trắng + baking soda</li>
+                        <li><strong>Vết dầu mỡ:</strong> Nước rửa chén + nước ấm</li>
+                        <li><strong>Vết máu:</strong> Nước lạnh + hydrogen peroxide</li>
+                        <li><strong>Vết mực:</strong> Cồn y tế hoặc sữa tươi</li>
+                    </ul>
+
+                    <blockquote>
+                        "Giặt ủi không chỉ là việc làm sạch quần áo mà còn là nghệ thuật bảo quản và tôn vinh vẻ đẹp của từng trang phục."
+                    </blockquote>
+
+                    <p><em>HomeCare cung cấp dịch vụ giặt ủi cao cấp với công nghệ hiện đại và quy trình chuẩn quốc tế. Liên hệ: 0123.456.789</em></p>
+                `
+            }
+        };
+
+        // Merge additional mock data
+        Object.assign(mockBlogData, additionalMockData);
+
+        // Update related posts to include new blog posts
+        Object.assign(relatedPosts, {
+            'home-maintenance': ['cleaning-tips', 'space-organization', 'hiring-guide'],
+            'hiring-guide': ['elderly-care', 'child-safety', 'home-maintenance'],
+            'laundry-tips': ['cleaning-tips', 'space-organization', 'smart-trends']
+        });
+
+        // Add function to handle mock blog detail for additional posts
+        function showMockBlogDetail(blogId) {
+            const blogData = mockBlogData[blogId];
+            if (!blogData) {
+                console.error('Blog data not found for ID:', blogId);
+                return;
+            }
+
+            showBlogDetail(
+                blogData.id,
+                blogData.title,
+                blogData.description,
+                blogData.image,
+                blogData.author,
+                blogData.date,
+                blogData.content,
+                blogData.category
+            );
+
+            // Update additional details
+            document.getElementById('detail-author-image').src = blogData.authorImage;
+            document.getElementById('detail-views').textContent = blogData.views;
+
+            // Update meta tags for SEO
+            updateMetaTags(blogData.title, blogData.description, blogData.image);
+        }
+
+        // Function to update meta tags dynamically
+        function updateMetaTags(title, description, image) {
+            document.title = title + ' - HomeCare';
+
+            // Update meta description
+            let metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                metaDesc.setAttribute('content', description);
+            }
+
+            // Update Open Graph tags
+            updateMetaTag('property', 'og:title', title);
+            updateMetaTag('property', 'og:description', description);
+            updateMetaTag('property', 'og:image', image);
+            updateMetaTag('property', 'og:url', window.location.href);
+
+            // Update Twitter Card tags
+            updateMetaTag('name', 'twitter:title', title);
+            updateMetaTag('name', 'twitter:description', description);
+            updateMetaTag('name', 'twitter:image', image);
+        }
+
+        function updateMetaTag(attribute, name, content) {
+            let tag = document.querySelector(`meta[${attribute}="${name}"]`);
+            if (!tag) {
+                tag = document.createElement('meta');
+                tag.setAttribute(attribute, name);
+                document.head.appendChild(tag);
+            }
+            tag.setAttribute('content', content);
+        }
+
+        // Add search functionality
+        function initSearch() {
+            const searchInput = document.createElement('input');
+            searchInput.type = 'text';
+            searchInput.placeholder = 'Tìm kiếm bài viết...';
+            searchInput.className = 'blog-search';
+            searchInput.style.cssText = `
+                width: 100%;
+                max-width: 400px;
+                padding: 12px 16px;
+                border: 2px solid var(--border-light);
+                border-radius: 25px;
+                font-size: 14px;
+                margin-bottom: 30px;
+                transition: border-color 0.3s ease;
+            `;
+
+            searchInput.addEventListener('focus', function () {
+                this.style.borderColor = 'var(--primary)';
+            });
+
+            searchInput.addEventListener('blur', function () {
+                this.style.borderColor = 'var(--border-light)';
+            });
+
+            searchInput.addEventListener('input', function () {
+                filterBlogs(this.value.toLowerCase());
+            });
+
+            // Insert search input after hero section
+            const mainContent = document.querySelector('.main-content .container');
+            mainContent.insertBefore(searchInput, mainContent.firstChild);
+        }
+
+        function filterBlogs(searchTerm) {
+            const blogCards = document.querySelectorAll('.blog-card');
+            let hasVisibleCards = false;
+
+            blogCards.forEach(card => {
+                const title = card.querySelector('.blog-title').textContent.toLowerCase();
+                const excerpt = card.querySelector('.blog-excerpt').textContent.toLowerCase();
+                const author = card.querySelector('.author-name').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || excerpt.includes(searchTerm) || author.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    hasVisibleCards = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show/hide no results message
+            showNoResultsMessage(!hasVisibleCards && searchTerm !== '');
+        }
+
+        function showNoResultsMessage(show) {
+            let noResultsDiv = document.getElementById('no-results');
+
+            if (show && !noResultsDiv) {
+                noResultsDiv = document.createElement('div');
+                noResultsDiv.id = 'no-results';
+                noResultsDiv.className = 'no-results';
+                noResultsDiv.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: var(--text-gray);">
+                        <i class="fas fa-search" style="font-size: 48px; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <h3 style="margin-bottom: 10px; color: var(--text-dark);">Không tìm thấy kết quả</h3>
+                        <p>Không có bài viết nào phù hợp với từ khóa tìm kiếm của bạn.</p>
+                        <button onclick="clearSearch()" style="margin-top: 20px; background: var(--gradient-primary); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">
+                            Xóa bộ lọc
+                        </button>
+                    </div>
+                `;
+                document.querySelector('.blog-grid').appendChild(noResultsDiv);
+            } else if (!show && noResultsDiv) {
+                noResultsDiv.remove();
+            }
+        }
+
+        function clearSearch() {
+            const searchInput = document.querySelector('.blog-search');
+            if (searchInput) {
+                searchInput.value = '';
+                filterBlogs('');
+            }
+        }
+
+        // Add loading animation
+        function showLoadingAnimation() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = 'loading-animation';
+            loadingDiv.innerHTML = `
+                <div style="display: flex; justify-content: center; align-items: center; height: 200px;">
+                    <div style="display: flex; gap: 10px;">
+                        <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--primary); animation: bounce 1.4s ease-in-out infinite both;"></div>
+                        <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--primary); animation: bounce 1.4s ease-in-out 0.16s infinite both;"></div>
+                        <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--primary); animation: bounce 1.4s ease-in-out 0.32s infinite both;"></div>
+                    </div>
+                </div>
+                <style>
+                    @keyframes bounce {
+                        0%, 80%, 100% {
+                            transform: scale(0);
+                        }
+                        40% {
+                            transform: scale(1);
+                        }
+                    }
+                </style>
+            `;
+            return loadingDiv;
+        }
+
+        // Initialize search when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            initSearch();
+        });
+
+        // Add smooth scrolling for better UX
+        function smoothScrollTo(element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            // ESC key to go back to blog list
+            if (e.key === 'Escape' && document.getElementById('blog-detail').classList.contains('show')) {
+                showBlogList();
+            }
+        });
+
+        // Add touch gestures for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function (e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function (e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleGesture();
+        });
+
+        function handleGesture() {
+            if (touchEndX < touchStartX - 50) {
+                // Swipe left - could be used for next article
+                console.log('Swipe left detected');
+            }
+
+            if (touchEndX > touchStartX + 50) {
+                // Swipe right - could be used for previous article or back to list
+                if (document.getElementById('blog-detail').classList.contains('show')) {
+                    showBlogList();
+                }
+            }
+        }
+
+        console.log('HomeCare Blog System Initialized Successfully!');
     </script>
 </body>
 
