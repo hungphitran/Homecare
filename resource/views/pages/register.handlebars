@@ -569,7 +569,7 @@
                             <div class="wrapper-district__content">
                                 <div class="warapper-district__search">
                                     <input name="ward" class="wrapper-district__input" spellcheck="false"
-                                        type="text" placeholder="Tìm kiếm quận/huyện" required>
+                                        type="text" placeholder="Tìm kiếm phường/xã" required>
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </div>
                                 <ul class="wrapper-district__options"></ul>
@@ -702,10 +702,10 @@
                 validator.isEmail("#email-input", "Vui lòng nhập đúng định dạng email"),
                 {{#if locations}}
                 validator.isRequire(".wrapper-province__input", "Vui lòng chọn tỉnh/thành phố"),
-                validator.isRequire(".wrapper-district__input", "Vui lòng chọn quận/huyện"),
+                validator.isRequire(".wrapper-district__input", "Vui lòng chọn phường/xã"),
                 {{else}}
                 validator.isRequire("#province-input", "Vui lòng nhập tỉnh/thành phố"),
-                validator.isRequire("#district-input", "Vui lòng nhập quận/huyện"),
+                validator.isRequire("#district-input", "Vui lòng nhập phường/xã"),
                 {{/if}}
                 validator.isRequire("#address-input", "Vui lòng nhập địa chỉ chi tiết"),
                 validator.isRequire("#tel-input", "Vui lòng nhập số điện thoại"),
